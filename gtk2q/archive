@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#WWWROOT="ftp.signale.co.at:/var/www/signale/htdocs"
+WWWROOT="ifurita:/home/httpd/htdocs"
+
+if [ -z "$1" -o -z "$2" ]
+then
+	echo "Usage: archive <microversion> \"<note>\""
+	exit 1
+fi
+
+find . -name "*.dcu" -exec rm "{}" ';'
+find . -name "svn-commit.tmp*" -exec rm "{}" ';'
+find . -name "*.ppu" -exec rm "{}" ';'
+find . -name "*.o" -exec rm "{}" ';'
+
+archivever="0.8.$1"
+archive="gtk2q-${archivever}.tar.gz"
+
+tar zcvf "${archive}" trunk/ -X nonsvn 
+archivesize="$(LC_ALL="C" du -h "${archive}" |awk '{ print $1 }')iB"
+
+scp "${archive}" "${WWWROOT}/downloads/"
+
+scp "${WWWROOT}/gtkoopascal/index.html" .
+
+datenow="$(date +%Y-%m-%d)"
+
+sed -e 's;^.*<!--LASTUPDATE-->.*$;'"${datenow}"'<!--LASTUPDATE-->;' \
+-e 's;<!--GTKBINDINGSINSERTPOS-->;<!--GTKBINDINGSINSERTPOS-->\
+<a href="/downloads/'"${archive}"'">gtk2q Version '"${archivever}"' ('"${archivesize}"')</a> - '"$2"'</p>\
+<p>old: ;' \
+index.html > index.html.new && mv index.html.new index.html
+
+scp index.html "${WWWROOT}/gtkoopascal/index.html"
+rm -f index.html
+
