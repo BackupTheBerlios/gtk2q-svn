@@ -4,7 +4,7 @@
 # classprefix = "T"
 # enumprefix = "T"
 # interfaceprefix = "I"
-# interfaceunitprefix = "iu"
+interfaceunitprefix = "iu"
 # classunitprefix = "u"
 # wrapperpointerprefix = "PW"
 # wrapperprefix = "W"
@@ -18,8 +18,8 @@ ptype1 = {
 #    (implementation class names are added at the unit implementation section)
 pusedclasses = { # from class implementation: list of classes used (implementation 'uses' clause for classes, interface 'uses' clause for interfaces)
 	## DiaCanvas pusedclasses
-	"TDiaCanvas": ["DDiaCanvasItem", "DDiaCanvasGroup"],
-	"TDiaCanvasItem": ["DDiaCanvasItemShapes", "IPangoLayout"],
+	"TDiaCanvas": ["TDiaCanvasItem", "TDiaCanvasGroup"],
+	"TDiaCanvasItem": ["TDiaCanvasItemShapes", "IPangoLayout"],
 	"TDiaCanvasImage": ["IGdkPixbuf"],
 	"TDiaVariable": ["IDiaVariable"],
 	"TDiaCanvasView": ["IGnomeCanvas", "IGtkLayout", "TGdkEvent"],
@@ -31,7 +31,7 @@ pusedclasses = { # from class implementation: list of classes used (implementati
 # signal units uses clause, used interfaces for interface section, p name = key
 psignalusedioc = {
 	## DiaCanvas psignalusedioc
-	"TDiaCanvas": ["DDiaRectangle"],
+	"TDiaCanvas": ["TDiaRectangle"],
 	"TDiaUndoManager": ["IDiaUndoAction"],
 	"TDiaTool": ["TGdkEvent"],
 }
@@ -205,7 +205,7 @@ paddfuncs = {
 		"GetRoot": """
 			published function GetRoot: IDiaCanvasGroup;
 			begin
-			  Result := DDiaCanvasGroup.CreateWrapped(dia_canvas_root(PDiaCanvas(fObject))) as IDiaCanvasGroup;
+			  Result := TDiaCanvasGroup.CreateWrapped(dia_canvas_root(PDiaCanvas(fObject))) as IDiaCanvasGroup;
 			end;
 		""",
 		"GlueHandle": """
@@ -222,7 +222,7 @@ paddfuncs = {
 			  );
 			  
 			  if Assigned(citem) then
-			    item := WrapGObject(citem, DDiaCanvasItem) as IDiaCanvasItem
+			    item := WrapGObject(citem, TDiaCanvasItem) as IDiaCanvasItem
 			  else
 			    item := nil;
 			end;
@@ -277,7 +277,7 @@ paddfuncs = {
 		# calculate the bounding box of item after a affine transformation
 		
 		"GetBoundingBoxAffine": """
-			published function GetBoundingBoxAfterAffine(const affine: TAffineTransform): DDiaRectangle;
+			published function GetBoundingBoxAfterAffine(const affine: TAffineTransform): TDiaRectangle;
 			begin
 			  dia_canvas_item_bb_affine(PDiaCanvasItem(Fobject), affine, 
 			   @Result.left,
@@ -292,7 +292,7 @@ paddfuncs = {
 			begin
 			  if not Assigned(FshapesProxy) then
 			    if InterlockedIncrement(FshapesProxyLocked) = 1 then
-			      FshapesProxy := DDiaCanvasItemShapes.Create(Self)
+			      FshapesProxy := TDiaCanvasItemShapes.Create(Self)
 			    else
 			      InterlockedDecrement(FshapesProxyLocked);
 			      
@@ -327,7 +327,7 @@ paddfuncs = {
 		""",
 		
 		"IterFirst": """
-			published function IterFirst(out iter: DDiaCanvasIter): Boolean;
+			published function IterFirst(out iter: TDiaCanvasIter): Boolean;
 			begin
 			  Result := dia_canvas_groupable_get_iter(Fobject, @iter);
 			end;
@@ -347,7 +347,7 @@ paddfuncs = {
 			end;
 		""",
 		"GetItem1": """
-			published function GetItem1(const iter: DDiaCanvasIter): IDiaCanvasItem;
+			published function GetItem1(const iter: TDiaCanvasIter): IDiaCanvasItem;
 			var
 			  citem: Pointer;
 			begin
@@ -359,7 +359,7 @@ paddfuncs = {
 			end;
 		""",
 		"IterNext": """
-			published function IterNext(var iter: DDiaCanvasIter): Boolean;
+			published function IterNext(var iter: TDiaCanvasIter): Boolean;
 			begin
 			  Result := dia_canvas_groupable_next(Fobject, @iter);
 			end;
@@ -539,8 +539,8 @@ cskipfuncs = [
 # callback function types in the wrapper (these will be superceded soon)
 c2pcallbackpointers = {
 	## DiaCanvas c2pcallbackpointers
-	"DiaCanvasItemForeachFunc": "DDiaCanvasItemForeachFunc",
-	"DiaUndoFunc": "DDiaUndoFunc",
+	"DiaCanvasItemForeachFunc": "TDiaCanvasItemForeachFunc",
+	"DiaUndoFunc": "TDiaUndoFunc",
 }
 
 # override of function parameters
@@ -573,12 +573,12 @@ c2pfuncparamoverride = {
 		None, # 1st (C) param overide
 		None, # 2nd (C) param overide
 		["const"], # 3nd (C) param overide, gdk event
-		["type", "DDiaEvent"], # 4th (C) param override, dia event record
+		["type", "TDiaEvent"], # 4th (C) param override, dia event record
 	],
 	"dia_canvas_view_item_emit_event": [
 		None, # return value override
 		None, # 1st (C) param override
-		["type", "DDiaEvent"], # 2nd (C) param override, I think
+		["type", "TDiaEvent"], # 2nd (C) param override, I think
 	],
 	"dia_canvas_groupable_value": [
 		None, # return value override
@@ -598,7 +598,7 @@ c2psignalparamoverride = {
 	"DiaCanvas.extents-changed": [
 		None, # return value override
 		None, # 1st (C) param override
-		["type", "DDiaRectangle"], # 2nd (C) param override.. sigh...
+		["type", "TDiaRectangle"], # 2nd (C) param override.. sigh...
 	],
 	"DiaUndoManager.add-undo-action": [
 		None, # return value override
