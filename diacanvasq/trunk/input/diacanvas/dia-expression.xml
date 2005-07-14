@@ -1,0 +1,140 @@
+<refentry id="diacanvas2-DiaExpression">
+<refmeta>
+<refentrytitle>DiaExpression</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaExpression</refname><refpurpose>A linear expression, part of a <link linkend="DiaConstraint"><type>DiaConstraint</type></link>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+struct      <link linkend="DiaExpression">DiaExpression</link>;
+<link linkend="void">void</link>        <link linkend="dia-expression-add">dia_expression_add</link>              (<link linkend="DiaExpression">DiaExpression</link> **expr,
+                                             <link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="gdouble">gdouble</link> c);
+<link linkend="void">void</link>        <link linkend="dia-expression-add-expression">dia_expression_add_expression</link>   (<link linkend="DiaExpression">DiaExpression</link> **expr,
+                                             <link linkend="DiaExpression">DiaExpression</link> *expr2);
+<link linkend="void">void</link>        <link linkend="dia-expression-times">dia_expression_times</link>            (<link linkend="DiaExpression">DiaExpression</link> *expr,
+                                             <link linkend="gdouble">gdouble</link> c);
+<link linkend="void">void</link>        <link linkend="dia-expression-free">dia_expression_free</link>             (<link linkend="DiaExpression">DiaExpression</link> *expr);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>DiaExpression is a small data structure that holds a linear expression.
+The <link linkend="DiaConstraint"><type>DiaConstraint</type></link> class holds a DiaExpression. It is advised to use the
+<link linkend="DiaConstraint"><type>DiaConstraint</type></link> function rather than those functions directly.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DiaExpression"/>struct DiaExpression</title>
+<indexterm><primary>DiaExpression</primary></indexterm><programlisting>struct DiaExpression {
+
+	guint len;
+
+	struct _DiaExpressionElem
+	{
+		DiaVariable *variable;
+		gdouble constant;
+	} elem[1];
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-expression-add"/>dia_expression_add ()</title>
+<indexterm><primary>dia_expression_add</primary></indexterm><programlisting><link linkend="void">void</link>        dia_expression_add              (<link linkend="DiaExpression">DiaExpression</link> **expr,
+                                             <link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="gdouble">gdouble</link> c);</programlisting>
+<para>
+Add "<parameter>c</parameter> * <parameter>var</parameter>" to <parameter>expr</parameter> (<parameter>expr</parameter> = <parameter>expr</parameter> + (<parameter>c</parameter> * <parameter>var</parameter>)).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>expr</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-expression-add-expression"/>dia_expression_add_expression ()</title>
+<indexterm><primary>dia_expression_add_expression</primary></indexterm><programlisting><link linkend="void">void</link>        dia_expression_add_expression   (<link linkend="DiaExpression">DiaExpression</link> **expr,
+                                             <link linkend="DiaExpression">DiaExpression</link> *expr2);</programlisting>
+<para>
+Add <parameter>expr2</parameter> to <parameter>expr</parameter> (<parameter>expr</parameter> = <parameter>expr</parameter> + <parameter>expr2</parameter>).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>expr</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>expr2</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-expression-times"/>dia_expression_times ()</title>
+<indexterm><primary>dia_expression_times</primary></indexterm><programlisting><link linkend="void">void</link>        dia_expression_times            (<link linkend="DiaExpression">DiaExpression</link> *expr,
+                                             <link linkend="gdouble">gdouble</link> c);</programlisting>
+<para>
+Multiply <parameter>expr</parameter> with value <parameter>c</parameter> (<parameter>expr</parameter> = <parameter>expr</parameter> * c).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>expr</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-expression-free"/>dia_expression_free ()</title>
+<indexterm><primary>dia_expression_free</primary></indexterm><programlisting><link linkend="void">void</link>        dia_expression_free             (<link linkend="DiaExpression">DiaExpression</link> *expr);</programlisting>
+<para>
+Free an expression.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>expr</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaConstraint"><type>DiaConstraint</type></link>, <link linkend="DiaVariable"><type>DiaVariable</type></link>
+</para>
+</refsect1>
+
+</refentry>

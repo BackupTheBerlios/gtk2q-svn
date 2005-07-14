@@ -1,0 +1,235 @@
+<refentry id="DiaCanvasEditable">
+<refmeta>
+<refentrytitle>DiaCanvasEditable</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasEditable</refname><refpurpose>Interface for editable classes.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+struct      <link linkend="DiaCanvasEditable-struct">DiaCanvasEditable</link>;
+<link linkend="void">void</link>        <link linkend="dia-canvas-editable-start-editing">dia_canvas_editable_start_editing</link>
+                                            (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *editable,
+                                             <link linkend="DiaShapeText">DiaShapeText</link> *text_shape);
+<link linkend="void">void</link>        <link linkend="dia-canvas-editable-editing-done">dia_canvas_editable_editing_done</link>
+                                            (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *editable,
+                                             <link linkend="DiaShapeText">DiaShapeText</link> *text_shape,
+                                             const <link linkend="gchar">gchar</link> *new_text);
+<link linkend="void">void</link>        <link linkend="dia-canvas-editable-text-changed">dia_canvas_editable_text_changed</link>
+                                            (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *editable,
+                                             <link linkend="DiaShapeText">DiaShapeText</link> *text_shape,
+                                             const <link linkend="gchar">gchar</link> *new_text);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GInterface">GInterface</link>
+   +----DiaCanvasEditable
+</synopsis>
+
+</refsect1>
+
+<refsect1>
+<title>Prerequisites</title>
+<para>
+DiaCanvasEditable requires
+ <link linkend="DiaCanvasItem">DiaCanvasItem</link>.</para>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Known Implementations</title>
+<para>
+DiaCanvasEditable is implemented by
+ <link linkend="DiaCanvasText">DiaCanvasText</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaCanvasEditable-editing-done">editing-done</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *diacanvaseditable,
+                                            <link linkend="DiaShapeText">DiaShapeText</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasEditable-start-editing">start-editing</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *diacanvaseditable,
+                                            <link linkend="DiaShapeText">DiaShapeText</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasEditable-text-changed">text-changed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *diacanvaseditable,
+                                            <link linkend="DiaShapeText">DiaShapeText</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+<link linkend="CanvasItem"><type>CanvasItem</type></link>'s contain editable text should implement this interface. The text
+can then be edited in the canvas view directly.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DiaCanvasEditable-struct"/>struct DiaCanvasEditable</title>
+<indexterm><primary>DiaCanvasEditable</primary></indexterm><programlisting>struct DiaCanvasEditable;</programlisting>
+<para>
+DiaCanvasItems that should support editable text should implement
+this interface.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-editable-start-editing"/>dia_canvas_editable_start_editing ()</title>
+<indexterm><primary>dia_canvas_editable_start_editing</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_editable_start_editing
+                                            (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *editable,
+                                             <link linkend="DiaShapeText">DiaShapeText</link> *text_shape);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editable</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text_shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-editable-editing-done"/>dia_canvas_editable_editing_done ()</title>
+<indexterm><primary>dia_canvas_editable_editing_done</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_editable_editing_done
+                                            (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *editable,
+                                             <link linkend="DiaShapeText">DiaShapeText</link> *text_shape,
+                                             const <link linkend="gchar">gchar</link> *new_text);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editable</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text_shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_text</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-editable-text-changed"/>dia_canvas_editable_text_changed ()</title>
+<indexterm><primary>dia_canvas_editable_text_changed</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_editable_text_changed
+                                            (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *editable,
+                                             <link linkend="DiaShapeText">DiaShapeText</link> *text_shape,
+                                             const <link linkend="gchar">gchar</link> *new_text);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editable</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text_shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_text</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaCanvasEditable-editing-done"/>The &quot;editing-done&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *diacanvaseditable,
+                                            <link linkend="DiaShapeText">DiaShapeText</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvaseditable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg2</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasEditable-start-editing"/>The &quot;start-editing&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *diacanvaseditable,
+                                            <link linkend="DiaShapeText">DiaShapeText</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvaseditable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasEditable-text-changed"/>The &quot;text-changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasEditable">DiaCanvasEditable</link> *diacanvaseditable,
+                                            <link linkend="DiaShapeText">DiaShapeText</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvaseditable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg2</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>, <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>
+</para>
+</refsect1>
+
+</refentry>

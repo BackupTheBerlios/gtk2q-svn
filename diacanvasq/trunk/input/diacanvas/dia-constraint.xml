@@ -1,0 +1,325 @@
+<refentry id="DiaConstraint">
+<refmeta>
+<refentrytitle>DiaConstraint</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaConstraint</refname><refpurpose>Constraints used by the <link linkend="DiaSolver"><type>DiaSolver</type></link>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CONSTRAINT-CAPS">DIA_CONSTRAINT</link>                  (obj)
+struct      <link linkend="DiaConstraint-struct">DiaConstraint</link>;
+<link linkend="DiaConstraint">DiaConstraint</link>* <link linkend="dia-constraint-new">dia_constraint_new</link>           (void);
+<link linkend="void">void</link>        <link linkend="dia-constraint-add">dia_constraint_add</link>              (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="gdouble">gdouble</link> c);
+<link linkend="void">void</link>        <link linkend="dia-constraint-add-expression">dia_constraint_add_expression</link>   (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaExpression">DiaExpression</link> *expr);
+<link linkend="void">void</link>        <link linkend="dia-constraint-times">dia_constraint_times</link>            (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="gdouble">gdouble</link> c);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-constraint-has-variables">dia_constraint_has_variables</link>    (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);
+<link linkend="void">void</link>        <link linkend="dia-constraint-optimize">dia_constraint_optimize</link>         (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-constraint-solve">dia_constraint_solve</link>            (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaVariable">DiaVariable</link> *var);
+<link linkend="void">void</link>        <link linkend="dia-constraint-freeze">dia_constraint_freeze</link>           (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);
+<link linkend="void">void</link>        <link linkend="dia-constraint-thaw">dia_constraint_thaw</link>             (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);
+<link linkend="void">void</link>        (<link linkend="DiaConstraintFunc">*DiaConstraintFunc</link>)            (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaVariable">DiaVariable</link> *variable,
+                                             <link linkend="gdouble">gdouble</link> constant,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="void">void</link>        <link linkend="dia-constraint-foreach">dia_constraint_foreach</link>          (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaConstraintFunc">DiaConstraintFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaConstraint
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaConstraint-need-resolve">need-resolve</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaConstraint">DiaConstraint</link> *diaconstraint,
+                                            <link linkend="DiaVariable">DiaVariable</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A constraint contains a linear expression (<link linkend="DiaExpression"><type>DiaExpression</type></link>). A constraint
+can be added to a constraint solver (<link linkend="DiaSolver"><type>DiaSolver</type></link>) in order to keep it true.
+Once a constraint is added to a solver, it can no longer be changed.
+</para>
+<para>
+If a variable (<link linkend="DiaVariable"><type>DiaVariable</type></link>) is changed, the constraint is notified and it
+will on his turn notify the solver that it should be resolved again. The solver
+will resolve the constraint when it is asked to. 
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CONSTRAINT-CAPS"/>DIA_CONSTRAINT()</title>
+<indexterm><primary>DIA_CONSTRAINT</primary></indexterm><programlisting>#define DIA_CONSTRAINT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CONSTRAINT, DiaConstraint))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaConstraint-struct"/>struct DiaConstraint</title>
+<indexterm><primary>DiaConstraint</primary></indexterm><programlisting>struct DiaConstraint;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-new"/>dia_constraint_new ()</title>
+<indexterm><primary>dia_constraint_new</primary></indexterm><programlisting><link linkend="DiaConstraint">DiaConstraint</link>* dia_constraint_new           (void);</programlisting>
+<para>
+Create an empty constraint.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new constraint object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-add"/>dia_constraint_add ()</title>
+<indexterm><primary>dia_constraint_add</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_add              (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="gdouble">gdouble</link> c);</programlisting>
+<para>
+Add a <parameter>var</parameter> * <parameter>c</parameter> pair to the constraint.
+</para>
+<para>
+<parameter>constraint</parameter> = <parameter>constraint</parameter> + <parameter>var</parameter> * <parameter>c</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-add-expression"/>dia_constraint_add_expression ()</title>
+<indexterm><primary>dia_constraint_add_expression</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_add_expression   (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaExpression">DiaExpression</link> *expr);</programlisting>
+<para>
+Add a <link linkend="DiaExpression"><type>DiaExpression</type></link> to <parameter>constraint</parameter>. A <link linkend="DiaExpression"><type>DiaExpression</type></link> containts one or more
+variable-constant pairs.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>expr</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-times"/>dia_constraint_times ()</title>
+<indexterm><primary>dia_constraint_times</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_times            (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="gdouble">gdouble</link> c);</programlisting>
+<para>
+Multiply all constants in the constraint with <parameter>c</parameter>.
+</para>
+<para>
+<parameter>constraint</parameter> = (<parameter>constraint</parameter>) * <parameter>c</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-has-variables"/>dia_constraint_has_variables ()</title>
+<indexterm><primary>dia_constraint_has_variables</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_constraint_has_variables    (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);</programlisting>
+<para>
+Determine if <parameter>constraint</parameter> has any variables in its equation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the constraint contains variables, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-optimize"/>dia_constraint_optimize ()</title>
+<indexterm><primary>dia_constraint_optimize</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_optimize         (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);</programlisting>
+<para>
+Optimeze the constraint. This is done by merging all variable-constant pairs
+whose variable is the same and removing all pairs with a constant of 0.0.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-solve"/>dia_constraint_solve ()</title>
+<indexterm><primary>dia_constraint_solve</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_constraint_solve            (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaVariable">DiaVariable</link> *var);</programlisting>
+<para>
+Solve a constraint with <parameter>var</parameter> being the variable that should be changed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> G_MAXDOUBLE on error, otherwise the value that <parameter>var</parameter> should
+		 be assigned too.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-freeze"/>dia_constraint_freeze ()</title>
+<indexterm><primary>dia_constraint_freeze</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_freeze           (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);</programlisting>
+<para>
+Make the constraint immutable. As a result no more variable-constant pairs
+can be added. This function is typically used by the <link linkend="DiaSolver"><type>DiaSolver</type></link> to make
+sure a constraint does not change after it has been added to the solver.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-thaw"/>dia_constraint_thaw ()</title>
+<indexterm><primary>dia_constraint_thaw</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_thaw             (<link linkend="DiaConstraint">DiaConstraint</link> *constraint);</programlisting>
+<para>
+Inverse function of <link linkend="dia-constraint-freeze"><function>dia_constraint_freeze()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaConstraintFunc"/>DiaConstraintFunc ()</title>
+<indexterm><primary>DiaConstraintFunc</primary></indexterm><programlisting><link linkend="void">void</link>        (*DiaConstraintFunc)            (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaVariable">DiaVariable</link> *variable,
+                                             <link linkend="gdouble">gdouble</link> constant,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>variable</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>constant</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-constraint-foreach"/>dia_constraint_foreach ()</title>
+<indexterm><primary>dia_constraint_foreach</primary></indexterm><programlisting><link linkend="void">void</link>        dia_constraint_foreach          (<link linkend="DiaConstraint">DiaConstraint</link> *constraint,
+                                             <link linkend="DiaConstraintFunc">DiaConstraintFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Call <parameter>func</parameter> for every variable-constant pair in the constraint.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaConstraint-need-resolve"/>The &quot;need-resolve&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaConstraint">DiaConstraint</link> *diaconstraint,
+                                            <link linkend="DiaVariable">DiaVariable</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Signal used to tell the <link linkend="DiaSolver"><type>DiaSolver</type></link> that the constraint needs to be resolved.
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaconstraint</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaSolver"><type>DiaSolver</type></link>, <link linkend="DiaExpression"><type>DiaExpression</type></link>, <link linkend="DiaVariable"><type>DiaVariable</type></link>
+</para>
+</refsect1>
+
+</refentry>

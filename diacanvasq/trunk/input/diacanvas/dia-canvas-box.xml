@@ -1,0 +1,114 @@
+<refentry id="DiaCanvasBox">
+<refmeta>
+<refentrytitle>DiaCanvasBox</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasBox</refname><refpurpose>A rectangle shape.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-BOX-CAPS">DIA_CANVAS_BOX</link>                  (obj)
+struct      <link linkend="DiaCanvasBox-struct">DiaCanvasBox</link>;
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaCanvasItem">DiaCanvasItem</link>
+         +----<link linkend="DiaCanvasElement">DiaCanvasElement</link>
+               +----DiaCanvasBox
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasBox--bg-color">bg-color</link>&quot;             <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasBox--border-width">border-width</link>&quot;         <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasBox--color">color</link>&quot;                <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasBox--fill-color">fill-color</link>&quot;           <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasBox--line-width">line-width</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-BOX-CAPS"/>DIA_CANVAS_BOX()</title>
+<indexterm><primary>DIA_CANVAS_BOX</primary></indexterm><programlisting>#define DIA_CANVAS_BOX(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS_BOX, DiaCanvasBox))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasBox-struct"/>struct DiaCanvasBox</title>
+<indexterm><primary>DiaCanvasBox</primary></indexterm><programlisting>struct DiaCanvasBox;</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasBox--bg-color"/>&quot;<literal>bg-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Background color.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasBox--border-width"/>&quot;<literal>border-width</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>width of the border.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasBox--color"/>&quot;<literal>color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Color of the line in RGBA.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasBox--fill-color"/>&quot;<literal>fill-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Fill color.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasBox--line-width"/>&quot;<literal>line-width</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>width of the border.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+
+</refentry>

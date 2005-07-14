@@ -1,0 +1,153 @@
+<refentry id="DiaSolver">
+<refmeta>
+<refentrytitle>DiaSolver</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaSolver</refname><refpurpose>A linear constraint solver.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-SOLVER-CAPS">DIA_SOLVER</link>                      (obj)
+struct      <link linkend="DiaSolver-struct">DiaSolver</link>;
+<link linkend="DiaSolver">DiaSolver</link>*  <link linkend="dia-solver-new">dia_solver_new</link>                  (void);
+<link linkend="void">void</link>        <link linkend="dia-solver-add-constraint">dia_solver_add_constraint</link>       (<link linkend="DiaSolver">DiaSolver</link> *solver,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *constraint);
+<link linkend="void">void</link>        <link linkend="dia-solver-remove-constraint">dia_solver_remove_constraint</link>    (<link linkend="DiaSolver">DiaSolver</link> *solver,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *constraint);
+<link linkend="void">void</link>        <link linkend="dia-solver-resolve">dia_solver_resolve</link>              (<link linkend="DiaSolver">DiaSolver</link> *solver);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaSolver
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>This is the main class of DiaCanvas2's constraint solving capabilities.
+One should create a set of constraints and add them to the solver. If you
+call <link linkend="dia-solver-resolve"><function>dia_solver_resolve()</function></link> the solver will try to satisfy all constraints. The
+variables that are changed depends on the strength of a variable: weaker
+variables are more likely to change than stronger variables. A good example is
+a box and a line: you probably want the line to move if you drag the box, but
+the box should stay where it is if the line is moved (this is the way lines
+and boxes are implemented by default in DiaCanvas2).
+</para>
+<para>The solver can deal with cyclic constraints in quite a primitive way:
+it will keep track of the constraints it has resolved and will refuse to
+resolve a constraint twice. Due to the design of DiaCanvas2 it is quite
+unlikely complex cyclic relationships will occur.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-SOLVER-CAPS"/>DIA_SOLVER()</title>
+<indexterm><primary>DIA_SOLVER</primary></indexterm><programlisting>#define DIA_SOLVER(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_SOLVER, DiaSolver))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaSolver-struct"/>struct DiaSolver</title>
+<indexterm><primary>DiaSolver</primary></indexterm><programlisting>struct DiaSolver;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-solver-new"/>dia_solver_new ()</title>
+<indexterm><primary>dia_solver_new</primary></indexterm><programlisting><link linkend="DiaSolver">DiaSolver</link>*  dia_solver_new                  (void);</programlisting>
+<para>
+Create a new, empty constaint solver.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new constraint solver.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-solver-add-constraint"/>dia_solver_add_constraint ()</title>
+<indexterm><primary>dia_solver_add_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_solver_add_constraint       (<link linkend="DiaSolver">DiaSolver</link> *solver,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *constraint);</programlisting>
+<para>
+Add <parameter>constraint</parameter> to <parameter>solver</parameter>. The constraint is marked immutable.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>solver</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-solver-remove-constraint"/>dia_solver_remove_constraint ()</title>
+<indexterm><primary>dia_solver_remove_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_solver_remove_constraint    (<link linkend="DiaSolver">DiaSolver</link> *solver,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *constraint);</programlisting>
+<para>
+Remove <parameter>constraint</parameter> from the solver.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>solver</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>constraint</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-solver-resolve"/>dia_solver_resolve ()</title>
+<indexterm><primary>dia_solver_resolve</primary></indexterm><programlisting><link linkend="void">void</link>        dia_solver_resolve              (<link linkend="DiaSolver">DiaSolver</link> *solver);</programlisting>
+<para>
+Try to make all constraints true.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>solver</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaConstraint"><type>DiaConstraint</type></link>, <link linkend="DiaExpression"><type>DiaExpression</type></link>, <link linkend="DiaVariable"><type>DiaVariable</type></link>, <link linkend="DiaStrength"><type>DiaStrength</type></link>
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,824 @@
+<refentry id="DiaCanvas">
+<refmeta>
+<refentrytitle>DiaCanvas</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvas</refname><refpurpose>Class that holds the canvas model.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-CAPS">DIA_CANVAS</link>                      (obj)
+struct      <link linkend="DiaCanvas-struct">DiaCanvas</link>;
+struct      <link linkend="DiaCanvasIter">DiaCanvasIter</link>;
+<link linkend="DiaCanvas">DiaCanvas</link>*  <link linkend="dia-canvas-new">dia_canvas_new</link>                  (void);
+<link linkend="void">void</link>        <link linkend="dia-canvas-set-extents">dia_canvas_set_extents</link>          (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             const <link linkend="DiaRectangle">DiaRectangle</link> *extents);
+<link linkend="void">void</link>        <link linkend="dia-canvas-set-static-extents">dia_canvas_set_static_extents</link>   (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gboolean">gboolean</link> stat);
+<link linkend="void">void</link>        <link linkend="dia-canvas-set-snap-to-grid">dia_canvas_set_snap_to_grid</link>     (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gboolean">gboolean</link> snap);
+<link linkend="void">void</link>        <link linkend="dia-canvas-snap-to-grid">dia_canvas_snap_to_grid</link>         (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-canvas-glue-handle">dia_canvas_glue_handle</link>          (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             const <link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             const <link linkend="gdouble">gdouble</link> dest_x,
+                                             const <link linkend="gdouble">gdouble</link> dest_y,
+                                             <link linkend="gdouble">gdouble</link> *glue_x,
+                                             <link linkend="gdouble">gdouble</link> *glue_y,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> **item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-request-update">dia_canvas_request_update</link>       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-update-now">dia_canvas_update_now</link>           (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-resolve-now">dia_canvas_resolve_now</link>          (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-add-constraint">dia_canvas_add_constraint</link>       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);
+<link linkend="void">void</link>        <link linkend="dia-canvas-remove-constraint">dia_canvas_remove_constraint</link>    (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);
+<link linkend="void">void</link>        <link linkend="dia-canvas-redraw-views">dia_canvas_redraw_views</link>         (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="GList">GList</link>*      <link linkend="dia-canvas-find-objects-in-rectangle">dia_canvas_find_objects_in_rectangle</link>
+                                            (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *rect);
+<link linkend="void">void</link>        <link linkend="dia-canvas-preserve">dia_canvas_preserve</link>             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="char">char</link> *property_name,
+                                             const <link linkend="GValue">GValue</link> *value,
+                                             <link linkend="gboolean">gboolean</link> last);
+<link linkend="void">void</link>        <link linkend="dia-canvas-preserve-property">dia_canvas_preserve_property</link>    (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="char">char</link> *property_name);
+<link linkend="void">void</link>        <link linkend="dia-canvas-preserve-property-last">dia_canvas_preserve_property_last</link>
+                                            (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="char">char</link> *property_name);
+<link linkend="void">void</link>        <link linkend="dia-canvas-push-undo">dia_canvas_push_undo</link>            (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             const <link linkend="char">char</link> *optional_comment);
+<link linkend="void">void</link>        <link linkend="dia-canvas-pop-undo">dia_canvas_pop_undo</link>             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-clear-undo">dia_canvas_clear_undo</link>           (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="guint">guint</link>       <link linkend="dia-canvas-get-undo-depth">dia_canvas_get_undo_depth</link>       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-pop-redo">dia_canvas_pop_redo</link>             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-clear-redo">dia_canvas_clear_redo</link>           (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="guint">guint</link>       <link linkend="dia-canvas-get-redo-depth">dia_canvas_get_redo_depth</link>       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-set-undo-stack-depth">dia_canvas_set_undo_stack_depth</link> (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="guint">guint</link> depth);
+<link linkend="guint">guint</link>       <link linkend="dia-canvas-get-undo-stack-depth">dia_canvas_get_undo_stack_depth</link> (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-iter-init">dia_canvas_iter_init</link>            (<link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="void">void</link>        <link linkend="dia-canvas-iter-destroy">dia_canvas_iter_destroy</link>         (<link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaCanvas
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvas--allow-state-requests">allow-state-requests</link>&quot; <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvas--allow-undo">allow-undo</link>&quot;           <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvas--extents">extents</link>&quot;              <link linkend="DiaRectangle">DiaRectangle</link>         : Read / Write
+  &quot;<link linkend="DiaCanvas--grid-bg">grid-bg</link>&quot;              <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvas--grid-color">grid-color</link>&quot;           <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvas--grid-int-x">grid-int-x</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvas--grid-int-y">grid-int-y</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvas--grid-ofs-x">grid-ofs-x</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvas--grid-ofs-y">grid-ofs-y</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvas--pango-layout">pango-layout</link>&quot;         <link linkend="PangoLayout">PangoLayout</link>          : Read
+  &quot;<link linkend="DiaCanvas--snap-to-grid">snap-to-grid</link>&quot;         <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvas--static-extents">static-extents</link>&quot;       <link linkend="gboolean">gboolean</link>             : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaCanvas-extents-changed">extents-changed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvas">DiaCanvas</link> *diacanvas,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvas-redraw-view">redraw-view</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvas">DiaCanvas</link> *diacanvas,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvas-undo">undo</link>&quot;      <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvas">DiaCanvas</link> *diacanvas,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A DiaCanvas object holds the contents of the canvas. The actual objects on
+the canvas are represented by <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> objects. The DiaCanvas itself
+only holds the upper most canvas item and it holds some generic properties, like
+grid information and undo information. A constraint solver (<link linkend="DiaSolver"><type>DiaSolver</type></link>) is
+also placed in the DiaCanvas class.
+</para>
+<refsect2>
+<title>Undo</title>
+<para>
+Every modern computer program has the option to correct mistakes by means of
+an <token>undo</token> button. Of course DiaCanvas2 also needs such
+functionality.
+</para>
+<para>
+Before a property of an object is changed (most like by using <link linkend="g-object-set"><function>g_object_set()</function></link>),
+it's original can  be saved on the undo stack by calling
+<link linkend="dia-canvas-preserve-property"><function>dia_canvas_preserve_property()</function></link>. This function takes as arguments the object
+who owns the property and the name of the property. For canvas items the
+function <link linkend="dia-canvas-item-preserve-property"><function>dia_canvas_item_preserve_property()</function></link> can be used as a shorthand.
+To distinguish between atomic undo actions (for example on a mouse click),
+a collection of properties can be put in a stack. The stack depth is variable.
+</para>
+
+<example>
+<title>Undo example from <filename>dia-canvas-line.c</filename></title>
+<programlisting>
+static void
+dia_canvas_line_set_property (GObject *object, guint property_id,
+			      const GValue *value, GParamSpec *pspec)
+{
+	DiaCanvasItem *item = (DiaCanvasItem*) object;
+	DiaCanvasLine *line = (DiaCanvasLine*) object;
+
+	switch (property_id) {
+	case PROP_LINE_WIDTH:
+		dia_canvas_item_preserve_property (item, "line_width");
+		line->line_width = g_value_get_double (value);
+		dia_canvas_item_request_update (DIA_CANVAS_ITEM (line));
+		break;
+	case PROP_COLOR:
+		dia_canvas_item_preserve_property (item, "color");
+		line->color = (DiaColor) g_value_get_ulong (value);
+		dia_canvas_item_request_update (DIA_CANVAS_ITEM (line));
+		break;
+	/* ... */
+	}
+}
+</programlisting>
+</example>
+</refsect2>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-CAPS"/>DIA_CANVAS()</title>
+<indexterm><primary>DIA_CANVAS</primary></indexterm><programlisting>#define DIA_CANVAS(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS, DiaCanvas))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvas-struct"/>struct DiaCanvas</title>
+<indexterm><primary>DiaCanvas</primary></indexterm><programlisting>struct DiaCanvas;</programlisting>
+<para>
+DiaCanvas holds the data structure that represents the content that is
+displayed in a <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>.
+One DiaCanvas can have zero or more views.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasIter"/>struct DiaCanvasIter</title>
+<indexterm><primary>DiaCanvasIter</primary></indexterm><programlisting>struct DiaCanvasIter {
+
+	gpointer data[3];
+	GDestroyNotify destroy_func;
+	gint stamp;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-new"/>dia_canvas_new ()</title>
+<indexterm><primary>dia_canvas_new</primary></indexterm><programlisting><link linkend="DiaCanvas">DiaCanvas</link>*  dia_canvas_new                  (void);</programlisting>
+<para>
+Create a new canvas.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new canvas.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-set-extents"/>dia_canvas_set_extents ()</title>
+<indexterm><primary>dia_canvas_set_extents</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_set_extents          (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             const <link linkend="DiaRectangle">DiaRectangle</link> *extents);</programlisting>
+<para>
+Set the boundries for the canvas. Use this in combination with the
+"static_extents" option.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>extents</parameter>&nbsp;:</term>
+<listitem><simpara> new extents for the canvas.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-set-static-extents"/>dia_canvas_set_static_extents ()</title>
+<indexterm><primary>dia_canvas_set_static_extents</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_set_static_extents   (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gboolean">gboolean</link> stat);</programlisting>
+<para>
+Set extents. Normally (with this option turned off) the boundries of the
+canvas will grow or shrink depending on the position of the objects (so the
+placement of the objects determine the actual size).
+</para>
+<para>
+Turn this option on if you don't want the canvas to dynamically resize.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stat</parameter>&nbsp;:</term>
+<listitem><simpara> Turn static extents on (TRUE) or off (FALSE).
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-set-snap-to-grid"/>dia_canvas_set_snap_to_grid ()</title>
+<indexterm><primary>dia_canvas_set_snap_to_grid</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_set_snap_to_grid     (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gboolean">gboolean</link> snap);</programlisting>
+<para>
+Turn the snap to grid option on or off.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>snap</parameter>&nbsp;:</term>
+<listitem><simpara> Turn snap on (TRUE) or off (FALSE).
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-snap-to-grid"/>dia_canvas_snap_to_grid ()</title>
+<indexterm><primary>dia_canvas_snap_to_grid</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_snap_to_grid         (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);</programlisting>
+<para>
+This function takes two arguments (<parameter>x</parameter> and <parameter>y</parameter>) and returnes them with a grid
+position. If the "snap_to_grid" option is turned off, this function does
+nothing.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> X pos to be snapped.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> Y pos to be snapped.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-glue-handle"/>dia_canvas_glue_handle ()</title>
+<indexterm><primary>dia_canvas_glue_handle</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_canvas_glue_handle          (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             const <link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             const <link linkend="gdouble">gdouble</link> dest_x,
+                                             const <link linkend="gdouble">gdouble</link> dest_y,
+                                             <link linkend="gdouble">gdouble</link> *glue_x,
+                                             <link linkend="gdouble">gdouble</link> *glue_y,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> **item);</programlisting>
+<para>
+Find a point to glue the handle to. Point (dest_x, dest_y) is the position
+where the handle should move to if no glue point is found. This can be useful
+if the handle is in a motion and you have to calculate the place where the
+handle should move to.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> Canvas to find a connection point on.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> Handle to be glued to an item somewhere on the canvas.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest_x</parameter>&nbsp;:</term>
+<listitem><simpara> (to be) position of the handle.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest_y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>glue_x</parameter>&nbsp;:</term>
+<listitem><simpara> [OUT] closest glue point.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>glue_y</parameter>&nbsp;:</term>
+<listitem><simpara> [OUT] ,,
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> [OUT] The item the handle should <link linkend="connect"><function>connect()</function></link> to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The distance from the handle to the closest connection point.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-request-update"/>dia_canvas_request_update ()</title>
+<indexterm><primary>dia_canvas_request_update</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_request_update       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Ask the canvas to schedule a update handler. The actual update will happen
+diuring idle time or if <link linkend="dia-canvas-update-now"><function>dia_canvas_update_now()</function></link> is called.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-update-now"/>dia_canvas_update_now ()</title>
+<indexterm><primary>dia_canvas_update_now</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_update_now           (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Force an update of the internat state of the canvas. This will set the
+canvas in a consistent state by running the <link linkend="update"><function>update()</function></link> callback of every
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> that requested an update.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-resolve-now"/>dia_canvas_resolve_now ()</title>
+<indexterm><primary>dia_canvas_resolve_now</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_resolve_now          (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Ask the constraint solver to resolve it's constraints.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-add-constraint"/>dia_canvas_add_constraint ()</title>
+<indexterm><primary>dia_canvas_add_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_add_constraint       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);</programlisting>
+<para>
+Add a constraint to the canvas' constraint solver.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> Constraint to add
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-remove-constraint"/>dia_canvas_remove_constraint ()</title>
+<indexterm><primary>dia_canvas_remove_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_remove_constraint    (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);</programlisting>
+<para>
+Remove constraint <parameter>c</parameter> from the canvas.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> Constraint to be removed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-redraw-views"/>dia_canvas_redraw_views ()</title>
+<indexterm><primary>dia_canvas_redraw_views</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_redraw_views         (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+This function will emit a signal that will cause all views to update and
+redraw itself. There are very few cases in which this function is useful.
+Calling this function often will dramatically reduce the speed of the canvas.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-find-objects-in-rectangle"/>dia_canvas_find_objects_in_rectangle ()</title>
+<indexterm><primary>dia_canvas_find_objects_in_rectangle</primary></indexterm><programlisting><link linkend="GList">GList</link>*      dia_canvas_find_objects_in_rectangle
+                                            (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *rect);</programlisting>
+<para>
+Find all objects that are within rectangle <parameter>rect</parameter> and return them in a <link linkend="GList"><type>GList</type></link>.
+The returned list should be freed by the caller.
+Note that the root object is not included in the selection, only
+non-composite leaf objects are selected.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rect</parameter>&nbsp;:</term>
+<listitem><simpara> A rectangle that determines the boundries in which objects should
+       live.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A list of objects that are within the rectangle.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-preserve"/>dia_canvas_preserve ()</title>
+<indexterm><primary>dia_canvas_preserve</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_preserve             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="char">char</link> *property_name,
+                                             const <link linkend="GValue">GValue</link> *value,
+                                             <link linkend="gboolean">gboolean</link> last);</programlisting>
+<para>
+Put a variable on the undo stack. The variable is described by its
+<parameter>property_name</parameter> and the <parameter>undo_data</parameter>.
+</para>
+<para>
+If an <parameter>object</parameter>/<parameter>property_name</parameter> combination is preserved multiple times, only
+the first occurance is stored.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> object that should be undone
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&nbsp;:</term>
+<listitem><simpara> static const string for a property (should NOT be freed!)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> data to be undone
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>last</parameter>&nbsp;:</term>
+<listitem><simpara> append rather than prepend the property.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-preserve-property"/>dia_canvas_preserve_property ()</title>
+<indexterm><primary>dia_canvas_preserve_property</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_preserve_property    (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="char">char</link> *property_name);</programlisting>
+<para>
+This is an easy way to save properties. The value of the property is
+preserved so the change can be undone by <link linkend="dia-canvas-undo-pop"><function>dia_canvas_undo_pop()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&nbsp;:</term>
+<listitem><simpara> Property to preserve
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-preserve-property-last"/>dia_canvas_preserve_property_last ()</title>
+<indexterm><primary>dia_canvas_preserve_property_last</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_preserve_property_last
+                                            (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="char">char</link> *property_name);</programlisting>
+<para>
+This is a special version of <link linkend="dia-canvas-preserve-property"><function>dia_canvas_preserve_property()</function></link>: it preserves
+a property, but adds it to the end of the list, in stead of the beginning.
+This is needed for some special actions.
+</para>
+<para>
+This function won't be used in normal usage.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-push-undo"/>dia_canvas_push_undo ()</title>
+<indexterm><primary>dia_canvas_push_undo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_push_undo            (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             const <link linkend="char">char</link> *optional_comment);</programlisting>
+<para>
+Push a bunch of preserved values on the undo stack. If no values are stored
+using <link linkend="dia-canvas-preserve"><function>dia_canvas_preserve()</function></link> or <link linkend="dia-canvas-preserve-property"><function>dia_canvas_preserve_property()</function></link>, nothing is
+pushed on the stack.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>optional_comment</parameter>&nbsp;:</term>
+<listitem><simpara> An optional comment. May be NULL.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-pop-undo"/>dia_canvas_pop_undo ()</title>
+<indexterm><primary>dia_canvas_pop_undo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_pop_undo             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Undo a set of actions. Undone actions are stored on the redo-stack, so they
+can be undone too.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-clear-undo"/>dia_canvas_clear_undo ()</title>
+<indexterm><primary>dia_canvas_clear_undo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_clear_undo           (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Clear the undo stack.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-get-undo-depth"/>dia_canvas_get_undo_depth ()</title>
+<indexterm><primary>dia_canvas_get_undo_depth</primary></indexterm><programlisting><link linkend="guint">guint</link>       dia_canvas_get_undo_depth       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Return the amount of undo entries on the undo stack. The depth can be
+at most the <link linkend="dia-canvas-get-stack-depth"><function>dia_canvas_get_stack_depth()</function></link> + 1 (the current undo entry).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-pop-redo"/>dia_canvas_pop_redo ()</title>
+<indexterm><primary>dia_canvas_pop_redo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_pop_redo             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Opposite of <link linkend="dia-canvas-undo-pop"><function>dia_canvas_undo_pop()</function></link>. Undone actions are undone themselves ;-)</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-clear-redo"/>dia_canvas_clear_redo ()</title>
+<indexterm><primary>dia_canvas_clear_redo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_clear_redo           (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Clear the redo stack. This should be automatically done after an
+interactive operation on the canvas (e.g. an item is moved).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-get-redo-depth"/>dia_canvas_get_redo_depth ()</title>
+<indexterm><primary>dia_canvas_get_redo_depth</primary></indexterm><programlisting><link linkend="guint">guint</link>       dia_canvas_get_redo_depth       (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Return the amount of undo entries on the undo stack.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-set-undo-stack-depth"/>dia_canvas_set_undo_stack_depth ()</title>
+<indexterm><primary>dia_canvas_set_undo_stack_depth</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_set_undo_stack_depth (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="guint">guint</link> depth);</programlisting>
+<para>
+Set a limit of the length of the undo/redo stack (default 10).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>depth</parameter>&nbsp;:</term>
+<listitem><simpara> New depth for the undo/redo stack.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-get-undo-stack-depth"/>dia_canvas_get_undo_stack_depth ()</title>
+<indexterm><primary>dia_canvas_get_undo_stack_depth</primary></indexterm><programlisting><link linkend="guint">guint</link>       dia_canvas_get_undo_stack_depth (<link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Get the current stack depth.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-iter-init"/>dia_canvas_iter_init ()</title>
+<indexterm><primary>dia_canvas_iter_init</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_iter_init            (<link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+Initialize the iterator <parameter>iter</parameter> with some neuteral values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-iter-destroy"/>dia_canvas_iter_destroy ()</title>
+<indexterm><primary>dia_canvas_iter_destroy</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_iter_destroy         (<link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+Indicate that the iterator is no longer used. if iter-&gt;destroy_func
+is set, it is executed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvas--allow-state-requests"/>&quot;<literal>allow-state-requests</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Let canvas items query their visual state (selected, focused, grabbed).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--allow-undo"/>&quot;<literal>allow-undo</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+You should set this property to TRUE if you want to enable undo support
+(disabled by default).
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--extents"/>&quot;<literal>extents</literal>&quot; (<link linkend="DiaRectangle">DiaRectangle</link> : Read / Write)</term>
+<listitem>
+<para>
+Set the boundaries for the canvas. This property depends on the static-extents
+property.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--grid-bg"/>&quot;<literal>grid-bg</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>
+Grid background color. Note that this is also the canvas' background color.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--grid-color"/>&quot;<literal>grid-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>
+Color of the grid points.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--grid-int-x"/>&quot;<literal>grid-int-x</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>
+Set the X interval for the grid (space between grid points).
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--grid-int-y"/>&quot;<literal>grid-int-y</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>
+Set the Y interval for the grid.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--grid-ofs-x"/>&quot;<literal>grid-ofs-x</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>
+Add an addition offset to the grid points. Make sure that the offset is less
+than grid-int-x.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--grid-ofs-y"/>&quot;<literal>grid-ofs-y</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>
+Add an addition offset to the grid points. Make sure that the offset is less
+than grid-int-y.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--pango-layout"/>&quot;<literal>pango-layout</literal>&quot; (<link linkend="PangoLayout">PangoLayout</link> : Read)</term>
+<listitem>
+<para>A newly created pango layout.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--snap-to-grid"/>&quot;<literal>snap-to-grid</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+Turns on and off the snap to grid option.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvas--static-extents"/>&quot;<literal>static-extents</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+Tell the canvas to have static events (the size of the canvas does not change)
+or dynamic extents (the size of the canvas depends on the position of the items
+on the canvas.
+</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaCanvas-extents-changed"/>The &quot;extents-changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvas">DiaCanvas</link> *diacanvas,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvas</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvas-redraw-view"/>The &quot;redraw-view&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvas">DiaCanvas</link> *diacanvas,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Request all views to redraw themselves.
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvas</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvas-undo"/>The &quot;undo&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvas">DiaCanvas</link> *diacanvas,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvas</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>, <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,40 @@
+'add' signal docs. ??!? (DiaCanvasItem, DiaCanvasGroup, DiaCanvasGroupable)
+
+how to get to a DiaCanvas root ?
+
+document DiaStackTool in extra page (its now merged with DiaTool)
+
+what the heck does dia_placement_tool_new do ?
+
+DiaCanvasView Move: why not MoveSelected ? can originator be nil ?
+
+DiaCanvasText signals? why pass both DiaCanvasEditable* and DiaCanvasText* ?
+
+DiaShape ?
+
+void dia_canvas_item_update_handles_i2w(DiaCanvasItem *item);
+Sync the world coordinates and the item coordinates for all handles of item.
+
+void dia_canvas_item_update_handles_w2i(DiaCanvasItem *item);
+Sync all handles item coordinates to their world coordinates.
+
+Fix that DiaCanvas properties are read when generating.
+
+
+DiaCanvasItem unknown proptype1 for  handles DiaCanvasItemHandles
+?DiaCanvasItemHandles
+static gpointer
+g_list_o_objects_copy (gpointer l)
+{
+        GList *orig, *newl = NULL;
+
+        for (orig = g_list_last (l); orig != NULL; orig = orig->prev) {
+                g_object_ref (orig->data);
+                newl = g_list_prepend (newl, orig->data);
+        }
+        return newl;
+}
+(reffed object list)
+
+http://diacanvas.sourceforge.net/ref/diacanvas2-DiaGeometry.html#DiaRectangle
+point-line-distance functions

@@ -1,0 +1,219 @@
+<refentry id="DiaCanvasGroup">
+<refmeta>
+<refentrytitle>DiaCanvasGroup</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasGroup</refname><refpurpose>Holds a set of <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>'s.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-GROUP-CAPS">DIA_CANVAS_GROUP</link>                (obj)
+struct      <link linkend="DiaCanvasGroup-struct">DiaCanvasGroup</link>;
+<link linkend="DiaCanvasItem">DiaCanvasItem</link>* <link linkend="dia-canvas-group-create-item">dia_canvas_group_create_item</link> (<link linkend="DiaCanvasGroup">DiaCanvasGroup</link> *group,
+                                             <link linkend="GType">GType</link> type,
+                                             const <link linkend="gchar">gchar</link> *first_arg_name,
+                                             ...);
+<link linkend="void">void</link>        <link linkend="dia-canvas-group-raise-item">dia_canvas_group_raise_item</link>     (<link linkend="DiaCanvasGroup">DiaCanvasGroup</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gint">gint</link> pos);
+<link linkend="void">void</link>        <link linkend="dia-canvas-group-lower-item">dia_canvas_group_lower_item</link>     (<link linkend="DiaCanvasGroup">DiaCanvasGroup</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gint">gint</link> pos);
+<link linkend="gint">gint</link>        (<link linkend="DiaCanvasItemForeachFunc">*DiaCanvasItemForeachFunc</link>)     (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gpointer">gpointer</link> data);
+<link linkend="gint">gint</link>        <link linkend="dia-canvas-group-foreach">dia_canvas_group_foreach</link>        (<link linkend="DiaCanvasItem">DiaCanvasGroup</link> *group,
+                                             <link linkend="DiaCanvasItemForeachFunc">DiaCanvasItemForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaCanvasItem">DiaCanvasItem</link>
+         +----DiaCanvasGroup
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+DiaCanvasGroup implements
+ <link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link>.</para>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A DiaCanvasGroup is special in that it holds a set of <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> objects.
+It implements the <link linkend="DiaCanvasGroupable"><type>DiaCanvasGroupable</type></link> interface.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-GROUP-CAPS"/>DIA_CANVAS_GROUP()</title>
+<indexterm><primary>DIA_CANVAS_GROUP</primary></indexterm><programlisting>#define DIA_CANVAS_GROUP(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS_GROUP, DiaCanvasGroup))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasGroup-struct"/>struct DiaCanvasGroup</title>
+<indexterm><primary>DiaCanvasGroup</primary></indexterm><programlisting>struct DiaCanvasGroup;</programlisting>
+<para>
+DiaCanvasGroup is a special kind of <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> that can hold
+other canvas items. It implements the <link linkend="DiaCanvasGroupable"><type>DiaCanvasGroupable</type></link> interface.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-group-create-item"/>dia_canvas_group_create_item ()</title>
+<indexterm><primary>dia_canvas_group_create_item</primary></indexterm><programlisting><link linkend="DiaCanvasItem">DiaCanvasItem</link>* dia_canvas_group_create_item (<link linkend="DiaCanvasGroup">DiaCanvasGroup</link> *group,
+                                             <link linkend="GType">GType</link> type,
+                                             const <link linkend="gchar">gchar</link> *first_arg_name,
+                                             ...);</programlisting>
+<para>
+Create a new <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> of <parameter>type</parameter> as a child of the <parameter>group</parameter>.
+You can add properties that have to be set on the newly created item. The
+last value should be <literal>NULL</literal>. Note that the property 'parent' has no effect.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_arg_name</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The newly created canvas item. Note that this is a borrowed
+	reference, you should reference it yourself if you want to keep a
+	reference to the newly created item.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-group-raise-item"/>dia_canvas_group_raise_item ()</title>
+<indexterm><primary>dia_canvas_group_raise_item</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_group_raise_item     (<link linkend="DiaCanvasGroup">DiaCanvasGroup</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gint">gint</link> pos);</programlisting>
+<para>
+Bring an object <parameter>pos</parameter> positions to the front.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-group-lower-item"/>dia_canvas_group_lower_item ()</title>
+<indexterm><primary>dia_canvas_group_lower_item</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_group_lower_item     (<link linkend="DiaCanvasGroup">DiaCanvasGroup</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gint">gint</link> pos);</programlisting>
+<para>
+Bring <parameter>item</parameter> <parameter>pos</parameter> position to the back.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasItemForeachFunc"/>DiaCanvasItemForeachFunc ()</title>
+<indexterm><primary>DiaCanvasItemForeachFunc</primary></indexterm><programlisting><link linkend="gint">gint</link>        (*DiaCanvasItemForeachFunc)     (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-group-foreach"/>dia_canvas_group_foreach ()</title>
+<indexterm><primary>dia_canvas_group_foreach</primary></indexterm><programlisting><link linkend="gint">gint</link>        dia_canvas_group_foreach        (<link linkend="DiaCanvasItem">DiaCanvasGroup</link> *group,
+                                             <link linkend="DiaCanvasItemForeachFunc">DiaCanvasItemForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Call the function <parameter>func</parameter> for every child of <parameter>item</parameter>. You can pass extra data
+via the <parameter>data</parameter> value.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>
+</para>
+</refsect1>
+
+</refentry>

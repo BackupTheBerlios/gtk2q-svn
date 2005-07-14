@@ -1,0 +1,146 @@
+<refentry id="diacanvas2-Exporting">
+<refmeta>
+<refentrytitle>Exporting</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Exporting</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+<anchor id="DiaExportSVG"/>
+<synopsis>
+
+
+
+#define     <link linkend="DIA-EXPORT-SVG-CAPS">DIA_EXPORT_SVG</link>                  (obj)
+struct      <link linkend="DiaExportSVG-struct">DiaExportSVG</link>;
+<link linkend="DiaExportSVG">DiaExportSVG</link>* <link linkend="dia-export-svg-new">dia_export_svg_new</link>            (void);
+<link linkend="void">void</link>        <link linkend="dia-export-svg-render">dia_export_svg_render</link>           (<link linkend="DiaExportSVG">DiaExportSVG</link> *export_svg,
+                                             <link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-export-svg-save">dia_export_svg_save</link>             (<link linkend="DiaExportSVG">DiaExportSVG</link> *export_svg,
+                                             const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>        <link linkend="dia-export-print">dia_export_print</link>                (<link linkend="GnomePrintJob">GnomePrintJob</link> *gpm,
+                                             <link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaExportSVG
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-EXPORT-SVG-CAPS"/>DIA_EXPORT_SVG()</title>
+<indexterm><primary>DIA_EXPORT_SVG</primary></indexterm><programlisting>#define DIA_EXPORT_SVG(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_EXPORT_SVG, DiaExportSVG))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaExportSVG-struct"/>struct DiaExportSVG</title>
+<indexterm><primary>DiaExportSVG</primary></indexterm><programlisting>struct DiaExportSVG;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-export-svg-new"/>dia_export_svg_new ()</title>
+<indexterm><primary>dia_export_svg_new</primary></indexterm><programlisting><link linkend="DiaExportSVG">DiaExportSVG</link>* dia_export_svg_new            (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-export-svg-render"/>dia_export_svg_render ()</title>
+<indexterm><primary>dia_export_svg_render</primary></indexterm><programlisting><link linkend="void">void</link>        dia_export_svg_render           (<link linkend="DiaExportSVG">DiaExportSVG</link> *export_svg,
+                                             <link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>export_svg</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-export-svg-save"/>dia_export_svg_save ()</title>
+<indexterm><primary>dia_export_svg_save</primary></indexterm><programlisting><link linkend="void">void</link>        dia_export_svg_save             (<link linkend="DiaExportSVG">DiaExportSVG</link> *export_svg,
+                                             const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>export_svg</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-export-print"/>dia_export_print ()</title>
+<indexterm><primary>dia_export_print</primary></indexterm><programlisting><link linkend="void">void</link>        dia_export_print                (<link linkend="GnomePrintJob">GnomePrintJob</link> *gpm,
+                                             <link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gpm</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

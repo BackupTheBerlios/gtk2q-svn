@@ -1,0 +1,568 @@
+<refentry id="DiaHandle">
+<refmeta>
+<refentrytitle>DiaHandle</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaHandle</refname><refpurpose>Handles are used to modify objects on the canvas.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-HANDLE-CAPS">DIA_HANDLE</link>                      (obj)
+struct      <link linkend="DiaHandle-struct">DiaHandle</link>;
+<link linkend="DiaHandle">DiaHandle</link>*  <link linkend="dia-handle-new">dia_handle_new</link>                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *owner);
+<link linkend="DiaHandle">DiaHandle</link>*  <link linkend="dia-handle-new-with-pos">dia_handle_new_with_pos</link>         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *owner,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);
+<link linkend="void">void</link>        <link linkend="dia-handle-get-pos-i">dia_handle_get_pos_i</link>            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);
+<link linkend="void">void</link>        <link linkend="dia-handle-set-pos-i">dia_handle_set_pos_i</link>            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);
+<link linkend="void">void</link>        <link linkend="dia-handle-set-pos-i-affine">dia_handle_set_pos_i_affine</link>     (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y,
+                                             const <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="void">void</link>        <link linkend="dia-handle-get-pos-w">dia_handle_get_pos_w</link>            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);
+<link linkend="void">void</link>        <link linkend="dia-handle-set-pos-w">dia_handle_set_pos_w</link>            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);
+<link linkend="void">void</link>        <link linkend="dia-handle-request-update-w2i">dia_handle_request_update_w2i</link>   (<link linkend="DiaHandle">DiaHandle</link> *handle);
+<link linkend="void">void</link>        <link linkend="dia-handle-update-w2i">dia_handle_update_w2i</link>           (<link linkend="DiaHandle">DiaHandle</link> *handle);
+<link linkend="void">void</link>        <link linkend="dia-handle-update-w2i-affine">dia_handle_update_w2i_affine</link>    (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             const <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="void">void</link>        <link linkend="dia-handle-update-i2w-affine">dia_handle_update_i2w_affine</link>    (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             const <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-handle-distance-i">dia_handle_distance_i</link>           (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-handle-distance-w">dia_handle_distance_w</link>           (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);
+<link linkend="void">void</link>        <link linkend="dia-handle-set-strength">dia_handle_set_strength</link>         (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="DiaStrength">DiaStrength</link> strength);
+<link linkend="void">void</link>        <link linkend="dia-handle-add-constraint">dia_handle_add_constraint</link>       (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);
+<link linkend="void">void</link>        <link linkend="dia-handle-add-line-constraint">dia_handle_add_line_constraint</link>  (<link linkend="DiaHandle">DiaHandle</link> *begin,
+                                             <link linkend="DiaHandle">DiaHandle</link> *end,
+                                             <link linkend="DiaHandle">DiaHandle</link> *middle);
+<link linkend="void">void</link>        <link linkend="dia-handle-remove-constraint">dia_handle_remove_constraint</link>    (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);
+<link linkend="void">void</link>        <link linkend="dia-handle-remove-all-constraints">dia_handle_remove_all_constraints</link>
+                                            (<link linkend="DiaHandle">DiaHandle</link> *handle);
+<link linkend="gint">gint</link>        <link linkend="dia-handle-size">dia_handle_size</link>                 (void);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaHandle
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaHandle--connectable">connectable</link>&quot;          <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaHandle--connected-to">connected-to</link>&quot;         <link linkend="DiaCanvasItem">DiaCanvasItem</link>        : Read
+  &quot;<link linkend="DiaHandle--index">index</link>&quot;                <link linkend="gint">gint</link>                 : Read / Write
+  &quot;<link linkend="DiaHandle--movable">movable</link>&quot;              <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaHandle--owner">owner</link>&quot;                <link linkend="DiaCanvasItem">DiaCanvasItem</link>        : Read / Write
+  &quot;<link linkend="DiaHandle--pos-i">pos-i</link>&quot;                <link linkend="DiaPoint">DiaPoint</link>             : Read / Write
+  &quot;<link linkend="DiaHandle--pos-w">pos-w</link>&quot;                <link linkend="DiaPoint">DiaPoint</link>             : Read / Write
+  &quot;<link linkend="DiaHandle--strength">strength</link>&quot;             <link linkend="DiaStrength">DiaStrength</link>          : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para> Handles serve a lot of purposes. They are an important part of the
+  DiaCanvas. First of all they tell the user which
+  objects are selected and which object has the focus. Selected objects have
+  visible handles and the focused object has brighter handles than the
+  selected objects.</para>
+
+<para>Handles are also visible, even if the object itself is hidden behind
+  some other object. This makes it possible to know where an object is located,
+  even if you can't see the actual object.</para>
+
+<para>Handles can be used to modify the object. For a line, for example, it
+  is a good thing to have a handle on every corner. Moving
+  a corner is done by moving the handle that defines that corner. On box-like
+  objects handles can be used to resize and rotate the object.</para>
+
+<para>One of the nicest properties of a handle is the ability to let one
+  object connect to another object. If a handle is set to
+  <token>connectable</token> (the handle has a small cross drawn inside),
+  it will try to connect to the object
+  most nearby. Connections are established and linear constraints are
+  created to keep objects also visually connected (if a box moves, also the
+  line-end connected to it should move, see <link linkend="DiaSolver"><type>DiaSolver</type></link>).</para>
+
+<para>Like canvas items, handles do not handle user events themselves. Events
+  for handles are handled by the <link linkend="DiaHandleTool"><type>DiaHandleTool</type></link>.</para>
+
+<para>The <link linkend="DiaHandleLayer"><type>DiaHandleLayer</type></link> takes care of drawing the handles and it also handles
+  the events (this ensures that handles always receive events first). The owner
+  of the handle (a <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>) is notified when a handle is moved. It is
+  the handles owner that controls the movement of the handle by means of the
+  <link linkend="DiaCanvasItem-handle-motion">handle_motion</link>() callback
+  function. (<emphasis>This behavior is about to be removed</emphasis>)</para>
+
+<para>If a handle is connected to an item, it's the item who sends the
+  <link linkend="DiaCanvasItem-connect">connect</link> signal, not the owner of the handle.</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-HANDLE-CAPS"/>DIA_HANDLE()</title>
+<indexterm><primary>DIA_HANDLE</primary></indexterm><programlisting>#define DIA_HANDLE(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_HANDLE, DiaHandle))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaHandle-struct"/>struct DiaHandle</title>
+<indexterm><primary>DiaHandle</primary></indexterm><programlisting>struct DiaHandle;</programlisting>
+<para>
+A handle is a special element in a Dia like canvas. Handles are used to
+modify the object (e.g. move a point) and to connect one element to another
+element.
+A handle does not grow/shrink if you zoom in/out.
+</para>
+<para>
+A handle supports two coordinate systems: the item and the "world"
+(root item). If the item's position is changed, the world coordinates are
+updated immediately. If the world coordinates are changed (for example if
+the user drags a handle), the world to item update is delayed and taken care
+of by the DiaCanvasItem::<link linkend="update"><function>update()</function></link> function.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-new"/>dia_handle_new ()</title>
+<indexterm><primary>dia_handle_new</primary></indexterm><programlisting><link linkend="DiaHandle">DiaHandle</link>*  dia_handle_new                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *owner);</programlisting>
+<para>
+Create a new handle on position (0.0, 0.0). 
+The handle is owner by <parameter>owner</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>owner</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> owning the handle.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A borrowed reference to the newly created handle.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-new-with-pos"/>dia_handle_new_with_pos ()</title>
+<indexterm><primary>dia_handle_new_with_pos</primary></indexterm><programlisting><link linkend="DiaHandle">DiaHandle</link>*  dia_handle_new_with_pos         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *owner,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);</programlisting>
+<para>
+Create a new handle on position (<parameter>x</parameter>, <parameter>y</parameter>).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>owner</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-get-pos-i"/>dia_handle_get_pos_i ()</title>
+<indexterm><primary>dia_handle_get_pos_i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_get_pos_i            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);</programlisting>
+<para>
+Get the item relative position of the handle. If the handle needs a
+world-&gt;item update, that is done first.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-set-pos-i"/>dia_handle_set_pos_i ()</title>
+<indexterm><primary>dia_handle_set_pos_i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_set_pos_i            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);</programlisting>
+<para>
+Set a new position in item relative coordinates and request for an update.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-set-pos-i-affine"/>dia_handle_set_pos_i_affine ()</title>
+<indexterm><primary>dia_handle_set_pos_i_affine</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_set_pos_i_affine     (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y,
+                                             const <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+Set the position of the handle, in item relative coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> new x position, in item coordinates.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> new y position, in item coordinates.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> Item to world transforation matrix.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-get-pos-w"/>dia_handle_get_pos_w ()</title>
+<indexterm><primary>dia_handle_get_pos_w</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_get_pos_w            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);</programlisting>
+<para>
+Retrieve the world coordinates of a handle.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-set-pos-w"/>dia_handle_set_pos_w ()</title>
+<indexterm><primary>dia_handle_set_pos_w</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_set_pos_w            (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);</programlisting>
+<para>
+Assign <parameter>handle</parameter> a new position in world coordinates. All items that requested
+a item to world update will be updated also.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-request-update-w2i"/>dia_handle_request_update_w2i ()</title>
+<indexterm><primary>dia_handle_request_update_w2i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_request_update_w2i   (<link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+Request a world to item synchronization.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-update-w2i"/>dia_handle_update_w2i ()</title>
+<indexterm><primary>dia_handle_update_w2i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_update_w2i           (<link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+Update the item relative coordinate of <parameter>handle</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-update-w2i-affine"/>dia_handle_update_w2i_affine ()</title>
+<indexterm><primary>dia_handle_update_w2i_affine</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_update_w2i_affine    (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             const <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+As <link linkend="dia-handle-update-w2i"><function>dia_handle_update_w2i()</function></link>, but also a transformation matrix is provided.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-update-i2w-affine"/>dia_handle_update_i2w_affine ()</title>
+<indexterm><primary>dia_handle_update_i2w_affine</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_update_i2w_affine    (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             const <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+Sync the item and world coordinates by changing the world coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> item to world transformation matrix.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-distance-i"/>dia_handle_distance_i ()</title>
+<indexterm><primary>dia_handle_distance_i</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_handle_distance_i           (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);</programlisting>
+<para>
+Calculate the distance from (<parameter>x</parameter>, <parameter>y</parameter>) to the handle. Note that the handle
+is internally represented as a point rather than a rectangle (it is
+visualized as a rectangle).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The calculated distance.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-distance-w"/>dia_handle_distance_w ()</title>
+<indexterm><primary>dia_handle_distance_w</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_handle_distance_w           (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gdouble">gdouble</link> x,
+                                             <link linkend="gdouble">gdouble</link> y);</programlisting>
+<para>
+Calculate the distance from one point to the handle, using manhattan
+calculation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> x position relative to the root canvas item.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> y position relative to the root canvas item.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The distance.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-set-strength"/>dia_handle_set_strength ()</title>
+<indexterm><primary>dia_handle_set_strength</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_set_strength         (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="DiaStrength">DiaStrength</link> strength);</programlisting>
+<para>
+Set the strength of the handle. A strong handle is less likely to move
+than a weak handle.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>strength</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-add-constraint"/>dia_handle_add_constraint ()</title>
+<indexterm><primary>dia_handle_add_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_add_constraint       (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);</programlisting>
+<para>
+Add constraint <parameter>c</parameter> to the handle. The constraint should be used to connect
+the handle to another object than its owner.
+</para>
+<para>
+The constraint will automatically be removed if the handle is disconnected.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-add-line-constraint"/>dia_handle_add_line_constraint ()</title>
+<indexterm><primary>dia_handle_add_line_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_add_line_constraint  (<link linkend="DiaHandle">DiaHandle</link> *begin,
+                                             <link linkend="DiaHandle">DiaHandle</link> *end,
+                                             <link linkend="DiaHandle">DiaHandle</link> *middle);</programlisting>
+<para>
+Create constraints for <parameter>middle</parameter>. <parameter>middle</parameter> should be between <parameter>begin</parameter> and <parameter>end</parameter>.
+The constraints will let <parameter>middle</parameter> stay on the line. If <parameter>begin</parameter> or <parameter>end</parameter> moves,
+<parameter>middle</parameter> is kept there.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>begin</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>middle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-remove-constraint"/>dia_handle_remove_constraint ()</title>
+<indexterm><primary>dia_handle_remove_constraint</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_remove_constraint    (<link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="DiaConstraint">DiaConstraint</link> *c);</programlisting>
+<para>
+remove <parameter>c</parameter> from the handle. If <parameter>c</parameter> does not exist in <parameter>handle</parameter>'s context,
+a warning is issued.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-remove-all-constraints"/>dia_handle_remove_all_constraints ()</title>
+<indexterm><primary>dia_handle_remove_all_constraints</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_remove_all_constraints
+                                            (<link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+Remove all constraints from <parameter>handle</parameter>. This is typically done if a
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> is disconnected from another DiaCanvasItem.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-size"/>dia_handle_size ()</title>
+<indexterm><primary>dia_handle_size</primary></indexterm><programlisting><link linkend="gint">gint</link>        dia_handle_size                 (void);</programlisting>
+<para>
+Return the size of a handle (currently 9).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaHandle--connectable"/>&quot;<literal>connectable</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Handle can be connected to other items.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--connected-to"/>&quot;<literal>connected-to</literal>&quot; (<link linkend="DiaCanvasItem">DiaCanvasItem</link> : Read)</term>
+<listitem>
+<para>Item connected to the handle.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--index"/>&quot;<literal>index</literal>&quot; (<link linkend="gint">gint</link> : Read / Write)</term>
+<listitem>
+<para>The position of the handle in its item.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--movable"/>&quot;<literal>movable</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Handle can be moved independend from the owner.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--owner"/>&quot;<literal>owner</literal>&quot; (<link linkend="DiaCanvasItem">DiaCanvasItem</link> : Read / Write)</term>
+<listitem>
+<para>Item owning the handle.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--pos-i"/>&quot;<literal>pos-i</literal>&quot; (<link linkend="DiaPoint">DiaPoint</link> : Read / Write)</term>
+<listitem>
+<para>Item relative position.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--pos-w"/>&quot;<literal>pos-w</literal>&quot; (<link linkend="DiaPoint">DiaPoint</link> : Read / Write)</term>
+<listitem>
+<para>Items world position.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaHandle--strength"/>&quot;<literal>strength</literal>&quot; (<link linkend="DiaStrength">DiaStrength</link> : Read / Write)</term>
+<listitem>
+<para>Strength of the handle.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>, <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>, <link linkend="DiaHandleLayer"><type>DiaHandleLayer</type></link>, <link linkend="DiaSolver"><type>DiaSolver</type></link>
+</para>
+</refsect1>
+
+</refentry>

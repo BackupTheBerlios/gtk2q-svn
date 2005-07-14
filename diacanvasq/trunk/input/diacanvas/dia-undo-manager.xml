@@ -1,0 +1,409 @@
+<refentry id="DiaUndoManager">
+<refmeta>
+<refentrytitle>DiaUndoManager</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaUndoManager</refname><refpurpose>Interface for undo/redo functionality in DiaCanvas</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-UNDO-MANAGER-CAPS">DIA_UNDO_MANAGER</link>                (obj)
+struct      <link linkend="DiaUndoManager-struct">DiaUndoManager</link>;
+<link linkend="void">void</link>        <link linkend="dia-undo-manager-begin-transaction">dia_undo_manager_begin_transaction</link>
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="void">void</link>        <link linkend="dia-undo-manager-commit-transaction">dia_undo_manager_commit_transaction</link>
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="void">void</link>        <link linkend="dia-undo-manager-discard-transaction">dia_undo_manager_discard_transaction</link>
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="void">void</link>        <link linkend="dia-undo-manager-undo-transaction">dia_undo_manager_undo_transaction</link>
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="void">void</link>        <link linkend="dia-undo-manager-redo-transaction">dia_undo_manager_redo_transaction</link>
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-undo-manager-in-transaction">dia_undo_manager_in_transaction</link> (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-undo-manager-can-undo">dia_undo_manager_can_undo</link>       (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-undo-manager-can-redo">dia_undo_manager_can_redo</link>       (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);
+struct      <link linkend="DiaUndoAction">DiaUndoAction</link>;
+<link linkend="DiaUndoAction">DiaUndoAction</link>* <link linkend="dia-undo-action-new">dia_undo_action_new</link>          (<link linkend="gsize">gsize</link> sizeof_undo_action,
+                                             <link linkend="DiaUndoFunc">DiaUndoFunc</link> undo,
+                                             <link linkend="DiaUndoFunc">DiaUndoFunc</link> redo,
+                                             <link linkend="GDestroyNotify">GDestroyNotify</link> destroy);
+<link linkend="void">void</link>        <link linkend="dia-undo-action-undo">dia_undo_action_undo</link>            (<link linkend="DiaUndoAction">DiaUndoAction</link> *action);
+<link linkend="void">void</link>        <link linkend="dia-undo-action-redo">dia_undo_action_redo</link>            (<link linkend="DiaUndoAction">DiaUndoAction</link> *action);
+<link linkend="void">void</link>        <link linkend="dia-undo-action-destroy">dia_undo_action_destroy</link>         (<link linkend="DiaUndoAction">DiaUndoAction</link> *action);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GInterface">GInterface</link>
+   +----DiaUndoManager
+</synopsis>
+
+</refsect1>
+
+<refsect1>
+<title>Prerequisites</title>
+<para>
+DiaUndoManager requires
+ <link linkend="GObject">GObject</link>.</para>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Known Implementations</title>
+<para>
+DiaUndoManager is implemented by
+ <link linkend="DiaUndo">DiaUndo</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaUndoManager-add-undo-action">add-undo-action</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaUndoManager-begin-transaction">begin-transaction</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaUndoManager-commit-transaction">commit-transaction</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaUndoManager-discard-transaction">discard-transaction</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaUndoManager-redo-transaction">redo-transaction</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaUndoManager-undo-transaction">undo-transaction</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The DiaUndoManager interface provides an interface to the pluggable
+undo mechanism in DiaCanvas2. 
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-UNDO-MANAGER-CAPS"/>DIA_UNDO_MANAGER()</title>
+<indexterm><primary>DIA_UNDO_MANAGER</primary></indexterm><programlisting>#define DIA_UNDO_MANAGER(obj)	(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_UNDO_MANAGER, DiaUndoManager))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaUndoManager-struct"/>struct DiaUndoManager</title>
+<indexterm><primary>DiaUndoManager</primary></indexterm><programlisting>struct DiaUndoManager;</programlisting>
+<para>
+This interface provides the functions that are used to gather and act
+on undo information.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-begin-transaction"/>dia_undo_manager_begin_transaction ()</title>
+<indexterm><primary>dia_undo_manager_begin_transaction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_manager_begin_transaction
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+Begin a new transaction.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-commit-transaction"/>dia_undo_manager_commit_transaction ()</title>
+<indexterm><primary>dia_undo_manager_commit_transaction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_manager_commit_transaction
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+Store the transaction on the undo stack. If there are no actions to be
+undone, a specific implementation may consider no storing it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-discard-transaction"/>dia_undo_manager_discard_transaction ()</title>
+<indexterm><primary>dia_undo_manager_discard_transaction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_manager_discard_transaction
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+Discard the current transaction. It is not stored on the undo stack.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-undo-transaction"/>dia_undo_manager_undo_transaction ()</title>
+<indexterm><primary>dia_undo_manager_undo_transaction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_manager_undo_transaction
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+Undo the actions in the last commited transaction.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-redo-transaction"/>dia_undo_manager_redo_transaction ()</title>
+<indexterm><primary>dia_undo_manager_redo_transaction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_manager_redo_transaction
+                                            (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-in-transaction"/>dia_undo_manager_in_transaction ()</title>
+<indexterm><primary>dia_undo_manager_in_transaction</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_undo_manager_in_transaction (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+This function returns TRUE if there is an open transaction.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-can-undo"/>dia_undo_manager_can_undo ()</title>
+<indexterm><primary>dia_undo_manager_can_undo</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_undo_manager_can_undo       (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if there are transactions that can be undone.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-manager-can-redo"/>dia_undo_manager_can_redo ()</title>
+<indexterm><primary>dia_undo_manager_can_redo</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_undo_manager_can_redo       (<link linkend="DiaUndoManager">DiaUndoManager</link> *undo_manager);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>undo_manager</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if there are transactions that can be redone.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaUndoAction"/>struct DiaUndoAction</title>
+<indexterm><primary>DiaUndoAction</primary></indexterm><programlisting>struct DiaUndoAction {
+
+	DiaUndoFunc	undo;
+	DiaUndoFunc	redo;
+	GDestroyNotify	destroy;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-action-new"/>dia_undo_action_new ()</title>
+<indexterm><primary>dia_undo_action_new</primary></indexterm><programlisting><link linkend="DiaUndoAction">DiaUndoAction</link>* dia_undo_action_new          (<link linkend="gsize">gsize</link> sizeof_undo_action,
+                                             <link linkend="DiaUndoFunc">DiaUndoFunc</link> undo,
+                                             <link linkend="DiaUndoFunc">DiaUndoFunc</link> redo,
+                                             <link linkend="GDestroyNotify">GDestroyNotify</link> destroy);</programlisting>
+<para>
+Create a new DiaUndoAction. DiaUndoAction is the object that is passed to
+the UndoManager. This "class" is normally subclassed, so specific attributes
+can be stored (this struct is an "abstract class").</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sizeof_undo_action</parameter>&nbsp;:</term>
+<listitem><simpara> Size of the real undo entry
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>undo</parameter>&nbsp;:</term>
+<listitem><simpara> function called on an undo operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>redo</parameter>&nbsp;:</term>
+<listitem><simpara> function called in a redo operation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy</parameter>&nbsp;:</term>
+<listitem><simpara> function called to free the resources held by this undo entry
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-action-undo"/>dia_undo_action_undo ()</title>
+<indexterm><primary>dia_undo_action_undo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_action_undo            (<link linkend="DiaUndoAction">DiaUndoAction</link> *action);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>action</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-action-redo"/>dia_undo_action_redo ()</title>
+<indexterm><primary>dia_undo_action_redo</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_action_redo            (<link linkend="DiaUndoAction">DiaUndoAction</link> *action);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>action</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-undo-action-destroy"/>dia_undo_action_destroy ()</title>
+<indexterm><primary>dia_undo_action_destroy</primary></indexterm><programlisting><link linkend="void">void</link>        dia_undo_action_destroy         (<link linkend="DiaUndoAction">DiaUndoAction</link> *action);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>action</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaUndoManager-add-undo-action"/>The &quot;add-undo-action&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaundomanager</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaUndoManager-begin-transaction"/>The &quot;begin-transaction&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaundomanager</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaUndoManager-commit-transaction"/>The &quot;commit-transaction&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaundomanager</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaUndoManager-discard-transaction"/>The &quot;discard-transaction&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaundomanager</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaUndoManager-redo-transaction"/>The &quot;redo-transaction&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaundomanager</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaUndoManager-undo-transaction"/>The &quot;undo-transaction&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaUndoManager">DiaUndoManager</link> *diaundomanager,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diaundomanager</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvas"><type>DiaCanvas</type></link>
+</para>
+</refsect1>
+
+</refentry>

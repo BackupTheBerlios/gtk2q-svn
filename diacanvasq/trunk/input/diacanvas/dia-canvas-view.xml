@@ -1,0 +1,635 @@
+<refentry id="DiaCanvasView">
+<refmeta>
+<refentrytitle>DiaCanvasView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasView</refname><refpurpose>Create a view of a <link linkend="DiaCanvas"><type>DiaCanvas</type></link> model.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-VIEW-CAPS">DIA_CANVAS_VIEW</link>                 (obj)
+struct      <link linkend="DiaCanvasView-struct">DiaCanvasView</link>;
+#define     <link linkend="DIA-CANVAS-VIEW-ITEM-VISIBLE-CAPS">DIA_CANVAS_VIEW_ITEM_VISIBLE</link>    (obj)
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="dia-canvas-view-new">dia_canvas_view_new</link>             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gboolean">gboolean</link> aa);
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="dia-canvas-view-aa-new">dia_canvas_view_aa_new</link>          (void);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-set-zoom">dia_canvas_view_set_zoom</link>        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="gdouble">gdouble</link> zoom);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-canvas-view-get-zoom">dia_canvas_view_get_zoom</link>        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-set-canvas">dia_canvas_view_set_canvas</link>      (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvas">DiaCanvas</link> *canvas);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-unset-canvas">dia_canvas_view_unset_canvas</link>    (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="DiaCanvas">DiaCanvas</link>*  <link linkend="dia-canvas-view-get-canvas">dia_canvas_view_get_canvas</link>      (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-select-rectangle">dia_canvas_view_select_rectangle</link>
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *rect);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-request-update">dia_canvas_view_request_update</link>  (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-set-tool">dia_canvas_view_set_tool</link>        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaTool">DiaTool</link> *tool);
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-canvas-view-get-tool">dia_canvas_view_get_tool</link>        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-set-default-tool">dia_canvas_view_set_default_tool</link>
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaTool">DiaTool</link> *tool);
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-canvas-view-get-default-tool">dia_canvas_view_get_default_tool</link>
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-select">dia_canvas_view_select</link>          (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-select-all">dia_canvas_view_select_all</link>      (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-unselect">dia_canvas_view_unselect</link>        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-unselect-all">dia_canvas_view_unselect_all</link>    (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-focus">dia_canvas_view_focus</link>           (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-move">dia_canvas_view_move</link>            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *originator);
+<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link>* <link linkend="dia-canvas-view-find-view-item">dia_canvas_view_find_view_item</link>
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-gdk-event-to-dia-event">dia_canvas_view_gdk_event_to_dia_event</link>
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="GdkEvent">GdkEvent</link> *gdk_event,
+                                             <link linkend="gpointer">gpointer</link> dia_event);
+<link linkend="DiaCanvasView">DiaCanvasView</link>* <link linkend="dia-canvas-view-get-active-view">dia_canvas_view_get_active_view</link>
+                                            (void);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkContainer">GtkContainer</link>
+                     +----<link linkend="GtkLayout">GtkLayout</link>
+                           +----<link linkend="GnomeCanvas">GnomeCanvas</link>
+                                 +----DiaCanvasView
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+DiaCanvasView implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasView--aa">aa</link>&quot;                   <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasView--active-view">active-view</link>&quot;          <link linkend="DiaCanvasView">DiaCanvasView</link>        : Read
+  &quot;<link linkend="DiaCanvasView--canvas">canvas</link>&quot;               <link linkend="DiaCanvas">DiaCanvas</link>            : Read / Write
+  &quot;<link linkend="DiaCanvasView--default-tool">default-tool</link>&quot;         <link linkend="DiaTool">DiaTool</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasView--tool">tool</link>&quot;                 <link linkend="DiaTool">DiaTool</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasView--zoom">zoom</link>&quot;                 <link linkend="gdouble">gdouble</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaCanvasView-focus-item">focus-item</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasView">DiaCanvasView</link> *diacanvasview,
+                                            <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasView-select-item">select-item</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasView">DiaCanvasView</link> *diacanvasview,
+                                            <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasView-unselect-item">unselect-item</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasView">DiaCanvasView</link> *diacanvasview,
+                                            <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The DiaCanvasView widget is used to visualize the contents of a <link linkend="DiaCanvas"><type>DiaCanvas</type></link>.
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-VIEW-CAPS"/>DIA_CANVAS_VIEW()</title>
+<indexterm><primary>DIA_CANVAS_VIEW</primary></indexterm><programlisting>#define DIA_CANVAS_VIEW(obj)			(GTK_CHECK_CAST ((obj), DIA_TYPE_CANVAS_VIEW, DiaCanvasView))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasView-struct"/>struct DiaCanvasView</title>
+<indexterm><primary>DiaCanvasView</primary></indexterm><programlisting>struct DiaCanvasView;</programlisting>
+<para>
+Visual (interactive) representation of a diagram (DiaCanvas).</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DIA-CANVAS-VIEW-ITEM-VISIBLE-CAPS"/>DIA_CANVAS_VIEW_ITEM_VISIBLE()</title>
+<indexterm><primary>DIA_CANVAS_VIEW_ITEM_VISIBLE</primary></indexterm><programlisting>#define DIA_CANVAS_VIEW_ITEM_VISIBLE(obj)	((GTK_OBJECT_FLAGS (obj) &amp; GNOME_CANVAS_ITEM_VISIBLE) != 0)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-new"/>dia_canvas_view_new ()</title>
+<indexterm><primary>dia_canvas_view_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  dia_canvas_view_new             (<link linkend="DiaCanvas">DiaCanvas</link> *canvas,
+                                             <link linkend="gboolean">gboolean</link> aa);</programlisting>
+<para>
+Create a new DiaCanvasView object. In most cases you want to set <parameter>aa</parameter> to TRUE,
+since it has the most complete renderer and the best quality.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="DiaCanvas"><type>DiaCanvas</type></link> that contains data that is to be visualized (may
+		be NULL).
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>aa</parameter>&nbsp;:</term>
+<listitem><simpara> OBSOLETE. An Anti-alias canvas is created anyway.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A newly create DiaCanvasView.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-aa-new"/>dia_canvas_view_aa_new ()</title>
+<indexterm><primary>dia_canvas_view_aa_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  dia_canvas_view_aa_new          (void);</programlisting>
+<para>
+Create a new anti-aliased canvas. Note that no <link linkend="DiaCanvas"><type>DiaCanvas</type></link> object is yet
+connected to the canvas view.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A newly created <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-set-zoom"/>dia_canvas_view_set_zoom ()</title>
+<indexterm><primary>dia_canvas_view_set_zoom</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_set_zoom        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="gdouble">gdouble</link> zoom);</programlisting>
+<para>
+Set the zoom factor for the canvas. 1.0 means 100%.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>zoom</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-get-zoom"/>dia_canvas_view_get_zoom ()</title>
+<indexterm><primary>dia_canvas_view_get_zoom</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_canvas_view_get_zoom        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+Get the zoom factor for the view.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-set-canvas"/>dia_canvas_view_set_canvas ()</title>
+<indexterm><primary>dia_canvas_view_set_canvas</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_set_canvas      (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvas">DiaCanvas</link> *canvas);</programlisting>
+<para>
+Set the canvas to be visualized by <parameter>view</parameter>. You can only set a canvas if
+the view doesn't already have a canvas.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>canvas</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-unset-canvas"/>dia_canvas_view_unset_canvas ()</title>
+<indexterm><primary>dia_canvas_view_unset_canvas</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_unset_canvas    (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+Disconnect the view from it's <link linkend="DiaCanvas"><type>DiaCanvas</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-get-canvas"/>dia_canvas_view_get_canvas ()</title>
+<indexterm><primary>dia_canvas_view_get_canvas</primary></indexterm><programlisting><link linkend="DiaCanvas">DiaCanvas</link>*  dia_canvas_view_get_canvas      (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+Get the <link linkend="DiaCanvas"><type>DiaCanvas</type></link> that is displayed in the <parameter>view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The canvas.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-select-rectangle"/>dia_canvas_view_select_rectangle ()</title>
+<indexterm><primary>dia_canvas_view_select_rectangle</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_select_rectangle
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *rect);</programlisting>
+<para>
+Select all object whose bounding box is within <parameter>rect</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rect</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-request-update"/>dia_canvas_view_request_update ()</title>
+<indexterm><primary>dia_canvas_view_request_update</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_request_update  (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+Request an update for all items on the canvas. All shapes will be set
+to update state too.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-set-tool"/>dia_canvas_view_set_tool ()</title>
+<indexterm><primary>dia_canvas_view_set_tool</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_set_tool        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaTool">DiaTool</link> *tool);</programlisting>
+<para>
+Set a tool to use by this canvas view. Tools are used to override the
+default behavior of the view. <parameter>tool</parameter> may be <literal>NULL</literal>, so the tool is removed
+from the view.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tool</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="DiaTool"><type>DiaTool</type></link> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-get-tool"/>dia_canvas_view_get_tool ()</title>
+<indexterm><primary>dia_canvas_view_get_tool</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_canvas_view_get_tool        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The tool or <literal>NULL</literal> if no tool is set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-set-default-tool"/>dia_canvas_view_set_default_tool ()</title>
+<indexterm><primary>dia_canvas_view_set_default_tool</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_set_default_tool
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaTool">DiaTool</link> *tool);</programlisting>
+<para>
+Set the default tool for the view. The default tool is used to do the
+default behavior for the view, such as moving handles and editing the
+diagram items.
+</para>
+<para>
+This tool is used if no tool is set via <link linkend="dia-canvas-view-set-tool"><function>dia_canvas_view_set_tool()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tool</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-get-default-tool"/>dia_canvas_view_get_default_tool ()</title>
+<indexterm><primary>dia_canvas_view_get_default_tool</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_canvas_view_get_default_tool
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the default tool
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-select"/>dia_canvas_view_select ()</title>
+<indexterm><primary>dia_canvas_view_select</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_select          (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);</programlisting>
+<para>
+Select <parameter>item</parameter>. If the item is a composite item (item-&gt;item has DIA_COMPOSITE
+set), the parent is selected.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-select-all"/>dia_canvas_view_select_all ()</title>
+<indexterm><primary>dia_canvas_view_select_all</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_select_all      (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+Select all items on the canvas.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-unselect"/>dia_canvas_view_unselect ()</title>
+<indexterm><primary>dia_canvas_view_unselect</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_unselect        (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);</programlisting>
+<para>
+Unselect <parameter>root</parameter> and all children of <parameter>root</parameter>. If one of the selected items
+has the focus, it is de-focused.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-unselect-all"/>dia_canvas_view_unselect_all ()</title>
+<indexterm><primary>dia_canvas_view_unselect_all</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_unselect_all    (<link linkend="DiaCanvasView">DiaCanvasView</link> *view);</programlisting>
+<para>
+Do a <link linkend="dia-canvas-view-unselect"><function>dia_canvas_view_unselect()</function></link> for all items in the canvas view.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-focus"/>dia_canvas_view_focus ()</title>
+<indexterm><primary>dia_canvas_view_focus</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_focus           (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);</programlisting>
+<para>
+Set the focus to <parameter>item</parameter>. If <parameter>item</parameter> is not an interactive item, the focus
+is set to NULL.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> Item to focus, may be NULL (no focused object).
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-move"/>dia_canvas_view_move ()</title>
+<indexterm><primary>dia_canvas_view_move</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_move            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *originator);</programlisting>
+<para>
+Move all selected items.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&nbsp;:</term>
+<listitem><simpara> movement
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>originator</parameter>&nbsp;:</term>
+<listitem><simpara> the object that recieved the event resulting in the movement.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-find-view-item"/>dia_canvas_view_find_view_item ()</title>
+<indexterm><primary>dia_canvas_view_find_view_item</primary></indexterm><programlisting><link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link>* dia_canvas_view_find_view_item
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Find the <link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link> that visualizes <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> Item to find.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The view item or NULL.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-gdk-event-to-dia-event"/>dia_canvas_view_gdk_event_to_dia_event ()</title>
+<indexterm><primary>dia_canvas_view_gdk_event_to_dia_event</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_gdk_event_to_dia_event
+                                            (<link linkend="DiaCanvasView">DiaCanvasView</link> *view,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="GdkEvent">GdkEvent</link> *gdk_event,
+                                             <link linkend="gpointer">gpointer</link> dia_event);</programlisting>
+<para>
+DEPRICATED
+</para>
+<para>
+Convert a GdkEvent to a <link linkend="DiaEvent"><type>DiaEvent</type></link>. <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>'s can recieve mouse and
+keyboard events.
+</para>
+<para>
+A transformation is done from the window coorsinates to item coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>gdk_event</parameter>&nbsp;:</term>
+<listitem><simpara> The GdkEvent as it was received by the view.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dia_event</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-get-active-view"/>dia_canvas_view_get_active_view ()</title>
+<indexterm><primary>dia_canvas_view_get_active_view</primary></indexterm><programlisting><link linkend="DiaCanvasView">DiaCanvasView</link>* dia_canvas_view_get_active_view
+                                            (void);</programlisting>
+<para>
+This function returns the view that was last edited (by mouse click or
+key event).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The last used view.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasView--aa"/>&quot;<literal>aa</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Set the canvas to anti-alias or X render mode. Only during initialization. You should also have pushed the right colormap (gdk_rgb_get_cmap() for AA, gdk_imlib_cmap() for X).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasView--active-view"/>&quot;<literal>active-view</literal>&quot; (<link linkend="DiaCanvasView">DiaCanvasView</link> : Read)</term>
+<listitem>
+<para>Returns the active view, even if the view itself is not the active view.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasView--canvas"/>&quot;<literal>canvas</literal>&quot; (<link linkend="DiaCanvas">DiaCanvas</link> : Read / Write)</term>
+<listitem>
+<para>Canvas to be displayed in the view.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasView--default-tool"/>&quot;<literal>default-tool</literal>&quot; (<link linkend="DiaTool">DiaTool</link> : Read / Write)</term>
+<listitem>
+<para>Set a tool.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasView--tool"/>&quot;<literal>tool</literal>&quot; (<link linkend="DiaTool">DiaTool</link> : Read / Write)</term>
+<listitem>
+<para>Set a tool, may be NULL.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasView--zoom"/>&quot;<literal>zoom</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Set the zoom factor.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaCanvasView-focus-item"/>The &quot;focus-item&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasView">DiaCanvasView</link> *diacanvasview,
+                                            <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasview</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasView-select-item"/>The &quot;select-item&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasView">DiaCanvasView</link> *diacanvasview,
+                                            <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasview</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasView-unselect-item"/>The &quot;unselect-item&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasView">DiaCanvasView</link> *diacanvasview,
+                                            <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasview</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link>, <link linkend="DiaHandleLayer"><type>DiaHandleLayer</type></link>, <link linkend="DiaCanvas"><type>DiaCanvas</type></link>.
+</para>
+</refsect1>
+
+</refentry>

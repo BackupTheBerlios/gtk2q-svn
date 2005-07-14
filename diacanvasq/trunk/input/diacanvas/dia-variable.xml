@@ -1,0 +1,224 @@
+<refentry id="DiaVariable">
+<refmeta>
+<refentrytitle>DiaVariable</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaVariable</refname><refpurpose>Variable value objects used by <link linkend="DiaSolver"><type>DiaSolver</type></link>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-VARIABLE-CAPS">DIA_VARIABLE</link>                    (obj)
+struct      <link linkend="DiaVariable-struct">DiaVariable</link>;
+<link linkend="DiaVariable">DiaVariable</link>* <link linkend="dia-variable-new">dia_variable_new</link>               (void);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-variable-get-value">dia_variable_get_value</link>          (<link linkend="DiaVariable">DiaVariable</link> *var);
+<link linkend="void">void</link>        <link linkend="dia-variable-set-value">dia_variable_set_value</link>          (<link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="gdouble">gdouble</link> value);
+<link linkend="DiaStrength">DiaStrength</link> <link linkend="dia-variable-get-strength">dia_variable_get_strength</link>       (<link linkend="DiaVariable">DiaVariable</link> *var);
+<link linkend="void">void</link>        <link linkend="dia-variable-set-strength">dia_variable_set_strength</link>       (<link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="DiaStrength">DiaStrength</link> strength);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaVariable
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaVariable--strength">strength</link>&quot;             <link linkend="DiaStrength">DiaStrength</link>          : Read / Write
+  &quot;<link linkend="DiaVariable--value">value</link>&quot;                <link linkend="gdouble">gdouble</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaVariable-changed">changed</link>&quot;   <link linkend="void">void</link>        user_function      (<link linkend="DiaVariable">DiaVariable</link> *diavariable,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaVariable-changed-internal">changed-internal</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaVariable">DiaVariable</link> *diavariable,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Variables hold values that can be changed by the constraint solver. Every
+variable is assigned a strength. The weakest variables are most likely to change
+if the solver starts resolving the constraints.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-VARIABLE-CAPS"/>DIA_VARIABLE()</title>
+<indexterm><primary>DIA_VARIABLE</primary></indexterm><programlisting>#define DIA_VARIABLE(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_VARIABLE, DiaVariable))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaVariable-struct"/>struct DiaVariable</title>
+<indexterm><primary>DiaVariable</primary></indexterm><programlisting>struct DiaVariable;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-variable-new"/>dia_variable_new ()</title>
+<indexterm><primary>dia_variable_new</primary></indexterm><programlisting><link linkend="DiaVariable">DiaVariable</link>* dia_variable_new               (void);</programlisting>
+<para>
+Create a new variable.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a newly-created variable.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-variable-get-value"/>dia_variable_get_value ()</title>
+<indexterm><primary>dia_variable_get_value</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_variable_get_value          (<link linkend="DiaVariable">DiaVariable</link> *var);</programlisting>
+<para>
+Get the value of the variable.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-variable-set-value"/>dia_variable_set_value ()</title>
+<indexterm><primary>dia_variable_set_value</primary></indexterm><programlisting><link linkend="void">void</link>        dia_variable_set_value          (<link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="gdouble">gdouble</link> value);</programlisting>
+<para>
+Set the value for the variable.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-variable-get-strength"/>dia_variable_get_strength ()</title>
+<indexterm><primary>dia_variable_get_strength</primary></indexterm><programlisting><link linkend="DiaStrength">DiaStrength</link> dia_variable_get_strength       (<link linkend="DiaVariable">DiaVariable</link> *var);</programlisting>
+<para>
+Retrieve the strength of variable <parameter>var</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Return the strength of the variable.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-variable-set-strength"/>dia_variable_set_strength ()</title>
+<indexterm><primary>dia_variable_set_strength</primary></indexterm><programlisting><link linkend="void">void</link>        dia_variable_set_strength       (<link linkend="DiaVariable">DiaVariable</link> *var,
+                                             <link linkend="DiaStrength">DiaStrength</link> strength);</programlisting>
+<para>
+Set the strength of the variable. Stronger variables are less likely to
+change if they are used in a <link linkend="DiaConstraint"><type>DiaConstraint</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>var</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>strength</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaVariable--strength"/>&quot;<literal>strength</literal>&quot; (<link linkend="DiaStrength">DiaStrength</link> : Read / Write)</term>
+<listitem>
+<para>Strength of the variable.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaVariable--value"/>&quot;<literal>value</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Value held by this variable.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaVariable-changed"/>The &quot;changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaVariable">DiaVariable</link> *diavariable,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Notify the outer world that the value has changed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>diavariable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaVariable-changed-internal"/>The &quot;changed-internal&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaVariable">DiaVariable</link> *diavariable,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Changed signal used only inside the constraint solver. You should not connect
+to it.
+</para><variablelist role="params">
+<varlistentry><term><parameter>diavariable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaSolver"><type>DiaSolver</type></link>, <link linkend="DiaConstraint"><type>DiaConstraint</type></link>, <link linkend="DiaExpression"><type>DiaExpression</type></link>, <link linkend="DiaStrength"><type>DiaStrength</type></link>
+</para>
+</refsect1>
+
+</refentry>

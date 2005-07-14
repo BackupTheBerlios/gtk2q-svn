@@ -1,0 +1,197 @@
+<refentry id="DiaHandleLayer">
+<refmeta>
+<refentrytitle>DiaHandleLayer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaHandleLayer</refname><refpurpose>Special class used by <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link> to visualize handles.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-HANDLE-LAYER-CAPS">DIA_HANDLE_LAYER</link>                (obj)
+struct      <link linkend="DiaHandleLayer-struct">DiaHandleLayer</link>;
+<link linkend="void">void</link>        <link linkend="dia-handle-layer-update-handles">dia_handle_layer_update_handles</link> (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-handle-layer-get-pos-c">dia_handle_layer_get_pos_c</link>      (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gint">gint</link> *x,
+                                             <link linkend="gint">gint</link> *y);
+<link linkend="void">void</link>        <link linkend="dia-handle-layer-request-redraw">dia_handle_layer_request_redraw</link> (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="gint">gint</link> x,
+                                             <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>        <link linkend="dia-handle-layer-request-redraw-handle">dia_handle_layer_request_redraw_handle</link>
+                                            (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);
+<link linkend="void">void</link>        <link linkend="dia-handle-layer-grab-handle">dia_handle_layer_grab_handle</link>    (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GnomeCanvasItem">GnomeCanvasItem</link>
+               +----DiaHandleLayer
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Since handles are always displayed on top of the objects, a handle layer is
+drawn on top of the canvas items.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-HANDLE-LAYER-CAPS"/>DIA_HANDLE_LAYER()</title>
+<indexterm><primary>DIA_HANDLE_LAYER</primary></indexterm><programlisting>#define DIA_HANDLE_LAYER(obj)	(GTK_CHECK_CAST ((obj), DIA_TYPE_HANDLE_LAYER, DiaHandleLayer))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaHandleLayer-struct"/>struct DiaHandleLayer</title>
+<indexterm><primary>DiaHandleLayer</primary></indexterm><programlisting>struct DiaHandleLayer;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-layer-update-handles"/>dia_handle_layer_update_handles ()</title>
+<indexterm><primary>dia_handle_layer_update_handles</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_layer_update_handles (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);</programlisting>
+<para>
+Redraw handles if nessesary. The old handle positions are stored
+in the <link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link> to ensure proper redrawing.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-layer-get-pos-c"/>dia_handle_layer_get_pos_c ()</title>
+<indexterm><primary>dia_handle_layer_get_pos_c</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_layer_get_pos_c      (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle,
+                                             <link linkend="gint">gint</link> *x,
+                                             <link linkend="gint">gint</link> *y);</programlisting>
+<para>
+Given a handle, return the position of that handle in canvas coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-layer-request-redraw"/>dia_handle_layer_request_redraw ()</title>
+<indexterm><primary>dia_handle_layer_request_redraw</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_layer_request_redraw (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="gint">gint</link> x,
+                                             <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Ask the canvas to do a redraw of the a handle. Only the handles <parameter>x</parameter> and <parameter>y</parameter>
+position need to be given (in canvas coordinates).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> Position of the handle, in canvas coordinates
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-layer-request-redraw-handle"/>dia_handle_layer_request_redraw_handle ()</title>
+<indexterm><primary>dia_handle_layer_request_redraw_handle</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_layer_request_redraw_handle
+                                            (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+Do a redraw for <parameter>handle</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-layer-grab-handle"/>dia_handle_layer_grab_handle ()</title>
+<indexterm><primary>dia_handle_layer_grab_handle</primary></indexterm><programlisting><link linkend="void">void</link>        dia_handle_layer_grab_handle    (<link linkend="DiaHandleLayer">DiaHandleLayer</link> *layer,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+DEPRICATED
+</para>
+<para>
+Grab a handle. The handle should be grabbed suring a button-press event,
+since the handle-layer will grab the widgets events.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>layer</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>.
+</para>
+</refsect1>
+
+</refentry>

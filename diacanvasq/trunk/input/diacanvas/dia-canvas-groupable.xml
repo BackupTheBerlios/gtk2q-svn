@@ -1,0 +1,322 @@
+<refentry id="DiaCanvasGroupable">
+<refmeta>
+<refentrytitle>DiaCanvasGroupable</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasGroupable</refname><refpurpose>Interface for groupable classes.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+struct      <link linkend="DiaCanvasGroupable-struct">DiaCanvasGroupable</link>;
+<link linkend="void">void</link>        <link linkend="dia-canvas-groupable-add">dia_canvas_groupable_add</link>        (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-groupable-remove">dia_canvas_groupable_remove</link>     (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-groupable-add-construction">dia_canvas_groupable_add_construction</link>
+                                            (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-groupable-remove-destruction">dia_canvas_groupable_remove_destruction</link>
+                                            (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-groupable-get-iter">dia_canvas_groupable_get_iter</link>   (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-groupable-next">dia_canvas_groupable_next</link>       (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="DiaCanvasItem">DiaCanvasItem</link>* <link linkend="dia-canvas-groupable-value">dia_canvas_groupable_value</link>   (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="gint">gint</link>        <link linkend="dia-canvas-groupable-length">dia_canvas_groupable_length</link>     (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group);
+<link linkend="gint">gint</link>        <link linkend="dia-canvas-groupable-pos">dia_canvas_groupable_pos</link>        (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GInterface">GInterface</link>
+   +----DiaCanvasGroupable
+</synopsis>
+
+</refsect1>
+
+<refsect1>
+<title>Prerequisites</title>
+<para>
+DiaCanvasGroupable requires
+ <link linkend="DiaCanvasItem">DiaCanvasItem</link>.</para>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Known Implementations</title>
+<para>
+DiaCanvasGroupable is implemented by
+ <link linkend="DiaCanvasGroup">DiaCanvasGroup</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaCanvasGroupable-add">add</link>&quot;       <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *diacanvasgroupable,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasGroupable-remove">remove</link>&quot;    <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *diacanvasgroupable,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DiaCanvasGroupable-struct"/>struct DiaCanvasGroupable</title>
+<indexterm><primary>DiaCanvasGroupable</primary></indexterm><programlisting>struct DiaCanvasGroupable;</programlisting>
+<para>
+DiaCanvasItems supporting this interface can have child objects in them
+which will be displayed on the <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link> as a seperate object.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-add"/>dia_canvas_groupable_add ()</title>
+<indexterm><primary>dia_canvas_groupable_add</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_groupable_add        (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Append an item to the groupable object. This is done by emiting the 'add'
+signal. The <parameter>group</parameter> should add the item (or not) and return <literal>TRUE</literal> or <literal>FALSE</literal>.
+The group should not worry about any attributes that need to be set on the
+<parameter>item</parameter>, since this method takes care of that.
+</para>
+<para>
+This function also creates a weak reference from the item to its parent and
+from the item to the canvas. If one of them is destroyed, their reference
+is set to <literal>NULL</literal> automatically.
+</para>
+<para>
+If you, in your callback function, could not add the <parameter>item</parameter>, stop
+signal emission with <link linkend="g-signal-stop-emission"><function>g_signal_stop_emission()</function></link> or
+<link linkend="g-signal-stop-emission-by-name"><function>g_signal_stop_emission_by_name()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-remove"/>dia_canvas_groupable_remove ()</title>
+<indexterm><primary>dia_canvas_groupable_remove</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_groupable_remove     (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Remove <parameter>item</parameter> from the groupable object. This is done by emiting the 'remove'
+signal. If the signal returns with <literal>TRUE</literal>, the <parameter>item</parameter> -&gt; group relationship
+is removed. The <parameter>group</parameter> should only care about removing it's reference to the
+<parameter>item</parameter>.
+</para>
+<para>
+If you, in your callback function, could not remove the <parameter>item</parameter>, stop
+signal emission with <link linkend="g-signal-stop-emission"><function>g_signal_stop_emission()</function></link> or
+<link linkend="g-signal-stop-emission-by-name"><function>g_signal_stop_emission_by_name()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-add-construction"/>dia_canvas_groupable_add_construction ()</title>
+<indexterm><primary>dia_canvas_groupable_add_construction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_groupable_add_construction
+                                            (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-remove-destruction"/>dia_canvas_groupable_remove_destruction ()</title>
+<indexterm><primary>dia_canvas_groupable_remove_destruction</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_groupable_remove_destruction
+                                            (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-get-iter"/>dia_canvas_groupable_get_iter ()</title>
+<indexterm><primary>dia_canvas_groupable_get_iter</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_groupable_get_iter   (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+Get an iterator for the groupable object. This works the same as the
+text iterator and the tree iterator in GTK+. You can get the actual item by
+calling <link linkend="dia-canvas-groupable-value"><function>dia_canvas_groupable_value()</function></link>. The iterator can be set to the next
+item with <link linkend="dia-canvas-groupable-next"><function>dia_canvas_groupable_next()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> iterator, must already exist in memory.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> FALSE if no iterator is set, TRUE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-next"/>dia_canvas_groupable_next ()</title>
+<indexterm><primary>dia_canvas_groupable_next</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_groupable_next       (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+Make the iterator point to the next item. If no more items are left
+(FALSE is returned) the iterator is automatically destroyed.
+If you quit iterating before the last item is requested, make sure you
+call <link linkend="dia-canvas-iter-destroy"><function>dia_canvas_iter_destroy()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the iterator points to a valid object, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-value"/>dia_canvas_groupable_value ()</title>
+<indexterm><primary>dia_canvas_groupable_value</primary></indexterm><programlisting><link linkend="DiaCanvasItem">DiaCanvasItem</link>* dia_canvas_groupable_value   (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+Retrieve the value pointer to by the iterator.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> pointed to by the iterator.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-length"/>dia_canvas_groupable_length ()</title>
+<indexterm><primary>dia_canvas_groupable_length</primary></indexterm><programlisting><link linkend="gint">gint</link>        dia_canvas_groupable_length     (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group);</programlisting>
+<para>
+Get the amount of items the groupable object holds.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> number of child items, -1 on error.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-groupable-pos"/>dia_canvas_groupable_pos ()</title>
+<indexterm><primary>dia_canvas_groupable_pos</primary></indexterm><programlisting><link linkend="gint">gint</link>        dia_canvas_groupable_pos        (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *group,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Get the position of <parameter>item</parameter> in  the group.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>group</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Position of <parameter>item</parameter>, -1 on error.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaCanvasGroupable-add"/>The &quot;add&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *diacanvasgroupable,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasgroupable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasGroupable-remove"/>The &quot;remove&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> *diacanvasgroupable,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasgroupable</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

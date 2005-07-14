@@ -1,0 +1,408 @@
+<refentry id="diacanvas2-DiaGeometry">
+<refmeta>
+<refentrytitle>DiaGeometry</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaGeometry</refname><refpurpose>Stuff with points and rectangles.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+struct      <link linkend="DiaPoint">DiaPoint</link>;
+struct      <link linkend="DiaSPoint">DiaSPoint</link>;
+struct      <link linkend="DiaRectangle">DiaRectangle</link>;
+typedef     <link linkend="DiaColor">DiaColor</link>;
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-distance-point-point">dia_distance_point_point</link>        (<link linkend="DiaPoint">DiaPoint</link> *p1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *p2);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-distance-point-point-manhattan">dia_distance_point_point_manhattan</link>
+                                            (<link linkend="DiaPoint">DiaPoint</link> *p1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *p2);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-distance-line-point">dia_distance_line_point</link>         (<link linkend="DiaPoint">DiaPoint</link> *line_start,
+                                             <link linkend="DiaPoint">DiaPoint</link> *line_end,
+                                             <link linkend="DiaPoint">DiaPoint</link> *point,
+                                             <link linkend="gdouble">gdouble</link> line_width,
+                                             <link linkend="DiaCapStyle">DiaCapStyle</link> style,
+                                             <link linkend="DiaPoint">DiaPoint</link> *point_on_line);
+<link linkend="gdouble">gdouble</link>     <link linkend="dia-distance-rectangle-point">dia_distance_rectangle_point</link>    (<link linkend="DiaRectangle">DiaRectangle</link> *rect,
+                                             <link linkend="DiaPoint">DiaPoint</link> *point);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-intersection-line-line">dia_intersection_line_line</link>      (<link linkend="DiaPoint">DiaPoint</link> *start1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *start2,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end2,
+                                             <link linkend="DiaPoint">DiaPoint</link> *intersect);
+<link linkend="gint">gint</link>        <link linkend="dia-intersection-line-rectangle">dia_intersection_line_rectangle</link> (<link linkend="DiaPoint">DiaPoint</link> *start,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *rect,
+                                             <link linkend="DiaPoint">DiaPoint</link> intersect[2]);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-intersection-rectangle-rectangle">dia_intersection_rectangle_rectangle</link>
+                                            (<link linkend="DiaRectangle">DiaRectangle</link> *r1,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *r2);
+<link linkend="void">void</link>        <link linkend="dia-rectangle-add-point">dia_rectangle_add_point</link>         (<link linkend="DiaRectangle">DiaRectangle</link> *rect,
+                                             <link linkend="DiaPoint">DiaPoint</link> *p);
+#define     <link linkend="DIA-COLOR-CAPS">DIA_COLOR</link>                       (r, g, b)
+#define     <link linkend="DIA-COLOR-A-CAPS">DIA_COLOR_A</link>                     (r, g, b, a)
+#define     <link linkend="DIA-COLOR-RED-CAPS">DIA_COLOR_RED</link>                   (c)
+#define     <link linkend="DIA-COLOR-GREEN-CAPS">DIA_COLOR_GREEN</link>                 (c)
+#define     <link linkend="DIA-COLOR-BLUE-CAPS">DIA_COLOR_BLUE</link>                  (c)
+#define     <link linkend="DIA-COLOR-ALPHA-CAPS">DIA_COLOR_ALPHA</link>                 (c)
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This is not really a class, but rather a bunch of function used
+to manipulate and do calculations with points and rectangles.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DiaPoint"/>struct DiaPoint</title>
+<indexterm><primary>DiaPoint</primary></indexterm><programlisting>struct DiaPoint {
+
+	gdouble x, y;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaSPoint"/>struct DiaSPoint</title>
+<indexterm><primary>DiaSPoint</primary></indexterm><programlisting>struct DiaSPoint {
+
+	DiaVariable *x;
+	DiaVariable *y;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaRectangle"/>struct DiaRectangle</title>
+<indexterm><primary>DiaRectangle</primary></indexterm><programlisting>struct DiaRectangle {
+
+	gdouble left, top, right, bottom;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaColor"/>DiaColor</title>
+<indexterm><primary>DiaColor</primary></indexterm><programlisting>typedef guint32 DiaColor;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-distance-point-point"/>dia_distance_point_point ()</title>
+<indexterm><primary>dia_distance_point_point</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_distance_point_point        (<link linkend="DiaPoint">DiaPoint</link> *p1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *p2);</programlisting>
+<para>
+Distance from one point to another point.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>p1</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>p2</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Distance.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-distance-point-point-manhattan"/>dia_distance_point_point_manhattan ()</title>
+<indexterm><primary>dia_distance_point_point_manhattan</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_distance_point_point_manhattan
+                                            (<link linkend="DiaPoint">DiaPoint</link> *p1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *p2);</programlisting>
+<para>
+Fast distance calculation (but less accurate).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>p1</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>p2</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Distance.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-distance-line-point"/>dia_distance_line_point ()</title>
+<indexterm><primary>dia_distance_line_point</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_distance_line_point         (<link linkend="DiaPoint">DiaPoint</link> *line_start,
+                                             <link linkend="DiaPoint">DiaPoint</link> *line_end,
+                                             <link linkend="DiaPoint">DiaPoint</link> *point,
+                                             <link linkend="gdouble">gdouble</link> line_width,
+                                             <link linkend="DiaCapStyle">DiaCapStyle</link> style,
+                                             <link linkend="DiaPoint">DiaPoint</link> *point_on_line);</programlisting>
+<para>
+This function estimates the distance from a point to a line segment
+specified by two endpoints.
+If the point is on the line, 0.0 is returned. Otherwise the
+distance in the R^2 metric from the point to the nearest point
+on the line segment is returned. Does one sqrt per call.
+</para>
+<para>
+If <parameter>point</parameter> can not be projected on the line, the distance from the start
+or end point is taken. If <parameter>style</parameter> is <link linkend="DIA-CAP-ROUND-CAPS"><type>DIA_CAP_ROUND</type></link> or <link linkend="DIA-CAP-SQUARE-CAPS"><type>DIA_CAP_SQUARE</type></link>
+the distance is decreased by <parameter>line_width</parameter>/2.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>line_start</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_end</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>point</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_width</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>style</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>point_on_line</parameter>&nbsp;:</term>
+<listitem><simpara> OUT point on the line, closest to <parameter>point</parameter>. May be NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Distance from the <parameter>point</parameter> to the line (this is equal to
+the distance from <parameter>point</parameter> to <parameter>point_on_line</parameter> - <parameter>line_width</parameter>/2).
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-distance-rectangle-point"/>dia_distance_rectangle_point ()</title>
+<indexterm><primary>dia_distance_rectangle_point</primary></indexterm><programlisting><link linkend="gdouble">gdouble</link>     dia_distance_rectangle_point    (<link linkend="DiaRectangle">DiaRectangle</link> *rect,
+                                             <link linkend="DiaPoint">DiaPoint</link> *point);</programlisting>
+<para>
+This function estimates the distance from a point to a rectangle.
+If the point is in the rectangle, 0.0 is returned. Otherwise the
+distance in a manhattan metric from the point to the nearest point
+on the rectangle is returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>rect</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>point</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Distance from the rectangle to the point, 0.0 if the point
+is inside the rectangle.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-intersection-line-line"/>dia_intersection_line_line ()</title>
+<indexterm><primary>dia_intersection_line_line</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_intersection_line_line      (<link linkend="DiaPoint">DiaPoint</link> *start1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end1,
+                                             <link linkend="DiaPoint">DiaPoint</link> *start2,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end2,
+                                             <link linkend="DiaPoint">DiaPoint</link> *intersect);</programlisting>
+<para>
+Find the intersection point of two lines, if any.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>start1</parameter>&nbsp;:</term>
+<listitem><simpara> Starting point of line 1.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end1</parameter>&nbsp;:</term>
+<listitem><simpara> End of line 1.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start2</parameter>&nbsp;:</term>
+<listitem><simpara> Start of line 2.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end2</parameter>&nbsp;:</term>
+<listitem><simpara> End of line 2.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>intersect</parameter>&nbsp;:</term>
+<listitem><simpara> If TRUE is returned, <parameter>intersect</parameter> contains the point of
+intersection.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if an intersection point is found, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-intersection-line-rectangle"/>dia_intersection_line_rectangle ()</title>
+<indexterm><primary>dia_intersection_line_rectangle</primary></indexterm><programlisting><link linkend="gint">gint</link>        dia_intersection_line_rectangle (<link linkend="DiaPoint">DiaPoint</link> *start,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *rect,
+                                             <link linkend="DiaPoint">DiaPoint</link> intersect[2]);</programlisting>
+<para>
+Find the intersection points of a line and a rectangle by comparing each
+border line of the rectangle with the line's intersection.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>start</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rect</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>intersect</parameter>&nbsp;:</term>
+<listitem><simpara> A list of intersections.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Number of intersections: 0, 1 or 2.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-intersection-rectangle-rectangle"/>dia_intersection_rectangle_rectangle ()</title>
+<indexterm><primary>dia_intersection_rectangle_rectangle</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_intersection_rectangle_rectangle
+                                            (<link linkend="DiaRectangle">DiaRectangle</link> *r1,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *r2);</programlisting>
+<para>
+Determine if two rectangles intersect with each other.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>r1</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>r2</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if an intersection is found, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-rectangle-add-point"/>dia_rectangle_add_point ()</title>
+<indexterm><primary>dia_rectangle_add_point</primary></indexterm><programlisting><link linkend="void">void</link>        dia_rectangle_add_point         (<link linkend="DiaRectangle">DiaRectangle</link> *rect,
+                                             <link linkend="DiaPoint">DiaPoint</link> *p);</programlisting>
+<para>
+Extent <parameter>rect</parameter> so point <parameter>p</parameter> is also in the rectangle.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>rect</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>p</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-COLOR-CAPS"/>DIA_COLOR()</title>
+<indexterm><primary>DIA_COLOR</primary></indexterm><programlisting>#define     DIA_COLOR(r, g, b)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>r</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>g</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-COLOR-A-CAPS"/>DIA_COLOR_A()</title>
+<indexterm><primary>DIA_COLOR_A</primary></indexterm><programlisting>#define     DIA_COLOR_A(r, g, b, a)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>r</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>g</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>a</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-COLOR-RED-CAPS"/>DIA_COLOR_RED()</title>
+<indexterm><primary>DIA_COLOR_RED</primary></indexterm><programlisting>#define DIA_COLOR_RED(c)	((int) (((DiaColor) (c)) &gt;&gt; 24) &amp; 0xFF)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-COLOR-GREEN-CAPS"/>DIA_COLOR_GREEN()</title>
+<indexterm><primary>DIA_COLOR_GREEN</primary></indexterm><programlisting>#define DIA_COLOR_GREEN(c)	((int) (((DiaColor) (c)) &gt;&gt; 16) &amp; 0xFF)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-COLOR-BLUE-CAPS"/>DIA_COLOR_BLUE()</title>
+<indexterm><primary>DIA_COLOR_BLUE</primary></indexterm><programlisting>#define DIA_COLOR_BLUE(c)	((int) (((DiaColor) (c)) &gt;&gt; 8) &amp; 0xFF)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-COLOR-ALPHA-CAPS"/>DIA_COLOR_ALPHA()</title>
+<indexterm><primary>DIA_COLOR_ALPHA</primary></indexterm><programlisting>#define DIA_COLOR_ALPHA(c)	((int) ((DiaColor) (c)) &amp; 0xFF)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

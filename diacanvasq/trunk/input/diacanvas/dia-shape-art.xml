@@ -1,0 +1,104 @@
+<refentry id="diacanvas2-DiaShape-functions-for-LibArt-rendering">
+<refmeta>
+<refentrytitle>DiaShape functions for LibArt rendering</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaShape functions for LibArt rendering</refname><refpurpose>Shape renderer for the anti-alias canvas.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+<link linkend="ArtSVP">ArtSVP</link>*     <link linkend="dia-shape-art-update">dia_shape_art_update</link>            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="double">double</link> *affine,
+                                             <link linkend="ArtSVP">ArtSVP</link> *clip,
+                                             <link linkend="int">int</link> flags);
+<link linkend="void">void</link>        <link linkend="dia-shape-art-render">dia_shape_art_render</link>            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="GnomeCanvasBuf">GnomeCanvasBuf</link> *buf);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="dia-shape-art-update"/>dia_shape_art_update ()</title>
+<indexterm><primary>dia_shape_art_update</primary></indexterm><programlisting><link linkend="ArtSVP">ArtSVP</link>*     dia_shape_art_update            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="double">double</link> *affine,
+                                             <link linkend="ArtSVP">ArtSVP</link> *clip,
+                                             <link linkend="int">int</link> flags);</programlisting>
+<para>
+This function is called for every CanvasViewItem. This way ViewItems are
+notified that the need updating.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> affine transformation matrix
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>clip</parameter>&nbsp;:</term>
+<listitem><simpara> clipping path for the shape (may be <literal>NULL</literal>)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&nbsp;:</term>
+<listitem><simpara> flags...
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new clip path. The new clip path is to be used for all
+elements that are rendered on top of <parameter>shape</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-art-render"/>dia_shape_art_render ()</title>
+<indexterm><primary>dia_shape_art_render</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_art_render            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="GnomeCanvasBuf">GnomeCanvasBuf</link> *buf);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

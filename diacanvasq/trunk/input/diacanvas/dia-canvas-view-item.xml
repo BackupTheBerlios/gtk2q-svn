@@ -1,0 +1,272 @@
+<refentry id="DiaCanvasViewItem">
+<refmeta>
+<refentrytitle>DiaCanvasViewItem</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasViewItem</refname><refpurpose>Object that contains the visual representation of a <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-VIEW-ITEM-CAPS">DIA_CANVAS_VIEW_ITEM</link>            (obj)
+struct      <link linkend="DiaCanvasViewItem-struct">DiaCanvasViewItem</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-view-item-emit-event">dia_canvas_view_item_emit_event</link> (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="gpointer">gpointer</link> event);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-item-request-redraw-uta">dia_canvas_view_item_request_redraw_uta</link>
+                                            (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="ArtUta">ArtUta</link> *uta);
+<link linkend="void">void</link>        <link linkend="dia-canvas-view-item-add-items">dia_canvas_view_item_add_items</link>  (<link linkend="GnomeCanvasGroup">GnomeCanvasGroup</link> *vitem,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-view-item-is-focused">dia_canvas_view_item_is_focused</link> (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-view-item-is-selected">dia_canvas_view_item_is_selected</link>
+                                            (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);
+<link linkend="gint">gint</link>        (<link linkend="DiaCanvasViewItemForeachFunc">*DiaCanvasViewItemForeachFunc</link>) (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="gpointer">gpointer</link> data);
+<link linkend="gint">gint</link>        <link linkend="dia-canvas-view-item-foreach">dia_canvas_view_item_foreach</link>    (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="DiaCanvasViewItemForeachFunc">DiaCanvasViewItemForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GnomeCanvasItem">GnomeCanvasItem</link>
+               +----<link linkend="GnomeCanvasGroup">GnomeCanvasGroup</link>
+                     +----DiaCanvasViewItem
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasViewItem--item">item</link>&quot;                 <link linkend="DiaCanvasItem">DiaCanvasItem</link>        : Read / Write
+  &quot;<link linkend="DiaCanvasViewItem--visible">visible</link>&quot;              <link linkend="gboolean">gboolean</link>             : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+See <link linkend="DiaCanvasViewItem-struct">DiaCanvasViewItem</link>.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-VIEW-ITEM-CAPS"/>DIA_CANVAS_VIEW_ITEM()</title>
+<indexterm><primary>DIA_CANVAS_VIEW_ITEM</primary></indexterm><programlisting>#define DIA_CANVAS_VIEW_ITEM(obj)	(GTK_CHECK_CAST ((obj), DIA_TYPE_CANVAS_VIEW_ITEM, DiaCanvasViewItem))
+</programlisting>
+<para>
+Cast an object to a DiaCanvasViewItem.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasViewItem-struct"/>struct DiaCanvasViewItem</title>
+<indexterm><primary>DiaCanvasViewItem</primary></indexterm><programlisting>struct DiaCanvasViewItem;</programlisting>
+<para>
+A <link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link> holds information about a <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> that
+is specific for one view (e.g. a cursor position for text, an object
+is selected, rendering information).
+</para>
+<para>
+Information about the <link linkend="DiaShapes"><type>DiaShapes</type></link> that have to be rendered are held in
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>::shapes. The shapes contain a list of <link linkend="DiaShapeItemInfo"><type>DiaShapeItemInfo</type></link>
+objects, which contain some <link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link> specific rendering data
+(like SVP's and scaled images).</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-item-emit-event"/>dia_canvas_view_item_emit_event ()</title>
+<indexterm><primary>dia_canvas_view_item_emit_event</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_view_item_emit_event (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="gpointer">gpointer</link> event);</programlisting>
+<para>
+Send a <link linkend="DiaEvent"><type>DiaEvent</type></link> to the <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> refered to by <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the event is handled, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-item-request-redraw-uta"/>dia_canvas_view_item_request_redraw_uta ()</title>
+<indexterm><primary>dia_canvas_view_item_request_redraw_uta</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_item_request_redraw_uta
+                                            (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="ArtUta">ArtUta</link> *uta);</programlisting>
+<para>
+Informs a canvas that the specified area, given as a microtile array, needs
+to be repainted.  To be used only by item implementations.
+</para>
+<para>
+The interface is the same as <link linkend="gnome-canvas-request-redraw-uta"><function>gnome_canvas_request_redraw_uta()</function></link>. This
+function is also called to update the canvas' redraw area.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> A canvas view item.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uta</parameter>&nbsp;:</term>
+<listitem><simpara> Microtile array that specifies the area to be redrawn.  It will
+be freed by this function, so the argument you pass will be invalid
+after you call this function.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-item-add-items"/>dia_canvas_view_item_add_items ()</title>
+<indexterm><primary>dia_canvas_view_item_add_items</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_view_item_add_items  (<link linkend="GnomeCanvasGroup">GnomeCanvasGroup</link> *vitem,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Add an item to the <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>'s tree and connect some signals so it
+can automatically update itself when something changes
+</para>
+<para>
+<parameter>vitem</parameter> is of type <link linkend="GnomeCanvasGroup"><type>GnomeCanvasGroup</type></link>, since the real root item of the
+<link linkend="DiaCanvasView"><type>DiaCanvasView</type></link> is actually a <link linkend="GnomeCanvasGroup"><type>GnomeCanvasGroup</type></link>.
+</para>
+<para>
+This function is used internally.
+</para>
+<para>
+So, <parameter>item</parameter> is added to the canvas and now we should create a new child
+to <parameter>vitem</parameter> in order to update the <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link> (<link linkend="GnomeCanvas"><type>GnomeCanvas</type></link>).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>vitem</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-item-is-focused"/>dia_canvas_view_item_is_focused ()</title>
+<indexterm><primary>dia_canvas_view_item_is_focused</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_view_item_is_focused (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);</programlisting>
+<para>
+Check if an item has the focus. If the real focus is held by a child object
+of <parameter>item</parameter> and the child has the <link linkend="DIA-COMPOSITE-CAPS"><type>DIA_COMPOSITE</type></link> flag, TRUE is returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE/FALSE.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-item-is-selected"/>dia_canvas_view_item_is_selected ()</title>
+<indexterm><primary>dia_canvas_view_item_is_selected</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_view_item_is_selected
+                                            (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasViewItemForeachFunc"/>DiaCanvasViewItemForeachFunc ()</title>
+<indexterm><primary>DiaCanvasViewItemForeachFunc</primary></indexterm><programlisting><link linkend="gint">gint</link>        (*DiaCanvasViewItemForeachFunc) (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Prototype of the function used by <link linkend="dia-canvas-view-item-foreach"><function>dia_canvas_view_item_foreach()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-view-item-foreach"/>dia_canvas_view_item_foreach ()</title>
+<indexterm><primary>dia_canvas_view_item_foreach</primary></indexterm><programlisting><link linkend="gint">gint</link>        dia_canvas_view_item_foreach    (<link linkend="DiaCanvasViewItem">DiaCanvasViewItem</link> *item,
+                                             <link linkend="DiaCanvasViewItemForeachFunc">DiaCanvasViewItemForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Call <parameter>func</parameter> for each canvas view item. If <parameter>func</parameter> returns <literal>FALSE</literal>, no more
+items are called.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasViewItem--item"/>&quot;<literal>item</literal>&quot; (<link linkend="DiaCanvasItem">DiaCanvasItem</link> : Read / Write)</term>
+<listitem>
+<para>DiaCanvasItem that should be visualized.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasViewItem--visible"/>&quot;<literal>visible</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Whether the canvas item is visible.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>.
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,67 @@
+<refentry id="diacanvas2-DiaStrength">
+<refmeta>
+<refentrytitle>DiaStrength</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaStrength</refname><refpurpose>Strength for <link linkend="DiaVariable"><type>DiaVariable</type></link>'s.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+enum        <link linkend="DiaStrength">DiaStrength</link>;
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Every <link linkend="DiaVariable"><type>DiaVariable</type></link> object is assigned a strength. The solver will change the
+value of the weakest variable in an attempt to make the constraints true.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DiaStrength"/>enum DiaStrength</title>
+<indexterm><primary>DiaStrength</primary></indexterm><programlisting>typedef enum {
+	DIA_STRENGTH_VERY_WEAK,
+	DIA_STRENGTH_WEAK,
+	DIA_STRENGTH_MEDIUM,
+	DIA_STRENGTH_STRONG,
+	DIA_STRENGTH_VERY_STRONG,
+	DIA_STRENGTH_REQUIRED
+} DiaStrength;
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaVariable"><type>DiaVariable</type></link>, <link linkend="DiaConstraint"><type>DiaConstraint</type></link>
+</para>
+</refsect1>
+
+</refentry>

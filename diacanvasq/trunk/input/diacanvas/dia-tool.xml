@@ -1,0 +1,445 @@
+<refentry id="DiaTool">
+<refmeta>
+<refentrytitle>Tools</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Tools</refname><refpurpose>Tools are used to add behavior to a canvas view.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+<anchor id="DiaPlacementTool"/><anchor id="DiaStackTool"/>
+<synopsis>
+
+
+
+struct      <link linkend="DiaTool-struct">DiaTool</link>;
+struct      <link linkend="DiaPlacementTool-struct">DiaPlacementTool</link>;
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-placement-tool-new">dia_placement_tool_new</link>          (<link linkend="GType">GType</link> object_type,
+                                             const <link linkend="gchar">gchar</link> *first_property_name,
+                                             ...);
+struct      <link linkend="DiaStackTool-struct">DiaStackTool</link>;
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-stack-tool-new">dia_stack_tool_new</link>              (void);
+<link linkend="void">void</link>        <link linkend="dia-stack-tool-push">dia_stack_tool_push</link>             (<link linkend="DiaStackTool">DiaStackTool</link> *stack_tool,
+                                             <link linkend="DiaTool">DiaTool</link> *tool);
+<link linkend="void">void</link>        <link linkend="dia-stack-tool-pop">dia_stack_tool_pop</link>              (<link linkend="DiaStackTool">DiaStackTool</link> *stack_tool);
+struct      <link linkend="DiaDefaultTool">DiaDefaultTool</link>;
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-default-tool-new">dia_default_tool_new</link>            (void);
+struct      <link linkend="DiaHandleTool">DiaHandleTool</link>;
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-handle-tool-new">dia_handle_tool_new</link>             (void);
+struct      <link linkend="DiaItemTool">DiaItemTool</link>;
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-item-tool-new">dia_item_tool_new</link>               (void);
+struct      <link linkend="DiaSelectionTool">DiaSelectionTool</link>;
+<link linkend="DiaTool">DiaTool</link>*    <link linkend="dia-selection-tool-new">dia_selection_tool_new</link>          (void);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaTool
+         +----<link linkend="DiaPlacementTool">DiaPlacementTool</link>
+         +----<link linkend="DiaStackTool">DiaStackTool</link>
+</synopsis>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaTool">DiaTool</link>
+         +----DiaPlacementTool
+</synopsis>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaTool">DiaTool</link>
+         +----DiaStackTool
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaTool-button-press-event">button-press-event</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventButton">GdkEventButton</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaTool-button-release-event">button-release-event</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventButton">GdkEventButton</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaTool-key-press-event">key-press-event</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventKey">GdkEventKey</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaTool-key-release-event">key-release-event</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventKey">GdkEventKey</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaTool-motion-notify-event">motion-notify-event</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventMotion">GdkEventMotion</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A canvas is no fun if users can't modify it. Behavior is added using Tools.
+</para>
+
+<para>
+A tool can be set on a view using <link linkend="dia-canvas-view-set-tool"><function>dia_canvas_view_set_tool()</function></link>. If no tool tool
+is set the view will fall back on the default tool. This is the tool that adds
+default behavior to a canvas view, such as selecting items and moving items.
+The default behavior of the canvas view is defined by <link linkend="DiaDefaultTool"><type>DiaDefaultTool</type></link>. This
+tool makes use of <link linkend="DiaHandleTool"><type>DiaHandleTool</type></link>, <link linkend="DiaItemTool"><type>DiaItemTool</type></link> and <link linkend="DiaSelectionTool"><type>DiaSelectionTool</type></link>.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DiaTool-struct"/>struct DiaTool</title>
+<indexterm><primary>DiaTool</primary></indexterm><programlisting>struct DiaTool;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaPlacementTool-struct"/>struct DiaPlacementTool</title>
+<indexterm><primary>DiaPlacementTool</primary></indexterm><programlisting>struct DiaPlacementTool;</programlisting>
+<para>
+This is the default tool for object placement. You can give extra options
+to the constructor. Those options will be passed to the object constructor.
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-placement-tool-new"/>dia_placement_tool_new ()</title>
+<indexterm><primary>dia_placement_tool_new</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_placement_tool_new          (<link linkend="GType">GType</link> object_type,
+                                             const <link linkend="gchar">gchar</link> *first_property_name,
+                                             ...);</programlisting>
+<para>
+Create a new placement tool for an item of type <parameter>object_type</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object_type</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GType"><type>GType</type></link> of the item
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_property_name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the first property
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> the value of the first property, followed optionally by more
+      name/value pairs, followed by NULL
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The new placement tool, or NULL if an error occured
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaStackTool-struct"/>struct DiaStackTool</title>
+<indexterm><primary>DiaStackTool</primary></indexterm><programlisting>struct DiaStackTool;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-stack-tool-new"/>dia_stack_tool_new ()</title>
+<indexterm><primary>dia_stack_tool_new</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_stack_tool_new              (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-stack-tool-push"/>dia_stack_tool_push ()</title>
+<indexterm><primary>dia_stack_tool_push</primary></indexterm><programlisting><link linkend="void">void</link>        dia_stack_tool_push             (<link linkend="DiaStackTool">DiaStackTool</link> *stack_tool,
+                                             <link linkend="DiaTool">DiaTool</link> *tool);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>stack_tool</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tool</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-stack-tool-pop"/>dia_stack_tool_pop ()</title>
+<indexterm><primary>dia_stack_tool_pop</primary></indexterm><programlisting><link linkend="void">void</link>        dia_stack_tool_pop              (<link linkend="DiaStackTool">DiaStackTool</link> *stack_tool);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>stack_tool</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaDefaultTool"/>struct DiaDefaultTool</title>
+<indexterm><primary>DiaDefaultTool</primary></indexterm><programlisting>struct DiaDefaultTool {
+
+	DiaTool object;
+
+	DiaTool *handle_tool;
+	DiaTool *selection_tool;
+	DiaTool *item_tool;
+
+	DiaTool *current_tool;
+};
+</programlisting>
+<para>
+This tool provides the default behavior for the <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>. It first
+checks if a users has clicked on a handle. If no handle was selected there might be a canvas item selected. If that is not the case either, a rubberband selection is started.
+</para>
+
+<para>
+This tool delegates its events to <link linkend="DiaHandleTool"><type>DiaHandleTool</type></link>, <link linkend="DiaItemTool"><type>DiaItemTool</type></link> and
+<link linkend="DiaSelectionTool"><type>DiaSelectionTool</type></link>. 
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-default-tool-new"/>dia_default_tool_new ()</title>
+<indexterm><primary>dia_default_tool_new</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_default_tool_new            (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaHandleTool"/>struct DiaHandleTool</title>
+<indexterm><primary>DiaHandleTool</primary></indexterm><programlisting>struct DiaHandleTool {
+
+	DiaTool object;
+
+	/* Amount of pixels that should maximal be used when glue()-ing */
+	gint glue_distance;
+	
+	DiaHandle *grabbed_handle;
+
+	/* This is the item the handle will connect to on a BUTTON_RELEASE. */
+	DiaCanvasItem *connect_to;
+
+	DiaEventMask event_mask;
+};
+</programlisting>
+<para>
+This tool works on the handles (<link linkend="DiaHandle"><type>DiaHandle</type></link>) of items. If the user clicks on a
+handle, the handle is selected and can be moved.
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-handle-tool-new"/>dia_handle_tool_new ()</title>
+<indexterm><primary>dia_handle_tool_new</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_handle_tool_new             (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaItemTool"/>struct DiaItemTool</title>
+<indexterm><primary>DiaItemTool</primary></indexterm><programlisting>struct DiaItemTool {
+
+	DiaTool object;
+
+	/* current_item is the item that was found on a button press event.
+	 */
+	DiaCanvasViewItem *current_item;
+
+	DiaCanvasViewItem *grabbed_item;
+
+	gdouble old_x, old_y;
+};
+</programlisting>
+<para>
+The Item tool handles events that affect the items on the canvas (not their
+handles, those events are handles by <link linkend="DiaHandleTool"><type>DiaHandleTool</type></link>). This tool handles the
+selection of items, what happens when an item is double-clicked, etc.
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-item-tool-new"/>dia_item_tool_new ()</title>
+<indexterm><primary>dia_item_tool_new</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_item_tool_new               (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaSelectionTool"/>struct DiaSelectionTool</title>
+<indexterm><primary>DiaSelectionTool</primary></indexterm><programlisting>struct DiaSelectionTool {
+
+	DiaTool object;
+
+	GnomeCanvasItem *selector;
+};
+</programlisting>
+<para>
+This tool resembles the behavior of a selection box for rubberband selection.
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-selection-tool-new"/>dia_selection_tool_new ()</title>
+<indexterm><primary>dia_selection_tool_new</primary></indexterm><programlisting><link linkend="DiaTool">DiaTool</link>*    dia_selection_tool_new          (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaTool-button-press-event"/>The &quot;button-press-event&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventButton">GdkEventButton</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diatool</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaTool-button-release-event"/>The &quot;button-release-event&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventButton">GdkEventButton</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diatool</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaTool-key-press-event"/>The &quot;key-press-event&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventKey">GdkEventKey</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diatool</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaTool-key-release-event"/>The &quot;key-release-event&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventKey">GdkEventKey</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diatool</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaTool-motion-notify-event"/>The &quot;motion-notify-event&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaTool">DiaTool</link> *diatool,
+                                            <link linkend="DiaCanvasView">DiaCanvasView</link> *arg1,
+                                            <link linkend="GdkEventMotion">GdkEventMotion</link> *event,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diatool</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>
+</para>
+</refsect1>
+
+</refentry>

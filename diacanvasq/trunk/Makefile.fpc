@@ -1,0 +1,85 @@
+#
+# Makefile.fpc
+
+[package]
+name=diacanvasq
+version=0.2.0
+
+[target]
+#programs=pas
+units=builddiacanvasq
+implicitunits=static/iudiacanvas \
+static/iudiaundoaction \
+static/sdiacanvasgroup \
+static/sdiacanvastext \
+static/udiacanvasitemshapes \
+static/udiacanvastypes \
+static/udiadashstyle \
+static/udiadefaulttool \
+static/udiaexpression \
+static/udiahandletool \
+static/udiaitemtool \
+static/udiaplacementtool \
+static/udiaselectiontool \
+static/udiashape \
+static/udiastacktool \
+static/udiaundoaction \
+static/uwrapdiacanvasnames \
+output/diacanvas/sdiacanvasbox \
+output/diacanvas/sdiacanvaseditable \
+output/diacanvas/sdiacanvaselement \
+output/diacanvas/sdiacanvasgroupable \
+output/diacanvas/sdiacanvasgroup \
+output/diacanvas/sdiacanvasimage \
+output/diacanvas/sdiacanvasitem \
+output/diacanvas/sdiacanvasline \
+output/diacanvas/sdiacanvas \
+output/diacanvas/sdiacanvastext \
+output/diacanvas/sdiacanvasviewitem \
+output/diacanvas/sdiacanvasview \
+output/diacanvas/sdiaconstraint \
+output/diacanvas/sdiahandlelayer \
+output/diacanvas/sdiahandle \
+output/diacanvas/sdiasolver \
+output/diacanvas/sdiatool \
+output/diacanvas/sdiaundomanager \
+output/diacanvas/sdiavariable \
+output/diacanvas/udiacanvasbox \
+output/diacanvas/udiacanvaseditable \
+output/diacanvas/udiacanvaselement \
+output/diacanvas/udiacanvasgroupable \
+output/diacanvas/udiacanvasgroup \
+output/diacanvas/udiacanvasimage \
+output/diacanvas/udiacanvasitem \
+output/diacanvas/udiacanvasline \
+output/diacanvas/udiacanvas \
+output/diacanvas/udiacanvastext \
+output/diacanvas/udiacanvasviewitem \
+output/diacanvas/udiacanvasview \
+output/diacanvas/udiaconstraint \
+output/diacanvas/udiahandlelayer \
+output/diacanvas/udiahandle \
+output/diacanvas/udiasolver \
+output/diacanvas/udiatool \
+output/diacanvas/udiaundomanager \
+output/diacanvas/udiavariable
+
+[compiler]
+#options=
+#includedir=$(OS_TARGET) inc
+#sourcedir=$(OS_TARGET) inc
+
+[libs]
+libname=diacanvasq
+
+[install]
+buildunit=builddiacanvasq
+fpcpackage=y
+
+[default]
+#fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q gnomecanvasq
+#nortl=y

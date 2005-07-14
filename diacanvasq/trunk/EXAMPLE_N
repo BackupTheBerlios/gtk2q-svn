@@ -1,0 +1,24 @@
+# non-svn
+#http://diacanvas.sourceforge.net/ref/chap-Python.html
+#!/usr/bin/env python
+
+import pygtk
+pygtk.require('2.0')
+import gtk
+import diacanvas as dia
+
+canvas = dia.Canvas()
+print dir(canvas.root)
+#box = canvas.root.create_item (dia.CanvasBox, line_width=0.3, \
+#                               color=dia.color(200, 100, 100, 128))
+
+box = dia.CanvasBox()
+box.move (200, 200)
+
+window = gtk.Window()
+view = dia.CanvasView (canvas=canvas)
+view.show()
+window.add (view)
+window.show()
+
+gtk.main()

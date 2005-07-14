@@ -1,0 +1,253 @@
+<refentry id="DiaCanvasLine">
+<refmeta>
+<refentrytitle>DiaCanvasLine</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasLine</refname><refpurpose>Line object.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-LINE-CAPS">DIA_CANVAS_LINE</link>                 (obj)
+struct      <link linkend="DiaCanvasLine-struct">DiaCanvasLine</link>;
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaCanvasItem">DiaCanvasItem</link>
+         +----DiaCanvasLine
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasLine--add-point">add-point</link>&quot;            <link linkend="DiaPoint">DiaPoint</link>             : Write
+  &quot;<link linkend="DiaCanvasLine--add-segment">add-segment</link>&quot;          <link linkend="guint">guint</link>                : Write
+  &quot;<link linkend="DiaCanvasLine--cap">cap</link>&quot;                  <link linkend="DiaCapStyle">DiaCapStyle</link>          : Read / Write
+  &quot;<link linkend="DiaCanvasLine--color">color</link>&quot;                <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasLine--cyclic">cyclic</link>&quot;               <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasLine--dash">dash</link>&quot;                 <link linkend="DiaDashStyle">DiaDashStyle</link>         : Read / Write
+  &quot;<link linkend="DiaCanvasLine--del-segment">del-segment</link>&quot;          <link linkend="guint">guint</link>                : Write
+  &quot;<link linkend="DiaCanvasLine--has-head">has-head</link>&quot;             <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasLine--has-tail">has-tail</link>&quot;             <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-a">head-a</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-b">head-b</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-c">head-c</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-color">head-color</link>&quot;           <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-d">head-d</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-fill-color">head-fill-color</link>&quot;      <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasLine--head-pos">head-pos</link>&quot;             <link linkend="DiaPoint">DiaPoint</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasLine--horizontal">horizontal</link>&quot;           <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasLine--join">join</link>&quot;                 <link linkend="DiaJoinStyle">DiaJoinStyle</link>         : Read / Write
+  &quot;<link linkend="DiaCanvasLine--line-width">line-width</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--orthogonal">orthogonal</link>&quot;           <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-a">tail-a</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-b">tail-b</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-c">tail-c</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-color">tail-color</link>&quot;           <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-d">tail-d</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-fill-color">tail-fill-color</link>&quot;      <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasLine--tail-pos">tail-pos</link>&quot;             <link linkend="DiaPoint">DiaPoint</link>             : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This object is a multi functional line object (a bit line GnomeCanvasLine).
+</para>
+
+<figure>
+<title>A line</title>
+<graphic fileref="line.png"></graphic>
+</figure>
+
+<para>This line can also have a arrow head (or tail). The head is defined by
+four properties: head_a, head_b, head_c and head_d, as explained in the image
+below.
+</para>
+<figure>
+<title>Arrow head</title>
+<graphic fileref="arrowhead.png"></graphic>
+</figure>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-LINE-CAPS"/>DIA_CANVAS_LINE()</title>
+<indexterm><primary>DIA_CANVAS_LINE</primary></indexterm><programlisting>#define DIA_CANVAS_LINE(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS_LINE, DiaCanvasLine))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasLine-struct"/>struct DiaCanvasLine</title>
+<indexterm><primary>DiaCanvasLine</primary></indexterm><programlisting>struct DiaCanvasLine;</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasLine--add-point"/>&quot;<literal>add-point</literal>&quot; (<link linkend="DiaPoint">DiaPoint</link> : Write)</term>
+<listitem>
+<para>
+Add a point to the end of the line.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--add-segment"/>&quot;<literal>add-segment</literal>&quot; (<link linkend="guint">guint</link> : Write)</term>
+<listitem>
+<para>Add a segment by splitting the given segment into two.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--cap"/>&quot;<literal>cap</literal>&quot; (<link linkend="DiaCapStyle">DiaCapStyle</link> : Read / Write)</term>
+<listitem>
+<para>
+Style for the line-end.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--color"/>&quot;<literal>color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>
+Color of the line, as RGBA.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--cyclic"/>&quot;<literal>cyclic</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Line is cyclic, a polygon.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--dash"/>&quot;<literal>dash</literal>&quot; (<link linkend="DiaDashStyle">DiaDashStyle</link> : Read / Write)</term>
+<listitem>
+<para>
+Set dash style for the line.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--del-segment"/>&quot;<literal>del-segment</literal>&quot; (<link linkend="guint">guint</link> : Write)</term>
+<listitem>
+<para>
+Delete line segment.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--has-head"/>&quot;<literal>has-head</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+Turn arrow on the head on and off.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--has-tail"/>&quot;<literal>has-tail</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>The line should have an arrow on the end of the line. The arrow is descripbed by 'tail_[abcd]'.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-a"/>&quot;<literal>head-a</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-b"/>&quot;<literal>head-b</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-c"/>&quot;<literal>head-c</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-color"/>&quot;<literal>head-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Color of the head arrow in RGBA.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-d"/>&quot;<literal>head-d</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-fill-color"/>&quot;<literal>head-fill-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Color of the line in RGBA.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--head-pos"/>&quot;<literal>head-pos</literal>&quot; (<link linkend="DiaPoint">DiaPoint</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--horizontal"/>&quot;<literal>horizontal</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+The first segmen of the orthogonal line should be horizontal.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--join"/>&quot;<literal>join</literal>&quot; (<link linkend="DiaJoinStyle">DiaJoinStyle</link> : Read / Write)</term>
+<listitem>
+<para>Style of the line's corners.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--line-width"/>&quot;<literal>line-width</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Width of the line.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--orthogonal"/>&quot;<literal>orthogonal</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+Set if the line should be an orthogonal line or not.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-a"/>&quot;<literal>tail-a</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-b"/>&quot;<literal>tail-b</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-c"/>&quot;<literal>tail-c</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-color"/>&quot;<literal>tail-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Color of the end arrow in RGBA.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-d"/>&quot;<literal>tail-d</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-fill-color"/>&quot;<literal>tail-fill-color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Color of the line in RGBA.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasLine--tail-pos"/>&quot;<literal>tail-pos</literal>&quot; (<link linkend="DiaPoint">DiaPoint</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+
+</refentry>

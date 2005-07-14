@@ -1,0 +1,1466 @@
+<refentry id="diacanvas2-DiaShape">
+<refmeta>
+<refentrytitle>DiaShape</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaShape</refname><refpurpose>Shapes define the look of an object.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-SHAPE-CAPS">DIA_SHAPE</link>                       (sh)
+enum        <link linkend="DiaShapeType">DiaShapeType</link>;
+enum        <link linkend="DiaJoinStyle">DiaJoinStyle</link>;
+enum        <link linkend="DiaCapStyle">DiaCapStyle</link>;
+enum        <link linkend="DiaFillStyle">DiaFillStyle</link>;
+struct      <link linkend="DiaDashStyle">DiaDashStyle</link>;
+struct      <link linkend="DiaShape">DiaShape</link>;
+<link linkend="GType">GType</link>       <link linkend="dia-shape-get-type">dia_shape_get_type</link>              (<link linkend="DiaShape">DiaShape</link> *shape);
+<link linkend="DiaShape">DiaShape</link>*   <link linkend="dia-shape-new">dia_shape_new</link>                   (<link linkend="DiaShapeType">DiaShapeType</link> type);
+<link linkend="void">void</link>        <link linkend="dia-shape-free">dia_shape_free</link>                  (<link linkend="DiaShape">DiaShape</link> *shape);
+<link linkend="void">void</link>        <link linkend="dia-shape-request-update">dia_shape_request_update</link>        (<link linkend="DiaShape">DiaShape</link> *shape);
+<link linkend="void">void</link>        <link linkend="dia-shape-set-color">dia_shape_set_color</link>             (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> color);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-shape-get-bounds">dia_shape_get_bounds</link>            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *bb);
+struct      <link linkend="DiaShapePath">DiaShapePath</link>;
+#define     <link linkend="dia-shape-path-new">dia_shape_path_new</link>              ()
+<link linkend="void">void</link>        <link linkend="dia-shape-line">dia_shape_line</link>                  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *start,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end);
+<link linkend="void">void</link>        <link linkend="dia-shape-rectangle">dia_shape_rectangle</link>             (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *upper_left,
+                                             <link linkend="DiaPoint">DiaPoint</link> *lower_right);
+<link linkend="void">void</link>        <link linkend="dia-shape-polyline">dia_shape_polyline</link>              (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="guint">guint</link> n_points,
+                                             <link linkend="DiaPoint">DiaPoint</link> *points);
+<link linkend="void">void</link>        <link linkend="dia-shape-polygon">dia_shape_polygon</link>               (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="guint">guint</link> n_points,
+                                             <link linkend="DiaPoint">DiaPoint</link> *points);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-line-width">dia_shape_path_set_line_width</link>   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_width);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-join">dia_shape_path_set_join</link>         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaJoinStyle">DiaJoinStyle</link> join);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-cap">dia_shape_path_set_cap</link>          (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCapStyle">DiaCapStyle</link> cap);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-fill">dia_shape_path_set_fill</link>         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaFillStyle">DiaFillStyle</link> fill);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-fill-color">dia_shape_path_set_fill_color</link>   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> fill_color);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-dash">dia_shape_path_set_dash</link>         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> offset,
+                                             <link linkend="guint">guint</link> n_dash,
+                                             <link linkend="gdouble">gdouble</link> *dash);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-cyclic">dia_shape_path_set_cyclic</link>       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> cyclic);
+<link linkend="void">void</link>        <link linkend="dia-shape-path-set-clipping">dia_shape_path_set_clipping</link>     (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> clipping);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-shape-path-is-clip-path">dia_shape_path_is_clip_path</link>     (<link linkend="DiaShape">DiaShape</link> *shape);
+struct      <link linkend="DiaShapeBezier">DiaShapeBezier</link>;
+#define     <link linkend="dia-shape-bezier-new">dia_shape_bezier_new</link>            ()
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier">dia_shape_bezier</link>                (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *start,
+                                             <link linkend="guint">guint</link> n_points,
+                                             <link linkend="DiaPoint">DiaPoint</link> *points);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-line-width">dia_shape_bezier_set_line_width</link> (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_width);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-join">dia_shape_bezier_set_join</link>       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaJoinStyle">DiaJoinStyle</link> join);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-cap">dia_shape_bezier_set_cap</link>        (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCapStyle">DiaCapStyle</link> cap);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-fill">dia_shape_bezier_set_fill</link>       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaFillStyle">DiaFillStyle</link> fill);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-fill-color">dia_shape_bezier_set_fill_color</link> (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> fill_color);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-dash">dia_shape_bezier_set_dash</link>       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> offset,
+                                             <link linkend="guint">guint</link> n_dash,
+                                             <link linkend="gdouble">gdouble</link> *dash);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-cyclic">dia_shape_bezier_set_cyclic</link>     (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> cyclic);
+<link linkend="void">void</link>        <link linkend="dia-shape-bezier-set-clipping">dia_shape_bezier_set_clipping</link>   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> clipping);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-shape-bezier-is-clip-path">dia_shape_bezier_is_clip_path</link>   (<link linkend="DiaShape">DiaShape</link> *shape);
+struct      <link linkend="DiaShapeEllipse">DiaShapeEllipse</link>;
+#define     <link linkend="dia-shape-ellipse-new">dia_shape_ellipse_new</link>           ()
+<link linkend="void">void</link>        <link linkend="dia-shape-ellipse">dia_shape_ellipse</link>               (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *center,
+                                             <link linkend="gdouble">gdouble</link> width,
+                                             <link linkend="gdouble">gdouble</link> height);
+<link linkend="void">void</link>        <link linkend="dia-shape-ellipse-set-line-width">dia_shape_ellipse_set_line_width</link>
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_width);
+<link linkend="void">void</link>        <link linkend="dia-shape-ellipse-set-fill">dia_shape_ellipse_set_fill</link>      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaFillStyle">DiaFillStyle</link> fill);
+<link linkend="void">void</link>        <link linkend="dia-shape-ellipse-set-fill-color">dia_shape_ellipse_set_fill_color</link>
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> fill_color);
+<link linkend="void">void</link>        <link linkend="dia-shape-ellipse-set-dash">dia_shape_ellipse_set_dash</link>      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> offset,
+                                             <link linkend="guint">guint</link> n_dash,
+                                             <link linkend="gdouble">gdouble</link> *dash);
+<link linkend="void">void</link>        <link linkend="dia-shape-ellipse-set-clipping">dia_shape_ellipse_set_clipping</link>  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> clipping);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-shape-ellipse-is-clip-path">dia_shape_ellipse_is_clip_path</link>  (<link linkend="DiaShape">DiaShape</link> *shape);
+struct      <link linkend="DiaShapeImage">DiaShapeImage</link>;
+#define     <link linkend="dia-shape-image-new">dia_shape_image_new</link>             ()
+<link linkend="void">void</link>        <link linkend="dia-shape-image">dia_shape_image</link>                 (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="GdkPixbuf">GdkPixbuf</link> *image);
+<link linkend="void">void</link>        <link linkend="dia-shape-image-set-pos">dia_shape_image_set_pos</link>         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *pos);
+<link linkend="void">void</link>        <link linkend="dia-shape-image-set-affine">dia_shape_image_set_affine</link>      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);
+struct      <link linkend="DiaShapeText">DiaShapeText</link>;
+#define     <link linkend="dia-shape-text-new">dia_shape_text_new</link>              ()
+<link linkend="void">void</link>        <link linkend="dia-shape-text">dia_shape_text</link>                  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoFontDescription">PangoFontDescription</link> *font_desc,
+                                             const <link linkend="gchar">gchar</link> *text);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-text">dia_shape_text_set_text</link>         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             const <link linkend="gchar">gchar</link> *text);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-static-text">dia_shape_text_set_static_text</link>  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             const <link linkend="gchar">gchar</link> *text);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-font-description">dia_shape_text_set_font_description</link>
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoFontDescription">PangoFontDescription</link> *font_desc);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-pos">dia_shape_text_set_pos</link>          (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *pos);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-text-width">dia_shape_text_set_text_width</link>   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> width);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-max-width">dia_shape_text_set_max_width</link>    (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> width);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-max-height">dia_shape_text_set_max_height</link>   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> height);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-justify">dia_shape_text_set_justify</link>      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> justify);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-alignment">dia_shape_text_set_alignment</link>    (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoAlignment">PangoAlignment</link> alignment);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-wrap-mode">dia_shape_text_set_wrap_mode</link>    (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaWrapMode">DiaWrapMode</link> wrap_mode);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-line-spacing">dia_shape_text_set_line_spacing</link> (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_spacing);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-set-affine">dia_shape_text_set_affine</link>       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-shape-text-cursor-from-pos">dia_shape_text_cursor_from_pos</link>  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *pos,
+                                             <link linkend="gint">gint</link> *cursor);
+<link linkend="PangoLayout">PangoLayout</link>* <link linkend="dia-shape-text-to-pango-layout">dia_shape_text_to_pango_layout</link> (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> fill);
+<link linkend="void">void</link>        <link linkend="dia-shape-text-fill-pango-layout">dia_shape_text_fill_pango_layout</link>
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoLayout">PangoLayout</link> *layout);
+struct      <link linkend="DiaShapeClip">DiaShapeClip</link>;
+<link linkend="void">void</link>        <link linkend="dia-shape-clip">dia_shape_clip</link>                  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> left,
+                                             <link linkend="gdouble">gdouble</link> top,
+                                             <link linkend="gdouble">gdouble</link> right,
+                                             <link linkend="gdouble">gdouble</link> bottom);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Shapes are an interesting part of DiaCanvas2. A shape is an abstract definition
+of some sort of figure that has to be drawn on the canvas. Currently five
+types of shapes are supported: Line like shapes (<link linkend="DiaShapePath"><type>DiaShapePath</type></link>) like lines,
+polygons and rectangles, ellipses (<link linkend="DiaShapeEllipse"><type>DiaShapeEllipse</type></link>), text (<link linkend="DiaShapeText"><type>DiaShapeText</type></link>) and
+bitmap images (<link linkend="DiaShapeImage"><type>DiaShapeImage</type></link>).
+</para>
+<para>
+All shapes are renderer independent. They can be rendered by a canvas view
+(with or without anti-alias support) or a renderer can be created that creates
+some sort of file (like PostScript or PNG).
+</para>
+<para>
+A shape can be restricted on their visibility. You can create shapes and allow
+them only to be drawn if the item they belong to is selected (or focused).
+This will allow you to create helper lines and such.
+</para>
+<para>
+There is one special kind of shape: <link linkend="DiaShapeClip"><type>DiaShapeClip</type></link>. This shape is not really a
+shape: it defines a clipping rectangle for all shapes that have to be drawn.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-SHAPE-CAPS"/>DIA_SHAPE()</title>
+<indexterm><primary>DIA_SHAPE</primary></indexterm><programlisting>#define DIA_SHAPE(sh) ((DiaShape*)(sh))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sh</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapeType"/>enum DiaShapeType</title>
+<indexterm><primary>DiaShapeType</primary></indexterm><programlisting>typedef enum
+{
+	DIA_SHAPE_NONE,
+	DIA_SHAPE_PATH, /* Line, polygon, rectangle */
+	DIA_SHAPE_BEZIER,
+	DIA_SHAPE_ELLIPSE, /* ellipse, circle */
+	DIA_SHAPE_TEXT,
+	DIA_SHAPE_IMAGE,
+	DIA_SHAPE_WIDGET, /* Only widgets w/ a model/view architecture? */
+	DIA_SHAPE_CLIP /* Set a clip path for the following shapes. */
+} DiaShapeType;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaJoinStyle"/>enum DiaJoinStyle</title>
+<indexterm><primary>DiaJoinStyle</primary></indexterm><programlisting>typedef enum
+{
+	DIA_JOIN_MITER,
+	DIA_JOIN_ROUND,
+	DIA_JOIN_BEVEL
+} DiaJoinStyle;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaCapStyle"/>enum DiaCapStyle</title>
+<indexterm><primary>DiaCapStyle</primary></indexterm><programlisting>typedef enum
+{
+	DIA_CAP_BUTT,
+	DIA_CAP_ROUND,
+	DIA_CAP_SQUARE
+} DiaCapStyle;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaFillStyle"/>enum DiaFillStyle</title>
+<indexterm><primary>DiaFillStyle</primary></indexterm><programlisting>typedef enum
+{
+	DIA_FILL_NONE,
+	DIA_FILL_SOLID
+} DiaFillStyle;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaDashStyle"/>struct DiaDashStyle</title>
+<indexterm><primary>DiaDashStyle</primary></indexterm><programlisting>struct DiaDashStyle {
+
+	guint n_dash;
+	gdouble dash[1];
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaShape"/>struct DiaShape</title>
+<indexterm><primary>DiaShape</primary></indexterm><programlisting>struct DiaShape {
+
+	DiaShapeType type;
+
+	guint visibility: 4;
+	guint update_cnt: 14;
+	guint ref_cnt: 14;
+
+	DiaColor color;
+
+	gpointer extra_1;
+};
+</programlisting>
+<para>
+This is a collection of properties that count for all
+shapes. All shapes are "inherited" from DiaShape.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-get-type"/>dia_shape_get_type ()</title>
+<indexterm><primary>dia_shape_get_type</primary></indexterm><programlisting><link linkend="GType">GType</link>       dia_shape_get_type              (<link linkend="DiaShape">DiaShape</link> *shape);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-new"/>dia_shape_new ()</title>
+<indexterm><primary>dia_shape_new</primary></indexterm><programlisting><link linkend="DiaShape">DiaShape</link>*   dia_shape_new                   (<link linkend="DiaShapeType">DiaShapeType</link> type);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-free"/>dia_shape_free ()</title>
+<indexterm><primary>dia_shape_free</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_free                  (<link linkend="DiaShape">DiaShape</link> *shape);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-request-update"/>dia_shape_request_update ()</title>
+<indexterm><primary>dia_shape_request_update</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_request_update        (<link linkend="DiaShape">DiaShape</link> *shape);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-set-color"/>dia_shape_set_color ()</title>
+<indexterm><primary>dia_shape_set_color</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_set_color             (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> color);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-get-bounds"/>dia_shape_get_bounds ()</title>
+<indexterm><primary>dia_shape_get_bounds</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_shape_get_bounds            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaRectangle">DiaRectangle</link> *bb);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bb</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapePath"/>struct DiaShapePath</title>
+<indexterm><primary>DiaShapePath</primary></indexterm><programlisting>struct DiaShapePath {
+
+	DiaShape shape;
+  
+	ArtVpath *vpath;
+  
+	DiaColor  fill_color;
+
+	guint     fill: 8;
+	guint     join: 8;
+	guint     cap: 8;
+	guint     cyclic: 1;
+	guint     clipping: 1;
+
+	gdouble   line_width;
+
+	ArtVpathDash dash;
+};
+</programlisting>
+<para>
+Path like shapes are lines, polygons, rectangles, etc.
+If the shape is cyclic, you can set the fill style to
+DIA_FILL_SOLID and use fill_color to specify a color for the content.
+</para>
+<para>
+Note that one shape can only represent a line, or a surface (e.g.
+a filled rectangle).</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-new"/>dia_shape_path_new()</title>
+<indexterm><primary>dia_shape_path_new</primary></indexterm><programlisting>#define dia_shape_path_new() dia_shape_new(DIA_SHAPE_PATH)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-line"/>dia_shape_line ()</title>
+<indexterm><primary>dia_shape_line</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_line                  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *start,
+                                             <link linkend="DiaPoint">DiaPoint</link> *end);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-rectangle"/>dia_shape_rectangle ()</title>
+<indexterm><primary>dia_shape_rectangle</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_rectangle             (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *upper_left,
+                                             <link linkend="DiaPoint">DiaPoint</link> *lower_right);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>upper_left</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>lower_right</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-polyline"/>dia_shape_polyline ()</title>
+<indexterm><primary>dia_shape_polyline</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_polyline              (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="guint">guint</link> n_points,
+                                             <link linkend="DiaPoint">DiaPoint</link> *points);</programlisting>
+<para>
+Create a line with <parameter>n_points</parameter> elements. <parameter>points</parameter> is an array of <parameter>n_points</parameter>
+<link linkend="DiaPoint"><type>DiaPoint</type></link> elements.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_points</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>points</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-polygon"/>dia_shape_polygon ()</title>
+<indexterm><primary>dia_shape_polygon</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_polygon               (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="guint">guint</link> n_points,
+                                             <link linkend="DiaPoint">DiaPoint</link> *points);</programlisting>
+<para>
+Like <link linkend="dia-shape-polyline"><function>dia_shape_polyline()</function></link>, but in this case the line is closed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_points</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>points</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-line-width"/>dia_shape_path_set_line_width ()</title>
+<indexterm><primary>dia_shape_path_set_line_width</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_line_width   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_width);</programlisting>
+<para>
+Set the line width for a path like shape.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_width</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-join"/>dia_shape_path_set_join ()</title>
+<indexterm><primary>dia_shape_path_set_join</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_join         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaJoinStyle">DiaJoinStyle</link> join);</programlisting>
+<para>
+Set the join style for a line.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>join</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-cap"/>dia_shape_path_set_cap ()</title>
+<indexterm><primary>dia_shape_path_set_cap</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_cap          (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCapStyle">DiaCapStyle</link> cap);</programlisting>
+<para>
+The the line end (cap) style for a line, thsi property is not very useful
+if a path is set to cyclic.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cap</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-fill"/>dia_shape_path_set_fill ()</title>
+<indexterm><primary>dia_shape_path_set_fill</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_fill         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaFillStyle">DiaFillStyle</link> fill);</programlisting>
+<para>
+Set the fill style for the path.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-fill-color"/>dia_shape_path_set_fill_color ()</title>
+<indexterm><primary>dia_shape_path_set_fill_color</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_fill_color   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> fill_color);</programlisting>
+<para>
+Set the color that is to be used if the shape is to be filled. The fill
+style can be set with <link linkend="dia-shape-path-set-fill"><function>dia_shape_path_set_fill()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill_color</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-dash"/>dia_shape_path_set_dash ()</title>
+<indexterm><primary>dia_shape_path_set_dash</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_dash         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> offset,
+                                             <link linkend="guint">guint</link> n_dash,
+                                             <link linkend="gdouble">gdouble</link> *dash);</programlisting>
+<para>
+Set the dash style for the line.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_dash</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dash</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-cyclic"/>dia_shape_path_set_cyclic ()</title>
+<indexterm><primary>dia_shape_path_set_cyclic</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_cyclic       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> cyclic);</programlisting>
+<para>
+Set the path to cyclic. Cyclic paths are closed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cyclic</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-set-clipping"/>dia_shape_path_set_clipping ()</title>
+<indexterm><primary>dia_shape_path_set_clipping</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_path_set_clipping     (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> clipping);</programlisting>
+<para>
+If the clipping attribute is set, the shape will be used as a clipping path
+Note that clipping paths can also contain a path including filling.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>clipping</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-path-is-clip-path"/>dia_shape_path_is_clip_path ()</title>
+<indexterm><primary>dia_shape_path_is_clip_path</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_shape_path_is_clip_path     (<link linkend="DiaShape">DiaShape</link> *shape);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the path is indeed a clip path.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapeBezier"/>struct DiaShapeBezier</title>
+<indexterm><primary>DiaShapeBezier</primary></indexterm><programlisting>struct DiaShapeBezier {
+
+	DiaShape shape;
+  
+	ArtBpath *bpath;
+  
+	DiaColor  fill_color;
+
+	guint     fill: 8;
+	guint     join: 8;
+	guint     cap: 8;
+	guint     cyclic: 1;
+	guint     clipping: 1;
+
+	gdouble   line_width;
+
+	ArtVpathDash dash;
+};
+</programlisting>
+<para>
+Bezier path.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-new"/>dia_shape_bezier_new()</title>
+<indexterm><primary>dia_shape_bezier_new</primary></indexterm><programlisting>#define dia_shape_bezier_new() dia_shape_new(DIA_SHAPE_BEZIER)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier"/>dia_shape_bezier ()</title>
+<indexterm><primary>dia_shape_bezier</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier                (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *start,
+                                             <link linkend="guint">guint</link> n_points,
+                                             <link linkend="DiaPoint">DiaPoint</link> *points);</programlisting>
+<para>
+Create a bezier shape. <parameter>points</parameter> should contain the amount of points as
+specified by <parameter>n_points</parameter>. For each point in the bezier curve three points
+are used: one for the actual point on the line and two for the weight
+of the curve.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&nbsp;:</term>
+<listitem><simpara> starting point for the bezier curve.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_points</parameter>&nbsp;:</term>
+<listitem><simpara> the number of points, should be a multiple of 3.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>points</parameter>&nbsp;:</term>
+<listitem><simpara> Array of <parameter>n_points</parameter> points
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-line-width"/>dia_shape_bezier_set_line_width ()</title>
+<indexterm><primary>dia_shape_bezier_set_line_width</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_line_width (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_width);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_width</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-join"/>dia_shape_bezier_set_join ()</title>
+<indexterm><primary>dia_shape_bezier_set_join</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_join       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaJoinStyle">DiaJoinStyle</link> join);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>join</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-cap"/>dia_shape_bezier_set_cap ()</title>
+<indexterm><primary>dia_shape_bezier_set_cap</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_cap        (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaCapStyle">DiaCapStyle</link> cap);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cap</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-fill"/>dia_shape_bezier_set_fill ()</title>
+<indexterm><primary>dia_shape_bezier_set_fill</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_fill       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaFillStyle">DiaFillStyle</link> fill);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-fill-color"/>dia_shape_bezier_set_fill_color ()</title>
+<indexterm><primary>dia_shape_bezier_set_fill_color</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_fill_color (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> fill_color);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill_color</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-dash"/>dia_shape_bezier_set_dash ()</title>
+<indexterm><primary>dia_shape_bezier_set_dash</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_dash       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> offset,
+                                             <link linkend="guint">guint</link> n_dash,
+                                             <link linkend="gdouble">gdouble</link> *dash);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_dash</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dash</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-cyclic"/>dia_shape_bezier_set_cyclic ()</title>
+<indexterm><primary>dia_shape_bezier_set_cyclic</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_cyclic     (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> cyclic);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cyclic</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-set-clipping"/>dia_shape_bezier_set_clipping ()</title>
+<indexterm><primary>dia_shape_bezier_set_clipping</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_bezier_set_clipping   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> clipping);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>clipping</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-bezier-is-clip-path"/>dia_shape_bezier_is_clip_path ()</title>
+<indexterm><primary>dia_shape_bezier_is_clip_path</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_shape_bezier_is_clip_path   (<link linkend="DiaShape">DiaShape</link> *shape);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapeEllipse"/>struct DiaShapeEllipse</title>
+<indexterm><primary>DiaShapeEllipse</primary></indexterm><programlisting>struct DiaShapeEllipse {
+
+	DiaShape shape;
+  
+	DiaPoint  center;
+	gdouble   width, height;
+	
+	DiaColor  fill_color;
+
+	guint     fill: 8;
+	guint     clipping: 1;
+
+	gdouble   line_width;
+
+	ArtVpathDash dash;
+};
+</programlisting>
+<para>
+Shape for ellipses and circles. This might be extended in the
+near future to arc (curve) like shapes.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-new"/>dia_shape_ellipse_new()</title>
+<indexterm><primary>dia_shape_ellipse_new</primary></indexterm><programlisting>#define dia_shape_ellipse_new() dia_shape_new(DIA_SHAPE_ELLIPSE)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse"/>dia_shape_ellipse ()</title>
+<indexterm><primary>dia_shape_ellipse</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_ellipse               (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *center,
+                                             <link linkend="gdouble">gdouble</link> width,
+                                             <link linkend="gdouble">gdouble</link> height);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>center</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-set-line-width"/>dia_shape_ellipse_set_line_width ()</title>
+<indexterm><primary>dia_shape_ellipse_set_line_width</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_ellipse_set_line_width
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_width);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_width</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-set-fill"/>dia_shape_ellipse_set_fill ()</title>
+<indexterm><primary>dia_shape_ellipse_set_fill</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_ellipse_set_fill      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaFillStyle">DiaFillStyle</link> fill);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-set-fill-color"/>dia_shape_ellipse_set_fill_color ()</title>
+<indexterm><primary>dia_shape_ellipse_set_fill_color</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_ellipse_set_fill_color
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaColor">DiaColor</link> fill_color);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill_color</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-set-dash"/>dia_shape_ellipse_set_dash ()</title>
+<indexterm><primary>dia_shape_ellipse_set_dash</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_ellipse_set_dash      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> offset,
+                                             <link linkend="guint">guint</link> n_dash,
+                                             <link linkend="gdouble">gdouble</link> *dash);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_dash</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dash</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-set-clipping"/>dia_shape_ellipse_set_clipping ()</title>
+<indexterm><primary>dia_shape_ellipse_set_clipping</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_ellipse_set_clipping  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> clipping);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>clipping</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-ellipse-is-clip-path"/>dia_shape_ellipse_is_clip_path ()</title>
+<indexterm><primary>dia_shape_ellipse_is_clip_path</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_shape_ellipse_is_clip_path  (<link linkend="DiaShape">DiaShape</link> *shape);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapeImage"/>struct DiaShapeImage</title>
+<indexterm><primary>DiaShapeImage</primary></indexterm><programlisting>struct DiaShapeImage {
+
+	DiaShape shape;
+  
+	GdkPixbuf *pixbuf;
+
+	gdouble affine[6];
+};
+</programlisting>
+<para>
+A DiaShapeImage contains an image. The affine matrix can be used
+to change the offset. Rotating and shearing can result in ugly results.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-image-new"/>dia_shape_image_new()</title>
+<indexterm><primary>dia_shape_image_new</primary></indexterm><programlisting>#define dia_shape_image_new() dia_shape_new(DIA_SHAPE_IMAGE)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-image"/>dia_shape_image ()</title>
+<indexterm><primary>dia_shape_image</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_image                 (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="GdkPixbuf">GdkPixbuf</link> *image);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>image</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-image-set-pos"/>dia_shape_image_set_pos ()</title>
+<indexterm><primary>dia_shape_image_set_pos</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_image_set_pos         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *pos);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-image-set-affine"/>dia_shape_image_set_affine ()</title>
+<indexterm><primary>dia_shape_image_set_affine</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_image_set_affine      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapeText"/>struct DiaShapeText</title>
+<indexterm><primary>DiaShapeText</primary></indexterm><programlisting>struct DiaShapeText {
+
+	DiaShape shape;
+  
+	PangoFontDescription *font_desc;
+	gchar *text;
+
+	gboolean need_free;
+	gboolean justify;
+	gboolean markup;
+	DiaWrapMode wrap_mode;
+	gdouble line_spacing;
+	PangoAlignment alignment;
+	gdouble text_width;
+
+	/* Width and height for clipping text. */
+	gdouble max_width, max_height;
+	gdouble affine[6];
+
+	gint cursor;
+};
+</programlisting>
+<para>
+Text is described by a font (font_desc) and a text string.
+The text can be clipped by setting maximum values for width and 
+height. The text_width property can be used to determine the width
+of the text block (text can be word-wrapped at text_width).
+</para>
+<para>
+A special part of a <link linkend="DiaShapeText"><type>DiaShapeText</type></link> object is its cursor position. A
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> can specify a cursor position in the text. The cursor will
+only be drawn if the view has the focus and if the object containing the
+shape has the focus. As a result there will only be one cursor visible
+in all <link linkend="DiaCanvasViews"><type>DiaCanvasViews</type></link>.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-new"/>dia_shape_text_new()</title>
+<indexterm><primary>dia_shape_text_new</primary></indexterm><programlisting>#define dia_shape_text_new() dia_shape_new(DIA_SHAPE_TEXT)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text"/>dia_shape_text ()</title>
+<indexterm><primary>dia_shape_text</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text                  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoFontDescription">PangoFontDescription</link> *font_desc,
+                                             const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>font_desc</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-text"/>dia_shape_text_set_text ()</title>
+<indexterm><primary>dia_shape_text_set_text</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_text         (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-static-text"/>dia_shape_text_set_static_text ()</title>
+<indexterm><primary>dia_shape_text_set_static_text</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_static_text  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-font-description"/>dia_shape_text_set_font_description ()</title>
+<indexterm><primary>dia_shape_text_set_font_description</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_font_description
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoFontDescription">PangoFontDescription</link> *font_desc);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>font_desc</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-pos"/>dia_shape_text_set_pos ()</title>
+<indexterm><primary>dia_shape_text_set_pos</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_pos          (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *pos);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-text-width"/>dia_shape_text_set_text_width ()</title>
+<indexterm><primary>dia_shape_text_set_text_width</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_text_width   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> width);</programlisting>
+<para>
+Set the width of the text. Text will be word wrapped if that option is
+enabled and the text is actually longer than the <parameter>text_width</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-max-width"/>dia_shape_text_set_max_width ()</title>
+<indexterm><primary>dia_shape_text_set_max_width</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_max_width    (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> width);</programlisting>
+<para>
+Set the max width of the text box. If the text is wider than <parameter>width</parameter>,
+the text is clipped at <parameter>width</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-max-height"/>dia_shape_text_set_max_height ()</title>
+<indexterm><primary>dia_shape_text_set_max_height</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_max_height   (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> height);</programlisting>
+<para>
+Set the height of the text box.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-justify"/>dia_shape_text_set_justify ()</title>
+<indexterm><primary>dia_shape_text_set_justify</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_justify      (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> justify);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>justify</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-alignment"/>dia_shape_text_set_alignment ()</title>
+<indexterm><primary>dia_shape_text_set_alignment</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_alignment    (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoAlignment">PangoAlignment</link> alignment);</programlisting>
+<para>
+Set the text alignment for a shape (left, right, center, justified).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>alignment</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-wrap-mode"/>dia_shape_text_set_wrap_mode ()</title>
+<indexterm><primary>dia_shape_text_set_wrap_mode</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_wrap_mode    (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaWrapMode">DiaWrapMode</link> wrap_mode);</programlisting>
+<para>
+Set the wrapping mode for the text shape.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>wrap_mode</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-line-spacing"/>dia_shape_text_set_line_spacing ()</title>
+<indexterm><primary>dia_shape_text_set_line_spacing</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_line_spacing (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> line_spacing);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line_spacing</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-set-affine"/>dia_shape_text_set_affine ()</title>
+<indexterm><primary>dia_shape_text_set_affine</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_set_affine       (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-cursor-from-pos"/>dia_shape_text_cursor_from_pos ()</title>
+<indexterm><primary>dia_shape_text_cursor_from_pos</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_shape_text_cursor_from_pos  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="DiaPoint">DiaPoint</link> *pos,
+                                             <link linkend="gint">gint</link> *cursor);</programlisting>
+<para>
+Find the cursor position belonging to the position <parameter>pos</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="DiaShapeText"><type>DiaShapeText</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pos</parameter>&nbsp;:</term>
+<listitem><simpara> cursor position, in item relative coordinates.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cursor</parameter>&nbsp;:</term>
+<listitem><simpara> Set the cursor.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-to-pango-layout"/>dia_shape_text_to_pango_layout ()</title>
+<indexterm><primary>dia_shape_text_to_pango_layout</primary></indexterm><programlisting><link linkend="PangoLayout">PangoLayout</link>* dia_shape_text_to_pango_layout (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gboolean">gboolean</link> fill);</programlisting>
+<para>
+Create a <link linkend="PangoLayout"><type>PangoLayout</type></link> based on the information of the <parameter>shape</parameter>. The maximum
+width and height, nor the affine transformation are added to the layout.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fill</parameter>&nbsp;:</term>
+<listitem><simpara> Add information of teh <parameter>shape</parameter> to the <link linkend="PangoLayout"><type>PangoLayout</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new <link linkend="PangoLayout"><type>PangoLayout</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-text-fill-pango-layout"/>dia_shape_text_fill_pango_layout ()</title>
+<indexterm><primary>dia_shape_text_fill_pango_layout</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_text_fill_pango_layout
+                                            (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="PangoLayout">PangoLayout</link> *layout);</programlisting>
+<para>
+Create a <link linkend="PangoLayout"><type>PangoLayout</type></link> object from a <link linkend="DiaShapeText"><type>DiaShapeText</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>layout</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaShapeClip"/>struct DiaShapeClip</title>
+<indexterm><primary>DiaShapeClip</primary></indexterm><programlisting>struct DiaShapeClip {
+
+	DiaShape shape;
+	
+	ArtDRect clip;
+};
+</programlisting>
+<para>
+This shape is not really a shape. It can be set to create a clipping
+rectangle: all shapes have to be within the clipping rectangle.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-shape-clip"/>dia_shape_clip ()</title>
+<indexterm><primary>dia_shape_clip</primary></indexterm><programlisting><link linkend="void">void</link>        dia_shape_clip                  (<link linkend="DiaShape">DiaShape</link> *shape,
+                                             <link linkend="gdouble">gdouble</link> left,
+                                             <link linkend="gdouble">gdouble</link> top,
+                                             <link linkend="gdouble">gdouble</link> right,
+                                             <link linkend="gdouble">gdouble</link> bottom);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>shape</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>left</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>top</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>right</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bottom</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>
+</para>
+</refsect1>
+
+</refentry>

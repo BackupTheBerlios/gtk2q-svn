@@ -1,0 +1,147 @@
+<refentry id="DiaCanvasElement">
+<refmeta>
+<refentrytitle>DiaCanvasElement</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasElement</refname><refpurpose>Abstract class for element like objects.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-ELEMENT-CAPS">DIA_CANVAS_ELEMENT</link>              (obj)
+struct      <link linkend="DiaCanvasElement-struct">DiaCanvasElement</link>;
+<link linkend="void">void</link>        <link linkend="dia-canvas-element-align-handles">dia_canvas_element_align_handles</link>
+                                            (<link linkend="DiaCanvasElement">DiaCanvasElement</link> *element);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaCanvasItem">DiaCanvasItem</link>
+         +----DiaCanvasElement
+               +----<link linkend="DiaCanvasBox">DiaCanvasBox</link>
+               +----<link linkend="DiaCanvasImage">DiaCanvasImage</link>
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasElement--height">height</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasElement--min-height">min-height</link>&quot;           <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasElement--min-width">min-width</link>&quot;            <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasElement--width">width</link>&quot;                <link linkend="gdouble">gdouble</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+An element is basically everything that is not a line. An element has eight
+handles around itself which can be used to resize/rotate/shear the object.
+</para>
+
+<figure>
+<title>A box element</title>
+<graphic fileref="element.png" format="gif"></graphic>
+</figure>
+
+<para>
+A user can easely rotate or shear an  element by holding the Control key (CTRL)
+while dragging a handle.
+</para>
+
+<para>
+An element has its origin (0, 0) in the upper left corner of the object. You
+can change the width and height of the element.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ELEMENT-CAPS"/>DIA_CANVAS_ELEMENT()</title>
+<indexterm><primary>DIA_CANVAS_ELEMENT</primary></indexterm><programlisting>#define DIA_CANVAS_ELEMENT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS_ELEMENT, DiaCanvasElement))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasElement-struct"/>struct DiaCanvasElement</title>
+<indexterm><primary>DiaCanvasElement</primary></indexterm><programlisting>struct DiaCanvasElement;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-element-align-handles"/>dia_canvas_element_align_handles ()</title>
+<indexterm><primary>dia_canvas_element_align_handles</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_element_align_handles
+                                            (<link linkend="DiaCanvasElement">DiaCanvasElement</link> *element);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasElement--height"/>&quot;<literal>height</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Height of the element.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasElement--min-height"/>&quot;<literal>min-height</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Minimal height of the element.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasElement--min-width"/>&quot;<literal>min-width</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Minimal width of the element.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasElement--width"/>&quot;<literal>width</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Width of the element.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvasBox"><type>DiaCanvasBox</type></link>, <link linkend="DiaCanvasImage"><type>DiaCanvasImage</type></link>, <link linkend="DiaCanvasText"><type>DiaCanvasText</type></link>.
+</para>
+</refsect1>
+
+</refentry>

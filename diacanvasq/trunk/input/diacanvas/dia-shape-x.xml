@@ -1,0 +1,44 @@
+<refentry id="diacanvas2-DiaShape-functions-for-X11-rendering">
+<refmeta>
+<refentrytitle>DiaShape functions for X11 rendering</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaShape functions for X11 rendering</refname><refpurpose>Shape renderer for the X11 based canvas.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+
+</refsect1>
+
+
+
+
+</refentry>

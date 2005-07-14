@@ -1,0 +1,1353 @@
+<refentry id="DiaCanvasItem">
+<refmeta>
+<refentrytitle>DiaCanvasItem</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasItem</refname><refpurpose>Base class for objects placed in a <link linkend="DiaCanvas"><type>DiaCanvas</type></link>.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-ITEM-CAPS">DIA_CANVAS_ITEM</link>                 (obj)
+struct      <link linkend="DiaCanvasItem-struct">DiaCanvasItem</link>;
+enum        <link linkend="DiaCanvasItemFlags">DiaCanvasItemFlags</link>;
+enum        <link linkend="DiaCanvasItemUIStateFlags">DiaCanvasItemUIStateFlags</link>;
+<link linkend="DiaCanvasItem">DiaCanvasItem</link>* <link linkend="dia-canvas-item-create">dia_canvas_item_create</link>       (<link linkend="GType">GType</link> type,
+                                             const <link linkend="gchar">gchar</link> *first_arg_name,
+                                             ...);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-set-parent">dia_canvas_item_set_parent</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *new_parent);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-request-update">dia_canvas_item_request_update</link>  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-update-now">dia_canvas_item_update_now</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-update-child">dia_canvas_item_update_child</link>    (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *child,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-affine-w2i">dia_canvas_item_affine_w2i</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-affine-i2w">dia_canvas_item_affine_i2w</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-affine-point-i2w">dia_canvas_item_affine_point_i2w</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-affine-point-w2i">dia_canvas_item_affine_point_w2i</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-select">dia_canvas_item_select</link>          (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-unselect">dia_canvas_item_unselect</link>        (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-is-selected">dia_canvas_item_is_selected</link>     (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-focus">dia_canvas_item_focus</link>           (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-unfocus">dia_canvas_item_unfocus</link>         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-is-focused">dia_canvas_item_is_focused</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-grab">dia_canvas_item_grab</link>            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-ungrab">dia_canvas_item_ungrab</link>          (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-is-grabbed">dia_canvas_item_is_grabbed</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-visible">dia_canvas_item_visible</link>         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-invisible">dia_canvas_item_invisible</link>       (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-is-visible">dia_canvas_item_is_visible</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-identity">dia_canvas_item_identity</link>        (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-scale">dia_canvas_item_scale</link>           (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> sx,
+                                             <link linkend="gdouble">gdouble</link> sy);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-rotate">dia_canvas_item_rotate</link>          (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> degrees);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-shear-x">dia_canvas_item_shear_x</link>         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-shear-y">dia_canvas_item_shear_y</link>         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-move">dia_canvas_item_move</link>            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-move-interactive">dia_canvas_item_move_interactive</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-flip">dia_canvas_item_flip</link>            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gboolean">gboolean</link> horz,
+                                             <link linkend="gboolean">gboolean</link> vert);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-expand-bounds">dia_canvas_item_expand_bounds</link>   (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> d);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-get-shape-iter">dia_canvas_item_get_shape_iter</link>  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-shape-next">dia_canvas_item_shape_next</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="DiaShape">DiaShape</link>*   <link linkend="dia-canvas-item-shape-value">dia_canvas_item_shape_value</link>     (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-connect">dia_canvas_item_connect</link>         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-disconnect">dia_canvas_item_disconnect</link>      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);
+<link linkend="gboolean">gboolean</link>    <link linkend="dia-canvas-item-disconnect-handles">dia_canvas_item_disconnect_handles</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-bb-affine">dia_canvas_item_bb_affine</link>       (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> affine[6],
+                                             <link linkend="gdouble">gdouble</link> *x1,
+                                             <link linkend="gdouble">gdouble</link> *y1,
+                                             <link linkend="gdouble">gdouble</link> *x2,
+                                             <link linkend="gdouble">gdouble</link> *y2);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-update-handles-i2w">dia_canvas_item_update_handles_i2w</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-update-handles-w2i">dia_canvas_item_update_handles_w2i</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-preserve-property">dia_canvas_item_preserve_property</link>
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             const <link linkend="gchar">gchar</link> *property_name);
+<link linkend="void">void</link>        <link linkend="dia-canvas-item-set-child-of">dia_canvas_item_set_child_of</link>    (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *new_parent);
+#define     <link linkend="DIA-CANVAS-ITEM-VISIBLE-CAPS">DIA_CANVAS_ITEM_VISIBLE</link>         (obj)
+#define     <link linkend="DIA-CANVAS-ITEM-INTERACTIVE-CAPS">DIA_CANVAS_ITEM_INTERACTIVE</link>     (obj)
+#define     <link linkend="DIA-CANVAS-ITEM-COMPOSITE-CAPS">DIA_CANVAS_ITEM_COMPOSITE</link>       (obj)
+#define     <link linkend="DIA-CANVAS-ITEM-NEED-UPDATE-CAPS">DIA_CANVAS_ITEM_NEED_UPDATE</link>     (obj)
+#define     <link linkend="DIA-CANVAS-ITEM-UPDATE-ALL-CAPS">DIA_CANVAS_ITEM_UPDATE_ALL</link>      (obj)
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----DiaCanvasItem
+         +----<link linkend="DiaCanvasGroup">DiaCanvasGroup</link>
+         +----<link linkend="DiaCanvasLine">DiaCanvasLine</link>
+         +----<link linkend="DiaCanvasElement">DiaCanvasElement</link>
+         +----<link linkend="DiaCanvasText">DiaCanvasText</link>
+</synopsis>
+
+</refsect1>
+
+
+<refsect1>
+<title>Known Derived Interfaces</title>
+<para>
+DiaCanvasItem is required by
+ <link linkend="DiaCanvasGroupable">DiaCanvasGroupable</link> and  <link linkend="DiaCanvasEditable">DiaCanvasEditable</link>.</para>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasItem--affine">affine</link>&quot;               <link linkend="DiaCanvasItemAffine">DiaCanvasItemAffine</link>  : Read / Write
+  &quot;<link linkend="DiaCanvasItem--connect">connect</link>&quot;              <link linkend="DiaHandle">DiaHandle</link>            : Write
+  &quot;<link linkend="DiaCanvasItem--disconnect">disconnect</link>&quot;           <link linkend="DiaHandle">DiaHandle</link>            : Write
+  &quot;<link linkend="DiaCanvasItem--handles">handles</link>&quot;              <link linkend="DiaCanvasItemHandles">DiaCanvasItemHandles</link> : Read
+  &quot;<link linkend="DiaCanvasItem--parent">parent</link>&quot;               <link linkend="DiaCanvasItem">DiaCanvasItem</link>        : Read / Write
+  &quot;<link linkend="DiaCanvasItem--visible">visible</link>&quot;              <link linkend="gboolean">gboolean</link>             : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="DiaCanvasItem-connect">connect</link>&quot;   <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="DiaHandle">DiaHandle</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-disconnect">disconnect</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="DiaHandle">DiaHandle</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-event">event</link>&quot;     <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-has-state">has-state</link>&quot; <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gint">gint</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-move">move</link>&quot;      <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gdouble">gdouble</link> arg1,
+                                            <link linkend="gdouble">gdouble</link> arg2,
+                                            <link linkend="gboolean">gboolean</link> arg3,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-need-update">need-update</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-state-changed">state-changed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gint">gint</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="DiaCanvasItem-z-order">z-order</link>&quot;   <link linkend="void">void</link>        user_function      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gint">gint</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>DiaCanvasItem is the base class for all objects added to a <link linkend="DiaCanvas"><type>DiaCanvas</type></link>.
+  For those of you who know the GnomeCanvasItem: it's quite similar. This
+  class defines a list of handles on the object, a list of shapes and a
+  transformation matrix. The handles are used to modify the item (e.g. resize
+  or rotate). The shapes define what the object looks like.</para>
+
+<para>To make custom behavior possible a few callback functions are defined
+  in the <link linkend="DiaCanvasItemClass"><type>DiaCanvasItemClass</type></link>:</para>
+
+<anchor id="DiaCanvasItem-update-cb"/>
+<programlisting>
+void        update                          (DiaCanvasItem *item,
+                                             gdouble affine[6])</programlisting>
+
+<para>This function is used to update the object's internal state.
+  It is called during idle time. A canvas item should try to do
+  as much work as possible here and not in, for example, a 
+  <link linkend="DiaTool">tool</link>.</para>
+
+<anchor id="DiaCanvasItem-shape-iter-cb"/>
+<programlisting>
+gboolean    get_shape_iter                  (DiaCanvasItem *item,
+                                             <link linkend="DiaCanvasIter"><type>DiaCanvasIter</type></link> *iter)
+gboolean    shape_next                      (DiaCanvasItem *item,
+                                             <link linkend="DiaCanvasIter"><type>DiaCanvasIter</type></link> *iter)
+<link linkend="DiaShape"><type>DiaShape</type></link>*   shape_value                     (DiaCanvasItem *item,
+                                             <link linkend="DiaCanvasIter"><type>DiaCanvasIter</type></link> *iter)</programlisting>
+<para>Iterate shapes that belong to a DiaCanvasItem. The caller should first
+  call <link linkend="dia-canvas-item-get-shape-iter">dia_canvas_item_get_shape_iter</link>()
+  to set the iterator to point to the
+  first shape and call <link linkend="dia-canvas-item-shape-value">dia_canvas_item_shape_value</link>()
+  to retrieve the shape the iterator points to. Call
+  <link linkend="dia-canvas-item-shape-next">dia_canvas_item_shape_next</link>()
+  to set the iterator to point to the next shape. <literal>FALSE</literal>
+  is returned if there are no more shapes.</para>
+
+<anchor id="DiaCanvasItem-point-cb"/>
+<programlisting>
+gdouble     point                           (DiaCanvasItem *item,
+                                             gdouble x,
+                                             gdouble y)</programlisting>
+<para>This function is used to determine the precise distance from
+  point (<parameter>x</parameter>, <parameter>y</parameter>) to the closest
+  point on the object. The distance to the object is returned.</para>
+
+<anchor id="DiaCanvasItem-move-cb"/>
+<programlisting>
+void        move                            (DiaCanvasItem *item,
+                                             gdouble dx,
+                                             gdouble dy)</programlisting>
+<para>Move the object. This function usually doesn't need to be
+  overwritten. This function is used to move the object. Moving is
+  assigned a special callback, since is it common practice for programs
+  to allow movement of multiple objects at one.</para>
+
+<anchor id="DiaCanvasItem-handle-motion-cb"/>
+<programlisting>
+void        handle_motion                   (DiaCanvasItem *item,
+                                             DiaHandle *handle,
+                                             gdouble *wx,
+                                             gdouble *wy,
+                                             DiaEventMask mask)</programlisting>
+<para>If a handle is moved this function is called before doing
+  the actual movement. Point (<parameter>wx</parameter>,
+  <parameter>wy</parameter>) is the handles
+  new position in world (canvas) relative coordinates. This function is allowed
+  to change the values. For example, if a handle may only be moved
+  horizontal you could set <parameter>wy</parameter> to zero.
+  <parameter>Mask</parameter> is the button mask that is used during
+  the move (for example <link linkend="DiaCanvasElement"><type>DiaCanvasElement</type></link> also uses this function to
+  rotate the object).</para>
+
+<anchor id="DiaCanvasItem-glue-cb"/>
+<programlisting>
+void        glue                            (DiaCanvasItem *item,
+                                             DiaHandle *handle,
+                                             gdouble *wx,
+                                             gdouble *wy)</programlisting>
+<para>If a handle is near an object, that object is asked if it wants
+  to connect the handle. Gluing is the first step: the item
+  calculates the point where the handle should connect and the
+  distance between the handles current position and the connection
+  point is returned. Once the handle is released (the mouse button is
+  released) the handle will request a connection to the item by calling 
+  <link linkend="dia-canvas-item-connect">dia_canvas_item_connect</link>(),
+  which will emit the
+  <link linkend="DiaCanvasItem-connect">connect</link>() signal.
+  <parameter>Handle</parameter> is the handle that wants to connect.
+  (<parameter>wx</parameter>, <parameter>wy</parameter>)
+  is the point where the cursor is currently (in world coordinates). The object
+  should determine the position where the handle could connect and place it's
+  coordinates in (<parameter>wx</parameter>, <parameter>wy</parameter>).
+  Just like the <link linkend="DiaCanvasItem-point">point</link>() callback,
+  the distance from the point to the connection point (the new
+  (<parameter>wx</parameter>, <parameter>wy</parameter>)) is
+  returned.</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ITEM-CAPS"/>DIA_CANVAS_ITEM()</title>
+<indexterm><primary>DIA_CANVAS_ITEM</primary></indexterm><programlisting>#define DIA_CANVAS_ITEM(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS_ITEM, DiaCanvasItem))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasItem-struct"/>struct DiaCanvasItem</title>
+<indexterm><primary>DiaCanvasItem</primary></indexterm><programlisting>struct DiaCanvasItem;</programlisting>
+<para>
+DiaCanvasItem is the base class for all objects that are displayed in
+a <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>. DiaCanvasItems are held by a <link linkend="DiaCanvas"><type>DiaCanvas</type></link>.
+Since a <link linkend="DiaCanvas"><type>DiaCanvas</type></link> can have more than one view, every view holds some
+custom information in a <link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link>.
+If a <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link> is provided with a <link linkend="DiaHandleLayer"><type>DiaHandleLayer</type></link>, the canvas is
+able to view the handle and sent events to the handles.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasItemFlags"/>enum DiaCanvasItemFlags</title>
+<indexterm><primary>DiaCanvasItemFlags</primary></indexterm><programlisting>typedef enum {
+	DIA_VISIBLE	= 1,
+	DIA_INTERACTIVE = 1 &lt;&lt; 1,
+	DIA_COMPOSITE	= 1 &lt;&lt; 2,
+	DIA_NEED_UPDATE	= 1 &lt;&lt; 3,
+	DIA_UPDATE_ALL	= 1 &lt;&lt; 4
+} DiaCanvasItemFlags;
+</programlisting>
+<para>
+Flags that can be set on a <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link>.</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>DIA_VISIBLE</literal></term>
+<listitem><simpara> If true, the item is visible. (default=TRUE)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>DIA_INTERACTIVE</literal></term>
+<listitem><simpara> If true, the item has interactive capabilities
+ (it can handle events). (Default=TRUE).
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>DIA_COMPOSITE</literal></term>
+<listitem><simpara> The item is an aggregate of it's parent. This means that
+ if the item is selected or gets the focus, the parent will act and draw
+ as if it was selected itself. (Default=FALSE)
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>DIA_NEED_UPDATE</literal></term>
+<listitem><simpara> The item's update method should be executed. This flag
+ is set by <link linkend="dia-canvas-item-request-update"><function>dia_canvas_item_request_update()</function></link>. It should not be set in the
+ constructor.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>DIA_UPDATE_ALL</literal></term>
+<listitem><simpara> Tell that all child objects (if any) have been requesting
+ an update. This flag is used to optimize update requests.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasItemUIStateFlags"/>enum DiaCanvasItemUIStateFlags</title>
+<indexterm><primary>DiaCanvasItemUIStateFlags</primary></indexterm><programlisting>typedef enum {
+	DIA_UI_STATE_UNSELECTED,
+	DIA_UI_STATE_SELECTED,
+	DIA_UI_STATE_FOCUSED,
+	DIA_UI_STATE_GRABBED,
+	/* State UNCHANGED indicates that no changes have taken place. */
+	DIA_UI_STATE_UNCHANGED
+} DiaCanvasItemUIStateFlags;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-create"/>dia_canvas_item_create ()</title>
+<indexterm><primary>dia_canvas_item_create</primary></indexterm><programlisting><link linkend="DiaCanvasItem">DiaCanvasItem</link>* dia_canvas_item_create       (<link linkend="GType">GType</link> type,
+                                             const <link linkend="gchar">gchar</link> *first_arg_name,
+                                             ...);</programlisting>
+<para>
+Create a new canvas item. You can assign addional properties to the item.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> Type of the new item, should be a DiaCanvasItem child.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_arg_name</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A newly created canvas item.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-set-parent"/>dia_canvas_item_set_parent ()</title>
+<indexterm><primary>dia_canvas_item_set_parent</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_set_parent      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *new_parent);</programlisting>
+<para>
+Set a (new) parent for the <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_parent</parameter>&nbsp;:</term>
+<listitem><simpara> new parent or NULL in case of disconnect
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-request-update"/>dia_canvas_item_request_update ()</title>
+<indexterm><primary>dia_canvas_item_request_update</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_request_update  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Schedule an update for the item. If the item has children, they are
+scheduled for an update too.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> item that needs an update
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-update-now"/>dia_canvas_item_update_now ()</title>
+<indexterm><primary>dia_canvas_item_update_now</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_update_now      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Force an update of the item.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> Item to update
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-update-child"/>dia_canvas_item_update_child ()</title>
+<indexterm><primary>dia_canvas_item_update_child</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_update_child    (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *child,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+This function can be used in the <parameter>item</parameter>'s update to trigger updates of
+a subitem (<parameter>child</parameter>).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> Canvas item
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child</parameter>&nbsp;:</term>
+<listitem><simpara> Canvas item, a child of <parameter>item</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> transformation matrix of <parameter>item</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-affine-w2i"/>dia_canvas_item_affine_w2i ()</title>
+<indexterm><primary>dia_canvas_item_affine_w2i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_affine_w2i      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+Return the affine transformation needed to convert world coordinates to
+item relative coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> OUT
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-affine-i2w"/>dia_canvas_item_affine_i2w ()</title>
+<indexterm><primary>dia_canvas_item_affine_i2w</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_affine_i2w      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> affine[6]);</programlisting>
+<para>
+Calculate the affine transformation that is nessesary to convert a point
+from item coordinates to world coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> OUT 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-affine-point-i2w"/>dia_canvas_item_affine_point_i2w ()</title>
+<indexterm><primary>dia_canvas_item_affine_point_i2w</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_affine_point_i2w
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);</programlisting>
+<para>
+Convert a point (<parameter>x</parameter>, <parameter>y</parameter>) from item to world coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-affine-point-w2i"/>dia_canvas_item_affine_point_w2i ()</title>
+<indexterm><primary>dia_canvas_item_affine_point_w2i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_affine_point_w2i
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> *x,
+                                             <link linkend="gdouble">gdouble</link> *y);</programlisting>
+<para>
+Convert a point (<parameter>x</parameter>, <parameter>y</parameter>) from world coordinates to item relative coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-select"/>dia_canvas_item_select ()</title>
+<indexterm><primary>dia_canvas_item_select</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_select          (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Select <parameter>item</parameter>. More than one item can be selected (usualy by holding the
+SHIFT or CONTROL button while selecting an item).
+The root item can not be selected.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-unselect"/>dia_canvas_item_unselect ()</title>
+<indexterm><primary>dia_canvas_item_unselect</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_unselect        (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Unselect <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-is-selected"/>dia_canvas_item_is_selected ()</title>
+<indexterm><primary>dia_canvas_item_is_selected</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_is_selected     (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-focus"/>dia_canvas_item_focus ()</title>
+<indexterm><primary>dia_canvas_item_focus</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_focus           (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+<parameter>item</parameter> becomes the focused item. A focused item is also selected, but it
+has the privilege of being the last object that was selected.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-unfocus"/>dia_canvas_item_unfocus ()</title>
+<indexterm><primary>dia_canvas_item_unfocus</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_unfocus         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Unfocus the focused object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-is-focused"/>dia_canvas_item_is_focused ()</title>
+<indexterm><primary>dia_canvas_item_is_focused</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_is_focused      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-grab"/>dia_canvas_item_grab ()</title>
+<indexterm><primary>dia_canvas_item_grab</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_grab            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Make <parameter>item</parameter> the grabbed item. The grabbed item is also selected and also
+has the focus. A grabbed item will recieve all events send to the canvas,
+even if the event is not even near <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-ungrab"/>dia_canvas_item_ungrab ()</title>
+<indexterm><primary>dia_canvas_item_ungrab</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_ungrab          (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Ungrab the item. Inverse of <link linkend="dia-canvas-grab"><function>dia_canvas_grab()</function></link>. Does set the item's state
+to focused.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-is-grabbed"/>dia_canvas_item_is_grabbed ()</title>
+<indexterm><primary>dia_canvas_item_is_grabbed</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_is_grabbed      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-visible"/>dia_canvas_item_visible ()</title>
+<indexterm><primary>dia_canvas_item_visible</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_visible         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Make <parameter>item</parameter> visible.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-invisible"/>dia_canvas_item_invisible ()</title>
+<indexterm><primary>dia_canvas_item_invisible</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_invisible       (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Make <parameter>item</parameter> invisible.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-is-visible"/>dia_canvas_item_is_visible ()</title>
+<indexterm><primary>dia_canvas_item_is_visible</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_is_visible      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-identity"/>dia_canvas_item_identity ()</title>
+<indexterm><primary>dia_canvas_item_identity</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_identity        (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Remove all transformations from <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-scale"/>dia_canvas_item_scale ()</title>
+<indexterm><primary>dia_canvas_item_scale</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_scale           (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> sx,
+                                             <link linkend="gdouble">gdouble</link> sy);</programlisting>
+<para>
+Scale the object. The objects center of its bounding box will not move.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sx</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sy</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-rotate"/>dia_canvas_item_rotate ()</title>
+<indexterm><primary>dia_canvas_item_rotate</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_rotate          (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> degrees);</programlisting>
+<para>
+Rotate <parameter>item</parameter> around the center of its bounding box.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>degrees</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-shear-x"/>dia_canvas_item_shear_x ()</title>
+<indexterm><primary>dia_canvas_item_shear_x</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_shear_x         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);</programlisting>
+<para>
+Shear the object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-shear-y"/>dia_canvas_item_shear_y ()</title>
+<indexterm><primary>dia_canvas_item_shear_y</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_shear_y         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);</programlisting>
+<para>
+Like <link linkend="dia-canvas-item-shear-x"><function>dia_canvas_item_shear_x()</function></link>, but now for the y axis.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-move"/>dia_canvas_item_move ()</title>
+<indexterm><primary>dia_canvas_item_move</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_move            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);</programlisting>
+<para>
+Move <parameter>item</parameter>. Use <link linkend="dia-canvas-item-move-interactive"><function>dia_canvas_item_move_interactive()</function></link> in event handlers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-move-interactive"/>dia_canvas_item_move_interactive ()</title>
+<indexterm><primary>dia_canvas_item_move_interactive</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_move_interactive
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> dx,
+                                             <link linkend="gdouble">gdouble</link> dy);</programlisting>
+<para>
+Move <parameter>item</parameter>. This function raises the <link linkend="DiaCanvas"><type>DiaCanvas</type></link>::move signal, which is
+caught by the active <link linkend="DiaCanvasView"><type>DiaCanvasView</type></link>. The view will request all selected
+objects to move.
+</para>
+<para>
+This function should be used in event handlers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-flip"/>dia_canvas_item_flip ()</title>
+<indexterm><primary>dia_canvas_item_flip</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_flip            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gboolean">gboolean</link> horz,
+                                             <link linkend="gboolean">gboolean</link> vert);</programlisting>
+<para>
+Flip <parameter>item</parameter> around its horizontal and/or vertical axis.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>horz</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vert</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-expand-bounds"/>dia_canvas_item_expand_bounds ()</title>
+<indexterm><primary>dia_canvas_item_expand_bounds</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_expand_bounds   (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> d);</programlisting>
+<para>
+Expand the bounding box of <parameter>item</parameter> in all four directions. This is convenient
+if you have drawn a shape that comes out of the bounding box a little bit.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>d</parameter>&nbsp;:</term>
+<listitem><simpara> number to expand the bounding box with
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-get-shape-iter"/>dia_canvas_item_get_shape_iter ()</title>
+<indexterm><primary>dia_canvas_item_get_shape_iter</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_get_shape_iter  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The first shape to be drawn.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-shape-next"/>dia_canvas_item_shape_next ()</title>
+<indexterm><primary>dia_canvas_item_shape_next</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_shape_next      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-shape-value"/>dia_canvas_item_shape_value ()</title>
+<indexterm><primary>dia_canvas_item_shape_value</primary></indexterm><programlisting><link linkend="DiaShape">DiaShape</link>*   dia_canvas_item_shape_value     (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasIter">DiaCanvasIter</link> *iter);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The value that corresponds with the values of the iterator.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-connect"/>dia_canvas_item_connect ()</title>
+<indexterm><primary>dia_canvas_item_connect</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_connect         (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+Connect <parameter>handle</parameter> to <parameter>item</parameter>. <parameter>Item</parameter> should not be the owner of <parameter>handle</parameter>.
+If the "connect" signal returns FALSE, the object will not be connected.
+</para>
+<para>
+During the connection process, a position for <parameter>handle</parameter> is calculated and
+the handle is moved to that position (so it is not nessesary to do a <link linkend="glue"><function>glue()</function></link>
+before connecting).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-disconnect"/>dia_canvas_item_disconnect ()</title>
+<indexterm><primary>dia_canvas_item_disconnect</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_disconnect      (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaHandle">DiaHandle</link> *handle);</programlisting>
+<para>
+Disconnect <parameter>handle</parameter> from <parameter>item</parameter>. <parameter>handle</parameter>-&gt;connected_to should be the same
+object as <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> item the handle is connected too.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>handle</parameter>&nbsp;:</term>
+<listitem><simpara> handle to be disconnected from <parameter>item</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success, FALSE of failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-disconnect-handles"/>dia_canvas_item_disconnect_handles ()</title>
+<indexterm><primary>dia_canvas_item_disconnect_handles</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    dia_canvas_item_disconnect_handles
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Disconnect all handles of <parameter>item</parameter>. Note that this function disconnects all
+handles that belong to <parameter>item</parameter>, while <link linkend="dia-canvas-item-disconnect"><function>dia_canvas_item_disconnect()</function></link> disconnects
+a handle that is connected to an item!</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if no handles are connected, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-bb-affine"/>dia_canvas_item_bb_affine ()</title>
+<indexterm><primary>dia_canvas_item_bb_affine</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_bb_affine       (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="gdouble">gdouble</link> affine[6],
+                                             <link linkend="gdouble">gdouble</link> *x1,
+                                             <link linkend="gdouble">gdouble</link> *y1,
+                                             <link linkend="gdouble">gdouble</link> *x2,
+                                             <link linkend="gdouble">gdouble</link> *y2);</programlisting>
+<para>
+Calculate the bounding box of <parameter>item</parameter> after a <parameter>affine</parameter> transformation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>affine</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x1</parameter>&nbsp;:</term>
+<listitem><simpara> OUT
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y1</parameter>&nbsp;:</term>
+<listitem><simpara> OUT
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x2</parameter>&nbsp;:</term>
+<listitem><simpara> OUT
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y2</parameter>&nbsp;:</term>
+<listitem><simpara> OUT
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-update-handles-i2w"/>dia_canvas_item_update_handles_i2w ()</title>
+<indexterm><primary>dia_canvas_item_update_handles_i2w</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_update_handles_i2w
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Sync the world coordinates and the item coordinates for all handles of <parameter>item</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-update-handles-w2i"/>dia_canvas_item_update_handles_w2i ()</title>
+<indexterm><primary>dia_canvas_item_update_handles_w2i</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_update_handles_w2i
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item);</programlisting>
+<para>
+Sync all handles item coordinates to their world coordinates.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-preserve-property"/>dia_canvas_item_preserve_property ()</title>
+<indexterm><primary>dia_canvas_item_preserve_property</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_preserve_property
+                                            (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             const <link linkend="gchar">gchar</link> *property_name);</programlisting>
+<para>
+Shorthand for <link linkend="dia-canvas-preserve-property"><function>dia_canvas_preserve_property()</function></link>. It adds a property to the
+canvas' undo stack.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property_name</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="dia-canvas-item-set-child-of"/>dia_canvas_item_set_child_of ()</title>
+<indexterm><primary>dia_canvas_item_set_child_of</primary></indexterm><programlisting><link linkend="void">void</link>        dia_canvas_item_set_child_of    (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *item,
+                                             <link linkend="DiaCanvasItem">DiaCanvasItem</link> *new_parent);</programlisting>
+<para>
+Set a (new) parent for the <parameter>item</parameter>. This implies setting the <link linkend="parent"><type>parent</type></link> and
+<link linkend="canvas"><type>canvas</type></link> fields of <link linkend="item"><type>item</type></link>.
+This function should only be used in DiaCanvasItem implementations.
+</para>
+<para>
+The parent should implement the <link linkend="DiaCanvasGroupable"><type>DiaCanvasGroupable</type></link> interface. Applications
+should use <link linkend="dia-canvas-groupable-add"><function>dia_canvas_groupable_add()</function></link> and <link linkend="dia-canvas-groupable-remove"><function>dia_canvas_groupable_remove()</function></link> to
+add and remove items in a group. This function should be used in the
+<link linkend="DiaCanvasGroupable"><type>DiaCanvasGroupable</type></link>::add and #::remove implementations to create the actual
+parent-child relationship.
+</para>
+<para>
+NOTE: This function is not a substitute for the 'parent' property.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_parent</parameter>&nbsp;:</term>
+<listitem><simpara> new parent or NULL in case of disconnect
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ITEM-VISIBLE-CAPS"/>DIA_CANVAS_ITEM_VISIBLE()</title>
+<indexterm><primary>DIA_CANVAS_ITEM_VISIBLE</primary></indexterm><programlisting>#define DIA_CANVAS_ITEM_VISIBLE(obj) ((DIA_CANVAS_ITEM_FLAGS (obj) &amp; DIA_VISIBLE) != 0)
+</programlisting>
+<para>The canvas item is visible. Canvas items that are not visible will
+not recieve events, nor will their child objects be visible.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ITEM-INTERACTIVE-CAPS"/>DIA_CANVAS_ITEM_INTERACTIVE()</title>
+<indexterm><primary>DIA_CANVAS_ITEM_INTERACTIVE</primary></indexterm><programlisting>#define DIA_CANVAS_ITEM_INTERACTIVE(obj) ((DIA_CANVAS_ITEM_FLAGS (obj) &amp; DIA_INTERACTIVE) != 0)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ITEM-COMPOSITE-CAPS"/>DIA_CANVAS_ITEM_COMPOSITE()</title>
+<indexterm><primary>DIA_CANVAS_ITEM_COMPOSITE</primary></indexterm><programlisting>#define DIA_CANVAS_ITEM_COMPOSITE(obj) ((DIA_CANVAS_ITEM_FLAGS (obj) &amp; DIA_COMPOSITE) != 0)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ITEM-NEED-UPDATE-CAPS"/>DIA_CANVAS_ITEM_NEED_UPDATE()</title>
+<indexterm><primary>DIA_CANVAS_ITEM_NEED_UPDATE</primary></indexterm><programlisting>#define DIA_CANVAS_ITEM_NEED_UPDATE(obj) ((DIA_CANVAS_ITEM_FLAGS (obj) &amp; DIA_NEED_UPDATE) != 0)
+</programlisting>
+<para>The canvas item needs updating. When calling <link linkend="dia-canvas-update-now"><function>dia_canvas_update_now()</function></link> it
+will update (by calling the <link linkend="update"><function>update()</function></link> callback).
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DIA-CANVAS-ITEM-UPDATE-ALL-CAPS"/>DIA_CANVAS_ITEM_UPDATE_ALL()</title>
+<indexterm><primary>DIA_CANVAS_ITEM_UPDATE_ALL</primary></indexterm><programlisting>#define DIA_CANVAS_ITEM_UPDATE_ALL(obj) ((DIA_CANVAS_ITEM_FLAGS (obj) &amp; DIA_UPDATE_ALL) != 0)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasItem--affine"/>&quot;<literal>affine</literal>&quot; (<link linkend="DiaCanvasItemAffine">DiaCanvasItemAffine</link> : Read / Write)</term>
+<listitem>
+<para>Set a new transformation matrix for the object.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasItem--connect"/>&quot;<literal>connect</literal>&quot; (<link linkend="DiaHandle">DiaHandle</link> : Write)</term>
+<listitem>
+<para>Connect a handle to this item. This property should only be used by the
+undo mechanism.  
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasItem--disconnect"/>&quot;<literal>disconnect</literal>&quot; (<link linkend="DiaHandle">DiaHandle</link> : Write)</term>
+<listitem>
+<para>Disconnect a handle to this item. This property should only be used by the
+undo mechanism.  
+
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasItem--handles"/>&quot;<literal>handles</literal>&quot; (<link linkend="DiaCanvasItemHandles">DiaCanvasItemHandles</link> : Read)</term>
+<listitem>
+<para>
+Get a list of handles applied to the canvas item. Note that this list is a copy
+of the list owned by the canvas item. You should free the list and unref the handles in it.
+</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasItem--parent"/>&quot;<literal>parent</literal>&quot; (<link linkend="DiaCanvasItem">DiaCanvasItem</link> : Read / Write)</term>
+<listitem>
+<para>The parent group of this canvas item.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasItem--visible"/>&quot;<literal>visible</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>
+Set the item visible or invisible.
+</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="DiaCanvasItem-connect"/>The &quot;connect&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="DiaHandle">DiaHandle</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>Connect a handle to the canvas item. 
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasitem</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-disconnect"/>The &quot;disconnect&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="DiaHandle">DiaHandle</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>This signal is emitted by the canvas item when a <link linkend="DiaHandle"><type>DiaHandle</type></link> has been
+disconnected. If the emission is stopped, the handle is not disconnected.
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasitem</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-event"/>The &quot;event&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>The event signal is the controller between the <link linkend="DiaCanvasItem"><type>DiaCanvasItem</type></link> (model)
+and the <link linkend="DiaCanvasViewItem"><type>DiaCanvasViewItem</type></link> (view). It is used to handle (user-)events, such
+as mouse button and key presses.</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The <link linkend="DiaEvent">DiaEvent</link> that has been emited.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara><literal>TRUE</literal> if the event is successfully handled. <literal>FALSE</literal> if the event is not handled and should be handled by the item's parent.
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-has-state"/>The &quot;has-state&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gint">gint</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasitem</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-move"/>The &quot;move&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gdouble">gdouble</link> arg1,
+                                            <link linkend="gdouble">gdouble</link> arg2,
+                                            <link linkend="gboolean">gboolean</link> arg3,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasitem</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dx</parameter>&nbsp;:</term>
+<listitem><simpara>relative movement
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dy</parameter>&nbsp;:</term>
+<listitem><simpara>relative movement
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>interactive</parameter>&nbsp;:</term>
+<listitem><simpara>The movement is due to an action by the user
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-need-update"/>The &quot;need-update&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>Notify all views that the item needs to be updated.
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasitem</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-state-changed"/>The &quot;state-changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gint">gint</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+
+<para>The state of the object has changed. This signal is used to notify the
+views that the item's state has been changed. The following properties can be
+changed: <literal>DIA_VISIBLE</literal>, <literal>DIA_SELECT</literal>, <literal>DIA_FOCUS</literal>, <literal>DIA_GRAB</literal>. The visibility will
+affect all views, whereas the select, focus and grab properties will only
+affect the active view (the one the user is working on). Those properties only
+have effect when set in the <link linkend="DiaCanvasItem-event">event</link>()
+handler of the item, visibility can always be changed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>item</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_state</parameter>&nbsp;:</term>
+<listitem><simpara>The new state for the (view)items.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="DiaCanvasItem-z-order"/>The &quot;z-order&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="DiaCanvasItem">DiaCanvasItem</link> *diacanvasitem,
+                                            <link linkend="gint">gint</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>The item has been raised/lowered with respect to its siblings.
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>diacanvasitem</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>position</parameter>&nbsp;:</term>
+<listitem><simpara>Number of places it has been changed. A possitive value indicates raising, negative values indicate lowering.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="DiaCanvas"><type>DiaCanvas</type></link>, <link linkend="DiaHandle"><type>DiaHandle</type></link>, <link linkend="DiaShape"><type>DiaShape</type></link>, <link linkend="DiaEvent"><type>DiaEvent</type></link>.
+</para>
+</refsect1>
+
+</refentry>

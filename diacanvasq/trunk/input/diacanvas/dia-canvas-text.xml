@@ -1,0 +1,158 @@
+<refentry id="DiaCanvasText">
+<refmeta>
+<refentrytitle>DiaCanvasText</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>DIACANVAS2 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>DiaCanvasText</refname><refpurpose>Creates an editable text element on the canvas.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+
+
+#define     <link linkend="DIA-CANVAS-TEXT-CAPS">DIA_CANVAS_TEXT</link>                 (obj)
+struct      <link linkend="DiaCanvasText-struct">DiaCanvasText</link>;
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="DiaCanvasItem">DiaCanvasItem</link>
+         +----DiaCanvasText
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+DiaCanvasText implements
+ <link linkend="DiaCanvasEditable">DiaCanvasEditable</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="DiaCanvasText--alignment">alignment</link>&quot;            <link linkend="PangoAlignment">PangoAlignment</link>       : Read / Write
+  &quot;<link linkend="DiaCanvasText--color">color</link>&quot;                <link linkend="gulong">gulong</link>               : Read / Write
+  &quot;<link linkend="DiaCanvasText--cursor">cursor</link>&quot;               <link linkend="gint">gint</link>                 : Read / Write
+  &quot;<link linkend="DiaCanvasText--editable">editable</link>&quot;             <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasText--font">font</link>&quot;                 <link linkend="PangoFontDescription">PangoFontDescription</link> : Write
+  &quot;<link linkend="DiaCanvasText--height">height</link>&quot;               <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasText--layout">layout</link>&quot;               <link linkend="PangoLayout">PangoLayout</link>          : Read
+  &quot;<link linkend="DiaCanvasText--markup">markup</link>&quot;               <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasText--multiline">multiline</link>&quot;            <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="DiaCanvasText--text">text</link>&quot;                 <link linkend="gchararray">gchararray</link>           : Read / Write
+  &quot;<link linkend="DiaCanvasText--width">width</link>&quot;                <link linkend="gdouble">gdouble</link>              : Read / Write
+  &quot;<link linkend="DiaCanvasText--wrap-word">wrap-word</link>&quot;            <link linkend="gboolean">gboolean</link>             : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+DiaCanvasText is a nice example of a composite object. You can use this class
+in your custom made canvas items to display some text. DiaCanvasText has some
+handy features like the ability to edit the text and a variable height and
+width.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="DIA-CANVAS-TEXT-CAPS"/>DIA_CANVAS_TEXT()</title>
+<indexterm><primary>DIA_CANVAS_TEXT</primary></indexterm><programlisting>#define DIA_CANVAS_TEXT(obj)		(G_TYPE_CHECK_INSTANCE_CAST ((obj), DIA_TYPE_CANVAS_TEXT, DiaCanvasText))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="DiaCanvasText-struct"/>struct DiaCanvasText</title>
+<indexterm><primary>DiaCanvasText</primary></indexterm><programlisting>struct DiaCanvasText;</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="DiaCanvasText--alignment"/>&quot;<literal>alignment</literal>&quot; (<link linkend="PangoAlignment">PangoAlignment</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--color"/>&quot;<literal>color</literal>&quot; (<link linkend="gulong">gulong</link> : Read / Write)</term>
+<listitem>
+<para>Color of the text in RGBA.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--cursor"/>&quot;<literal>cursor</literal>&quot; (<link linkend="gint">gint</link> : Read / Write)</term>
+<listitem>
+<para>Position of the cursor in the text.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--editable"/>&quot;<literal>editable</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Text is editable.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--font"/>&quot;<literal>font</literal>&quot; (<link linkend="PangoFontDescription">PangoFontDescription</link> : Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--height"/>&quot;<literal>height</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Height of the text.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--layout"/>&quot;<literal>layout</literal>&quot; (<link linkend="PangoLayout">PangoLayout</link> : Read)</term>
+<listitem>
+<para>Layout of the text.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--markup"/>&quot;<literal>markup</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Text has markup symbols.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--multiline"/>&quot;<literal>multiline</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>Multiline text.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--text"/>&quot;<literal>text</literal>&quot; (<link linkend="gchararray">gchararray</link> : Read / Write)</term>
+<listitem>
+<para>Text to be displayed.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--width"/>&quot;<literal>width</literal>&quot; (<link linkend="gdouble">gdouble</link> : Read / Write)</term>
+<listitem>
+<para>Width of the text.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="DiaCanvasText--wrap-word"/>&quot;<literal>wrap-word</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para></para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+
+</refentry>

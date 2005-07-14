@@ -1,0 +1,89 @@
+package diacanvasqD7;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$IMPLICITBUILD OFF}
+{$DEFINE need_icloneable}
+{$DEFINE DELPHI}
+{$DEFINE need_igclosure}
+{$DEFINE gtk2q_standalone}
+
+requires
+  rtl,
+  gtk2qD7,
+  gnomecanvasqD7;
+
+contains
+  uwrapdiacanvasnames in 'static\uwrapdiacanvasnames.pas',
+  udiacanvastypes in 'static\udiacanvastypes.pas',
+  iudiacanvas in 'static\iudiacanvas.pas',
+  udiavariable in 'output\diacanvas\udiavariable.pas',
+  sdiacanvasbox in 'output\diacanvas\sdiacanvasbox.pas',
+  sdiacanvaseditable in 'output\diacanvas\sdiacanvaseditable.pas',
+  sdiacanvaselement in 'output\diacanvas\sdiacanvaselement.pas',
+  sdiacanvasgroupable in 'output\diacanvas\sdiacanvasgroupable.pas',
+  sdiacanvasimage in 'output\diacanvas\sdiacanvasimage.pas',
+  sdiacanvasitem in 'output\diacanvas\sdiacanvasitem.pas',
+  sdiacanvasline in 'output\diacanvas\sdiacanvasline.pas',
+  sdiacanvasview in 'output\diacanvas\sdiacanvasview.pas',
+  sdiacanvasviewitem in 'output\diacanvas\sdiacanvasviewitem.pas',
+  sdiaconstraint in 'output\diacanvas\sdiaconstraint.pas',
+  sdiahandle in 'output\diacanvas\sdiahandle.pas',
+  sdiahandlelayer in 'output\diacanvas\sdiahandlelayer.pas',
+  sdiasolver in 'output\diacanvas\sdiasolver.pas',
+  sdiatool in 'output\diacanvas\sdiatool.pas',
+  sdiaundomanager in 'output\diacanvas\sdiaundomanager.pas',
+  sdiavariable in 'output\diacanvas\sdiavariable.pas',
+  udiacanvas in 'output\diacanvas\udiacanvas.pas',
+  udiacanvasbox in 'output\diacanvas\udiacanvasbox.pas',
+  udiacanvaselement in 'output\diacanvas\udiacanvaselement.pas',
+  udiacanvasgroup in 'output\diacanvas\udiacanvasgroup.pas',
+  udiacanvasimage in 'output\diacanvas\udiacanvasimage.pas',
+  udiacanvasitem in 'output\diacanvas\udiacanvasitem.pas',
+  udiacanvasline in 'output\diacanvas\udiacanvasline.pas',
+  udiacanvastext in 'output\diacanvas\udiacanvastext.pas',
+  udiacanvasview in 'output\diacanvas\udiacanvasview.pas',
+  udiacanvasviewitem in 'output\diacanvas\udiacanvasviewitem.pas',
+  udiaconstraint in 'output\diacanvas\udiaconstraint.pas',
+  udiahandle in 'output\diacanvas\udiahandle.pas',
+  udiahandlelayer in 'output\diacanvas\udiahandlelayer.pas',
+  udiasolver in 'output\diacanvas\udiasolver.pas',
+  udiatool in 'output\diacanvas\udiatool.pas',
+  udiaundomanager in 'output\diacanvas\udiaundomanager.pas',
+  sdiacanvas in 'output\diacanvas\sdiacanvas.pas',
+  udiacanvasitemshapes in 'static\udiacanvasitemshapes.pas',
+  udiaexpression in 'static\udiaexpression.pas',
+  udiadashstyle in 'static\udiadashstyle.pas',
+  udiaundoaction in 'static\udiaundoaction.pas',
+  iudiaundoaction in 'static\iudiaundoaction.pas',
+  udiashape in 'static\udiashape.pas',
+  sdiacanvasgroup in 'static\sdiacanvasgroup.pas',
+  sdiacanvastext in 'static\sdiacanvastext.pas',
+  udiastacktool in 'static\udiastacktool.pas',
+  udiadefaulttool in 'static\udiadefaulttool.pas',
+  udiahandletool in 'static\udiahandletool.pas',
+  udiaitemtool in 'static\udiaitemtool.pas',
+  udiaplacementtool in 'static\udiaplacementtool.pas',
+  udiaselectiontool in 'static\udiaselectiontool.pas';
+
+end.

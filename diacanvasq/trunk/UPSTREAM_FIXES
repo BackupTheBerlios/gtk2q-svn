@@ -1,0 +1,18 @@
+Todo:
+
+mark DiaCanvasItem.event signal as deprecated in the docs (as already is in the h)
+DiaCanvas.extents-changed signal arg1 = ? -> DiaRectangle*!!
+
+gint        dia_canvas_group_foreach        (DiaCanvasItem *item,
+                                             DiaCanvasItemForeachFunc func,
+                                             gpointer data);
+what the heck...
+
+
+dia_canvas_find_objects_in_rectangle () ? what is returned? "objects"? what?
+
+DiaCanvasItem
+  "affine"               DiaCanvasItemAffine  : Read / Write
+  "handles"              DiaCanvasItemHandles : Read / Write
+
+??
