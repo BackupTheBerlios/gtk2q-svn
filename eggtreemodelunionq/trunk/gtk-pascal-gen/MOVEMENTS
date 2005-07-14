@@ -1,2 +1,0 @@
-gdk: pixmap, image, window -> drawable; gdk: screen, device -> display
-
