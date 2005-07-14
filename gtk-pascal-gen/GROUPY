@@ -1,0 +1,18 @@
+	#radioaction setgroup
+	#radiobutton setgroup
+	#radiomenuitem setgroup
+	#radiotoolbutton setgroup
+	"GtkRadioMenuItem": {
+		"GetGroup": """
+			public function GetGroup: 
+			begin
+			  gtk_radio_menu_item_get_group(PGtkRadioMenuItem(Fobject), );
+			end;
+		""",
+		"SetGroup": """
+			public procedure SetGroup(const );
+			begin
+			  gtk_radio_menu_item_set_group(PGtkRadioMenuItem(Fobject), );
+			end;
+		""",
+	},

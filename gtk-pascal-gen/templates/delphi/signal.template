@@ -1,0 +1,256 @@
+unit {psunit};
+
+interface
+uses ugobject, ugtypes, iugsignal, ugsignal, iugobject, sysutils{psiguses};
+
+#signal#
+type
+   {signalhandlertype} = {signalhandlerprocfunc}({signalhandlerparams}){signalhandlerreturn} of object;
+   (* this is really a handler manager so you have one instance of that class per instance of the handled class *)
+   (* (as opposed to one common instance for the handled class object) *)
+   {signalclass} = class;
+   {signalhandlerclass} = class(DSignalHandler)
+   public
+     constructor Create(ASignal: {signalclass}; ACallback: {signalhandlertype}); overload;
+     procedure Handle(const args: array of const); override; (* calls signalhandlertype back *)
+   end;
+   {signalclass} = class(DCustomSignal) 
+   public
+     function Add(cb: {signalhandlertype}): TSignalHandlerID;
+     function AddAfter(cb: {signalhandlertype}): TSignalHandlerID;
+     procedure Remove(cb: {signalhandlertype});
+     procedure Block(cb: {signalhandlertype});
+     procedure Unblock(cb: {signalhandlertype});
+     function IsConnected(cb: {signalhandlertype}): Boolean;
+   end;
+   (* TLow{signalhandlertype} = procedure(xx); cdecl; *)
+
+#/signal#
+
+implementation
+uses utyperegistry{pimpuses}, unicegvalue, ugvalue;
+
+#signal#
+
+(* Signal Class ( = signal handler list and proxy ) *)
+
+function {signalclass}.Add(cb: {signalhandlertype}): TSignalHandlerID;
+begin
+(*$IFDEF FPCMODE*)
+  Result := inherited Add({signalhandlerclass}, TMethod(@cb));
+(*$ELSE*)
+  Result := inherited Add({signalhandlerclass}, TMethod(cb));
+(*$ENDIF FPCMODE*)
+end;
+
+function {signalclass}.AddAfter(cb: {signalhandlertype}): TSignalHandlerID;
+begin
+(*$IFDEF FPCMODE*)
+  Result := inherited AddAfter({signalhandlerclass}, TMethod(@cb));
+(*$ELSE*)
+  Result := inherited AddAfter({signalhandlerclass}, TMethod(cb));
+(*$ENDIF FPCMODE*)
+end;
+
+procedure {signalclass}.Remove(cb: {signalhandlertype});
+begin
+(*$IFDEF FPCMODE*)
+  inherited Remove(TMethod(@cb));
+(*$ELSE*)
+  inherited Remove(TMethod(cb));
+(*$ENDIF FPCMODE*)
+end;
+
+procedure {signalclass}.Block(cb: {signalhandlertype});
+begin
+(*$IFDEF FPCMODE*)
+  inherited Block(TMethod(@cb));
+(*$ELSE*)
+  inherited Block(TMethod(cb));
+(*$ENDIF FPCMODE*)
+end;
+
+procedure {signalclass}.Unblock(cb: {signalhandlertype});
+begin
+(*$IFDEF FPCMODE*)
+  inherited Unblock(TMethod(@cb));
+(*$ELSE*)
+  inherited Unblock(TMethod(cb));
+(*$ENDIF FPCMODE*)
+end;
+
+function {signalclass}.IsConnected(cb: {signalhandlertype}): Boolean;
+begin
+(*$IFDEF FPCMODE*)
+  Result := inherited IsConnected(TMethod(@cb));
+(*$ELSE*)
+  Result := inherited IsConnected(TMethod(cb));
+(*$ENDIF FPCMODE*)
+end;
+
+
+(* signal handler class *)
+
+constructor {signalhandlerclass}.Create(ASignal: {signalclass}; ACallback: {signalhandlertype}); 
+begin
+(*$IFDEF FPCMODE*)
+  inherited Create(ASignal, TMethod(@ACallback));
+(*$ELSE*)
+  inherited Create(ASignal, TMethod(ACallback));
+(*$ENDIF FPCMODE*)
+end;
+
+
+(*$DEFINE SIGNAL_RETURNTYPE_{signalhandlerrestypedef}*)
+procedure {signalhandlerclass}.Handle(const args: array of const);
+var
+  closure: PWGClosure;
+  returnvalue: PWGValue;
+  nparams : Cardinal;
+  params: PWGValue;
+  bparams: PWGValue;
+  (*invocationhint: Pointer;*)
+  (*marshaldata: Pointer;*)
+  i: Cardinal;
+  cb: {signalhandlertype};
+  hcb: TMethod;
+#signalhandlerarg#
+  {signalhandlerargnamecurrent}: {signalhandlerargtypecurrent};
+#/signalhandlerarg#
+  nativeobject: PWGObject;
+(*$IFNDEF SIGNAL_RETURNTYPE_NONE*)
+  res: {signalhandlerrestype};
+(*$ENDIF SIGNAL_RETURNTYPE_NONE*)
+begin
+  inherited Handle(args);
+
+  assert(Length(args) = 6);
+  assert(args[0].VType = vtPointer);
+  assert(args[1].VType = vtPointer);
+  assert(args[2].VType = vtInteger); (* errr.. *)
+  assert(args[3].VType = vtPointer);
+  assert(args[4].VType = vtPointer);
+  assert(args[5].VType = vtPointer);
+  closure := args[0].VPointer;
+  returnvalue := PWGValue(args[1].VPointer);
+  nparams := guint(args[2].VInteger);
+  params := PWGValue(args[3].VPointer);
+  bparams := params;
+  (*invocationhint := args[4].VPointer;*)
+  (*marshaldata := args[5].VPointer;*)
+
+  Self.GetCallback(hcb);
+  (*$IFDEF FPCMODE*)
+  cb := {signalhandlertype}(@hcb);  
+  (*$ELSE*)
+  cb := {signalhandlertype}(hcb);  
+  (*$ENDIF FPCMODE*)
+
+  (* convert the args to something workable *)
+  (*for i := 1 to nparams do begin*)
+#signalhandlerarg#
+    (*$UNDEF SIGNAL_ARGTYPE_OBJECT*)
+    (*$UNDEF SIGNAL_ARGTYPE_MEDIATOROBJECT*)
+    (*$UNDEF SIGNAL_ARGTYPE_MEDIATORRECORD*)
+    (*$UNDEF SIGNAL_ARGTYPE_ENUM*)
+    (*$UNDEF SIGNAL_ARGTYPE_RECORD*)
+    (*$UNDEF SIGNAL_ARGTYPE_SIMPLE*)
+    (*$UNDEF SIGNAL_ARGTYPE_SELF*)
+    (*$UNDEF SIGNAL_ARGTYPE_PARAMSPEC*)
+    (*$UNDEF SIGNAL_ARGOUTPUT_YES*)
+    (*$UNDEF SIGNAL_ARGOUTPUT_NO*)
+
+    (*$DEFINE SIGNAL_ARGTYPE_{signalhandlerargtypecurrentdef}*)
+
+    (*$IFDEF SIGNAL_ARGTYPE_OBJECT*)
+    nativeobject := gValueGetObject(params^);
+    assert(Assigned(nativeobject));
+    g_object_ref(nativeobject);
+    {signalhandlerargnamecurrent} := WrapGObject(nativeobject) as {signalhandlerargtypecurrent};
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_ENUM*)
+    {signalhandlerargnamecurrent} := {signalhandlerargtypecurrent}(gValueGetEnumLike(params^));
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_RECORD*)
+    {signalhandlerargnamecurrent} := {signalhandlerargtypecurrent}(P{signalhandlerargtypecurrent}(gValueGetBoxed(params^))^);
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_SIMPLE*)
+    gValueGetValue(params^, {signalhandlerargnamecurrent});
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_SELF*)
+    {signalhandlerargnamecurrent} := GetSignal.GetOwner as TGObject;
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_MEDIATOROBJECT*)
+    {signalhandlerargnamecurrent} := {signalhandlerargtypeasimplcurrent}.CreateWrapped(gValueGetBoxed(params^)) as {signalhandlerargtypecurrent};
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_MEDIATORRECORD*)
+    {signalhandlerargnamecurrent} := {signalhandlerargtypeasimplcurrent}.CreateWrapped(gValueGetBoxed(params^)) as {signalhandlerargtypecurrent};
+    (*$ELSE*)
+    (*$IFDEF SIGNAL_ARGTYPE_PARAMSPEC*)
+    {signalhandlerargnamecurrent} := gParamSpecGetName(gValueGetBoxed(params^)^);
+    (*$ELSE*)
+     unhandled type {signalhandlerargtypecurrent}
+    (*$ENDIF SIGNAL_ARGTYPE_PARAMSPEC*)
+    (*$ENDIF SIGNAL_ARGTYPE_MEDIATORRECORD*)
+    (*$ENDIF SIGNAL_ARGTYPE_MEDIATOROBJECT*)
+    (*$ENDIF SIGNAL_ARGTYPE_SELF*)
+    (*$ENDIF SIGNAL_ARGTYPE_SIMPLE*)
+    (*$ENDIF SIGNAL_ARGTYPE_RECORD*)
+    (*$ENDIF SIGNAL_ARGTYPE_ENUM*)
+    (*$ENDIF SIGNAL_ARGTYPE_OBJECT*)
+
+    (*$UNDEF SIGNAL_ARGTYPE_MEDIATORRECORD*)
+    (*$UNDEF SIGNAL_ARGTYPE_MEDIATOROBJECT*)
+    (*$UNDEF SIGNAL_ARGTYPE_OBJECT*)
+    (*$UNDEF SIGNAL_ARGTYPE_ENUM*)
+    (*$UNDEF SIGNAL_ARGTYPE_RECORD*)
+    (*$UNDEF SIGNAL_ARGTYPE_SIMPLE*)
+    (*$UNDEF SIGNAL_ARGTYPE_SELF*)
+    (*$UNDEF SIGNAL_ARGOUTPUT_NO*)
+    params := SignalHandlerNextParam(params);
+#/signalhandlerarg#
+  (*end;*)
+
+  (*$IFNDEF SIGNAL_RETURNTYPE_NONE*)
+  assert(Assigned(returnvalue));
+  res :=
+  (*$ENDIF SIGNAL_RETURNTYPE_NONE*)
+    cb({signalhandlerargnames});
+  (*$IFNDEF SIGNAL_RETURNTYPE_NONE*)
+  gValueSetValue(returnvalue^, res);
+  (*$ENDIF SIGNAL_RETURNTYPE_NONE*)
+  (*$UNDEF SIGNAL_RETURNTYPE_{signalhandlerrestypedef}*)
+
+ 
+  (* retrieve output parameters *)
+  params := bparams;
+
+#signalhandlerarg#
+    (*$UNDEF SIGNAL_ARGTYPE_OBJECT*)
+    (*$UNDEF SIGNAL_ARGTYPE_MEDIATOROBJECT*)
+    (*$UNDEF SIGNAL_ARGTYPE_MEDIATORRECORD*)
+    (*$UNDEF SIGNAL_ARGTYPE_ENUM*)
+    (*$UNDEF SIGNAL_ARGTYPE_RECORD*)
+    (*$UNDEF SIGNAL_ARGTYPE_SIMPLE*)
+    (*$UNDEF SIGNAL_ARGTYPE_SELF*)
+    (*$UNDEF SIGNAL_ARGTYPE_PARAMSPEC*)
+    (*$UNDEF SIGNAL_ARGOUTPUT_YES*)
+
+    (*$DEFINE SIGNAL_ARGTYPE_{signalhandlerargtypecurrentdef}*)
+    (*$DEFINE SIGNAL_ARGOUTPUT_{signalhandlerargoutputflagcurrent}*)
+
+    (*$IFDEF SIGNAL_ARGOUTPUT_YES*)
+    (*$IFDEF SIGNAL_ARGTYPE_SIMPLE*)
+    gValueSetValue(params^, {signalhandlerargnamecurrent});
+    (*$ELSE*)
+    cannot handle this i/o parameter type
+    (*$ENDIF SIGNAL_ARGTYPE_SIMPLE*)
+    (*$ENDIF SIGNAL_ARGOUTPUT_YES*)
+  
+    params := SignalHandlerNextParam(params);
+#/signalhandlerarg#
+end;
+
+#/signal#
+
+end.

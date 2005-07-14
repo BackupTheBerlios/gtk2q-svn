@@ -1,0 +1,4 @@
+report gtk bug: gtk_paint_shadow_gap has gchar*detail instead of const gchar*detail ? why ?
+and gtk_paint_box_gap too, gtk_paint_extension
+gdk_pixbuf_save* PPChar ??? (non-const? non-gchar?)
+

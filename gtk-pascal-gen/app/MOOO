@@ -1,0 +1,9 @@
+def iversion():
+	# returns interface version string (suffix)
+	# examples for the used names are:
+	#   IGtkTreeView24
+	global xxversion
+	
+	s = str(xxversion).replace(".", "")
+	return s
+	

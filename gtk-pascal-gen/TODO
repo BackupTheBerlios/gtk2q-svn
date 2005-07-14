@@ -1,0 +1,138 @@
+fpc set MemoryMutexManager ?
+All you have to do if you wish to make a particular kind of object
+streamable is to call Delphi's RegisterClass procedure. <-- ??
+
+-->?
+uses
+InvokeRegistry; // Unit contains methods on how to register the interface
+
+initialization
+  InvRegistry.RegisterInterface(TypeInfo(ITConversion));
+  InvRegistry.RegisterInvokableClass(TConversionService);
+?
+
+ atk_object_set_role (gtk_widget_get_accessible (dialog), ATK_ROLE_ALERT);
+
+function call order:
+	- gtk_tree_view_column_add_attribute needs gtk_tree_view_column_pack start to be called first!
+	- gdk_pixbuf_loader_close before unref
+
+needed manual checks before stable release:
+	- gtk_rc_style(class)->merge and create_style (and parse?), fix cgtkrc.inc
+	- gdk_gc_ constructable, gdkcolormap, gdkimage, gdkpixmap, 
+	  gtkactiongroup!, gtk*action, gtkmessagedialog
+	- resolve gtktreeview / selection fixmes in defs
+	- do all treeview functions return (path) interfaces properly ?
+	- test: Signal Handlers Block(receiver) Unblock(receiver) Remove(receiver)
+	- test filechooserdefault signals
+	- test handling of signal return values and io parameters(seldomly used)
+	- test liststore Items[row, column: Integer]: Variant; default;
+	- test gdk_region_get_rectangles !
+	- gtk_tree_sortable_set_sort_func ?
+
+long term goals:
+	- gtk_binding_entry_add_signal()
+	- GDK_SELECTION_CLIPBOARD / GDK_SELECTION_PRIMARY (and remainder of gdkselection.h)
+	- make treeiter a mini-pointermediator? so that the struct can be kept private? no, is overkill.
+	- use drefcounter for ugdkcursor?
+	- make user defined properties possible in derived classes
+	- thread aware
+	- savetostream/loadfromstream (at least pixbuf)
+	- use ugerrorquark to classify error domains ?
+	- add tree_model_get
+	- cleanup gtkstyle
+	- glib stuff (g_tree - balanced binary tree)
+	- pass more than 'name' of GParamSpec to callbacks ?
+	- use IGtkTextBufferUser for stuff that uses a text buffer?
+
+update gtk version:
+	- update to glib 2.6.0, pango 1.8.0, gtk+ 2.6.0
+	- add iconview for good (and require gtk 2.6.0)
+	- add gtk about dialog
+	- add extra cell renderers (combo, progress)
+	- add cell renderer stop editing
+	- gtk_cell_view* ?
+	- http://developer.gnome.org/doc/API/2.0/gtk/ix05.html
+	- add gtk 2.6 druid ?
+
+missing from wrapper:
+	- g_object_{add,remove}_weak_pointer
+	- ???g_object_run_dispose?
+	- gtk_widget_class_install_style_property
+
+'generic' classes: DONT.
+	- GObject[started], GtkWidget, CellRenderer[started], Container, TreeModel iface, VBox, HBox, Widget
+
+check througoutly somewhen:
+	- Gtk Widget Flags
+	- test if: gtkliststore uses gtktreemodel properly
+	- gdk_pixbuf_new_subpixbuf ?
+
+ignore:
+	- gtk_decorated_window_calculate_frame_size --> this is for gtkfb, gtkdirectfb, alexl says they arent needed for apps
+
+signal handlers:
+	in signal handler callbacks, convert time to TDateTime ?
+	signal 'details'
+
+constructors:
+	- GdkPixbuf new
+	- fix action so that (name,label,tooltip,stockid) can be passed, then remove from unconstructable 
+          list (probably use g_object_new(GTK_TYPE_ACTION, ..., NULL))
+	- gtk_message_dialog constuctor ?
+	- make non-toplevel gtkwindows possible
+	- gtk_file_chooser_widget_new_with_backend ?
+	- gtk file chooser dialog/widget button list ?
+
+properties:
+	- GdkPixbuf pixels
+
+mediated:
+	- direct access to GtkTextAttributes contents ? GtkTreePath ?
+	- GtkTreePath -> DGObjectDescendant... wrong
+	- new: gdk_rgb_cmap ? gdk_rgb_gc ? gdk_draw_indexed_image() ? struct GdkRgbCMap { guint32 colors[256]; gint n_colors; } + accessors
+	- g_enum_register_static interesting ... ??
+
+test wrapped functions!:
+	- test: exposed gdk_pointer_grab/gdk_keyboard_grab in gdkwindow
+	- check if gtk_icon_theme_lookup_icon is correct
+	- gtk_rc_get_style_by_paths
+	- gtk_widget_modify_font() or gtk_label_set_markup() ?
+	- test gtk_widget_modify_style
+
+missing base features (not functions):
+	- passing around GClosure (accelerators have that all the time)
+
+test weird signal handler parameters for:
+	OK? needoutput: gtkspinbutton input,  [ gdouble* O_O ] (has gpointer)
+	OK? needoutput: gtkmenuitem toggle-size-request [ gint * O_O ] (has gpointer)
+	OK? needoutput: gtkeditable insert-text
+	OK somewhat: gtkwidget child-notify [ GParamSpec* ]   (has gpointer)
+	OK: gtknotebook focus-tab [ GtkNotebookTab! ] (has that)
+	OK somewhat: gtknotebook switch-page [ PGtkNotebookPage ]
+
+others:
+	- what is internal error: D9690 (delphi 7)
+	- test: make GtkTreeIter const by default, but overridable
+	- test: Clone (ICloneable) rcstyle, style, and static/
+
+functions to be hidden somewhen?:
+	- treemodel: refnode, unrefnode ?
+	- remove '_beep's
+	- gtk_button_enter etc
+
+do in the next life:
+	- stdcall the interfaces?
+	- split TypeRegister and GTypeRegister: GType ?
+	- createwrapped: takeoverref boolean ! (and change templates accordingly)
+	- try/except the create calls in array item wrapper code so that there is no dangling reference
+	- add gtk_text_buffer_insert_with_tags/*_by_name / gtk_text_buffer_create_tag ?
+	- gdk_pixbuf_new_from_data
+	- add gdk_event_* () functions somewhere ?
+	- {pancestorclass}.TypeRegister; ? auto?
+
+
+"For strings returned from functions, they will be declared "const" (using
+G_CONST_RETURN) if they should not be freed. Non-const strings should be
+freed with g_free(). Arrays follow the same rule. (If you find an exception
+to the rules, please report a bug to http://bugzilla.gnome.org.)"
