@@ -42,6 +42,8 @@ preturntransformers = {
 
 # list of classes that are not gobject (usually pointermediators) but are wrappers
 nongobjectclasses = [
+  "TGstCaps",
+  "TGstStructure",
 ]
 
 # maps from interface name to interface unit name for special cases
