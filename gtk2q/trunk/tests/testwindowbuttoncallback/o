@@ -1,0 +1,13 @@
+#!/bin/sh
+
+fpc -dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone \
+        -Mdelphi \
+        -Fu../../varrec \
+        -Fu../../static -Fi../.. -Fi../../static \
+        -Fi../../output/gdk \
+        -Fi../../output/gtk \
+        -Fi../../output/gdk-pixbuf \
+        -Fu../../output/gdk-pixbuf \
+        -Fu../../output/gdk \
+        -Fu../../output/gtk \
+        -g -XX -OG3 -vewni -l testwindowbuttoncallback.pas

@@ -1,0 +1,11 @@
+  // these have specialisations that are not gtyped
+  if Assigned(someclass) and (
+  ((agtype = gtk_file_chooser_dialog_get_type()) and
+  (someclass.ClassName <> 'DGtkFileChooserDialog'))
+  or
+  ((agtype = gtk_file_chooser_widget_get_type()) and
+  (someclass.ClassName <> 'DGtkFileChooserWidget'))
+  ) then begin
+    FTypeRegistry.AddSpecial(name, namespace, someclass, agtype, iface);
+    Exit;
+  end;

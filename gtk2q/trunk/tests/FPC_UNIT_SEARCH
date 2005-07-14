@@ -1,0 +1,1 @@
+fpc g -vut -Sd |egrep "(PPU Loading|Searching file.*ugtkwindow\.ppu|Fatal|Recompiling)"

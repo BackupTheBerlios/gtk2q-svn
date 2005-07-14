@@ -1,0 +1,4 @@
+
+for delphi:
+- install uvarrectools into some directory where delphi can find it.
+- compile gtk2qD7.dpk package

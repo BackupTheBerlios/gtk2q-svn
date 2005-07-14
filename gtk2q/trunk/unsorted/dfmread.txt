@@ -1,0 +1,57 @@
+function DFMRead(sl: TStrings): TXML;
+var
+  i: Integer;
+  j: Integer;
+  parent: TXMLNode;
+  line: string;
+  name: string;
+  value: string;
+  keyword: string;
+  params: string;
+  icolon: Integer;
+begin
+  xmltree := XMLCreateDocument('dfm');
+  parent := xmltree.Root;
+
+  for i := 0 to sl.Count - 1 do begin 
+    line := Trim(sl[i]);
+
+    j := Pos('=', line);
+    if j > 0 then begin (* setting *)
+      name := Copy(line, 1, j - 1);
+      value := Trim(Copy(line, j + 1, Length(line)));
+
+	(* value either Null or -1 or 'bla' or something *)
+
+      el := parent.appendElement(XMLElementNode('property', name=name));
+
+      if (value <> '<') then begin (* datasets have that for fields *)
+        if value <> '<>' then begin (* empty *)
+          vxml := XMLTextNode(value);
+          el.AppendChild(vxml);
+        end;
+      end else parent := el;
+    end else begin (* object, end, end> *)
+      j := Pos(' ', line);
+      if j = 0 then begin
+        keyword := line;
+        params := '';
+      end else begin
+        keyword := Copy(line, 1, j - 1);
+        params := Trim(Copy(line, j + 1, Length(line)));
+      end;
+
+
+      if keyword = 'end' or keyword = 'end>' then
+        parent := parent.Parent
+      else if keyword = 'object' then begin
+        icolon := Pos(':', params);
+        name := Trim(Copy(params, 1, icolon - 1));
+        value := Trim(Copy(params, icolon + 1, Length(params));
+        el := parent.appendElement(XMLElementNode('object', name=name, value=value);
+      end;
+    end;
+  end;
+  Result := xmltree;
+end;
+

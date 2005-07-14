@@ -1,0 +1,39 @@
+GtkAccelerator (getlabel)
+GtkAction (getaccelpath, setsensitive, setvisible)
+GtkActionGroup (translatestring)
+?? gtk_alternative_dialog_button_order, gtk_alternative_dialog_button_order ()
+GtkCellRenderer (stop_editing)
+GtkCellView (getCellRenderers, getSizeOfRow, New, NewWithMarkup, NewWithPixbuf, NewWithText, SetBackgroundColor, SetDisplayedRow, SetModel)
+GtkClipboard (requestimage, setcanstore, setimage, store, waitforimage, waitisimageavailable, waitistargetavailable)
+GtkComboBox (getactivetext, getcolumnspancolumn, getfocusonclick,
+  getpopupaccessible, getrowseparatorfunc, getrowspancolumn, 
+  getwrapwidth, setaddtearoffs, setfocusonclick, setrowseparatorfunc)
+GtkDialog (setalternativebuttonorder, setalternativebuttonorderfromarray)
+GtkDragDest (addimagetargets,addtexttargets,adduritargets)
+GtkDragSource (addimagetargets,addtexttargets,adduritargets)
+GtkEntryCompletion (getinlinecompletion, getpopupcompletion, gettextcolumn,
+  insertprefix, setinlinecompletion, setpopupcompletion)
+GtkFileChooser (getshowhidden, setshowhidden)
+GtkFileFilter (addpixbufformats)
+??? gtk_get_option_group, gtk_get_option_group ()
+GtkIconTheme (geticonsizes)
+GtkImage (geticonname, getpixelsize, newfromiconname, setfromiconname,
+  setpixelsize)
+??? gtk_init_with_args, gtk_init_with_args ()
+GtkLabel (getangle, getellipsize, getmaxwidthchars, getsinglelinemode,
+  getwidthchars, setangle, setellipsize, setmaxwidthchars, 
+  setsinglelinemode, setwidthchars)
+GtkListStore (insertwithvalues, insertwithvaluesv)
+GtkMenu (getforattachwidget)
+GtkMessageDialog (formatsecondarymarkup, formatsecondarytext)
+GtkProgressBar (setellipsize)
+GtkSelectionData (getpixbuf, geturis, setpixbuf, seturis, targetsincludeimage)
+GtkTargetList (addimagetargets, addtexttargets, adduritargets)
+GtkTextBuffer (backspace)
+GtkTextView (getiteratposition)
+GtkToolItem (rebuildmenu)
+GtkTreeView (getfixedheightmode, gethoverexpand, gethoverselection,
+  getrowseparatorfunc, setfixedheightmode, sethoverexpand, sethoverselection,
+  setrowseparatorfunc)
+GtkWindow (getfocusonmap, geticonname, setdefaulticonname, setfocusonmap,
+  seticonname)

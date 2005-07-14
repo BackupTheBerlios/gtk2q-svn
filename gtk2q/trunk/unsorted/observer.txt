@@ -1,0 +1,19 @@
+ INotifyable = interface 
+    procedure Notification(const NotifyArg:TNotifyArg); 
+ property  OnNotify : TObserverNotifycation read GetNotify write SetNotify;
+  end; 
+
+  IObserveable = interface 
+    procedure AddObserver(const aObserver:INotifyable); 
+    procedure RemoveObserver(const aObserver:INotifyable); 
+  end;
+
+ TNotifyArg = class(TObject) 
+  private 
+    FMessageText: String; 
+  public 
+    property MessageText : String read FMessageText write FMessageText; 
+  end;
+
+
+FList : IInterfaceList; <-- interesting

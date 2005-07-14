@@ -1,0 +1,17 @@
+fpc -dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone \
+        -Mdelphi \
+        -Fu../../varrec \
+	-Fu../../units/i386-linux \
+        -Fustatic -Fi. -Fistatic \
+        -Fioutput/gdk \
+        -Fioutput/gtk \
+        -Fioutput/gdk-pixbuf \
+        -Fuoutput/gdk-pixbuf \
+        -Fuoutput/gdk \
+        -Fuoutput/gtk \
+	-va \
+        -g -XX -OG3 -vewni -l \
+	testwindowbuttoncallback.pas
+
+	#-vut \
+#	-va \

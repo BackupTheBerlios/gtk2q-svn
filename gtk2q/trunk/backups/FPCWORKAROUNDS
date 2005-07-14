@@ -1,0 +1,19 @@
+(*$IFDEF FPC*)
+(* EVIL *)
+function g_atomic_int_dec_and_test(i: gpointer); cdecl; external glib;
+function g_atomic_int_inc(i: gpointer); cdecl; external glib;
+
+function InterlockedIncrement(var value: Cardinal): Integer;
+begin
+  assert(sizeof(gint) = sizeof(value));
+  g_atomic_int_inc(@value);
+  Result := 87;
+end;
+
+function InterlockedDecrement(var value: Cardinal): Integer;
+begin
+  assert(sizeof(gint) = sizeof(value));
+  g_atomic_int_dec_and_test(@value);
+  Result := 87;
+end;
+(*$ENDIF FPC*)
