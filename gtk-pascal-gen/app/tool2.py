@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from defs import *
+from readcfg import *
 import re
 import sys
 

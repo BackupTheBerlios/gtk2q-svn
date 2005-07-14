@@ -11,7 +11,7 @@ import time
 import os
 import codecs
 from tool2 import parseFN, parseVar, exttype
-from defs import *
+from readcfg import *
 #from tool import exttype
 
 #cat gtktearoffmenuitem.h | awk ' /^struct.*_G.*Class/ { ok=1;} /}/ { ok=0; print $_} { if (ok) print $_ }' |sed 's@};@@'

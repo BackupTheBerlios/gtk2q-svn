@@ -5,7 +5,7 @@
 import sys
 import codecs
 import os
-from defs import *
+from readcfg import *
 		
 from readdef import *
 from tool import *
