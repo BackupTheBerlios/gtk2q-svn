@@ -1,0 +1,28 @@
+Properties still to do:
+
+GnomeCanvasBpath
+ * bpath                gpointer              : Read / Write ?
+
+GnomeCanvasClipground
+ * "path" property
+
+  "path"                 gpointer              : Read / Write
+
+  Pointer to a GnomeCanvasPathDef structure which can be created with gnome_canvas_path_def_new(). 
+
+ * "wind" property
+
+  "wind"                 guint                 : Read / Write
+                         ArtWindRule (enum)
+
+GnomeCanvasLine
+   GnomeCanvasPoints 
+
+GnomeCanvasPolygon
+   GnomeCanvasPoints
+
+GnomeCanvasShape
+ * wind                 ArtWindRule             RW              Winding rule for the bpath. 
+ * dash                 ArtVpathDash            RW              Dashing pattern
+
+split art into separate package ?

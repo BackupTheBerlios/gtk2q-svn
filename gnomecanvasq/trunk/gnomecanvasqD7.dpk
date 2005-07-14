@@ -1,0 +1,79 @@
+package gnomecanvasqD7;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$IMPLICITBUILD OFF}
+{$DEFINE gtk2q_standalone}
+{$DEFINE DELPHI}
+{$DEFINE need_icloneable}
+{$DEFINE need_igclosure}
+
+requires
+  rtl,
+  gtk2qD7;
+
+contains
+  uwrapgnomecanvasnames in 'static\uwrapgnomecanvasnames.pas',
+  uarttypes in 'static\uarttypes.pas',
+  uartvpathdash in 'static\uartvpathdash.pas',
+  ugnomecanvaspathdef in 'static\ugnomecanvaspathdef.pas',
+  ugnomecanvaspoints in 'static\ugnomecanvaspoints.pas',
+  uwrapartnames in 'static\uwrapartnames.pas',
+  iugnomecanvas in 'static\iugnomecanvas.pas',
+  ugnomecanvaswidget in 'output\gnome-canvas\ugnomecanvaswidget.pas',
+  sgnomecanvasbpath in 'output\gnome-canvas\sgnomecanvasbpath.pas',
+  sgnomecanvasclipgroup in 'output\gnome-canvas\sgnomecanvasclipgroup.pas',
+  sgnomecanvasellipse in 'output\gnome-canvas\sgnomecanvasellipse.pas',
+  sgnomecanvasgroup in 'output\gnome-canvas\sgnomecanvasgroup.pas',
+  sgnomecanvasitem in 'output\gnome-canvas\sgnomecanvasitem.pas',
+  sgnomecanvasline in 'output\gnome-canvas\sgnomecanvasline.pas',
+  sgnomecanvaspixbuf in 'output\gnome-canvas\sgnomecanvaspixbuf.pas',
+  sgnomecanvaspolygon in 'output\gnome-canvas\sgnomecanvaspolygon.pas',
+  sgnomecanvasre in 'output\gnome-canvas\sgnomecanvasre.pas',
+  sgnomecanvasrect in 'output\gnome-canvas\sgnomecanvasrect.pas',
+  sgnomecanvasrichtext in 'output\gnome-canvas\sgnomecanvasrichtext.pas',
+  sgnomecanvasshape in 'output\gnome-canvas\sgnomecanvasshape.pas',
+  sgnomecanvastext in 'output\gnome-canvas\sgnomecanvastext.pas',
+  sgnomecanvaswidget in 'output\gnome-canvas\sgnomecanvaswidget.pas',
+  ugnomecanvas in 'output\gnome-canvas\ugnomecanvas.pas',
+  ugnomecanvasbpath in 'output\gnome-canvas\ugnomecanvasbpath.pas',
+  ugnomecanvasclipgroup in 'output\gnome-canvas\ugnomecanvasclipgroup.pas',
+  ugnomecanvasellipse in 'output\gnome-canvas\ugnomecanvasellipse.pas',
+  ugnomecanvasgroup in 'output\gnome-canvas\ugnomecanvasgroup.pas',
+  ugnomecanvasitem in 'output\gnome-canvas\ugnomecanvasitem.pas',
+  ugnomecanvasline in 'output\gnome-canvas\ugnomecanvasline.pas',
+  ugnomecanvaspixbuf in 'output\gnome-canvas\ugnomecanvaspixbuf.pas',
+  ugnomecanvaspolygon in 'output\gnome-canvas\ugnomecanvaspolygon.pas',
+  ugnomecanvasre in 'output\gnome-canvas\ugnomecanvasre.pas',
+  ugnomecanvasrect in 'output\gnome-canvas\ugnomecanvasrect.pas',
+  ugnomecanvasrichtext in 'output\gnome-canvas\ugnomecanvasrichtext.pas',
+  ugnomecanvasshape in 'output\gnome-canvas\ugnomecanvasshape.pas',
+  ugnomecanvastext in 'output\gnome-canvas\ugnomecanvastext.pas',
+  sgnomecanvas in 'output\gnome-canvas\sgnomecanvas.pas',
+  ugnomecanvastypes in 'static\ugnomecanvastypes.pas',
+  iugnomecanvasbuf in 'static\iugnomecanvasbuf.pas',
+  ugnomecanvasbuf in 'static\ugnomecanvasbuf.pas',
+  uartuta in 'static\uartuta.pas',
+  iuart in 'static\iuart.pas';
+
+end.

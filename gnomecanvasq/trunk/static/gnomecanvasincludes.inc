@@ -1,0 +1,15 @@
+{$INCLUDE output/gnome-canvas/iugnomecanvasitem.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasshape.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasbpath.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasre.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasellipse.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasgroup.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasclipgroup.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvas.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasline.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvaspixbuf.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvaspolygon.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasrect.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvasrichtext.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvastext.inc}
+{$INCLUDE output/gnome-canvas/iugnomecanvaswidget.inc}

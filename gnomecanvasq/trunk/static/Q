@@ -1,0 +1,74 @@
+unit uwrapgnomecanvasnames;
+
+interface
+uses ugtypes, uwrapartnames, uwrapgnames;
+
+{$INCLUDE static/clinksettings.inc}
+
+type
+  Pguchar = ^guchar;
+
+  PGnomeCanvasBuf = ^WGnomeCanvasBuf;
+  WGnomeCanvasBuf = record
+    buf: Pguchar; (* 24-bit rgb buffer for rendering *)
+    rect: TArtIRect;
+    bufRowstride: gint;
+    bgColor: guint32;
+    (* invariant: at least one of the following flags is true *)
+
+    flags: Byte;
+    (*
+    isBg: bit 0  Set when the render rectangle area is the solid color bg_color
+    isBuf: bit 1 Set when the render rectangle area is represented by the buf
+    *)
+  end;
+
+type
+  PGnomeCanvasPathDef = Pointer; (* non-gobject *)
+  PGnomeCanvasPoints = ^WGnomeCanvasPoints; (* non-gobject *)
+  WGnomeCanvasPoints = record (* C *)
+    coords: Pgdouble; (* actually double *)
+    numPoints: gint; (* actually int *)
+    refCount: gint; (* actually refCount *)
+  end;
+
+const
+(*$IFDEF WIN32*)
+  gnomecanvaslib = 'libgnomecanvas-2-0.dll';
+(*$ELSE*)
+  gnomecanvaslib = 'libgnomecanvas-2.so';
+(*$ENDIF WIN32*)
+
+type
+  PGnomeCanvasItem = PGObject;
+  PGnomeCanvas = PGObject;
+  PGnomeCanvasGroup = PGObject;
+  PGnomeCanvasShape = PGObject;
+  PGnomeCanvasPolygon = PGObject;
+  PGnomeCanvasRichText = PGObject;
+  PGnomeCanvasText = PGObject;
+  PGnomeCanvasLine = PGObject;
+  PGnomeCanvasEllipse = PGObject;
+  PGnomeCanvasRect = PGObject;
+  PGnomeCanvasRE = PGObject;
+  
+  PPGnomeCanvasItem = ^PGnomeCanvasItem;
+  Pint = ^gint; (* sigh *)
+
+function gnome_canvas_item_new(parent: PGnomeCanvasGroup;
+  typ: GType; const firstArgName: PChar): PGnomeCanvasItem; overload; cdecl; external gnomecanvaslib;
+function gnome_canvas_item_new(parent: PGnomeCanvasGroup;
+  typ: GType; const firstArgName: PChar; opts: array of const): PGnomeCanvasItem; overload; cdecl; external gnomecanvaslib;
+
+function gnome_canvas_group_get_type: GType; cdecl; external gnomecanvaslib;
+
+function gnome_canvas_group_new(parent: PGnomeCanvasItem): PGnomeCanvasGroup;
+
+implementation
+
+function gnome_canvas_group_new(parent: PGnomeCanvasItem): PGnomeCanvasGroup;
+begin
+  Result := gnome_canvas_item_new(parent, gnome_canvas_group_get_type, nil);
+end;
+
+end.

@@ -1,0 +1,81 @@
+#
+# Makefile.fpc
+
+[package]
+name=gnomecanvasq
+version=0.3.0
+
+[target]
+#programs=pas
+units=buildgnomecanvasq
+implicitunits=static/iuart \
+static/iugnomecanvasbuf \
+static/iugnomecanvas \
+static/uarttypes \
+static/uartuta \
+static/uartvpathdash \
+static/ugnomecanvasbuf \
+static/ugnomecanvaspathdef \
+static/ugnomecanvaspoints \
+static/ugnomecanvastypes \
+static/uwrapartnames \
+static/uwrapgnomecanvasnames \
+output/gnome-canvas/sgnomecanvasbpath \
+output/gnome-canvas/sgnomecanvasclipgroup \
+output/gnome-canvas/sgnomecanvasellipse \
+output/gnome-canvas/sgnomecanvasgroup \
+output/gnome-canvas/sgnomecanvasitem \
+output/gnome-canvas/sgnomecanvasline \
+output/gnome-canvas/sgnomecanvas \
+output/gnome-canvas/sgnomecanvaspixbuf \
+output/gnome-canvas/sgnomecanvaspolygon \
+output/gnome-canvas/sgnomecanvasrect \
+output/gnome-canvas/sgnomecanvasre \
+output/gnome-canvas/sgnomecanvasrichtext \
+output/gnome-canvas/sgnomecanvasshape \
+output/gnome-canvas/sgnomecanvastext \
+output/gnome-canvas/sgnomecanvaswidget \
+output/gnome-canvas/ugnomecanvasbpath \
+output/gnome-canvas/ugnomecanvasclipgroup \
+output/gnome-canvas/ugnomecanvasellipse \
+output/gnome-canvas/ugnomecanvasgroup \
+output/gnome-canvas/ugnomecanvasitem \
+output/gnome-canvas/ugnomecanvasline \
+output/gnome-canvas/ugnomecanvas \
+output/gnome-canvas/ugnomecanvaspixbuf \
+output/gnome-canvas/ugnomecanvaspolygon \
+output/gnome-canvas/ugnomecanvasrect \
+output/gnome-canvas/ugnomecanvasre \
+output/gnome-canvas/ugnomecanvasrichtext \
+output/gnome-canvas/ugnomecanvasshape \
+output/gnome-canvas/ugnomecanvastext \
+output/gnome-canvas/ugnomecanvaswidget
+
+#rsts=$(CLASSES10) eventlog
+#exampledirs=tests
+
+[compiler]
+options=-dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone \
+	-Mdelphi \
+	-Fustatic -Fi. -Fistatic \
+	-Fioutput/gnome-canvas \
+	-Fuoutput/gnome-canvas \
+	-g -XX -OG3 -vewni -l
+
+#includedir=$(OS_TARGET) inc
+#sourcedir=$(OS_TARGET) inc
+
+[libs]
+libname=gnomecanvasq
+
+[install]
+buildunit=buildgnomecanvasq
+fpcpackage=y
+
+[default]
+#fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q
+#nortl=y
