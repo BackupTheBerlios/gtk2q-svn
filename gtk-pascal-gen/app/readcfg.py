@@ -26,7 +26,11 @@ def mergeArrays(a1, a2):
   return a3
 
 o = sys.path
-sys.path = os.getcwd()
+try:
+  sys.path = [os.environ["gtkpascalgen_indir"]] + sys.path
+  print sys.path
+except:
+  pass
 import localdefs
 sys.path = o
 
@@ -81,6 +85,12 @@ _vars = [
 
 for vname in _vars:
   v1 = eval("%s" % vname)
+  if type(v1) == type("") or type(v1) == type(u""):
+    try:
+      v2 = eval("localdefs.%s" % vname)
+    except:
+      continue
+      
   v2 = eval("localdefs.%s" % vname)
   
   if type(v1) == type({}):
