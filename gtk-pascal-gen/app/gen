@@ -2,7 +2,7 @@
 
 # $1 (if present) -> module
 
-for s in ../input/* ../overrides/*
+for s in "${gtkpascalgen_indir}/input/"* "${gtkpascalgen_indir}/overrides/"*
 do 
 	[ ! -d "$s" ] && continue
 	
