@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export gtkpascalgen_outdir=".."
-export gtkpascalgen_indir=".."
+export gtkpascalgen_outdir="$(pwd)"
+export gtkpascalgen_indir="$(pwd)"
 
 x="$(pwd)"
 x="${x/\/trunk\/gtk-pascal-gen/}"
@@ -10,6 +10,11 @@ x="${x##*/}"
 # x = /home/dannym/src/pascal/gtk2q
 x="${x%q}"
 # x = gtk2
+
+cd "XXXVARDIRXXX" || {
+  echo "error: could not find directory XXXVARDIRXXX.">&2
+  exit 1
+}
 
 mod="${x}"
 [ "${x}" = "gnomecanvas" ] && mod="gnome-canvas"
