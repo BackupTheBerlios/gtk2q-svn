@@ -2,6 +2,7 @@
 
 from defs import *
 import sys
+import os
 
 def mergeMaps(m1, m2):
   m3 = {}
@@ -25,7 +26,7 @@ def mergeArrays(a1, a2):
   return a3
 
 o = sys.path
-sys.path = ".."
+sys.path = os.getcwd()
 import localdefs
 sys.path = o
 

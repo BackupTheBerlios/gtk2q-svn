@@ -22,7 +22,7 @@ mod="${x}"
 
 export mod
 
-grep -R "is deprecated" ../input/* |grep "^.*<literal>\([^<]*\)</literal>.*$" |sed 's;^.*<literal>\([^<]*\)</literal>.*$;\1;' |grep -v "^NULL$" |sort |uniq >deprecated.txt
+grep -R "is deprecated" "${gtkpascalgen_indir}/input/"* |grep "^.*<literal>\([^<]*\)</literal>.*$" |sed 's;^.*<literal>\([^<]*\)</literal>.*$;\1;' |grep -v "^NULL$" |sort |uniq >deprecated.txt
 
 app/gen ${mod}
 X="$?"
@@ -31,7 +31,7 @@ then
 	exit "$X"
 fi
 
-/usr/bin/env python app/scanenum.py "../output" ${mod}
+/usr/bin/env python app/scanenum.py "${gtkpascalgen_outdir}/output" ${mod}
 X="$?"
 if [ "$X" -ne "0" ]
 then
