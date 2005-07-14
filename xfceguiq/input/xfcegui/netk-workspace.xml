@@ -1,0 +1,197 @@
+<refentry id="libxfcegui4-NetkWorkspace">
+<refmeta>
+<refentrytitle>NetkWorkspace</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBXFCEGUI4 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>NetkWorkspace</refname><refpurpose>Represents a Workspace for the window manager</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;libxfcegui4/libxfcegui4.h&gt;
+
+
+struct      <link linkend="NetkWorkspace">NetkWorkspace</link>;
+<link linkend="GType">GType</link>       <link linkend="netk-workspace-get-type">netk_workspace_get_type</link>         (void);
+int         <link linkend="netk-workspace-get-number">netk_workspace_get_number</link>       (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+const char* <link linkend="netk-workspace-get-name">netk_workspace_get_name</link>         (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+void        <link linkend="netk-workspace-change-name">netk_workspace_change_name</link>      (<link linkend="NetkWorkspace">NetkWorkspace</link> *space,
+                                             const char *name);
+void        <link linkend="netk-workspace-activate">netk_workspace_activate</link>         (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+int         <link linkend="netk-workspace-get-width">netk_workspace_get_width</link>        (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+int         <link linkend="netk-workspace-get-height">netk_workspace_get_height</link>       (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+int         <link linkend="netk-workspace-get-viewport-x">netk_workspace_get_viewport_x</link>   (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+int         <link linkend="netk-workspace-get-viewport-y">netk_workspace_get_viewport_y</link>   (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-workspace-is-virtual">netk_workspace_is_virtual</link>       (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Represents a Workspace for the window manager
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="NetkWorkspace"/>struct NetkWorkspace</title>
+<programlisting>struct NetkWorkspace {
+
+    GObject parent_instance;
+
+    NetkWorkspacePrivate *priv;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-type"/>netk_workspace_get_type ()</title>
+<programlisting><link linkend="GType">GType</link>       netk_workspace_get_type         (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the gtype of <link linkend="NetkWorkspace">NetkWorkspace</link>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-number"/>netk_workspace_get_number ()</title>
+<programlisting>int         netk_workspace_get_number       (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> get the index of the workspace
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-name"/>netk_workspace_get_name ()</title>
+<programlisting>const char* netk_workspace_get_name         (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+Gets the name that should be used to refer to the workspace
+in the user interface. If the user hasn't set a special name,
+will be something like "Workspace 3" - otherwise whatever name
+the user set.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> workspace name, never <literal>NULL</literal> 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-change-name"/>netk_workspace_change_name ()</title>
+<programlisting>void        netk_workspace_change_name      (<link linkend="NetkWorkspace">NetkWorkspace</link> *space,
+                                             const char *name);</programlisting>
+<para>
+Try changing the name of the workspace.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> new workspace name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-activate"/>netk_workspace_activate ()</title>
+<programlisting>void        netk_workspace_activate         (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+Ask window manager to make <parameter>space</parameter> the active workspace.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-width"/>netk_workspace_get_width ()</title>
+<programlisting>int         netk_workspace_get_width        (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the width of the workspace, XXX within or without the viewport ?
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-height"/>netk_workspace_get_height ()</title>
+<programlisting>int         netk_workspace_get_height       (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the height of the workspace, XXX within or without the viewport ?
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-viewport-x"/>netk_workspace_get_viewport_x ()</title>
+<programlisting>int         netk_workspace_get_viewport_x   (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the x offset of the viewport in the workspace
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-get-viewport-y"/>netk_workspace_get_viewport_y ()</title>
+<programlisting>int         netk_workspace_get_viewport_y   (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the x offset of the viewport in the workspace
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-workspace-is-virtual"/>netk_workspace_is_virtual ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_workspace_is_virtual       (<link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>XXX ?
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

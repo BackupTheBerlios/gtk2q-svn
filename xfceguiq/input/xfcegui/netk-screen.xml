@@ -1,0 +1,386 @@
+<refentry id="libxfcegui4-NetkScreen">
+<refmeta>
+<refentrytitle>NetkScreen</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBXFCEGUI4 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>NetkScreen</refname><refpurpose>Represents a screen</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;libxfcegui4/libxfcegui4.h&gt;
+
+
+struct      <link linkend="NetkScreen">NetkScreen</link>;
+<link linkend="GType">GType</link>       <link linkend="netk-screen-get-type">netk_screen_get_type</link>            (void);
+<link linkend="NetkScreen">NetkScreen</link>* <link linkend="netk-screen-get-default">netk_screen_get_default</link>         (void);
+<link linkend="NetkScreen">NetkScreen</link>* <link linkend="netk-screen-get">netk_screen_get</link>                 (int index);
+<link linkend="NetkScreen">NetkScreen</link>* <link linkend="netk-screen-get-for-root">netk_screen_get_for_root</link>        (<link linkend="gulong">gulong</link> root_window_id);
+<link linkend="NetkWorkspace">NetkWorkspace</link>* <link linkend="netk-screen-get-workspace">netk_screen_get_workspace</link>    (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int workspace);
+<link linkend="NetkWorkspace">NetkWorkspace</link>* <link linkend="netk-screen-get-active-workspace">netk_screen_get_active_workspace</link>
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen);
+<link linkend="GList">GList</link>*      <link linkend="netk-screen-get-windows">netk_screen_get_windows</link>         (<link linkend="NetkScreen">NetkScreen</link> *screen);
+<link linkend="GList">GList</link>*      <link linkend="netk-screen-get-windows-stacked">netk_screen_get_windows_stacked</link> (<link linkend="NetkScreen">NetkScreen</link> *screen);
+void        <link linkend="netk-screen-force-update">netk_screen_force_update</link>        (<link linkend="NetkScreen">NetkScreen</link> *screen);
+int         <link linkend="netk-screen-get-workspace-count">netk_screen_get_workspace_count</link> (<link linkend="NetkScreen">NetkScreen</link> *screen);
+void        <link linkend="netk-screen-change-workspace-count">netk_screen_change_workspace_count</link>
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int count);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-screen-net-wm-supports">netk_screen_net_wm_supports</link>     (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             const char *atom);
+<link linkend="gulong">gulong</link>      <link linkend="netk-screen-get-background-pixmap">netk_screen_get_background_pixmap</link>
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen);
+int         <link linkend="netk-screen-get-width">netk_screen_get_width</link>           (<link linkend="NetkScreen">NetkScreen</link> *screen);
+int         <link linkend="netk-screen-get-height">netk_screen_get_height</link>          (<link linkend="NetkScreen">NetkScreen</link> *screen);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-screen-get-showing-desktop">netk_screen_get_showing_desktop</link> (<link linkend="NetkScreen">NetkScreen</link> *screen);
+void        <link linkend="netk-screen-toggle-showing-desktop">netk_screen_toggle_showing_desktop</link>
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             <link linkend="gboolean">gboolean</link> show);
+void        <link linkend="netk-screen-move-viewport">netk_screen_move_viewport</link>       (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int x,
+                                             int y);
+void        <link linkend="netk-screen-release-workspace-layout">netk_screen_release_workspace_layout</link>
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int current_token);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+<link linkend="NetkScreen">NetkScreen</link> represents a screen
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="NetkScreen"/>struct NetkScreen</title>
+<programlisting>struct NetkScreen {
+
+    GObject parent_instance;
+
+    NetkScreenPrivate *priv;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-type"/>netk_screen_get_type ()</title>
+<programlisting><link linkend="GType">GType</link>       netk_screen_get_type            (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the gtype for the <link linkend="NetkScreen">NetkScreen</link> class
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-default"/>netk_screen_get_default ()</title>
+<programlisting><link linkend="NetkScreen">NetkScreen</link>* netk_screen_get_default         (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the default screen. refcount NOT touched. beware.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get"/>netk_screen_get ()</title>
+<programlisting><link linkend="NetkScreen">NetkScreen</link>* netk_screen_get                 (int index);</programlisting>
+<para>
+Gets the <link linkend="NetkScreen">NetkScreen</link> for a given screen on the default display.
+Creates the <link linkend="NetkScreen">NetkScreen</link> if necessary.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara> screen number, starting from 0, as for Xlib
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="NetkScreen">NetkScreen</link> for screen <parameter>index</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-for-root"/>netk_screen_get_for_root ()</title>
+<programlisting><link linkend="NetkScreen">NetkScreen</link>* netk_screen_get_for_root        (<link linkend="gulong">gulong</link> root_window_id);</programlisting>
+<para>
+Gets the <link linkend="NetkScreen">NetkScreen</link> for the root window at <parameter>root_window_id</parameter>, or
+returns <literal>NULL</literal> if no <link linkend="NetkScreen">NetkScreen</link> exists for this root window. Never
+creates a new <link linkend="NetkScreen">NetkScreen</link>, unlike <link linkend="netk-screen-get">netk_screen_get</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>root_window_id</parameter>&nbsp;:</term>
+<listitem><simpara> an Xlib window ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <link linkend="NetkScreen">NetkScreen</link> or <literal>NULL</literal>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-workspace"/>netk_screen_get_workspace ()</title>
+<programlisting><link linkend="NetkWorkspace">NetkWorkspace</link>* netk_screen_get_workspace    (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int workspace);</programlisting>
+<para>
+Gets the workspace numbered <parameter>number</parameter> for screen <parameter>screen</parameter>, or returns <literal>NULL</literal> if
+no such workspace exists.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>workspace</parameter>&nbsp;:</term>
+<listitem><simpara>the workspace number. starting with 0. XXX
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the workspace, or <literal>NULL</literal>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-active-workspace"/>netk_screen_get_active_workspace ()</title>
+<programlisting><link linkend="NetkWorkspace">NetkWorkspace</link>* netk_screen_get_active_workspace
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+Gets the active workspace. May return <literal>NULL</literal> sometimes,
+if we are in a weird state due to the asynchronous
+nature of our interaction with the window manager.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link> 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> active workspace or <literal>NULL</literal>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-windows"/>netk_screen_get_windows ()</title>
+<programlisting><link linkend="GList">GList</link>*      netk_screen_get_windows         (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+Gets the screen's list of windows. The list is not copied
+and should not be freed. The list is not in a defined order,
+but should be "stable" (windows shouldn't reorder themselves in
+it). (However, the stability of the list is established by
+the window manager, so don't blame libnetk if it breaks down.)</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> reference to list of windows
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-windows-stacked"/>netk_screen_get_windows_stacked ()</title>
+<programlisting><link linkend="GList">GList</link>*      netk_screen_get_windows_stacked (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+Gets the screen's list of windows in bottom-to-top order.
+The list is not copied and should not be freed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> reference to list of windows in stacking order
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-force-update"/>netk_screen_force_update ()</title>
+<programlisting>void        netk_screen_force_update        (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+Synchronously and immediately update the window list.  This is
+usually a bad idea for both performance and correctness reasons (to
+get things right, you need to write model-view code that tracks
+changes, not get a static list of open windows).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-workspace-count"/>netk_screen_get_workspace_count ()</title>
+<programlisting>int         netk_screen_get_workspace_count (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+Gets the number of workspaces.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> number of workspaces
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-change-workspace-count"/>netk_screen_change_workspace_count ()</title>
+<programlisting>void        netk_screen_change_workspace_count
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int count);</programlisting>
+<para>
+Asks the window manager to change the number of workspaces.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>count</parameter>&nbsp;:</term>
+<listitem><simpara> requested count
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-net-wm-supports"/>netk_screen_net_wm_supports ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_screen_net_wm_supports     (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             const char *atom);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>atom</parameter>&nbsp;:</term>
+<listitem><simpara>the atom of the capability to check for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if it is supported
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-background-pixmap"/>netk_screen_get_background_pixmap ()</title>
+<programlisting><link linkend="gulong">gulong</link>      netk_screen_get_background_pixmap
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a gulong XXX
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-width"/>netk_screen_get_width ()</title>
+<programlisting>int         netk_screen_get_width           (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>width of the screen, XXX border? XXX fail condition?
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-height"/>netk_screen_get_height ()</title>
+<programlisting>int         netk_screen_get_height          (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>height of the screen, XXX border? XXX fail condition?
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-get-showing-desktop"/>netk_screen_get_showing_desktop ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_screen_get_showing_desktop (<link linkend="NetkScreen">NetkScreen</link> *screen);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if showing the desktop, or FALSE on failure
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-toggle-showing-desktop"/>netk_screen_toggle_showing_desktop ()</title>
+<programlisting>void        netk_screen_toggle_showing_desktop
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             <link linkend="gboolean">gboolean</link> show);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>show</parameter>&nbsp;:</term>
+<listitem><simpara>if wanting to show desktop
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-move-viewport"/>netk_screen_move_viewport ()</title>
+<programlisting>void        netk_screen_move_viewport       (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int x,
+                                             int y);</programlisting>
+<para>
+Ask window manager to move the viewport of the current workspace.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> X offset of viewport
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> Y offset of viewport
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-screen-release-workspace-layout"/>netk_screen_release_workspace_layout ()</title>
+<programlisting>void        netk_screen_release_workspace_layout
+                                            (<link linkend="NetkScreen">NetkScreen</link> *screen,
+                                             int current_token);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>The NetkScreen instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>current_token</parameter>&nbsp;:</term>
+<listitem><simpara>the token XXX
+
+releases the layout with the given token
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

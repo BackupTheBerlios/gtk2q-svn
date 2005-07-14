@@ -1,0 +1,58 @@
+#
+# Makefile.fpc
+
+[package]
+name=xfceguiq
+version=0.1.0
+
+[target]
+#programs=pas
+#dirs=static output/atk output/gdk output/gdk-pixbuf output/gtk
+units=buildxfceguiq
+implicitunits=static/uwrapxfceguinames \
+static/uxfceguitypes \
+output/xfcegui/unetkapplication \
+output/xfcegui/unetkclassgroup \
+output/xfcegui/unetkscreen \
+output/xfcegui/unetkwindow \
+output/xfcegui/unetkworkspace \
+output/xfcegui/snetkapplication \
+output/xfcegui/snetkclassgroup \
+output/xfcegui/snetkscreen \
+output/xfcegui/snetkwindow \
+output/xfcegui/snetkworkspace \
+static/iunetk
+
+# rsts=$(CLASSES10) eventlong
+# exampledirs=tests
+
+[compiler]
+options=-dGTK2_4 -dneed_icloneable -dneed_iweakref -dgtk2q_standalone \
+        -dneed_igclosure -Mdelphi \
+        -Fu../../varrec \
+        -Fustatic -Fi. -Fistatic \
+        -Fioutput/xfcegui \
+        -Fuoutput/xfcegui \
+        -g -XX -OG3 -vewni -l   
+
+#options=
+#includedir=$(OS_TARGET) inc
+#sourcedir=$(OS_TARGET) inc
+
+[libs]
+libname=xfceguiq
+
+[install]
+buildunit=buildxfceguiq
+fpcpackage=y
+
+[default]
+#fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q
+# contnrs ?
+
+#nortl=y
+

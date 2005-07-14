@@ -1,0 +1,1080 @@
+<refentry id="libxfcegui4-NetkWindow">
+<refmeta>
+<refentrytitle>NetkWindow</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBXFCEGUI4 Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>NetkWindow</refname><refpurpose>Represents a window for the window manager</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;libxfcegui4/libxfcegui4.h&gt;
+
+
+struct      <link linkend="NetkWindow">NetkWindow</link>;
+enum        <link linkend="NetkWindowState">NetkWindowState</link>;
+enum        <link linkend="NetkWindowActions">NetkWindowActions</link>;
+enum        <link linkend="NetkWindowType">NetkWindowType</link>;
+<link linkend="GType">GType</link>       <link linkend="netk-window-get-type">netk_window_get_type</link>            (void);
+<link linkend="NetkWindow">NetkWindow</link>* <link linkend="netk-window-get">netk_window_get</link>                 (<link linkend="gulong">gulong</link> xwindow);
+<link linkend="NetkScreen">NetkScreen</link>* <link linkend="netk-window-get-screen">netk_window_get_screen</link>          (<link linkend="NetkWindow">NetkWindow</link> *window);
+const char* <link linkend="netk-window-get-name">netk_window_get_name</link>            (<link linkend="NetkWindow">NetkWindow</link> *window);
+const char* <link linkend="netk-window-get-icon-name">netk_window_get_icon_name</link>       (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="NetkApplication">NetkApplication</link>* <link linkend="netk-window-get-application">netk_window_get_application</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gulong">gulong</link>      <link linkend="netk-window-get-group-leader">netk_window_get_group_leader</link>    (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gulong">gulong</link>      <link linkend="netk-window-get-xid">netk_window_get_xid</link>             (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="NetkClassGroup">NetkClassGroup</link>* <link linkend="netk-window-get-class-group">netk_window_get_class_group</link> (<link linkend="NetkWindow">NetkWindow</link> *window);
+const char* <link linkend="netk-window-get-session-id">netk_window_get_session_id</link>      (<link linkend="NetkWindow">NetkWindow</link> *window);
+const char* <link linkend="netk-window-get-session-id-utf8">netk_window_get_session_id_utf8</link> (<link linkend="NetkWindow">NetkWindow</link> *window);
+int         <link linkend="netk-window-get-pid">netk_window_get_pid</link>             (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="NetkWindowType">NetkWindowType</link> <link linkend="netk-window-get-window-type">netk_window_get_window_type</link>  (<link linkend="NetkWindow">NetkWindow</link> *window);
+const char* <link linkend="netk-window-get-resource-class">netk_window_get_resource_class</link>  (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-minimized">netk_window_is_minimized</link>        (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-maximized-horizontally">netk_window_is_maximized_horizontally</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-maximized-vertically">netk_window_is_maximized_vertically</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-maximized">netk_window_is_maximized</link>        (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-shaded">netk_window_is_shaded</link>           (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-skip-pager">netk_window_is_skip_pager</link>       (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-skip-tasklist">netk_window_is_skip_tasklist</link>    (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-sticky">netk_window_is_sticky</link>           (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-set-skip-pager">netk_window_set_skip_pager</link>      (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="gboolean">gboolean</link> skip);
+void        <link linkend="netk-window-set-skip-tasklist">netk_window_set_skip_tasklist</link>   (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="gboolean">gboolean</link> skip);
+void        <link linkend="netk-window-close">netk_window_close</link>               (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-minimize">netk_window_minimize</link>            (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unminimize">netk_window_unminimize</link>          (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-maximize">netk_window_maximize</link>            (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unmaximize">netk_window_unmaximize</link>          (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-maximize-horizontally">netk_window_maximize_horizontally</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unmaximize-horizontally">netk_window_unmaximize_horizontally</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-maximize-vertically">netk_window_maximize_vertically</link> (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unmaximize-vertically">netk_window_unmaximize_vertically</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-shade">netk_window_shade</link>               (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unshade">netk_window_unshade</link>             (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-stick">netk_window_stick</link>               (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unstick">netk_window_unstick</link>             (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-keyboard-move">netk_window_keyboard_move</link>       (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-keyboard-size">netk_window_keyboard_size</link>       (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="NetkWorkspace">NetkWorkspace</link>* <link linkend="netk-window-get-workspace">netk_window_get_workspace</link>    (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-move-to-workspace">netk_window_move_to_workspace</link>   (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *space);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-pinned">netk_window_is_pinned</link>           (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-pin">netk_window_pin</link>                 (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-unpin">netk_window_unpin</link>               (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-activate">netk_window_activate</link>            (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-active">netk_window_is_active</link>           (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-activate-transient">netk_window_activate_transient</link>  (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="GdkPixbuf">GdkPixbuf</link>*  <link linkend="netk-window-get-icon">netk_window_get_icon</link>            (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="GdkPixbuf">GdkPixbuf</link>*  <link linkend="netk-window-get-mini-icon">netk_window_get_mini_icon</link>       (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-get-icon-is-fallback">netk_window_get_icon_is_fallback</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-set-icon-geometry">netk_window_set_icon_geometry</link>   (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             int x,
+                                             int y,
+                                             int width,
+                                             int height);
+<link linkend="NetkWindowActions">NetkWindowActions</link> <link linkend="netk-window-get-actions">netk_window_get_actions</link>   (<link linkend="NetkWindow">NetkWindow</link> *window);
+<link linkend="NetkWindowState">NetkWindowState</link> <link linkend="netk-window-get-state">netk_window_get_state</link>       (<link linkend="NetkWindow">NetkWindow</link> *window);
+void        <link linkend="netk-window-get-geometry">netk_window_get_geometry</link>        (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             int *xp,
+                                             int *yp,
+                                             int *widthp,
+                                             int *heightp);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-visible-on-workspace">netk_window_is_visible_on_workspace</link>
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *workspace);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-on-workspace">netk_window_is_on_workspace</link>     (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *workspace);
+<link linkend="gboolean">gboolean</link>    <link linkend="netk-window-is-in-viewport">netk_window_is_in_viewport</link>      (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *workspace);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Represents a window for the window manager
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="NetkWindow"/>struct NetkWindow</title>
+<programlisting>struct NetkWindow {
+
+    GObject parent_instance;
+
+    NetkWindowPrivate *priv;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="NetkWindowState"/>enum NetkWindowState</title>
+<programlisting>typedef enum
+{
+    NETK_WINDOW_STATE_MINIMIZED = 1 &lt;&lt; 0,
+    NETK_WINDOW_STATE_MAXIMIZED_HORIZONTALLY = 1 &lt;&lt; 1,
+    NETK_WINDOW_STATE_MAXIMIZED_VERTICALLY = 1 &lt;&lt; 2,
+    NETK_WINDOW_STATE_SHADED = 1 &lt;&lt; 3,
+    NETK_WINDOW_STATE_SKIP_PAGER = 1 &lt;&lt; 4,
+    NETK_WINDOW_STATE_SKIP_TASKLIST = 1 &lt;&lt; 5,
+    NETK_WINDOW_STATE_STICKY = 1 &lt;&lt; 6,
+    NETK_WINDOW_STATE_HIDDEN = 1 &lt;&lt; 7,
+    NETK_WINDOW_STATE_FULLSCREEN = 1 &lt;&lt; 8,
+    NETK_WINDOW_STATE_URGENT = 1 &lt;&lt; 9
+}
+NetkWindowState;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="NetkWindowActions"/>enum NetkWindowActions</title>
+<programlisting>typedef enum
+{
+    NETK_WINDOW_ACTION_MOVE = 1 &lt;&lt; 0,
+    NETK_WINDOW_ACTION_RESIZE = 1 &lt;&lt; 1,
+    NETK_WINDOW_ACTION_SHADE = 1 &lt;&lt; 2,
+    NETK_WINDOW_ACTION_STICK = 1 &lt;&lt; 3,
+    NETK_WINDOW_ACTION_MAXIMIZE_HORIZONTALLY = 1 &lt;&lt; 4,
+    NETK_WINDOW_ACTION_MAXIMIZE_VERTICALLY = 1 &lt;&lt; 5,
+    NETK_WINDOW_ACTION_CHANGE_WORKSPACE = 1 &lt;&lt; 6,       /* includes pin/unpin */
+    NETK_WINDOW_ACTION_CLOSE = 1 &lt;&lt; 7,
+    NETK_WINDOW_ACTION_UNMAXIMIZE_HORIZONTALLY = 1 &lt;&lt; 8,
+    NETK_WINDOW_ACTION_UNMAXIMIZE_VERTICALLY = 1 &lt;&lt; 9,
+    NETK_WINDOW_ACTION_UNSHADE = 1 &lt;&lt; 10,
+    NETK_WINDOW_ACTION_UNSTICK = 1 &lt;&lt; 11,
+    NETK_WINDOW_ACTION_MINIMIZE = 1 &lt;&lt; 12,
+    NETK_WINDOW_ACTION_UNMINIMIZE = 1 &lt;&lt; 13,
+    NETK_WINDOW_ACTION_MAXIMIZE = 1 &lt;&lt; 14,
+    NETK_WINDOW_ACTION_UNMAXIMIZE = 1 &lt;&lt; 15
+}
+NetkWindowActions;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="NetkWindowType"/>enum NetkWindowType</title>
+<programlisting>typedef enum
+{
+    NETK_WINDOW_NORMAL,         /* document/app window */
+    NETK_WINDOW_DESKTOP,        /* desktop background */
+    NETK_WINDOW_DOCK,           /* panel */
+    NETK_WINDOW_DIALOG,         /* dialog */
+    NETK_WINDOW_MODAL_DIALOG,   /* modal dialog */
+    NETK_WINDOW_TOOLBAR,        /* tearoff toolbar */
+    NETK_WINDOW_MENU,           /* tearoff menu */
+    NETK_WINDOW_UTILITY,        /* palette/toolbox window */
+    NETK_WINDOW_SPLASHSCREEN    /* splash screen */
+}
+NetkWindowType;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-type"/>netk_window_get_type ()</title>
+<programlisting><link linkend="GType">GType</link>       netk_window_get_type            (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the gtype of <link linkend="NetkWindow">NetkWindow</link>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get"/>netk_window_get ()</title>
+<programlisting><link linkend="NetkWindow">NetkWindow</link>* netk_window_get                 (<link linkend="gulong">gulong</link> xwindow);</programlisting>
+<para>
+Gets a preexisting <link linkend="NetkWindow">NetkWindow</link> for the X window <parameter>xwindow</parameter>.
+Will not create a <link linkend="NetkWindow">NetkWindow</link> if none exists. Robust
+against bogus window IDs.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>xwindow</parameter>&nbsp;:</term>
+<listitem><simpara> an Xlib window ID
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="NetkWindow">NetkWindow</link> for this X window
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-screen"/>netk_window_get_screen ()</title>
+<programlisting><link linkend="NetkScreen">NetkScreen</link>* netk_window_get_screen          (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the screen this window is on.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a <link linkend="NetkScreen">NetkScreen</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-name"/>netk_window_get_name ()</title>
+<programlisting>const char* netk_window_get_name            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the name of the window, as it should be displayed in a pager
+or tasklist. Always returns some value, even if the window
+hasn't set a name.
+</para>
+<para>
+For icons titles, use <link linkend="netk-window-get-icon-name">netk_window_get_icon_name</link>() instead.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> name of the window
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-icon-name"/>netk_window_get_icon_name ()</title>
+<programlisting>const char* netk_window_get_icon_name       (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the name of the window, as it should be displayed for an
+icon. Always returns some value, even if the window hasn't set a
+name. Contrast with <link linkend="netk-window-get-name">netk_window_get_name</link>(), which returns the
+window title, not the icon title.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> name of the window
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-application"/>netk_window_get_application ()</title>
+<programlisting><link linkend="NetkApplication">NetkApplication</link>* netk_window_get_application
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the application that owns the window, or NULL. refcount is not incremented for the caller,
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-group-leader"/>netk_window_get_group_leader ()</title>
+<programlisting><link linkend="gulong">gulong</link>      netk_window_get_group_leader    (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>group leader, or None on failure. XXX what is that gulong is that X ?
+
+Returns the group leader, or None.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-xid"/>netk_window_get_xid ()</title>
+<programlisting><link linkend="gulong">gulong</link>      netk_window_get_xid             (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the X window id of the window, or None if the NetkWindow instance was invalid.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-class-group"/>netk_window_get_class_group ()</title>
+<programlisting><link linkend="NetkClassGroup">NetkClassGroup</link>* netk_window_get_class_group (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the class group, or NULL. it's reference count is not increased.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-session-id"/>netk_window_get_session_id ()</title>
+<programlisting>const char* netk_window_get_session_id      (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the session id, or NULL. do not free result.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-session-id-utf8"/>netk_window_get_session_id_utf8 ()</title>
+<programlisting>const char* netk_window_get_session_id_utf8 (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the session id in utf-8 format, or NULL
+
+XXX what does that implementation do
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-pid"/>netk_window_get_pid ()</title>
+<programlisting>int         netk_window_get_pid             (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the process ID of <parameter>window</parameter>, if available.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> PID of <parameter>window</parameter>, or 0 if none available
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-window-type"/>netk_window_get_window_type ()</title>
+<programlisting><link linkend="NetkWindowType">NetkWindowType</link> netk_window_get_window_type  (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Retrieves the semantic type of the window.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> semantic type
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-resource-class"/>netk_window_get_resource_class ()</title>
+<programlisting>const char* netk_window_get_resource_class  (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the resource class name, or NULL. do not free result.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-minimized"/>netk_window_is_minimized ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_minimized        (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+If the window is minimized returns <literal>TRUE</literal>. Minimization state
+may change anytime a state_changed signal gets emitted.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if window is minimized
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-maximized-horizontally"/>netk_window_is_maximized_horizontally ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_maximized_horizontally
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if the window is maximized horizontally, FALSE on failure
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-maximized-vertically"/>netk_window_is_maximized_vertically ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_maximized_vertically
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if the window is maximized vertically, FALSE on failure
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-maximized"/>netk_window_is_maximized ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_maximized        (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+As for GDK, "maximized" means both vertically and horizontally.
+If only one, then the window isn't considered maximized.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if the window is maximized in both directions
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-shaded"/>netk_window_is_shaded ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_shaded           (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if the window is shaded, FALSE on failure
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-skip-pager"/>netk_window_is_skip_pager ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_skip_pager       (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="NetkWindow">NetkWindow</link> instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if the window has the skip pager hint set, FALSE on failure
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-skip-tasklist"/>netk_window_is_skip_tasklist ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_skip_tasklist    (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="NetkWindow">NetkWindow</link> instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>if the window has the skip tasklist hint set, FALSE on failure
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-sticky"/>netk_window_is_sticky ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_sticky           (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Sticky here means "stuck to the glass," i.e. does not scroll with
+the viewport. In GDK/GTK,
+e.g. <link linkend="gdk-window-stick">gdk_window_stick</link>()/<link linkend="gtk-window-stick">gtk_window_stick</link>(), sticky means stuck to
+the glass and _also_ that the window is on all workspaces.
+But here it only means the viewport aspect of it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if the window is "stuck to the glass"
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-set-skip-pager"/>netk_window_set_skip_pager ()</title>
+<programlisting>void        netk_window_set_skip_pager      (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="gboolean">gboolean</link> skip);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>skip</parameter>&nbsp;:</term>
+<listitem><simpara>whether to enable the skip hint
+
+sets or unsets the skip pager hint.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-set-skip-tasklist"/>netk_window_set_skip_tasklist ()</title>
+<programlisting>void        netk_window_set_skip_tasklist   (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="gboolean">gboolean</link> skip);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>skip</parameter>&nbsp;:</term>
+<listitem><simpara>whether to enable the skip hint
+
+sets or unsets the skip tasklist hint.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-close"/>netk_window_close ()</title>
+<programlisting>void        netk_window_close               (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Try to close the netk window
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-minimize"/>netk_window_minimize ()</title>
+<programlisting>void        netk_window_minimize            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Iconifies the window
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unminimize"/>netk_window_unminimize ()</title>
+<programlisting>void        netk_window_unminimize          (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Deiconifies the window
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-maximize"/>netk_window_maximize ()</title>
+<programlisting>void        netk_window_maximize            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Maximizes the window
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unmaximize"/>netk_window_unmaximize ()</title>
+<programlisting>void        netk_window_unmaximize          (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Unmaximizes the window
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-maximize-horizontally"/>netk_window_maximize_horizontally ()</title>
+<programlisting>void        netk_window_maximize_horizontally
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unmaximize-horizontally"/>netk_window_unmaximize_horizontally ()</title>
+<programlisting>void        netk_window_unmaximize_horizontally
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-maximize-vertically"/>netk_window_maximize_vertically ()</title>
+<programlisting>void        netk_window_maximize_vertically (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unmaximize-vertically"/>netk_window_unmaximize_vertically ()</title>
+<programlisting>void        netk_window_unmaximize_vertically
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-shade"/>netk_window_shade ()</title>
+<programlisting>void        netk_window_shade               (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Shades the window. A shaded window is "rolled up".
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unshade"/>netk_window_unshade ()</title>
+<programlisting>void        netk_window_unshade             (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-stick"/>netk_window_stick ()</title>
+<programlisting>void        netk_window_stick               (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Sets the sticky state. Sticky windows are XXX.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unstick"/>netk_window_unstick ()</title>
+<programlisting>void        netk_window_unstick             (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-keyboard-move"/>netk_window_keyboard_move ()</title>
+<programlisting>void        netk_window_keyboard_move       (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+enters keyboard move mode for the window.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-keyboard-size"/>netk_window_keyboard_size ()</title>
+<programlisting>void        netk_window_keyboard_size       (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+enters keyboard size mode for the window.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-workspace"/>netk_window_get_workspace ()</title>
+<programlisting><link linkend="NetkWorkspace">NetkWorkspace</link>* netk_window_get_workspace    (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the window's current workspace. If the window is
+pinned (on all workspaces), or not on any workspaces,
+<literal>NULL</literal> may be returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> single current workspace or <literal>NULL</literal>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-move-to-workspace"/>netk_window_move_to_workspace ()</title>
+<programlisting>void        netk_window_move_to_workspace   (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *space);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>space</parameter>&nbsp;:</term>
+<listitem><simpara>the workspace to move the window to
+
+moves the window to the given workspace
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-pinned"/>netk_window_is_pinned ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_pinned           (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+<literal>TRUE</literal> if the window is on all workspaces. Note that if this
+changes, it's signalled by a workspace_changed signal,
+not state_changed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if on all workspaces
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-pin"/>netk_window_pin ()</title>
+<programlisting>void        netk_window_pin                 (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+
+Pins the window. A pinned window is on all workspaces.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-unpin"/>netk_window_unpin ()</title>
+<programlisting>void        netk_window_unpin               (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Sets <parameter>window</parameter>'s workspace to only the currently active workspace,
+if the window was previously pinned. If the window wasn't pinned,
+doesn't change the window's workspace. If the active workspace
+isn't known for some reason (shouldn't happen much), sets the
+window's workspace to 0.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-activate"/>netk_window_activate ()</title>
+<programlisting>void        netk_window_activate            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Ask the window manager to make <parameter>window</parameter> the active window.  The
+window manager may choose to raise <parameter>window</parameter> along with focusing it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-active"/>netk_window_is_active ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_active           (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if the window is the active window
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-activate-transient"/>netk_window_activate_transient ()</title>
+<programlisting>void        netk_window_activate_transient  (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+If <parameter>window</parameter> has transients, activates the most likely transient
+instead of the window itself. Otherwise activates <parameter>window</parameter>.
+</para>
+<para>
+FIXME the ideal behavior of this function is probably to activate
+the most recently active window among <parameter>window</parameter> and its transients.
+This is probably best implemented on the window manager side.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-icon"/>netk_window_get_icon ()</title>
+<programlisting><link linkend="GdkPixbuf">GdkPixbuf</link>*  netk_window_get_icon            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the pixbuf of the icon of the window, or NULL. result refcount is not touched.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-mini-icon"/>netk_window_get_mini_icon ()</title>
+<programlisting><link linkend="GdkPixbuf">GdkPixbuf</link>*  netk_window_get_mini_icon       (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara>the NetkWindow instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the pixbuf of the mini icon of the window, or NULL. result refcount is not touched.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-icon-is-fallback"/>netk_window_get_icon_is_fallback ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_get_icon_is_fallback
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Checks if we are using a default fallback icon because
+none was set on the window.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if icon is a fallback
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-set-icon-geometry"/>netk_window_set_icon_geometry ()</title>
+<programlisting>void        netk_window_set_icon_geometry   (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             int x,
+                                             int y,
+                                             int width,
+                                             int height);</programlisting>
+<para>
+Set the icon geometry for a NetkWindow.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> x coordinate in pixels
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> y coordinate in pixels
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara> width in pixels
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>height</parameter>&nbsp;:</term>
+<listitem><simpara> height in pixels
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-actions"/>netk_window_get_actions ()</title>
+<programlisting><link linkend="NetkWindowActions">NetkWindowActions</link> netk_window_get_actions   (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the window operations that should be sensitive for <parameter>window</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> bitmask of actions the window supports
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-state"/>netk_window_get_state ()</title>
+<programlisting><link linkend="NetkWindowState">NetkWindowState</link> netk_window_get_state       (<link linkend="NetkWindow">NetkWindow</link> *window);</programlisting>
+<para>
+Gets the state of a window as a bitmask.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> bitmask of active state flags.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-get-geometry"/>netk_window_get_geometry ()</title>
+<programlisting>void        netk_window_get_geometry        (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             int *xp,
+                                             int *yp,
+                                             int *widthp,
+                                             int *heightp);</programlisting>
+<para>
+Gets the size and position of the window, as last received
+in a configure notify (i.e. this call does not round-trip
+to the server, just gets the last size we were notified of).
+The X and Y coordinates are relative to the root window.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>xp</parameter>&nbsp;:</term>
+<listitem><simpara> return location for X coordinate of window 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>yp</parameter>&nbsp;:</term>
+<listitem><simpara> return location for Y coordinate of window
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>widthp</parameter>&nbsp;:</term>
+<listitem><simpara> return location for width of window
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>heightp</parameter>&nbsp;:</term>
+<listitem><simpara> return location for height of window
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-visible-on-workspace"/>netk_window_is_visible_on_workspace ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_visible_on_workspace
+                                            (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *workspace);</programlisting>
+<para>
+Like <link linkend="netk-window-is-on-workspace">netk_window_is_on_workspace</link>(), but also checks that
+the window is in a visible state (i.e. not minimized or shaded).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>workspace</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if <parameter>window</parameter> appears on <parameter>workspace</parameter> in normal state
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-on-workspace"/>netk_window_is_on_workspace ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_on_workspace     (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *workspace);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>workspace</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if <parameter>window</parameter> appears on <parameter>workspace</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="netk-window-is-in-viewport"/>netk_window_is_in_viewport ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    netk_window_is_in_viewport      (<link linkend="NetkWindow">NetkWindow</link> *window,
+                                             <link linkend="NetkWorkspace">NetkWorkspace</link> *workspace);</programlisting>
+<para>
+Returns <link linkend="TRUE-CAPS">TRUE</link> if the window is inside the current viewport
+of the given workspace.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>window</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWindow">NetkWindow</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>workspace</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="NetkWorkspace">NetkWorkspace</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if <parameter>window</parameter> appears in current viewport
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>
