@@ -1,0 +1,273 @@
+<refentry id="gstreamer-GstUriHandler">
+<refmeta>
+<refentrytitle>GstUriHandler</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstUriHandler</refname><refpurpose>Plugin feature that handles URI types</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+<anchor id="GstURIHandler"/>
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstURIHandler-struct">GstURIHandler</link>;
+#define     <link linkend="GST-URI-TYPE-IS-VALID-CAPS">GST_URI_TYPE_IS_VALID</link>           (type)
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-uri-protocol-is-valid">gst_uri_protocol_is_valid</link>       (const <link linkend="gchar">gchar</link> *protocol);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-uri-is-valid">gst_uri_is_valid</link>                (const <link linkend="gchar">gchar</link> *uri);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-uri-get-protocol">gst_uri_get_protocol</link>            (const <link linkend="gchar">gchar</link> *uri);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-uri-get-location">gst_uri_get_location</link>            (const <link linkend="gchar">gchar</link> *uri);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-uri-construct">gst_uri_construct</link>               (const <link linkend="gchar">gchar</link> *protocol,
+                                             const <link linkend="gchar">gchar</link> *location);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-element-make-from-uri">gst_element_make_from_uri</link>       (const <link linkend="GstURIType">GstURIType</link> type,
+                                             const <link linkend="gchar">gchar</link> *uri,
+                                             const <link linkend="gchar">gchar</link> *elementname);
+<link linkend="guint">guint</link>       <link linkend="gst-uri-handler-get-uri-type">gst_uri_handler_get_uri_type</link>    (<link linkend="GstURIHandler">GstURIHandler</link> *handler);
+<link linkend="gchar">gchar</link>**     <link linkend="gst-uri-handler-get-protocols">gst_uri_handler_get_protocols</link>   (<link linkend="GstURIHandler">GstURIHandler</link> *handler);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-uri-handler-get-uri">gst_uri_handler_get_uri</link>
+                                            (<link linkend="GstURIHandler">GstURIHandler</link> *handler);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-uri-handler-set-uri">gst_uri_handler_set_uri</link>         (<link linkend="GstURIHandler">GstURIHandler</link> *handler,
+                                             const <link linkend="gchar">gchar</link> *uri);
+void        <link linkend="gst-uri-handler-new-uri">gst_uri_handler_new_uri</link>         (<link linkend="GstURIHandler">GstURIHandler</link> *handler,
+                                             const <link linkend="gchar">gchar</link> *uri);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GInterface">GInterface</link>
+   +----GstURIHandler
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The URIHandler is a pluginfeature that can be used to locate element
+and the element property that can handle a given URI.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstURIHandler-struct"/>struct GstURIHandler</title>
+<programlisting>struct GstURIHandler;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-URI-TYPE-IS-VALID-CAPS"/>GST_URI_TYPE_IS_VALID()</title>
+<programlisting>#define GST_URI_TYPE_IS_VALID(type) ((type) == GST_URI_SRC || (type) == GST_URI_SINK)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-protocol-is-valid"/>gst_uri_protocol_is_valid ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_uri_protocol_is_valid       (const <link linkend="gchar">gchar</link> *protocol);</programlisting>
+<para>
+Tests if the given string is a valid protocol identifier. Protocols
+must consist of alphanumeric characters and not start with a number.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>protocol</parameter>&nbsp;:</term>
+<listitem><simpara> string to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the string is a valid protocol identifier
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-is-valid"/>gst_uri_is_valid ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_uri_is_valid                (const <link linkend="gchar">gchar</link> *uri);</programlisting>
+<para>
+Tests if the given string is a valid URI identifier. URIs start with a valid
+protocol followed by "://" and a string identifying the location.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>uri</parameter>&nbsp;:</term>
+<listitem><simpara> string to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the string is a valid URI
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-get-protocol"/>gst_uri_get_protocol ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_uri_get_protocol            (const <link linkend="gchar">gchar</link> *uri);</programlisting>
+<para>
+Extracts the protocol out of a given valid URI. The returned string must be
+freed using <link linkend="g-free">g_free</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>uri</parameter>&nbsp;:</term>
+<listitem><simpara> URI to get protocol from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The protocol for this URI.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-get-location"/>gst_uri_get_location ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_uri_get_location            (const <link linkend="gchar">gchar</link> *uri);</programlisting>
+<para>
+Extracts the location out of a given valid URI. So the protocol and "://"
+are stripped from the URI. The returned string must be freed using 
+<link linkend="g-free">g_free</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>uri</parameter>&nbsp;:</term>
+<listitem><simpara> URI to get the location from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The location for this URI.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-construct"/>gst_uri_construct ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_uri_construct               (const <link linkend="gchar">gchar</link> *protocol,
+                                             const <link linkend="gchar">gchar</link> *location);</programlisting>
+<para>
+Constructs a URI for a given valid protocol and location.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>protocol</parameter>&nbsp;:</term>
+<listitem><simpara> protocol for URI
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>location</parameter>&nbsp;:</term>
+<listitem><simpara> location for URI
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new string for this URI
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-make-from-uri"/>gst_element_make_from_uri ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_element_make_from_uri       (const <link linkend="GstURIType">GstURIType</link> type,
+                                             const <link linkend="gchar">gchar</link> *uri,
+                                             const <link linkend="gchar">gchar</link> *elementname);</programlisting>
+<para>
+Creates an element for handling the given URI.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> wether to create a source or a sink
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uri</parameter>&nbsp;:</term>
+<listitem><simpara> URI to create element for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>elementname</parameter>&nbsp;:</term>
+<listitem><simpara> optional name of created element
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new element or NULL if none could be created
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-handler-get-uri-type"/>gst_uri_handler_get_uri_type ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_uri_handler_get_uri_type    (<link linkend="GstURIHandler">GstURIHandler</link> *handler);</programlisting>
+<para>
+Gets the type of a URI handler</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handler</parameter>&nbsp;:</term>
+<listitem><simpara> Handler to query type of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the type of the URI handler
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-handler-get-protocols"/>gst_uri_handler_get_protocols ()</title>
+<programlisting><link linkend="gchar">gchar</link>**     gst_uri_handler_get_protocols   (<link linkend="GstURIHandler">GstURIHandler</link> *handler);</programlisting>
+<para>
+Gets the list of supported protocols for this handler. This list may not be
+modified.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handler</parameter>&nbsp;:</term>
+<listitem><simpara> Handler to get protocols for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the supported protocols
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-handler-get-uri"/>gst_uri_handler_get_uri ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_uri_handler_get_uri
+                                            (<link linkend="GstURIHandler">GstURIHandler</link> *handler);</programlisting>
+<para>
+Gets the currently handled URI of the handler or NULL, if none is set.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handler</parameter>&nbsp;:</term>
+<listitem><simpara> handler to query URI of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the URI
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-handler-set-uri"/>gst_uri_handler_set_uri ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_uri_handler_set_uri         (<link linkend="GstURIHandler">GstURIHandler</link> *handler,
+                                             const <link linkend="gchar">gchar</link> *uri);</programlisting>
+<para>
+Tries to set the URI of the given handler and returns TRUE if it succeeded.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handler</parameter>&nbsp;:</term>
+<listitem><simpara> handler to set URI of
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uri</parameter>&nbsp;:</term>
+<listitem><simpara> URI to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the URI was set successfully
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-uri-handler-new-uri"/>gst_uri_handler_new_uri ()</title>
+<programlisting>void        gst_uri_handler_new_uri         (<link linkend="GstURIHandler">GstURIHandler</link> *handler,
+                                             const <link linkend="gchar">gchar</link> *uri);</programlisting>
+<para>
+Emits the new-uri event for a given handler, when that handler has a new URI.
+This function should only be called by URI handlers themselves.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>handler</parameter>&nbsp;:</term>
+<listitem><simpara> handler with a new URI
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>uri</parameter>&nbsp;:</term>
+<listitem><simpara> new URI or NULL if it was unset
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

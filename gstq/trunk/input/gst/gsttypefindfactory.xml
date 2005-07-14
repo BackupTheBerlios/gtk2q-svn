@@ -1,0 +1,192 @@
+<refentry id="GstTypeFindFactory">
+<refmeta>
+<refentrytitle>GstTypeFindFactory</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstTypeFindFactory</refname><refpurpose>information about registered typefind functions</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstTypeFindFactory-struct">GstTypeFindFactory</link>;
+<link linkend="GList">GList</link>*      <link linkend="gst-type-find-factory-get-list">gst_type_find_factory_get_list</link>  (void);
+<link linkend="gchar">gchar</link>**     <link linkend="gst-type-find-factory-get-extensions">gst_type_find_factory_get_extensions</link>
+                                            (const <link linkend="GstTypeFindFactory">GstTypeFindFactory</link> *factory);
+const <link linkend="GstCaps">GstCaps</link>* <link linkend="gst-type-find-factory-get-caps">gst_type_find_factory_get_caps</link>
+                                            (const <link linkend="GstTypeFindFactory">GstTypeFindFactory</link> *factory);
+void        <link linkend="gst-type-find-factory-call-function">gst_type_find_factory_call_function</link>
+                                            (const <link linkend="GstTypeFindFactory">GstTypeFindFactory</link> *factory,
+                                             <link linkend="GstTypeFind">GstTypeFind</link> *find);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstPluginFeature">GstPluginFeature</link>
+         +----GstTypeFindFactory
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+These functions allow querying informations about registered typefind 
+functions. How to create and register these functions is described in
+the section <link linkend="gstreamer-Writing-typefind-functions">
+"Writing typefind functions"</link>.
+</para>
+<example>
+  <title>how to write a simple typefinder</title>
+  <programlisting>
+  /* FIXME: compile this? ;) */
+  typedef struct {
+    guint8 *data;
+    guint size;
+    guint probability;
+    GstCaps *data;
+  } MyTypeFind;
+  static void
+  my_peek (gpointer data, gint64 offset, guint size)
+  {
+    MyTypeFind *find = (MyTypeFind *) data;
+    if (offset &gt;= 0 &amp;&amp; offset + size &lt;= find->size) {
+      return find->data + offset;
+    }
+    return NULL;
+  }
+  static void
+  my_suggest (gpointer data, guint probability, GstCaps *caps)
+  {
+    MyTypeFind *find = (MyTypeFind *) data;
+    if (probability &gt; find->probability) {
+      find->probability = probability;
+      gst_caps_replace (&amp;find->caps, caps);
+    }
+  }
+  static GstCaps *
+  find_type (guint8 *data, guint size)
+  {
+    GList *walk, *type_list;
+    MyTypeFind find = {data, size, 0, NULL};
+    GstTypeFind gst_find = {my_peek, my_suggest, &amp;find, };
+    
+    walk = type_list = <link linkend="gst-type-find-factory-get-list">gst_type_find_factory_get_list</link>();
+    while (walk) {
+      GstTypeFindFactory *factory = GST_TYPE_FIND_FACTORY (walk->data);
+      walk = g_list_next (walk)
+      gst_type_find_factory_call_function (factory, &amp;gst_find);
+    }
+    g_list_free (type_list);
+    return find.caps;
+  };
+  </programlisting>
+</example>
+<para>
+The above example shows how to write a very simple typefinder that identifies
+the given data. You can get quite a bit more complicated than that though.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstTypeFindFactory-struct"/>struct GstTypeFindFactory</title>
+<programlisting>struct GstTypeFindFactory;</programlisting>
+<para>
+Object that stores information about a typefind function
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-factory-get-list"/>gst_type_find_factory_get_list ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_type_find_factory_get_list  (void);</programlisting>
+<para>
+Gets the list of all registered typefind factories. You must free the
+list using g_list_free.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the list of all registered typefind factories
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-factory-get-extensions"/>gst_type_find_factory_get_extensions ()</title>
+<programlisting><link linkend="gchar">gchar</link>**     gst_type_find_factory_get_extensions
+                                            (const <link linkend="GstTypeFindFactory">GstTypeFindFactory</link> *factory);</programlisting>
+<para>
+Gets the extensions associated with a typefind factory. The returned
+array should not be changed. If you need to change stuff in it, you should
+copy it using <link linkend="g-stdupv">g_stdupv</link>().  This function may return NULL to indicate
+a 0-length list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a factory
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a NULL-terminated array of extensions associated with this factory
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-factory-get-caps"/>gst_type_find_factory_get_caps ()</title>
+<programlisting>const <link linkend="GstCaps">GstCaps</link>* gst_type_find_factory_get_caps
+                                            (const <link linkend="GstTypeFindFactory">GstTypeFindFactory</link> *factory);</programlisting>
+<para>
+Gets the caps associated with a typefind factory.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a factory
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstCaps">GstCaps</link> associated with this factory
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-factory-call-function"/>gst_type_find_factory_call_function ()</title>
+<programlisting>void        gst_type_find_factory_call_function
+                                            (const <link linkend="GstTypeFindFactory">GstTypeFindFactory</link> *factory,
+                                             <link linkend="GstTypeFind">GstTypeFind</link> *find);</programlisting>
+<para>
+Calls the typefinding function associated with this factory.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a factory
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>find</parameter>&nbsp;:</term>
+<listitem><simpara> a properly setup <link linkend="GstTypeFind">GstTypeFind</link> entry. The get_data and suggest_type
+       members must be set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="gstreamer-Writing-typefind-functions">Writing typefind functions</link>
+</para>
+</refsect1>
+
+</refentry>

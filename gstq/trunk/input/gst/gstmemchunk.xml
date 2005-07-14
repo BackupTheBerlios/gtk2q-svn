@@ -1,0 +1,171 @@
+<refentry id="gstreamer-GstMemChunk">
+<refmeta>
+<refentrytitle>GstMemChunk</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstMemChunk</refname><refpurpose>Atomic chunk allocator</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstMemChunk">GstMemChunk</link>;
+<link linkend="GstMemChunk">GstMemChunk</link>* <link linkend="gst-mem-chunk-new">gst_mem_chunk_new</link>              (<link linkend="gchar">gchar</link> *name,
+                                             <link linkend="gint">gint</link> atom_size,
+                                             <link linkend="gulong">gulong</link> area_size,
+                                             <link linkend="gint">gint</link> type);
+void        <link linkend="gst-mem-chunk-destroy">gst_mem_chunk_destroy</link>           (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk);
+<link linkend="gpointer">gpointer</link>    <link linkend="gst-mem-chunk-alloc">gst_mem_chunk_alloc</link>             (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk);
+<link linkend="gpointer">gpointer</link>    <link linkend="gst-mem-chunk-alloc0">gst_mem_chunk_alloc0</link>            (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk);
+void        <link linkend="gst-mem-chunk-free">gst_mem_chunk_free</link>              (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk,
+                                             <link linkend="gpointer">gpointer</link> mem);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstMemChunk is an atomic chunk allocator. It uses atomic operations
+to allocate fixed size memory regions and is therefore thread safe
+without the overhead of mutexes or other heavyweight locking mechanisms.
+</para>
+
+<para>
+The GstMemChunk is used to allocate critical resources for <link linkend="GstBuffer">GstBuffer</link> and
+<link linkend="GstEvent">GstEvent</link>.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstMemChunk"/>struct GstMemChunk</title>
+<programlisting>struct GstMemChunk;</programlisting>
+<para>
+The memchunk structure
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-mem-chunk-new"/>gst_mem_chunk_new ()</title>
+<programlisting><link linkend="GstMemChunk">GstMemChunk</link>* gst_mem_chunk_new              (<link linkend="gchar">gchar</link> *name,
+                                             <link linkend="gint">gint</link> atom_size,
+                                             <link linkend="gulong">gulong</link> area_size,
+                                             <link linkend="gint">gint</link> type);</programlisting>
+<para>
+Creates a new memchunk that will allocate atom_sized memchunks.
+The initial area is set to area_size and will grow automatically 
+when it is too small (with a small overhead when that happens)</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the chunk
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>atom_size</parameter>&nbsp;:</term>
+<listitem><simpara> the size of the allocated atoms
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>area_size</parameter>&nbsp;:</term>
+<listitem><simpara> the initial size of the memory area
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the allocation strategy to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstMemChunk">GstMemChunk</link>
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-mem-chunk-destroy"/>gst_mem_chunk_destroy ()</title>
+<programlisting>void        gst_mem_chunk_destroy           (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk);</programlisting>
+<para>
+Free the memory allocated by the memchunk. This function
+is not Threadsafe as it does not wait for all outstanding
+allocations to be freed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mem_chunk</parameter>&nbsp;:</term>
+<listitem><simpara> the GstMemChunk to destroy
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-mem-chunk-alloc"/>gst_mem_chunk_alloc ()</title>
+<programlisting><link linkend="gpointer">gpointer</link>    gst_mem_chunk_alloc             (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk);</programlisting>
+<para>
+Allocate a new memory region from the chunk. The size
+of the allocated memory was specified when the memchunk
+was created.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mem_chunk</parameter>&nbsp;:</term>
+<listitem><simpara> the mem chunk to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to the allocated memory region.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-mem-chunk-alloc0"/>gst_mem_chunk_alloc0 ()</title>
+<programlisting><link linkend="gpointer">gpointer</link>    gst_mem_chunk_alloc0            (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk);</programlisting>
+<para>
+Allocate a new memory region from the chunk. The size
+of the allocated memory was specified when the memchunk
+was created. The memory will be set to all zeroes.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mem_chunk</parameter>&nbsp;:</term>
+<listitem><simpara> the mem chunk to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to the allocated memory region.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-mem-chunk-free"/>gst_mem_chunk_free ()</title>
+<programlisting>void        gst_mem_chunk_free              (<link linkend="GstMemChunk">GstMemChunk</link> *mem_chunk,
+                                             <link linkend="gpointer">gpointer</link> mem);</programlisting>
+<para>
+Free the memeory region allocated from the chunk.
+</para>
+<para>
+MT safe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mem_chunk</parameter>&nbsp;:</term>
+<listitem><simpara> the mem chunk to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mem</parameter>&nbsp;:</term>
+<listitem><simpara> the memory region to hand back to the chunk
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstBuffer">GstBuffer</link>, <link linkend="GstEvent">GstEvent</link>, <link linkend="GstData">GstData</link>
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,261 @@
+<refentry id="gstreamer-GstQuery">
+<refmeta>
+<refentrytitle>GstQuery</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstQuery</refname><refpurpose>Dynamically register new query types</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+enum        <link linkend="GstQueryType">GstQueryType</link>;
+#define     <link linkend="GST-QUERY-TYPE-RATE-DEN-CAPS">GST_QUERY_TYPE_RATE_DEN</link>
+struct      <link linkend="GstQueryTypeDefinition">GstQueryTypeDefinition</link>;
+#define     <link linkend="GST-QUERY-TYPE-FUNCTION-CAPS">GST_QUERY_TYPE_FUNCTION</link>         (type, functionname, ...)
+<link linkend="GstQueryType">GstQueryType</link> <link linkend="gst-query-type-register">gst_query_type_register</link>        (const <link linkend="gchar">gchar</link> *nick,
+                                             const <link linkend="gchar">gchar</link> *description);
+<link linkend="GstQueryType">GstQueryType</link> <link linkend="gst-query-type-get-by-nick">gst_query_type_get_by_nick</link>     (const <link linkend="gchar">gchar</link> *nick);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-query-types-contains">gst_query_types_contains</link>        (const <link linkend="GstQueryType">GstQueryType</link> *types,
+                                             <link linkend="GstQueryType">GstQueryType</link> type);
+G_CONST_RETURN <link linkend="GstQueryTypeDefinition">GstQueryTypeDefinition</link>* <link linkend="gst-query-type-get-details">gst_query_type_get_details</link>
+                                            (<link linkend="GstQueryType">GstQueryType</link> type);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstQuery functions are used to register a new query types to the gstreamer core. 
+Query types can be used to perform queries on pads and elements.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstQueryType"/>enum GstQueryType</title>
+<programlisting>typedef enum {
+  GST_QUERY_NONE = 0,
+  GST_QUERY_TOTAL, /* deprecated, use POSITION */
+  GST_QUERY_POSITION,
+  GST_QUERY_LATENCY,
+  GST_QUERY_JITTER, /* not in draft-query, necessary? */
+  GST_QUERY_START, /* deprecated, use SEEKING */
+  GST_QUERY_SEGMENT_END, /* deprecated, use SEEKING */
+  GST_QUERY_RATE, /* not in draft-query, necessary? */
+  GST_QUERY_SEEKING,
+  GST_QUERY_CONVERT,
+  GST_QUERY_FORMATS
+} GstQueryType;
+</programlisting>
+<para>
+Standard predefined Query types
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_QUERY_NONE</literal></term>
+<listitem><simpara>invalid query type
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_TOTAL</literal></term>
+<listitem><simpara>total length of stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_POSITION</literal></term>
+<listitem><simpara>current position in stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_LATENCY</literal></term>
+<listitem><simpara>latency of stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_JITTER</literal></term>
+<listitem><simpara>current jitter of stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_START</literal></term>
+<listitem><simpara>start of configured segment
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_SEGMENT_END</literal></term>
+<listitem><simpara>end of configured segment
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_RATE</literal></term>
+<listitem><simpara>current rate of the stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_SEEKING</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_CONVERT</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_QUERY_FORMATS</literal></term>
+<listitem><simpara>
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-QUERY-TYPE-RATE-DEN-CAPS"/>GST_QUERY_TYPE_RATE_DEN</title>
+<programlisting>#define GST_QUERY_TYPE_RATE_DEN          G_GINT64_CONSTANT (1000000)
+</programlisting>
+<para>
+Rates are relative to this value
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstQueryTypeDefinition"/>struct GstQueryTypeDefinition</title>
+<programlisting>struct GstQueryTypeDefinition {
+
+  GstQueryType   value;
+  gchar     	*nick;
+  gchar     	*description;
+};
+</programlisting>
+<para>
+A Query Type definition
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="GstQueryType">GstQueryType</link> <structfield>value</structfield></term>
+<listitem><simpara>the unique id of the Query type
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>nick</structfield></term>
+<listitem><simpara>a short nick
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>description</structfield></term>
+<listitem><simpara>a longer description of the query type
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-QUERY-TYPE-FUNCTION-CAPS"/>GST_QUERY_TYPE_FUNCTION()</title>
+<programlisting>#define     GST_QUERY_TYPE_FUNCTION(type, functionname, ...)</programlisting>
+<para>
+Convenience function to define a function that returns an array of query types.
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>Type of first argument for function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>functionname</parameter>&nbsp;:</term>
+<listitem><simpara>The name of the function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>query types, 0 to end the list
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-query-type-register"/>gst_query_type_register ()</title>
+<programlisting><link linkend="GstQueryType">GstQueryType</link> gst_query_type_register        (const <link linkend="gchar">gchar</link> *nick,
+                                             const <link linkend="gchar">gchar</link> *description);</programlisting>
+<para>
+Create a new GstQueryType based on the nick or return an
+allrady registered query with that nick</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>nick</parameter>&nbsp;:</term>
+<listitem><simpara> The nick of the new query
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>description</parameter>&nbsp;:</term>
+<listitem><simpara> The description of the new query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new GstQueryType or an already registered query
+with the same nick.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-query-type-get-by-nick"/>gst_query_type_get_by_nick ()</title>
+<programlisting><link linkend="GstQueryType">GstQueryType</link> gst_query_type_get_by_nick     (const <link linkend="gchar">gchar</link> *nick);</programlisting>
+<para>
+Return the query registered with the given nick.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>nick</parameter>&nbsp;:</term>
+<listitem><simpara> The nick of the query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The query with <parameter>nick</parameter> or GST_QUERY_NONE
+if the query was not registered.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-query-types-contains"/>gst_query_types_contains ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_query_types_contains        (const <link linkend="GstQueryType">GstQueryType</link> *types,
+                                             <link linkend="GstQueryType">GstQueryType</link> type);</programlisting>
+<para>
+See if the given query is inside the query array.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>types</parameter>&nbsp;:</term>
+<listitem><simpara> The query array to search
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the querytype to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the query is found inside the array
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-query-type-get-details"/>gst_query_type_get_details ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstQueryTypeDefinition">GstQueryTypeDefinition</link>* gst_query_type_get_details
+                                            (<link linkend="GstQueryType">GstQueryType</link> type);</programlisting>
+<para>
+Get details about the given query.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> The query to get details of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The <link linkend="GstQueryTypeDefinition">GstQueryTypeDefinition</link> for <parameter>query</parameter> or NULL on failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstPad">GstPad</link>, <link linkend="GstElement">GstElement</link>
+</para>
+</refsect1>
+
+</refentry>

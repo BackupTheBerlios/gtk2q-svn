@@ -1,0 +1,167 @@
+<refentry id="GstImplementsInterface">
+<refmeta>
+<refentrytitle>GstImplementsInterface</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstImplementsInterface</refname><refpurpose>Core interface implemented by <link linkend="GstElements">GstElements</link> that allows runtime querying of interface availabillity</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstImplementsInterface-struct">GstImplementsInterface</link>;
+#define     <link linkend="GST-IMPLEMENTS-INTERFACE-CHECK-INSTANCE-CAST-CAPS">GST_IMPLEMENTS_INTERFACE_CHECK_INSTANCE_CAST</link>(obj, type, cast_t)
+#define     <link linkend="GST-IMPLEMENTS-INTERFACE-CHECK-INSTANCE-TYPE-CAPS">GST_IMPLEMENTS_INTERFACE_CHECK_INSTANCE_TYPE</link>(obj, type)
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-implements-interface">gst_element_implements_interface</link>
+                                            (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GType">GType</link> iface_type);
+<link linkend="gpointer">gpointer</link>    <link linkend="gst-implements-interface-cast">gst_implements_interface_cast</link>   (<link linkend="gpointer">gpointer</link> from,
+                                             <link linkend="GType">GType</link> type);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-implements-interface-check">gst_implements_interface_check</link>  (<link linkend="gpointer">gpointer</link> from,
+                                             <link linkend="GType">GType</link> type);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GInterface">GInterface</link>
+   +----GstImplementsInterface
+</synopsis>
+
+</refsect1>
+
+
+<refsect1>
+<title>Prerequisites</title>
+<para>
+GstImplementsInterface requires <link linkend="GstElement">GstElement</link>.
+</para>
+</refsect1>
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstImplementsInterface-struct"/>struct GstImplementsInterface</title>
+<programlisting>struct GstImplementsInterface;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-IMPLEMENTS-INTERFACE-CHECK-INSTANCE-CAST-CAPS"/>GST_IMPLEMENTS_INTERFACE_CHECK_INSTANCE_CAST()</title>
+<programlisting>#define     GST_IMPLEMENTS_INTERFACE_CHECK_INSTANCE_CAST(obj, type, cast_t)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>cast_t</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-IMPLEMENTS-INTERFACE-CHECK-INSTANCE-TYPE-CAPS"/>GST_IMPLEMENTS_INTERFACE_CHECK_INSTANCE_TYPE()</title>
+<programlisting>#define     GST_IMPLEMENTS_INTERFACE_CHECK_INSTANCE_TYPE(obj, type)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-implements-interface"/>gst_element_implements_interface ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_implements_interface
+                                            (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GType">GType</link> iface_type);</programlisting>
+<para>
+Test whether the given element implements a certain interface of type
+iface_type, and test whether it is supported for this specific instance.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstElement">GstElement</link> to check for the implementation of the interface
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iface_type</parameter>&nbsp;:</term>
+<listitem><simpara> (final) type of the interface which we want to be implemented
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> whether or not the element implements the interface.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-implements-interface-cast"/>gst_implements_interface_cast ()</title>
+<programlisting><link linkend="gpointer">gpointer</link>    gst_implements_interface_cast   (<link linkend="gpointer">gpointer</link> from,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+cast a given object to an interface type, and check whether this
+interface is supported for this specific instance.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>from</parameter>&nbsp;:</term>
+<listitem><simpara> the object (any sort) from which to cast to the interface
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the interface type to cast to
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a gpointer to the interface type
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-implements-interface-check"/>gst_implements_interface_check ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_implements_interface_check  (<link linkend="gpointer">gpointer</link> from,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+check a given object for an interface implementation, and check
+whether this interface is supported for this specific instance.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>from</parameter>&nbsp;:</term>
+<listitem><simpara> the object (any sort) from which to check from for the interface
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the interface type to check for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> whether or not the object implements the given interface
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

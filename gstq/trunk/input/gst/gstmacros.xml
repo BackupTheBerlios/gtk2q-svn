@@ -1,0 +1,44 @@
+<refentry id="gstreamer-GstMacros">
+<refmeta>
+<refentrytitle>GstMacros</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstMacros</refname><refpurpose>various portabillity helper macros</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+
+</refsect1>
+
+
+
+
+</refentry>

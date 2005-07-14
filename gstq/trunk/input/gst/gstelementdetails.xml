@@ -1,0 +1,60 @@
+<refentry id="gstreamer-GstElementDetails">
+<refmeta>
+<refentrytitle>GstElementDetails</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstElementDetails</refname><refpurpose>Defines public information about a <link linkend="GstElement">GstElement</link></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstElementDetails">GstElementDetails</link>;
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstElementDetails"/>struct GstElementDetails</title>
+<programlisting>struct GstElementDetails {
+
+  gchar *longname;              /* long, english name */
+  gchar *klass;                 /* type of element, as hierarchy */
+  gchar *description;           /* insights of one form or another */
+  gchar *author;                /* who wrote this thing? */
+
+};
+</programlisting>
+<para>
+This struct is used to define public information about the element.  It
+describes the element, mostly for the benefit of editors.
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

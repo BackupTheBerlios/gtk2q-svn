@@ -1,0 +1,503 @@
+<refentry id="gstreamer-GstGError">
+<refmeta>
+<refentrytitle>GstError</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstError</refname><refpurpose>Categorized error messages</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+enum        <link linkend="GstCoreError">GstCoreError</link>;
+enum        <link linkend="GstLibraryError">GstLibraryError</link>;
+enum        <link linkend="GstResourceError">GstResourceError</link>;
+enum        <link linkend="GstStreamError">GstStreamError</link>;
+#define     <link linkend="GST-CORE-ERROR-CAPS">GST_CORE_ERROR</link>
+#define     <link linkend="GST-LIBRARY-ERROR-CAPS">GST_LIBRARY_ERROR</link>
+#define     <link linkend="GST-RESOURCE-ERROR-CAPS">GST_RESOURCE_ERROR</link>
+#define     <link linkend="GST-STREAM-ERROR-CAPS">GST_STREAM_ERROR</link>
+#define     <link linkend="GST-ERROR-SYSTEM-CAPS">GST_ERROR_SYSTEM</link>
+<link linkend="gchar">gchar</link>*      <link linkend="gst-error-get-message">gst_error_get_message</link>           (<link linkend="GQuark">GQuark</link> domain,
+                                             <link linkend="gint">gint</link> code);
+<link linkend="GQuark">GQuark</link>      <link linkend="gst-stream-error-quark">gst_stream_error_quark</link>          (void);
+<link linkend="GQuark">GQuark</link>      <link linkend="gst-core-error-quark">gst_core_error_quark</link>            (void);
+<link linkend="GQuark">GQuark</link>      <link linkend="gst-resource-error-quark">gst_resource_error_quark</link>        (void);
+<link linkend="GQuark">GQuark</link>      <link linkend="gst-library-error-quark">gst_library_error_quark</link>         (void);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstCoreError"/>enum GstCoreError</title>
+<programlisting>typedef enum
+{
+  GST_CORE_ERROR_FAILED = 1,
+  GST_CORE_ERROR_TOO_LAZY,
+  GST_CORE_ERROR_NOT_IMPLEMENTED,
+  GST_CORE_ERROR_STATE_CHANGE,
+  GST_CORE_ERROR_PAD,
+  GST_CORE_ERROR_THREAD,
+  GST_CORE_ERROR_SCHEDULER,
+  GST_CORE_ERROR_NEGOTIATION,
+  GST_CORE_ERROR_EVENT,
+  GST_CORE_ERROR_SEEK,
+  GST_CORE_ERROR_CAPS,
+  GST_CORE_ERROR_TAG,
+  GST_CORE_ERROR_NUM_ERRORS
+} GstCoreError;
+</programlisting>
+<para>
+Core errors are errors inside the core GStreamer library.
+the core GStreamer library</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_CORE_ERROR_FAILED</literal></term>
+<listitem><simpara> a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_TOO_LAZY</literal></term>
+<listitem><simpara> do not use this except as a placeholder for
+deciding where to go while developing code.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_NOT_IMPLEMENTED</literal></term>
+<listitem><simpara> use this when you do not want to implement
+this functionality yet.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_STATE_CHANGE</literal></term>
+<listitem><simpara> used for state change errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_PAD</literal></term>
+<listitem><simpara> used for pad-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_THREAD</literal></term>
+<listitem><simpara> used for thread-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_SCHEDULER</literal></term>
+<listitem><simpara> used for scheduler-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_NEGOTIATION</literal></term>
+<listitem><simpara> used for negotiation-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_EVENT</literal></term>
+<listitem><simpara> used for event-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_SEEK</literal></term>
+<listitem><simpara> used for seek-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_CAPS</literal></term>
+<listitem><simpara> used for caps-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_TAG</literal></term>
+<listitem><simpara> used for negotiation-related errors.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_CORE_ERROR_NUM_ERRORS</literal></term>
+<listitem><simpara> the number of core error types.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstLibraryError"/>enum GstLibraryError</title>
+<programlisting>typedef enum
+{
+  GST_LIBRARY_ERROR_FAILED = 1,
+  GST_LIBRARY_ERROR_TOO_LAZY,
+  GST_LIBRARY_ERROR_INIT,
+  GST_LIBRARY_ERROR_SHUTDOWN,
+  GST_LIBRARY_ERROR_SETTINGS,
+  GST_LIBRARY_ERROR_ENCODE,
+  GST_LIBRARY_ERROR_NUM_ERRORS
+} GstLibraryError;
+</programlisting>
+<para>
+Library errors are for errors from the library being used by elements
+(initializing, finalizing, settings, ...)</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_FAILED</literal></term>
+<listitem><simpara> a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_TOO_LAZY</literal></term>
+<listitem><simpara> do not use this except as a placeholder for
+deciding where to go while developing code.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_INIT</literal></term>
+<listitem><simpara> used when the library could not be opened.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_SHUTDOWN</literal></term>
+<listitem><simpara> used when the library could not be closed.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_SETTINGS</literal></term>
+<listitem><simpara> used when the library doesn't accept settings.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_ENCODE</literal></term>
+<listitem><simpara> used when the library generated an encoding error.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LIBRARY_ERROR_NUM_ERRORS</literal></term>
+<listitem><simpara> the number of library error types.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstResourceError"/>enum GstResourceError</title>
+<programlisting>typedef enum
+{
+  GST_RESOURCE_ERROR_FAILED = 1,
+  GST_RESOURCE_ERROR_TOO_LAZY,
+  GST_RESOURCE_ERROR_NOT_FOUND,
+  GST_RESOURCE_ERROR_BUSY,
+  GST_RESOURCE_ERROR_OPEN_READ,
+  GST_RESOURCE_ERROR_OPEN_WRITE,
+  GST_RESOURCE_ERROR_OPEN_READ_WRITE,
+  GST_RESOURCE_ERROR_CLOSE,
+  GST_RESOURCE_ERROR_READ,
+  GST_RESOURCE_ERROR_WRITE,
+  GST_RESOURCE_ERROR_SEEK,
+  GST_RESOURCE_ERROR_SYNC,
+  GST_RESOURCE_ERROR_SETTINGS,
+  GST_RESOURCE_ERROR_NUM_ERRORS
+} GstResourceError;
+</programlisting>
+<para>
+Resource errors are for any resource used by an element:
+memory, files, network connections, process space, ...
+They're typically used by source and sink elements.</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_FAILED</literal></term>
+<listitem><simpara> a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_TOO_LAZY</literal></term>
+<listitem><simpara> do not use this except as a placeholder for
+deciding where to go while developing code.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_NOT_FOUND</literal></term>
+<listitem><simpara> used when the resource could not be found.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_BUSY</literal></term>
+<listitem><simpara> used when resource is busy.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_OPEN_READ</literal></term>
+<listitem><simpara> used when resource fails to open for reading.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_OPEN_WRITE</literal></term>
+<listitem><simpara> used when resource fails to open for writing.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_OPEN_READ_WRITE</literal></term>
+<listitem><simpara> used when resource cannot be opened for
+both reading and writing, or either (but unspecified which).
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_CLOSE</literal></term>
+<listitem><simpara> used when the resource can't be closed.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_READ</literal></term>
+<listitem><simpara> used when the resource can't be read from.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_WRITE</literal></term>
+<listitem><simpara> used when the resource can't be written to.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_SEEK</literal></term>
+<listitem><simpara> used when a seek on the resource fails.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_SYNC</literal></term>
+<listitem><simpara> used when a synchronize on the resource fails.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_SETTINGS</literal></term>
+<listitem><simpara> used when settings can't be manipulated on
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RESOURCE_ERROR_NUM_ERRORS</literal></term>
+<listitem><simpara> the number of library error types.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstStreamError"/>enum GstStreamError</title>
+<programlisting>typedef enum
+{
+  GST_STREAM_ERROR_FAILED = 1,
+  GST_STREAM_ERROR_TOO_LAZY,
+  GST_STREAM_ERROR_NOT_IMPLEMENTED,
+  GST_STREAM_ERROR_TYPE_NOT_FOUND,
+  GST_STREAM_ERROR_WRONG_TYPE,
+  GST_STREAM_ERROR_CODEC_NOT_FOUND,
+  GST_STREAM_ERROR_DECODE,
+  GST_STREAM_ERROR_ENCODE,
+  GST_STREAM_ERROR_DEMUX,
+  GST_STREAM_ERROR_MUX,
+  GST_STREAM_ERROR_FORMAT,
+  GST_STREAM_ERROR_NUM_ERRORS
+} GstStreamError;
+</programlisting>
+<para>
+Stream errors are for anything related to the stream being processed:
+format errors, media type errors, ...
+They're typically used by decoders, demuxers, converters, ...</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_FAILED</literal></term>
+<listitem><simpara> a general error which doesn't fit in any other
+category.  Make sure you add a custom message to the error call.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_TOO_LAZY</literal></term>
+<listitem><simpara> do not use this except as a placeholder for
+deciding where to go while developing code.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_NOT_IMPLEMENTED</literal></term>
+<listitem><simpara> use this when you do not want to implement
+this functionality yet.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_TYPE_NOT_FOUND</literal></term>
+<listitem><simpara> used when the element doesn't know the
+stream's type.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_WRONG_TYPE</literal></term>
+<listitem><simpara> used when the element doesn't handle this type
+of stream.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_CODEC_NOT_FOUND</literal></term>
+<listitem><simpara> used when there's no codec to handle the
+stream's type.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_DECODE</literal></term>
+<listitem><simpara> used when decoding fails.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_ENCODE</literal></term>
+<listitem><simpara> used when encoding fails.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_DEMUX</literal></term>
+<listitem><simpara> used when demuxing fails.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_MUX</literal></term>
+<listitem><simpara> used when muxing fails.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_FORMAT</literal></term>
+<listitem><simpara> used when the stream is of the wrong format
+(for example, wrong caps).
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STREAM_ERROR_NUM_ERRORS</literal></term>
+<listitem><simpara> the number of library error types.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CORE-ERROR-CAPS"/>GST_CORE_ERROR</title>
+<programlisting>#define GST_CORE_ERROR      gst_core_error_quark ()
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-LIBRARY-ERROR-CAPS"/>GST_LIBRARY_ERROR</title>
+<programlisting>#define GST_LIBRARY_ERROR   gst_library_error_quark ()
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-RESOURCE-ERROR-CAPS"/>GST_RESOURCE_ERROR</title>
+<programlisting>#define GST_RESOURCE_ERROR  gst_resource_error_quark ()
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STREAM-ERROR-CAPS"/>GST_STREAM_ERROR</title>
+<programlisting>#define GST_STREAM_ERROR    gst_stream_error_quark ()
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-ERROR-SYSTEM-CAPS"/>GST_ERROR_SYSTEM</title>
+<programlisting>#define GST_ERROR_SYSTEM    ("system error: %s", g_strerror (errno))
+</programlisting>
+<para>
+Generates an human readable error message out of an errno number.
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-error-get-message"/>gst_error_get_message ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_error_get_message           (<link linkend="GQuark">GQuark</link> domain,
+                                             <link linkend="gint">gint</link> code);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>domain</parameter>&nbsp;:</term>
+<listitem><simpara> the GStreamer error domain this error belongs to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>code</parameter>&nbsp;:</term>
+<listitem><simpara> the error code belonging to the domain.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a newly allocated string describing the error message in the
+current locale.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-stream-error-quark"/>gst_stream_error_quark ()</title>
+<programlisting><link linkend="GQuark">GQuark</link>      gst_stream_error_quark          (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-core-error-quark"/>gst_core_error_quark ()</title>
+<programlisting><link linkend="GQuark">GQuark</link>      gst_core_error_quark            (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-resource-error-quark"/>gst_resource_error_quark ()</title>
+<programlisting><link linkend="GQuark">GQuark</link>      gst_resource_error_quark        (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-library-error-quark"/>gst_library_error_quark ()</title>
+<programlisting><link linkend="GQuark">GQuark</link>      gst_library_error_quark         (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

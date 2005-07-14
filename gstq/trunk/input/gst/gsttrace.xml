@@ -1,0 +1,439 @@
+<refentry id="gstreamer-GstTrace">
+<refmeta>
+<refentrytitle>GstTrace</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstTrace</refname><refpurpose>Tracing functionality</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstTrace">GstTrace</link>;
+struct      <link linkend="GstTraceEntry">GstTraceEntry</link>;
+<link linkend="GstTrace">GstTrace</link>*   <link linkend="gst-trace-new">gst_trace_new</link>                   (<link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="gint">gint</link> size);
+void        <link linkend="gst-trace-destroy">gst_trace_destroy</link>               (<link linkend="GstTrace">GstTrace</link> *trace);
+void        <link linkend="gst-trace-flush">gst_trace_flush</link>                 (<link linkend="GstTrace">GstTrace</link> *trace);
+void        <link linkend="gst-trace-text-flush">gst_trace_text_flush</link>            (<link linkend="GstTrace">GstTrace</link> *trace);
+#define     <link linkend="gst-trace-get-size">gst_trace_get_size</link>              (trace)
+#define     <link linkend="gst-trace-get-offset">gst_trace_get_offset</link>            (trace)
+#define     <link linkend="gst-trace-get-remaining">gst_trace_get_remaining</link>         (trace)
+void        <link linkend="gst-trace-set-default">gst_trace_set_default</link>           (<link linkend="GstTrace">GstTrace</link> *trace);
+void        <link linkend="gst-trace-read-tsc">gst_trace_read_tsc</link>              (<link linkend="gint64">gint64</link> *dst);
+enum        <link linkend="GstAllocTraceFlags">GstAllocTraceFlags</link>;
+struct      <link linkend="GstAllocTrace">GstAllocTrace</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-alloc-trace-available">gst_alloc_trace_available</link>       (void);
+G_CONST_RETURN <link linkend="GList">GList</link>* <link linkend="gst-alloc-trace-list">gst_alloc_trace_list</link>  (void);
+int         <link linkend="gst-alloc-trace-live-all">gst_alloc_trace_live_all</link>        (void);
+void        <link linkend="gst-alloc-trace-print-all">gst_alloc_trace_print_all</link>       (void);
+void        <link linkend="gst-alloc-trace-set-flags-all">gst_alloc_trace_set_flags_all</link>   (<link linkend="GstAllocTraceFlags">GstAllocTraceFlags</link> flags);
+<link linkend="GstAllocTrace">GstAllocTrace</link>* <link linkend="gst-alloc-trace-get">gst_alloc_trace_get</link>          (const <link linkend="gchar">gchar</link> *name);
+void        <link linkend="gst-alloc-trace-print">gst_alloc_trace_print</link>           (const <link linkend="GstAllocTrace">GstAllocTrace</link> *trace);
+void        <link linkend="gst-alloc-trace-set-flags">gst_alloc_trace_set_flags</link>       (<link linkend="GstAllocTrace">GstAllocTrace</link> *trace,
+                                             <link linkend="GstAllocTraceFlags">GstAllocTraceFlags</link> flags);
+#define     <link linkend="gst-alloc-trace-register">gst_alloc_trace_register</link>        (name)
+#define     <link linkend="gst-alloc-trace-new">gst_alloc_trace_new</link>             (trace, mem)
+#define     <link linkend="gst-alloc-trace-free">gst_alloc_trace_free</link>            (trace, mem)
+#define     <link linkend="gst-trace-add-entry">gst_trace_add_entry</link>             (trace,seq,data,msg)
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Tracing functionality
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstTrace"/>struct GstTrace</title>
+<programlisting>struct GstTrace {
+
+  /* where this trace is going */
+  gchar *filename;
+  int fd;
+
+  /* current buffer, size, head offset */
+  GstTraceEntry *buf;
+  gint bufsize;
+  gint bufoffset;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTraceEntry"/>struct GstTraceEntry</title>
+<programlisting>struct GstTraceEntry {
+
+  gint64 timestamp;
+  guint32 sequence;
+  guint32 data;
+  gchar message[112];
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-new"/>gst_trace_new ()</title>
+<programlisting><link linkend="GstTrace">GstTrace</link>*   gst_trace_new                   (<link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="gint">gint</link> size);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-destroy"/>gst_trace_destroy ()</title>
+<programlisting>void        gst_trace_destroy               (<link linkend="GstTrace">GstTrace</link> *trace);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-flush"/>gst_trace_flush ()</title>
+<programlisting>void        gst_trace_flush                 (<link linkend="GstTrace">GstTrace</link> *trace);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-text-flush"/>gst_trace_text_flush ()</title>
+<programlisting>void        gst_trace_text_flush            (<link linkend="GstTrace">GstTrace</link> *trace);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-get-size"/>gst_trace_get_size()</title>
+<programlisting>#define 	gst_trace_get_size(trace) 	((trace)-&gt;bufsize)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-get-offset"/>gst_trace_get_offset()</title>
+<programlisting>#define 	gst_trace_get_offset(trace) 	((trace)-&gt;bufoffset)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-get-remaining"/>gst_trace_get_remaining()</title>
+<programlisting>#define 	gst_trace_get_remaining(trace) 	((trace)-&gt;bufsize - (trace)-&gt;bufoffset)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-set-default"/>gst_trace_set_default ()</title>
+<programlisting>void        gst_trace_set_default           (<link linkend="GstTrace">GstTrace</link> *trace);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-read-tsc"/>gst_trace_read_tsc ()</title>
+<programlisting>void        gst_trace_read_tsc              (<link linkend="gint64">gint64</link> *dst);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dst</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstAllocTraceFlags"/>enum GstAllocTraceFlags</title>
+<programlisting>typedef enum
+{
+  GST_ALLOC_TRACE_LIVE		= (1 &lt;&lt; 0),
+  GST_ALLOC_TRACE_MEM_LIVE	= (1 &lt;&lt; 1)
+} GstAllocTraceFlags;
+</programlisting>
+<para>
+Flags indicating which tracing feature to enable.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_ALLOC_TRACE_LIVE</literal></term>
+<listitem><simpara>Trace number of non-freed memory
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_ALLOC_TRACE_MEM_LIVE</literal></term>
+<listitem><simpara>trace pointers of unfreed memory
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstAllocTrace"/>struct GstAllocTrace</title>
+<programlisting>struct GstAllocTrace {
+
+  gchar		*name;
+  gint		 flags;
+
+  gint		 live;
+  GSList	*mem_live;
+};
+</programlisting>
+<para>
+The main tracing object
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>name</structfield></term>
+<listitem><simpara>The name of the tracing object
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link> <structfield>flags</structfield></term>
+<listitem><simpara>Flags for this object
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link> <structfield>live</structfield></term>
+<listitem><simpara>counter for live memory
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GSList">GSList</link> *<structfield>mem_live</structfield></term>
+<listitem><simpara>list with pointers to unfreed memory
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-available"/>gst_alloc_trace_available ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_alloc_trace_available       (void);</programlisting>
+<para>
+Check if alloc tracing was commiled into the core</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the core was compiled with alloc
+tracing enabled.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-list"/>gst_alloc_trace_list ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GList">GList</link>* gst_alloc_trace_list  (void);</programlisting>
+<para>
+Get a list of all registered alloc trace objects.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of GstAllocTrace objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-live-all"/>gst_alloc_trace_live_all ()</title>
+<programlisting>int         gst_alloc_trace_live_all        (void);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the total number of live registered alloc trace objects.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-print-all"/>gst_alloc_trace_print_all ()</title>
+<programlisting>void        gst_alloc_trace_print_all       (void);</programlisting>
+<para>
+Print the status of all registered alloc trace objectes.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-set-flags-all"/>gst_alloc_trace_set_flags_all ()</title>
+<programlisting>void        gst_alloc_trace_set_flags_all   (<link linkend="GstAllocTraceFlags">GstAllocTraceFlags</link> flags);</programlisting>
+<para>
+Enable the specified options on all registered alloc trace
+objects.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>flags</parameter>&nbsp;:</term>
+<listitem><simpara> the options to enable
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-get"/>gst_alloc_trace_get ()</title>
+<programlisting><link linkend="GstAllocTrace">GstAllocTrace</link>* gst_alloc_trace_get          (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Get the named alloc trace object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the alloc trace object
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GstAllocTrace with the given name or NULL when
+no alloc tracer was registered with that name.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-print"/>gst_alloc_trace_print ()</title>
+<programlisting>void        gst_alloc_trace_print           (const <link linkend="GstAllocTrace">GstAllocTrace</link> *trace);</programlisting>
+<para>
+Print the status of the given GstAllocTrace.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara> the GstAllocTrace to print
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-set-flags"/>gst_alloc_trace_set_flags ()</title>
+<programlisting>void        gst_alloc_trace_set_flags       (<link linkend="GstAllocTrace">GstAllocTrace</link> *trace,
+                                             <link linkend="GstAllocTraceFlags">GstAllocTraceFlags</link> flags);</programlisting>
+<para>
+Enable the given features on the given GstAllocTrace object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara> the GstAllocTrace 
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&nbsp;:</term>
+<listitem><simpara> flags to set 
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-register"/>gst_alloc_trace_register()</title>
+<programlisting>#define     gst_alloc_trace_register(name)</programlisting>
+<para>
+Register a new alloc tracer with the given name
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>The name of the tracer object
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-new"/>gst_alloc_trace_new()</title>
+<programlisting>#define     gst_alloc_trace_new(trace, mem)</programlisting>
+<para>
+Use the tracer to trace a new memory allocation
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>The tracer to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mem</parameter>&nbsp;:</term>
+<listitem><simpara>The memory allocated
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-alloc-trace-free"/>gst_alloc_trace_free()</title>
+<programlisting>#define     gst_alloc_trace_free(trace, mem)</programlisting>
+<para>
+Trace a memory free operation
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>The traver to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mem</parameter>&nbsp;:</term>
+<listitem><simpara>The memory that is freed
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-trace-add-entry"/>gst_trace_add_entry()</title>
+<programlisting>#define     gst_trace_add_entry(trace,seq,data,msg)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>trace</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>seq</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>msg</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

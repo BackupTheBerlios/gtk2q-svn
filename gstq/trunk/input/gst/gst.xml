@@ -1,0 +1,258 @@
+<refentry id="gstreamer-Gst">
+<refmeta>
+<refentrytitle>GStreamer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GStreamer</refname><refpurpose>Media library supporting arbitrary formats and filter graphs.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+void        <link linkend="gst-init">gst_init</link>                        (int *argc,
+                                             char **argv[]);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-init-check">gst_init_check</link>                  (int *argc,
+                                             char **argv[]);
+void        <link linkend="gst-init-with-popt-table">gst_init_with_popt_table</link>        (int *argc,
+                                             char **argv[],
+                                             const <link linkend="GstPoptOption">GstPoptOption</link> *popt_options);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-init-check-with-popt-table">gst_init_check_with_popt_table</link>  (int *argc,
+                                             char **argv[],
+                                             const <link linkend="GstPoptOption">GstPoptOption</link> *popt_options);
+const <link linkend="GstPoptOption">GstPoptOption</link>* <link linkend="gst-init-get-popt-table">gst_init_get_popt_table</link>
+                                            (void);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GStreamer is a framework for constructing graphs of various filters
+(termed elements here) that will handle streaming media.  Any discreet
+(packetizable) media type is supported, with provisions for automatically
+determining source type.  Formatting/framing information is provided with
+a powerful negotiation framework.  Plugins are heavily used to provide for
+all elements, allowing one to construct plugins outside of the GST
+library, even released binary-only if license require (please don't).
+</para>
+
+<para>
+GStreamer borrows heavily from both the <ulink 
+url="http://www.cse.ogi.edu/sysl/">OGI media pipeline</ulink> and
+Microsoft's DirectShow, hopefully taking the best of both and leaving the
+cruft behind.  Its interface is still very fluid and thus can be changed 
+to increase the sanity/noise ratio.
+</para>
+
+<para>
+The <application>GStreamer</application> library should be initialized with <link linkend="gst-init">gst_init</link>() before
+it can be used. You should pass a pointer to the main argc and argv variables so that GStreamer can 
+process its own command line options, as shown in the following example.
+
+<example>
+<title>Initializing the gstreamer library</title>
+  <programlisting>
+  int 
+  main (int argc, char *argv[])
+  {
+    /* initialize the GStreamer library */
+    gst_init (&amp;argc, &amp;argv);
+    ...
+  }
+  </programlisting>
+</example>
+</para>
+<para>
+It's allowed to pass two NULL pointers to <link linkend="gst-init">gst_init</link>() in case you don't want to pass the command
+line args to GStreamer.
+</para>
+
+<para>
+You can also use a popt table to initialize your own parameters as shown in the next code 
+fragment:
+<example>
+<title>Initializing own parameters when initializing gstreamer</title>
+  <programlisting>
+  static gboolean stats = FALSE;
+  ...
+
+  int 
+  main (int argc, char *argv[])
+  {
+    struct poptOption options[] = {
+      { "stats",  's',  POPT_ARG_NONE|POPT_ARGFLAG_STRIP,   &amp;stats,   0,
+          "Show pad stats", NULL},
+        POPT_TABLEEND
+      };
+
+    /* initialize the GStreamer library */
+    gst_init_with_popt_table (&amp;argc, &amp;argv, options);
+      
+    ...
+  }
+  </programlisting>
+</example>
+</para>
+<para>
+  Use <link linkend="gst-version">gst_version</link>() to query the library version at runtime or use the GST_VERSION_* macros
+  to find the version at compile time.
+</para>
+<para>
+<link linkend="gst-main">gst_main</link>() and <link linkend="gst-main-quit">gst_main_quit</link>() enter and exit the main loop. GStreamer doesn't currently require
+you to us a mainloop but can intergrate with it without problems.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="gst-init"/>gst_init ()</title>
+<programlisting>void        gst_init                        (int *argc,
+                                             char **argv[]);</programlisting>
+<para>
+Initializes the GStreamer library, setting up internal path lists,
+registering built-in elements, and loading standard plugins.
+</para>
+<para>
+This function will terminate your program if it was unable to initialize
+GStreamer for some reason.  If you want your program to fall back,
+use <link linkend="gst-init-check">gst_init_check</link>() instead.
+</para>
+<para>
+WARNING: This function does not work in the same way as corresponding
+functions in other glib-style libraries, such as <link linkend="gtk-init">gtk_init</link>().  In
+particular, unknown command line options cause this function to
+abort program execution.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argc
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argv
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-init-check"/>gst_init_check ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_init_check                  (int *argc,
+                                             char **argv[]);</programlisting>
+<para>
+Initializes the GStreamer library, setting up internal path lists,
+registering built-in elements, and loading standard plugins.
+</para>
+<para>
+This function will return <literal>FALSE</literal> if GStreamer could not be initialized
+for some reason.  If you want your program to fail fatally,
+use <link linkend="gst-init">gst_init</link>() instead.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argc
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argv
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if GStreamer could be initialized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-init-with-popt-table"/>gst_init_with_popt_table ()</title>
+<programlisting>void        gst_init_with_popt_table        (int *argc,
+                                             char **argv[],
+                                             const <link linkend="GstPoptOption">GstPoptOption</link> *popt_options);</programlisting>
+<para>
+Initializes the GStreamer library, parsing the options,
+setting up internal path lists,
+registering built-in elements, and loading standard plugins.
+</para>
+<para>
+This function will terminate your program if it was unable to initialize
+GStreamer for some reason.  If you want your program to fall back,
+use <link linkend="gst-init-check-with-popt-table">gst_init_check_with_popt_table</link>() instead.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argc
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argv
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>popt_options</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a popt table to append
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-init-check-with-popt-table"/>gst_init_check_with_popt_table ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_init_check_with_popt_table  (int *argc,
+                                             char **argv[],
+                                             const <link linkend="GstPoptOption">GstPoptOption</link> *popt_options);</programlisting>
+<para>
+Initializes the GStreamer library, parsing the options,
+setting up internal path lists,
+registering built-in elements, and loading standard plugins.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argc
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to application's argv
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>popt_options</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a popt table to append
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <literal>TRUE</literal> if GStreamer could be initialized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-init-get-popt-table"/>gst_init_get_popt_table ()</title>
+<programlisting>const <link linkend="GstPoptOption">GstPoptOption</link>* gst_init_get_popt_table
+                                            (void);</programlisting>
+<para>
+Returns a popt option table with GStreamer's argument specifications. The
+table is set up to use popt's callback method, so whenever the parsing is
+actually performed (via poptGetContext), the GStreamer libraries will
+be initialized.
+</para>
+<para>
+This function is useful if you want to integrate GStreamer with other
+libraries that use popt.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to the static GStreamer option table.
+No free is necessary.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+Check out both <ulink url="http://www.cse.ogi.edu/sysl/">OGI's
+pipeline</ulink> and Microsoft's DirectShow for some background.
+</para>
+</refsect1>
+
+</refentry>

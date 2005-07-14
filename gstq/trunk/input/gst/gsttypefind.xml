@@ -1,0 +1,219 @@
+<refentry id="gstreamer-GstTypeFind">
+<refmeta>
+<refentrytitle>GstTypeFindElement</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstTypeFindElement</refname><refpurpose>typefinding subsystem</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstTypeFind">GstTypeFind</link>;
+void        (<link linkend="GstTypeFindFunction">*GstTypeFindFunction</link>)          (<link linkend="GstTypeFind">GstTypeFind</link> *find,
+                                             <link linkend="gpointer">gpointer</link> data);
+enum        <link linkend="GstTypeFindProbability">GstTypeFindProbability</link>;
+<link linkend="guint8">guint8</link>*     <link linkend="gst-type-find-peek">gst_type_find_peek</link>              (<link linkend="GstTypeFind">GstTypeFind</link> *find,
+                                             <link linkend="gint64">gint64</link> offset,
+                                             <link linkend="guint">guint</link> size);
+void        <link linkend="gst-type-find-suggest">gst_type_find_suggest</link>           (<link linkend="GstTypeFind">GstTypeFind</link> *find,
+                                             <link linkend="guint">guint</link> probability,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="guint64">guint64</link>     <link linkend="gst-type-find-get-length">gst_type_find_get_length</link>        (<link linkend="GstTypeFind">GstTypeFind</link> *find);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-type-find-register">gst_type_find_register</link>          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="guint">guint</link> rank,
+                                             <link linkend="GstTypeFindFunction">GstTypeFindFunction</link> func,
+                                             <link linkend="gchar">gchar</link> **extensions,
+                                             const <link linkend="GstCaps">GstCaps</link> *possible_caps,
+                                             <link linkend="gpointer">gpointer</link> data);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstTypeFind"/>struct GstTypeFind</title>
+<programlisting>struct GstTypeFind {
+
+  /* private to the caller of the typefind function */
+  guint8 *		(* peek)			(gpointer		data,
+							 gint64	         	offset,
+							 guint			size);
+  void			(* suggest)			(gpointer		data,
+							 guint			probability,
+							 const GstCaps *		caps);
+  
+  gpointer			data;
+  
+  /* optional */
+  guint64		(* get_length)			(gpointer		data);
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTypeFindFunction"/>GstTypeFindFunction ()</title>
+<programlisting>void        (*GstTypeFindFunction)          (<link linkend="GstTypeFind">GstTypeFind</link> *find,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>find</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstTypeFindProbability"/>enum GstTypeFindProbability</title>
+<programlisting>typedef enum {
+  GST_TYPE_FIND_MINIMUM = 1,
+  GST_TYPE_FIND_POSSIBLE = 50,
+  GST_TYPE_FIND_LIKELY = 80,
+  GST_TYPE_FIND_NEARLY_CERTAIN = 99,
+  GST_TYPE_FIND_MAXIMUM = 100
+} GstTypeFindProbability;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-peek"/>gst_type_find_peek ()</title>
+<programlisting><link linkend="guint8">guint8</link>*     gst_type_find_peek              (<link linkend="GstTypeFind">GstTypeFind</link> *find,
+                                             <link linkend="gint64">gint64</link> offset,
+                                             <link linkend="guint">guint</link> size);</programlisting>
+<para>
+Returns size bytes of the stream to identify beginning at offset. If offset 
+is a positive number, the offset is relative to the beginning of the stream,
+if offset is a negative number the offset is relative to the end of the 
+stream. The returned memory is valid until the typefinding function returns
+and must not be freed.
+If NULL is returned, that data is not available.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>find</parameter>&nbsp;:</term>
+<listitem><simpara> the find object the function was called with
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara> the offset
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara> the number of bytes to return
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the requested data or NULL if that data is not available.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-suggest"/>gst_type_find_suggest ()</title>
+<programlisting>void        gst_type_find_suggest           (<link linkend="GstTypeFind">GstTypeFind</link> *find,
+                                             <link linkend="guint">guint</link> probability,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+If a typefind function calls this function it suggests the caps with the
+given probability. A typefind function may supply different suggestions
+in one call.
+It is up to the caller of the typefind function to interpret these values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>find</parameter>&nbsp;:</term>
+<listitem><simpara> the find object the function was called with
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>probability</parameter>&nbsp;:</term>
+<listitem><simpara> the probability in percent that the suggestion is right
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the fixed caps to suggest
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-get-length"/>gst_type_find_get_length ()</title>
+<programlisting><link linkend="guint64">guint64</link>     gst_type_find_get_length        (<link linkend="GstTypeFind">GstTypeFind</link> *find);</programlisting>
+<para>
+Get the length of the data stream.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>find</parameter>&nbsp;:</term>
+<listitem><simpara> the find object the function was called with
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the length of the data stream or 0 if it is not available.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-find-register"/>gst_type_find_register ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_type_find_register          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="guint">guint</link> rank,
+                                             <link linkend="GstTypeFindFunction">GstTypeFindFunction</link> func,
+                                             <link linkend="gchar">gchar</link> **extensions,
+                                             const <link linkend="GstCaps">GstCaps</link> *possible_caps,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Registers a new typefind function to be used for typefinding. After 
+registering this function will be available for typefinding.
+This function is typically called during an element's plugin initialization.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> the GstPlugin to register with
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name for registering
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rank</parameter>&nbsp;:</term>
+<listitem><simpara> rank (or importance) of this typefind function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> the function to use for typefinding
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>extensions</parameter>&nbsp;:</term>
+<listitem><simpara> optional extensions that could belong to this type
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>possible_caps</parameter>&nbsp;:</term>
+<listitem><simpara> optionally the caps that could be returned when typefinding succeeds
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> optional user data. This user data must be available until the plugin 
+  is unloaded.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

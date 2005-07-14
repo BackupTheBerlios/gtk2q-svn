@@ -1,0 +1,57 @@
+<refentry id="gstreamer-GstUriType">
+<refmeta>
+<refentrytitle>GstURIType</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstURIType</refname><refpurpose>describes URI types</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+enum        <link linkend="GstURIType">GstURIType</link>;
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstURIType"/>enum GstURIType</title>
+<programlisting>typedef enum {
+  GST_URI_UNKNOWN,
+  GST_URI_SINK,
+  GST_URI_SRC
+} GstURIType;
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

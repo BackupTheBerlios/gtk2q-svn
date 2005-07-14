@@ -1,0 +1,191 @@
+<refentry id="gstreamer-gstconfig">
+<refmeta>
+<refentrytitle>GstConfig</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstConfig</refname><refpurpose>Configuration options</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+#define     <link linkend="GST-DISABLE-LOADSAVE-REGISTRY-CAPS">GST_DISABLE_LOADSAVE_REGISTRY</link>
+#define     <link linkend="GST-DISABLE-GST-DEBUG-CAPS">GST_DISABLE_GST_DEBUG</link>
+#define     <link linkend="GST-DISABLE-LOADSAVE-CAPS">GST_DISABLE_LOADSAVE</link>
+#define     <link linkend="GST-DISABLE-PARSE-CAPS">GST_DISABLE_PARSE</link>
+#define     <link linkend="GST-DISABLE-TRACE-CAPS">GST_DISABLE_TRACE</link>
+#define     <link linkend="GST-DISABLE-ALLOC-TRACE-CAPS">GST_DISABLE_ALLOC_TRACE</link>
+#define     <link linkend="GST-DISABLE-REGISTRY-CAPS">GST_DISABLE_REGISTRY</link>
+#define     <link linkend="GST-DISABLE-ENUMTYPES-CAPS">GST_DISABLE_ENUMTYPES</link>
+#define     <link linkend="GST-DISABLE-INDEX-CAPS">GST_DISABLE_INDEX</link>
+#define     <link linkend="GST-DISABLE-PLUGIN-CAPS">GST_DISABLE_PLUGIN</link>
+#define     <link linkend="GST-DISABLE-URI-CAPS">GST_DISABLE_URI</link>
+#define     <link linkend="GST-PTR-FORMAT-CAPS">GST_PTR_FORMAT</link>
+#define     <link linkend="GST-EXPORT-CAPS">GST_EXPORT</link>
+#define     <link linkend="GST-PLUGIN-EXPORT-CAPS">GST_PLUGIN_EXPORT</link>
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This describes the configuration options for GStreamer. When building 
+GStreamer there are a lot of parts (known internally as "subsystems" ) that can 
+be disabled for various reasons. The most common reasons are speed and size, 
+which is important because GStreamer is designed to run on embedded systems.
+</para>
+
+<para>
+If a subsystem is disabled, most of this changes are done in an API compatible
+way, so you don't need to adapt your code in most cases. It is never done in an
+ABI compatible way though. So if you want to disable a suybsystem, you have to
+rebuild all programs depending on GStreamer, too.
+</para>
+
+<para>
+If a subsystem is disabled in GStreamer, a value is defined in 
+&lt;gst/gst.h&gt;. You can check this if you do subsystem-specific stuff.
+<example>
+<title>Doing subsystem specific things</title>
+<programlisting>
+&hash;ifndef GST_DISABLE_GST_DEBUG
+/* do stuff specific to the debugging subsystem */
+&hash;endif /* GST_DISABLE_GST_DEBUG */
+</programlisting>
+</example>
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GST-DISABLE-LOADSAVE-REGISTRY-CAPS"/>GST_DISABLE_LOADSAVE_REGISTRY</title>
+<programlisting>#define     GST_DISABLE_LOADSAVE_REGISTRY</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-GST-DEBUG-CAPS"/>GST_DISABLE_GST_DEBUG</title>
+<programlisting>#define GST_DISABLE_GST_DEBUG 1
+</programlisting>
+<para>
+If this is defined, the <link linkend="gstreamer-gstinfo">debugging subsystem
+</link> is disabled and debugging messages are not output.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-LOADSAVE-CAPS"/>GST_DISABLE_LOADSAVE</title>
+<programlisting>#define GST_DISABLE_LOADSAVE 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-PARSE-CAPS"/>GST_DISABLE_PARSE</title>
+<programlisting>#define GST_DISABLE_PARSE 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-TRACE-CAPS"/>GST_DISABLE_TRACE</title>
+<programlisting>#define GST_DISABLE_TRACE 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-ALLOC-TRACE-CAPS"/>GST_DISABLE_ALLOC_TRACE</title>
+<programlisting>#define GST_DISABLE_ALLOC_TRACE 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-REGISTRY-CAPS"/>GST_DISABLE_REGISTRY</title>
+<programlisting>#define GST_DISABLE_REGISTRY 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-ENUMTYPES-CAPS"/>GST_DISABLE_ENUMTYPES</title>
+<programlisting>#define GST_DISABLE_ENUMTYPES 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-INDEX-CAPS"/>GST_DISABLE_INDEX</title>
+<programlisting>#define GST_DISABLE_INDEX 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-PLUGIN-CAPS"/>GST_DISABLE_PLUGIN</title>
+<programlisting>#define GST_DISABLE_PLUGIN 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-DISABLE-URI-CAPS"/>GST_DISABLE_URI</title>
+<programlisting>#define GST_DISABLE_URI 1
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-PTR-FORMAT-CAPS"/>GST_PTR_FORMAT</title>
+<programlisting>#define GST_PTR_FORMAT "P"
+</programlisting>
+<para>
+printf format type used to debug GStreamer types.
+This can only be used on types whose size is &gt;= sizeof(gpointer).</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-EXPORT-CAPS"/>GST_EXPORT</title>
+<programlisting>#define     GST_EXPORT</programlisting>
+<para>
+Export the given variable from the built shared object.
+</para>
+<para>
+On Windows, this exports the variable from the DLL.
+On other platforms, this gets defined to "extern".</para>
+<para>
+Under Windows it permits to export variables from a DLL, otherwise it just means extern.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-PLUGIN-EXPORT-CAPS"/>GST_PLUGIN_EXPORT</title>
+<programlisting>#define     GST_PLUGIN_EXPORT</programlisting>
+<para>
+Export the plugin's definition.
+</para>
+<para>
+On Windows, this exports the plugin definition from the DLL.
+On other platforms, this gets defined as a no-op.</para>
+<para>
+Under Windows it permits to automatically export the plugin definition, otherwise it just defines as nothing.
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

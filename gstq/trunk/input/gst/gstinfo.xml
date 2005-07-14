@@ -1,0 +1,1464 @@
+<refentry id="gstreamer-GstInfo">
+<refmeta>
+<refentrytitle>GstInfo</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstInfo</refname><refpurpose>Debugging and logging</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+enum        <link linkend="GstDebugLevel">GstDebugLevel</link>;
+#define     <link linkend="GST-LEVEL-DEFAULT-CAPS">GST_LEVEL_DEFAULT</link>
+enum        <link linkend="GstDebugColorFlags">GstDebugColorFlags</link>;
+struct      <link linkend="GstDebugCategory">GstDebugCategory</link>;
+#define     <link linkend="GST-STR-NULL-CAPS">GST_STR_NULL</link>                    (str)
+#define     <link linkend="GST-DEBUG-PAD-NAME-CAPS">GST_DEBUG_PAD_NAME</link>              (pad)
+#define     <link linkend="GST-FUNCTION-CAPS">GST_FUNCTION</link>
+struct      <link linkend="GstDebugMessage">GstDebugMessage</link>;
+void        (<link linkend="GstLogFunction">*GstLogFunction</link>)               (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             <link linkend="GstDebugMessage">GstDebugMessage</link> *message,
+                                             <link linkend="gpointer">gpointer</link> data);
+void        <link linkend="gst-debug-log">gst_debug_log</link>                   (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *format,
+                                             ...);
+void        <link linkend="gst-debug-log-valist">gst_debug_log_valist</link>            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *format,
+                                             va_list args);
+const <link linkend="gchar">gchar</link>* <link linkend="gst-debug-message-get">gst_debug_message_get</link>          (<link linkend="GstDebugMessage">GstDebugMessage</link> *message);
+void        <link linkend="gst-debug-log-default">gst_debug_log_default</link>           (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             <link linkend="GstDebugMessage">GstDebugMessage</link> *message,
+                                             <link linkend="gpointer">gpointer</link> unused);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-debug-level-get-name">gst_debug_level_get_name</link>
+                                            (<link linkend="GstDebugLevel">GstDebugLevel</link> level);
+void        <link linkend="gst-debug-add-log-function">gst_debug_add_log_function</link>      (<link linkend="GstLogFunction">GstLogFunction</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);
+<link linkend="guint">guint</link>       <link linkend="gst-debug-remove-log-function">gst_debug_remove_log_function</link>   (<link linkend="GstLogFunction">GstLogFunction</link> func);
+<link linkend="guint">guint</link>       <link linkend="gst-debug-remove-log-function-by-data">gst_debug_remove_log_function_by_data</link>
+                                            (<link linkend="gpointer">gpointer</link> data);
+void        <link linkend="gst-debug-set-active">gst_debug_set_active</link>            (<link linkend="gboolean">gboolean</link> active);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-debug-is-active">gst_debug_is_active</link>             (void);
+void        <link linkend="gst-debug-set-colored">gst_debug_set_colored</link>           (<link linkend="gboolean">gboolean</link> colored);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-debug-is-colored">gst_debug_is_colored</link>            (void);
+void        <link linkend="gst-debug-set-default-threshold">gst_debug_set_default_threshold</link> (<link linkend="GstDebugLevel">GstDebugLevel</link> level);
+<link linkend="GstDebugLevel">GstDebugLevel</link> <link linkend="gst-debug-get-default-threshold">gst_debug_get_default_threshold</link>
+                                            (void);
+void        <link linkend="gst-debug-set-threshold-for-name">gst_debug_set_threshold_for_name</link>
+                                            (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level);
+void        <link linkend="gst-debug-unset-threshold-for-name">gst_debug_unset_threshold_for_name</link>
+                                            (const <link linkend="gchar">gchar</link> *name);
+#define     <link linkend="GST-DEBUG-CATEGORY-CAPS">GST_DEBUG_CATEGORY</link>              (cat)
+#define     <link linkend="GST-DEBUG-CATEGORY-EXTERN-CAPS">GST_DEBUG_CATEGORY_EXTERN</link>       (cat)
+#define     <link linkend="GST-DEBUG-CATEGORY-STATIC-CAPS">GST_DEBUG_CATEGORY_STATIC</link>       (cat)
+#define     <link linkend="GST-DEBUG-CATEGORY-INIT-CAPS">GST_DEBUG_CATEGORY_INIT</link>         (cat,name,color,description)
+void        <link linkend="gst-debug-category-free">gst_debug_category_free</link>         (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);
+void        <link linkend="gst-debug-category-set-threshold">gst_debug_category_set_threshold</link>
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level);
+void        <link linkend="gst-debug-category-reset-threshold">gst_debug_category_reset_threshold</link>
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);
+<link linkend="GstDebugLevel">GstDebugLevel</link> <link linkend="gst-debug-category-get-threshold">gst_debug_category_get_threshold</link>
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-debug-category-get-name">gst_debug_category_get_name</link>
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);
+<link linkend="guint">guint</link>       <link linkend="gst-debug-category-get-color">gst_debug_category_get_color</link>    (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-debug-category-get-description">gst_debug_category_get_description</link>
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);
+<link linkend="GSList">GSList</link>*     <link linkend="gst-debug-get-all-categories">gst_debug_get_all_categories</link>    (void);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-debug-construct-term-color">gst_debug_construct_term_color</link>  (<link linkend="guint">guint</link> colorinfo);
+#define     <link linkend="GST-CAT-LEVEL-LOG-CAPS">GST_CAT_LEVEL_LOG</link>               (cat,level,object,...)
+#define     <link linkend="GST-CAT-ERROR-OBJECT-CAPS">GST_CAT_ERROR_OBJECT</link>            (cat,obj,...)
+#define     <link linkend="GST-CAT-WARNING-OBJECT-CAPS">GST_CAT_WARNING_OBJECT</link>          (cat,obj,...)
+#define     <link linkend="GST-CAT-INFO-OBJECT-CAPS">GST_CAT_INFO_OBJECT</link>             (cat,obj,...)
+#define     <link linkend="GST-CAT-DEBUG-OBJECT-CAPS">GST_CAT_DEBUG_OBJECT</link>            (cat,obj,...)
+#define     <link linkend="GST-CAT-LOG-OBJECT-CAPS">GST_CAT_LOG_OBJECT</link>              (cat,obj,...)
+#define     <link linkend="GST-CAT-ERROR-CAPS">GST_CAT_ERROR</link>                   (cat,...)
+#define     <link linkend="GST-CAT-WARNING-CAPS">GST_CAT_WARNING</link>                 (cat,...)
+#define     <link linkend="GST-CAT-INFO-CAPS">GST_CAT_INFO</link>                    (cat,...)
+#define     <link linkend="GST-CAT-DEBUG-CAPS">GST_CAT_DEBUG</link>                   (cat,...)
+#define     <link linkend="GST-CAT-LOG-CAPS">GST_CAT_LOG</link>                     (cat,...)
+#define     <link linkend="GST-ERROR-OBJECT-CAPS">GST_ERROR_OBJECT</link>                (obj,...)
+#define     <link linkend="GST-WARNING-OBJECT-CAPS">GST_WARNING_OBJECT</link>              (obj,...)
+#define     <link linkend="GST-INFO-OBJECT-CAPS">GST_INFO_OBJECT</link>                 (obj,...)
+#define     <link linkend="GST-DEBUG-OBJECT-CAPS">GST_DEBUG_OBJECT</link>                (obj,...)
+#define     <link linkend="GST-LOG-OBJECT-CAPS">GST_LOG_OBJECT</link>                  (obj,...)
+#define     <link linkend="GST-ERROR-CAPS">GST_ERROR</link>                       (...)
+#define     <link linkend="GST-WARNING-CAPS">GST_WARNING</link>                     (...)
+#define     <link linkend="GST-INFO-CAPS">GST_INFO</link>                        (...)
+#define     <link linkend="GST-DEBUG-CAPS">GST_DEBUG</link>                       (...)
+#define     <link linkend="GST-LOG-CAPS">GST_LOG</link>                         (...)
+#define     <link linkend="GST-DEBUG-FUNCPTR-CAPS">GST_DEBUG_FUNCPTR</link>               (ptr)
+#define     <link linkend="GST-DEBUG-FUNCPTR-NAME-CAPS">GST_DEBUG_FUNCPTR_NAME</link>          (ptr)
+#define     <link linkend="gst-debug-set-log-function">gst_debug_set_log_function</link>      (func,data)
+#define     <link linkend="gst-debug-reset-log-function">gst_debug_reset_log_function</link>    (void)
+void        <link linkend="gst-debug-print-stack-trace">gst_debug_print_stack_trace</link>     (void);
+#define     <link linkend="GST-TIME-FORMAT-CAPS">GST_TIME_FORMAT</link>
+#define     <link linkend="GST-TIME-ARGS-CAPS">GST_TIME_ARGS</link>                   (t)
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This file describes the debugging subsystem. The debugging subsystem works
+only after GStreamer was initilized - for example by calling <link linkend="gst-init">gst_init</link>.
+</para>
+
+<para>
+The debugging subsystem is used to send informational strings to the debugging 
+developer. Each messages has some properties attached to it. These properties
+are the debugging category, the severity (called "level" here) and an obtional
+<link linkend="GObject">GObject</link> it belongs to. Each of these messages is sent to all registered
+debugging handlers, which then handle the messages. GStreamer attaches a
+default handler on startup, which outputs requested messages to stderr.
+</para>
+
+<para>
+Messages are output by using shortcut macros like <link linkend="GST-DEBUG-CAPS">GST_DEBUG</link>, 
+<link linkend="GST-CAT-ERROR-OBJECT-CAPS">GST_CAT_ERROR_OBJECT</link> or similar. These all expand to calling <link linkend="gst-debug-log">gst_debug_log</link> 
+with the right parameters.
+The only thing a developer will probably want to do is define his own 
+categories. This is easily done with 3 lines. At the top of your code, declare
+the variables and set the default category.
+<informalexample>
+<programlisting>
+GST_DEBUG_CATEGORY (my_category);	/* define category */
+&hash;define GST_CAT_DEFAULT my_category     /* set as default */
+</programlisting>
+</informalexample>
+After that you only need to initialize the category.
+<informalexample>
+<programlisting>
+GST_DEBUG_CATEGORY_INIT (my_category, "my category", 0, "This is my very own");
+</programlisting>
+</informalexample>
+Initialization must be done before the category is used first. Plugins do this 
+in their plugin_init function, libraries and applications should do that
+during their initialization.
+</para>
+
+<para>
+The whole debugging subsystem can be disabled at build time with passing the
+--disable-gst-debug switch to configure. If this is done, every function, macro
+and even structs described in this file evaluate to default values or nothing
+at all. So don't take addresses of these functions or use other tricks.
+If you must do that for some reason, there is still an option. If the debugging
+subsystem was compiled out, <link linkend="GST-DISABLE-GST-DEBUG-CAPS">GST_DISABLE_GST_DEBUG</link> is defined in &lt;gst/gst.h&gt;,
+so you can check that before doing your trick.
+Disabling the debugging subsystem will give you a slight (read: unnoticable) 
+speed increase and will reduce the size of your compiled code. The GStreamer 
+library itself becomes around 10% smaller.
+</para>
+
+<para>
+Please note that there are naming conventions for the names of debugging 
+categories. These are explained at <link linkend="GST-DEBUG-CATEGORY-INIT-CAPS">GST_DEBUG_CATEGORY_INIT</link>().
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstDebugLevel"/>enum GstDebugLevel</title>
+<programlisting>typedef enum {
+  GST_LEVEL_NONE = 0,
+  GST_LEVEL_ERROR,
+  GST_LEVEL_WARNING,
+  GST_LEVEL_INFO,
+  GST_LEVEL_DEBUG,
+  GST_LEVEL_LOG,
+  /* add more */
+  GST_LEVEL_COUNT
+} GstDebugLevel;
+</programlisting>
+<para>
+The level defines the importance of a debugging message. The more important a 
+message is, the greater the probability that the debugging system outputs it.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_LEVEL_NONE</literal></term>
+<listitem><simpara>No debugging level specified or desired. Used to deactivate
+debugging output.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LEVEL_ERROR</literal></term>
+<listitem><simpara>Error messages are to be used only when an error occured 
+that stops the application from keeping working correctly.
+An examples is gst_element_error, which outputs a message with this priority.
+It does not mean that the application is terminating as with g_errror.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LEVEL_WARNING</literal></term>
+<listitem><simpara>Warning messages are to inform about abnormal behaviour
+that could lead to problems or weird behaviour later on. An example of this 
+would be clocking issues ("your computer is pretty slow") or broken input
+data ("Can't synchronize to stream.")
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LEVEL_INFO</literal></term>
+<listitem><simpara>Informational messages should be used to keep the developer
+updated about what is happening.
+Examples where this should be used are when a typefind function has 
+successfully determined the type of the stream or when an mp3 plugin detects
+the format to be used. ("This file has mono sound.")
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LEVEL_DEBUG</literal></term>
+<listitem><simpara>Debugging messages should be used when something common
+happens that is not the expected default behavior. 
+An example would be notifications about state changes or receiving/sending of
+events.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LEVEL_LOG</literal></term>
+<listitem><simpara>Log messages are messages that are very common but might be 
+useful to know. As a rule of thumb a pipeline that is iterating as expected
+should never output anzthing else but LOG messages.
+Examples for this are referencing/dereferencing of objects or cothread switches.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_LEVEL_COUNT</literal></term>
+<listitem><simpara>The number of defined debugging levels.
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-LEVEL-DEFAULT-CAPS"/>GST_LEVEL_DEFAULT</title>
+<programlisting>#define GST_LEVEL_DEFAULT GST_LEVEL_NONE
+</programlisting>
+<para>
+Defines the default debugging level to be used with GStreamer. It is
+normally set to <link linkend="GST-LEVEL-ERROR-CAPS">GST_LEVEL_ERROR</link> so only errors are printed. Developer
+builds may chose to override that though.
+You can use this as an argument to <link linkend="gst-debug-set-default-threshold">gst_debug_set_default_threshold</link>() to
+reset the debugging output to default behaviour.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstDebugColorFlags"/>enum GstDebugColorFlags</title>
+<programlisting>typedef enum {
+  /* colors */
+  GST_DEBUG_FG_BLACK		= 0x0000,
+  GST_DEBUG_FG_RED		= 0x0001,
+  GST_DEBUG_FG_GREEN		= 0x0002,
+  GST_DEBUG_FG_YELLOW		= 0x0003,
+  GST_DEBUG_FG_BLUE		= 0x0004,
+  GST_DEBUG_FG_MAGENTA		= 0x0005,
+  GST_DEBUG_FG_CYAN		= 0x0006,
+  GST_DEBUG_FG_WHITE		= 0x0007,
+  /* background colors */
+  GST_DEBUG_BG_BLACK		= 0x0000,
+  GST_DEBUG_BG_RED		= 0x0010,
+  GST_DEBUG_BG_GREEN		= 0x0020,
+  GST_DEBUG_BG_YELLOW		= 0x0030,
+  GST_DEBUG_BG_BLUE		= 0x0040,
+  GST_DEBUG_BG_MAGENTA		= 0x0050,
+  GST_DEBUG_BG_CYAN		= 0x0060,
+  GST_DEBUG_BG_WHITE		= 0x0070,
+  /* other formats */
+  GST_DEBUG_BOLD		= 0x0100,
+  GST_DEBUG_UNDERLINE		= 0x0200
+} GstDebugColorFlags;
+</programlisting>
+<para>
+These are some terminal-oriented flags you can use when creating your debugging
+categories to make them stand out in debugging output.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_DEBUG_FG_BLACK</literal></term>
+<listitem><simpara>Use black as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_RED</literal></term>
+<listitem><simpara>Use red as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_GREEN</literal></term>
+<listitem><simpara>Use green as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_YELLOW</literal></term>
+<listitem><simpara>Use yellow as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_BLUE</literal></term>
+<listitem><simpara>Use blue as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_MAGENTA</literal></term>
+<listitem><simpara>Use magenta as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_CYAN</literal></term>
+<listitem><simpara>Use cyan as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_FG_WHITE</literal></term>
+<listitem><simpara>Use white as foreground color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_BLACK</literal></term>
+<listitem><simpara>Use black as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_RED</literal></term>
+<listitem><simpara>Use red as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_GREEN</literal></term>
+<listitem><simpara>Use green as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_YELLOW</literal></term>
+<listitem><simpara>Use yellow as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_BLUE</literal></term>
+<listitem><simpara>Use blue as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_MAGENTA</literal></term>
+<listitem><simpara>Use magenta as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_CYAN</literal></term>
+<listitem><simpara>Use cyan as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BG_WHITE</literal></term>
+<listitem><simpara>Use white as background color.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_BOLD</literal></term>
+<listitem><simpara>Make the output bold.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_DEBUG_UNDERLINE</literal></term>
+<listitem><simpara>Underline the output.
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstDebugCategory"/>struct GstDebugCategory</title>
+<programlisting>struct GstDebugCategory {
+
+};
+</programlisting>
+<para>
+This is the struct that describes the categories. Once initialized with
+<link linkend="GST-DEBUG-CATEGORY-INIT-CAPS">GST_DEBUG_CATEGORY_INIT</link>, its values can't be changed anymore.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STR-NULL-CAPS"/>GST_STR_NULL()</title>
+<programlisting>#define GST_STR_NULL(str) ((str) ? (str) : "(NULL)")
+</programlisting>
+<para>
+Macro to use when a string must not be NULL, but may be NULL. If the string is
+NULL, "(NULL)" is printed instead.
+In GStreamer printf string arguments may not be NULL, because on some platforms
+(ie Solaris) the libc crashes in that case. This includes debugging strings.
+</para><variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&nbsp;:</term>
+<listitem><simpara>The string to check.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>A string that is guaranteed to be not NULL.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-PAD-NAME-CAPS"/>GST_DEBUG_PAD_NAME()</title>
+<programlisting>#define     GST_DEBUG_PAD_NAME(pad)</programlisting>
+<para>
+Evaluates to 2 strings, that describe the pad. Often used in debugging
+statements.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>The pad to debug.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FUNCTION-CAPS"/>GST_FUNCTION</title>
+<programlisting>#define     GST_FUNCTION</programlisting>
+<para>
+This macro should evaluate to the name of the current function and be should
+be defined when configuring your project, as it is compiler dependant. If it
+is not defined, some default value is used. It is used to provide debugging
+output with the function name of the message.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstDebugMessage"/>struct GstDebugMessage</title>
+<programlisting>struct GstDebugMessage;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstLogFunction"/>GstLogFunction ()</title>
+<programlisting>void        (*GstLogFunction)               (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             <link linkend="GstDebugMessage">GstDebugMessage</link> *message,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>function</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-log"/>gst_debug_log ()</title>
+<programlisting>void        gst_debug_log                   (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *format,
+                                             ...);</programlisting>
+<para>
+Logs the given message using the currently registered debugging handlers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> category to log
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> level of the message is in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&nbsp;:</term>
+<listitem><simpara> the file that emitted the message, usually the __FILE__ identifier
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>function</parameter>&nbsp;:</term>
+<listitem><simpara> the function that emitted the message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line</parameter>&nbsp;:</term>
+<listitem><simpara> the line from that the message was emitted, usually __LINE__
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> the object this message relates to or NULL if none
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara> a printf style format string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> optional arguments for the format
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-log-valist"/>gst_debug_log_valist ()</title>
+<programlisting>void        gst_debug_log_valist            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *format,
+                                             va_list args);</programlisting>
+<para>
+Logs the given message using the currently registered debugging handlers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> category to log
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> level of the message is in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&nbsp;:</term>
+<listitem><simpara> the file that emitted the message, usually the __FILE__ identifier
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>function</parameter>&nbsp;:</term>
+<listitem><simpara> the function that emitted the message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line</parameter>&nbsp;:</term>
+<listitem><simpara> the line from that the message was emitted, usually __LINE__
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> the object this message relates to or NULL if none
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara> a printf style format string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara> optional arguments for the format
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-message-get"/>gst_debug_message_get ()</title>
+<programlisting>const <link linkend="gchar">gchar</link>* gst_debug_message_get          (<link linkend="GstDebugMessage">GstDebugMessage</link> *message);</programlisting>
+<para>
+Gets the string representation of a <link linkend="GstDebugMessage">GstDebugMessage</link>. This function is used
+in debug handlers to extract the message.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>message</parameter>&nbsp;:</term>
+<listitem><simpara> a debug message
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the string representation of a <link linkend="GstDebugMessage">GstDebugMessage</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-log-default"/>gst_debug_log_default ()</title>
+<programlisting>void        gst_debug_log_default           (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level,
+                                             const <link linkend="gchar">gchar</link> *file,
+                                             const <link linkend="gchar">gchar</link> *function,
+                                             <link linkend="gint">gint</link> line,
+                                             <link linkend="GObject">GObject</link> *object,
+                                             <link linkend="GstDebugMessage">GstDebugMessage</link> *message,
+                                             <link linkend="gpointer">gpointer</link> unused);</programlisting>
+<para>
+The default logging handler used by GStreamer. Logging functions get called
+whenever a macro like GST_DEBUG or similar is used. This function outputs the
+message and additional info using the glib error handler.
+You can add other handlers by using <link linkend="gst-debug-add-log-function">gst_debug_add_log_function</link>. 
+And you can remove this handler by calling
+gst_debug_remove_log_function (gst_debug_log_default);</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> category to log
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> level of the message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>file</parameter>&nbsp;:</term>
+<listitem><simpara> the file that emitted the message, usually the __FILE__ identifier
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>function</parameter>&nbsp;:</term>
+<listitem><simpara> the function that emitted the message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>line</parameter>&nbsp;:</term>
+<listitem><simpara> the line from that the message was emitted, usually __LINE__
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> the object this message relates to or NULL if none
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&nbsp;:</term>
+<listitem><simpara> the actual message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>unused</parameter>&nbsp;:</term>
+<listitem><simpara> an unused variable, reserved for some user_data.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-level-get-name"/>gst_debug_level_get_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_debug_level_get_name
+                                            (<link linkend="GstDebugLevel">GstDebugLevel</link> level);</programlisting>
+<para>
+Get the string trepresentation of a debugging level</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> the level to get the name for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-add-log-function"/>gst_debug_add_log_function ()</title>
+<programlisting>void        gst_debug_add_log_function      (<link linkend="GstLogFunction">GstLogFunction</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Adds the logging function to the list of logging functions.
+Be sure to use G_GNUC_NO_INSTRUMENT on that function, it is needed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> the function to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> user data
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-remove-log-function"/>gst_debug_remove_log_function ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_debug_remove_log_function   (<link linkend="GstLogFunction">GstLogFunction</link> func);</programlisting>
+<para>
+Removes all registrered instances of the given logging functions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> the log function to remove
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> How many instances of the function were removed
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-remove-log-function-by-data"/>gst_debug_remove_log_function_by_data ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_debug_remove_log_function_by_data
+                                            (<link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Removes all registrered instances of log functions with the given user data.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> user data of the log function to remove
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> How many instances of the function were removed
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-set-active"/>gst_debug_set_active ()</title>
+<programlisting>void        gst_debug_set_active            (<link linkend="gboolean">gboolean</link> active);</programlisting>
+<para>
+If activated, debugging messages are sent to the debugging
+handlers.
+It makes sense to deactivate it for speed issues.
+<note><para>This function is not threadsafe. It makes sense to only call it
+during initialization.</para></note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>active</parameter>&nbsp;:</term>
+<listitem><simpara> Whether to use debugging output or not
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-is-active"/>gst_debug_is_active ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_debug_is_active             (void);</programlisting>
+<para>
+Checks if debugging output is activated.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if debugging is activated
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-set-colored"/>gst_debug_set_colored ()</title>
+<programlisting>void        gst_debug_set_colored           (<link linkend="gboolean">gboolean</link> colored);</programlisting>
+<para>
+Sets or unsets the use of coloured debugging output.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>colored</parameter>&nbsp;:</term>
+<listitem><simpara> Whether to use colored output or not
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-is-colored"/>gst_debug_is_colored ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_debug_is_colored            (void);</programlisting>
+<para>
+Checks if the debugging output should be colored.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the debug output should be colored.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-set-default-threshold"/>gst_debug_set_default_threshold ()</title>
+<programlisting>void        gst_debug_set_default_threshold (<link linkend="GstDebugLevel">GstDebugLevel</link> level);</programlisting>
+<para>
+Sets the default threshold to the given level and updates all categories to
+use this threshold.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> level to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-get-default-threshold"/>gst_debug_get_default_threshold ()</title>
+<programlisting><link linkend="GstDebugLevel">GstDebugLevel</link> gst_debug_get_default_threshold
+                                            (void);</programlisting>
+<para>
+Returns the default threshold that is used for new categories.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the default threshold level
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-set-threshold-for-name"/>gst_debug_set_threshold_for_name ()</title>
+<programlisting>void        gst_debug_set_threshold_for_name
+                                            (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level);</programlisting>
+<para>
+Sets all categories which match the given glob style pattern to the given
+level.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of the categories to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> level to set them to
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-unset-threshold-for-name"/>gst_debug_unset_threshold_for_name ()</title>
+<programlisting>void        gst_debug_unset_threshold_for_name
+                                            (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Resets all categories with the given name back to the default level.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of the categories to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-CATEGORY-CAPS"/>GST_DEBUG_CATEGORY()</title>
+<programlisting>#define     GST_DEBUG_CATEGORY(cat)</programlisting>
+<para>
+Defines a GstDebugCategory variable.
+This macro expands to nothing if debugging is disabled.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara> the category
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-CATEGORY-EXTERN-CAPS"/>GST_DEBUG_CATEGORY_EXTERN()</title>
+<programlisting>#define     GST_DEBUG_CATEGORY_EXTERN(cat)</programlisting>
+<para>
+Declares a GstDebugCategory variable as extern. Use in header files.
+This macro expands to nothing if debugging is disabled.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara> the category
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-CATEGORY-STATIC-CAPS"/>GST_DEBUG_CATEGORY_STATIC()</title>
+<programlisting>#define     GST_DEBUG_CATEGORY_STATIC(cat)</programlisting>
+<para>
+Defines a static GstDebugCategory variable.
+This macro expands to nothing if debugging is disabled.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara> the category
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-CATEGORY-INIT-CAPS"/>GST_DEBUG_CATEGORY_INIT()</title>
+<programlisting>#define     GST_DEBUG_CATEGORY_INIT(cat,name,color,description)</programlisting>
+<para>
+Initializes a new <link linkend="GstDebugCategory">GstDebugCategory</link> with the given properties and set to
+the default threshold.
+</para>
+<para>
+<note>
+<para>
+This macro expands to nothing if debugging is disabled.
+</para>
+<para>
+When naming your category, please follow the following conventions to ensure
+that the pattern matching for categories works as expected. It is not
+earth-shattering if you don't follow these conventions, but it would be nice
+for everyone.
+</para>
+<para>
+If you define a category for a plugin or a feature of it, name the category
+like the feature. So if you wanted to write a "filesrc" element, you would
+name the category "filesrc". Use lowercase letters only.
+If you define more than one category for the same element, append an
+underscore and an identifier to your categories, like this: "filesrc_cache"
+</para>
+<para>
+If you create a library or an application using debugging categories, use a
+common prefix followed by an underscore for all your categories. GStreamer
+uses the GST prefix so GStreamer categories look like "GST_STATES". Be sure
+to include uppercase letters.
+</para>
+</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara> the category to initialize.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the category.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>color</parameter>&nbsp;:</term>
+<listitem><simpara> the colors to use for a color representation or 0 for no color.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>description</parameter>&nbsp;:</term>
+<listitem><simpara> optional description of the category.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-free"/>gst_debug_category_free ()</title>
+<programlisting>void        gst_debug_category_free         (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);</programlisting>
+<para>
+Removes and frees the category and all associated resources.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstDebugCategory">GstDebugCategory</link> to free.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-set-threshold"/>gst_debug_category_set_threshold ()</title>
+<programlisting>void        gst_debug_category_set_threshold
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category,
+                                             <link linkend="GstDebugLevel">GstDebugLevel</link> level);</programlisting>
+<para>
+Sets the threshold of the category to the given level. Debug information will
+only be output if the threshold is lower or equal to the level of the
+debugging message.
+<note><para>
+Do not use this function in production code, because other functions may
+change the threshold of categories as side effect. It is however a nice
+function to use when debugging (even from gdb).
+</para></note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstDebugCategory">GstDebugCategory</link> to set threshold of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstDebugLevel">GstDebugLevel</link> threshold to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-reset-threshold"/>gst_debug_category_reset_threshold ()</title>
+<programlisting>void        gst_debug_category_reset_threshold
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);</programlisting>
+<para>
+Resets the threshold of the category to the default level. Debug information
+will only be output if the threshold is lower or equal to the level of the
+debugging message.
+Use this function to set the threshold back to where it was after using
+<link linkend="gst-debug-category-set-threshold">gst_debug_category_set_threshold</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstDebugCategory">GstDebugCategory</link> to reset threshold of.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-get-threshold"/>gst_debug_category_get_threshold ()</title>
+<programlisting><link linkend="GstDebugLevel">GstDebugLevel</link> gst_debug_category_get_threshold
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);</programlisting>
+<para>
+Returns the threshold of a <link linkend="GstCategory">GstCategory</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstDebugCategory">GstDebugCategory</link> to get threshold of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstDebugLevel">GstDebugLevel</link> that is used as threshold.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-get-name"/>gst_debug_category_get_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_debug_category_get_name
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);</programlisting>
+<para>
+Returns the name of a debug category.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstDebugCategory">GstDebugCategory</link> to get name of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the name of the category.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-get-color"/>gst_debug_category_get_color ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_debug_category_get_color    (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);</programlisting>
+<para>
+Returns the color of a debug category used when printing output in this
+category.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstDebugCategory">GstDebugCategory</link> to get the color of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the color of the category.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-category-get-description"/>gst_debug_category_get_description ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_debug_category_get_description
+                                            (<link linkend="GstDebugCategory">GstDebugCategory</link> *category);</programlisting>
+<para>
+Returns the description of a debug category.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstDebugCategory">GstDebugCategory</link> to get the description of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the description of the category.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-get-all-categories"/>gst_debug_get_all_categories ()</title>
+<programlisting><link linkend="GSList">GSList</link>*     gst_debug_get_all_categories    (void);</programlisting>
+<para>
+Returns a snapshot of a all categories that are currently in use . This list
+may change anytime.
+The caller has to free the list after use.
+<emphasis>This function is not threadsafe, so only use it while only the
+main thread is running.</emphasis></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the list of categories
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-construct-term-color"/>gst_debug_construct_term_color ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_debug_construct_term_color  (<link linkend="guint">guint</link> colorinfo);</programlisting>
+<para>
+Constructs a string that can be used for getting the desired color in color
+terminals.
+You need to free the string after use.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>colorinfo</parameter>&nbsp;:</term>
+<listitem><simpara> the color info
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a string containing the color definition
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-LEVEL-LOG-CAPS"/>GST_CAT_LEVEL_LOG()</title>
+<programlisting>#define     GST_CAT_LEVEL_LOG(cat,level,object,...)</programlisting>
+<para>
+GST_CAT_LEVEL_LOG:
+Outputs a debugging message. This is the most general macro for outputting
+debugging messages. You will probably want to use one of the ones described
+below.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>level</parameter>&nbsp;:</term>
+<listitem><simpara>the severity of the message
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to or NULL if none
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>A printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-ERROR-OBJECT-CAPS"/>GST_CAT_ERROR_OBJECT()</title>
+<programlisting>#define     GST_CAT_ERROR_OBJECT(cat,obj,...)</programlisting>
+<para>
+Output an error message belonging to the given object in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-WARNING-OBJECT-CAPS"/>GST_CAT_WARNING_OBJECT()</title>
+<programlisting>#define     GST_CAT_WARNING_OBJECT(cat,obj,...)</programlisting>
+<para>
+Output a warning message belonging to the given object in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-INFO-OBJECT-CAPS"/>GST_CAT_INFO_OBJECT()</title>
+<programlisting>#define     GST_CAT_INFO_OBJECT(cat,obj,...)</programlisting>
+<para>
+Output an informational message belonging to the given object in the given
+category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-DEBUG-OBJECT-CAPS"/>GST_CAT_DEBUG_OBJECT()</title>
+<programlisting>#define     GST_CAT_DEBUG_OBJECT(cat,obj,...)</programlisting>
+<para>
+Output an debugging message belonging to the given object in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-LOG-OBJECT-CAPS"/>GST_CAT_LOG_OBJECT()</title>
+<programlisting>#define     GST_CAT_LOG_OBJECT(cat,obj,...)</programlisting>
+<para>
+Output an logging message belonging to the given object in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-ERROR-CAPS"/>GST_CAT_ERROR()</title>
+<programlisting>#define     GST_CAT_ERROR(cat,...)</programlisting>
+<para>
+Output an error message in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-WARNING-CAPS"/>GST_CAT_WARNING()</title>
+<programlisting>#define     GST_CAT_WARNING(cat,...)</programlisting>
+<para>
+Output a warning message in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-INFO-CAPS"/>GST_CAT_INFO()</title>
+<programlisting>#define     GST_CAT_INFO(cat,...)</programlisting>
+<para>
+Output an informational message in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-DEBUG-CAPS"/>GST_CAT_DEBUG()</title>
+<programlisting>#define     GST_CAT_DEBUG(cat,...)</programlisting>
+<para>
+Output a debuggign message in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAT-LOG-CAPS"/>GST_CAT_LOG()</title>
+<programlisting>#define     GST_CAT_LOG(cat,...)</programlisting>
+<para>
+Output a logging message in the given category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>cat</parameter>&nbsp;:</term>
+<listitem><simpara>category to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ERROR-OBJECT-CAPS"/>GST_ERROR_OBJECT()</title>
+<programlisting>#define     GST_ERROR_OBJECT(obj,...)</programlisting>
+<para>
+Output an error message belonging to the given object in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WARNING-OBJECT-CAPS"/>GST_WARNING_OBJECT()</title>
+<programlisting>#define     GST_WARNING_OBJECT(obj,...)</programlisting>
+<para>
+Output a warning message belonging to the given object in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-INFO-OBJECT-CAPS"/>GST_INFO_OBJECT()</title>
+<programlisting>#define     GST_INFO_OBJECT(obj,...)</programlisting>
+<para>
+Output an informational message belonging to the given object in the default 
+category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-OBJECT-CAPS"/>GST_DEBUG_OBJECT()</title>
+<programlisting>#define     GST_DEBUG_OBJECT(obj,...)</programlisting>
+<para>
+Output a debugging message belonging to the given object in the default 
+category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-LOG-OBJECT-CAPS"/>GST_LOG_OBJECT()</title>
+<programlisting>#define     GST_LOG_OBJECT(obj,...)</programlisting>
+<para>
+Output a logging message belonging to the given object in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GObject">GObject</link> the message belongs to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ERROR-CAPS"/>GST_ERROR()</title>
+<programlisting>#define     GST_ERROR(...)</programlisting>
+<para>
+Output an error message in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WARNING-CAPS"/>GST_WARNING()</title>
+<programlisting>#define     GST_WARNING(...)</programlisting>
+<para>
+Output a warning message in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-INFO-CAPS"/>GST_INFO()</title>
+<programlisting>#define     GST_INFO(...)</programlisting>
+<para>
+Output an informational message in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-CAPS"/>GST_DEBUG()</title>
+<programlisting>#define     GST_DEBUG(...)</programlisting>
+<para>
+Output a debugging message in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-LOG-CAPS"/>GST_LOG()</title>
+<programlisting>#define     GST_LOG(...)</programlisting>
+<para>
+Output a logging message in the default category.
+</para><variablelist role="params">
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>printf-style message to output
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-FUNCPTR-CAPS"/>GST_DEBUG_FUNCPTR()</title>
+<programlisting>#define     GST_DEBUG_FUNCPTR(ptr)</programlisting>
+<para>
+Register a pointer to a function with its name, so it can later be used by
+<link linkend="GST-DEBUG-FUNCPTR-NAME-CAPS">GST_DEBUG_FUNCPTR_NAME</link>().
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&nbsp;:</term>
+<listitem><simpara>The function to register
+Returns: The ptr to the function.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-FUNCPTR-NAME-CAPS"/>GST_DEBUG_FUNCPTR_NAME()</title>
+<programlisting>#define     GST_DEBUG_FUNCPTR_NAME(ptr)</programlisting>
+<para>
+Retrieves the name of the function, if it was previously registered with
+<link linkend="GST-DEBUG-FUNCPTR-CAPS">GST_DEBUG_FUNCPTR</link>(). If not, it returns a description of the pointer.
+<note>
+<para>
+Make sure you free the string after use.
+</para>
+</note>
+</para><variablelist role="params">
+<varlistentry><term><parameter>ptr</parameter>&nbsp;:</term>
+<listitem><simpara>pointer to the function
+Returns: The name of the function
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-set-log-function"/>gst_debug_set_log_function()</title>
+<programlisting>#define gst_debug_set_log_function(func,data)		/* NOP */
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-reset-log-function"/>gst_debug_reset_log_function()</title>
+<programlisting>#define gst_debug_reset_log_function(void)		/* NOP */
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>void</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-debug-print-stack-trace"/>gst_debug_print_stack_trace ()</title>
+<programlisting>void        gst_debug_print_stack_trace     (void);</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TIME-FORMAT-CAPS"/>GST_TIME_FORMAT</title>
+<programlisting>#define GST_TIME_FORMAT "u:%02u:%02u.%09u"
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TIME-ARGS-CAPS"/>GST_TIME_ARGS()</title>
+<programlisting>#define     GST_TIME_ARGS(t)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>t</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="gstreamer-gstconfig">configuration</link>, 
+<link linkend="gstreamer-gst">initialization</link> for command line parameters
+and environment variables that affect the debugging output.
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,713 @@
+<refentry id="gstreamer-GstPlugin">
+<refmeta>
+<refentrytitle>GstPlugin</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstPlugin</refname><refpurpose>Container for features loaded from a shared object module</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+<link linkend="GQuark">GQuark</link>      <link linkend="gst-plugin-error-quark">gst_plugin_error_quark</link>          (void);
+#define     <link linkend="GST-PLUGIN-ERROR-CAPS">GST_PLUGIN_ERROR</link>
+enum        <link linkend="GstPluginError">GstPluginError</link>;
+struct      <link linkend="GstPlugin">GstPlugin</link>;
+struct      <link linkend="GstPluginDesc">GstPluginDesc</link>;
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstPluginInitFunc">*GstPluginInitFunc</link>)            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+void        (<link linkend="GstPluginExitFunc">*GstPluginExitFunc</link>)            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+#define     <link linkend="GST-PLUGIN-DEFINE-CAPS">GST_PLUGIN_DEFINE</link>               (major,minor,name,description,init,version,license,package,origin)
+#define     <link linkend="GST-PLUGIN-DEFINE-STATIC-CAPS">GST_PLUGIN_DEFINE_STATIC</link>        (major,minor,name,description,init,version,license,package,origin)
+#define     <link linkend="GST-LICENSE-UNKNOWN-CAPS">GST_LICENSE_UNKNOWN</link>
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstPluginFilter">*GstPluginFilter</link>)              (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-name">gst_plugin_get_name</link>   (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-description">gst_plugin_get_description</link>
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-filename">gst_plugin_get_filename</link>
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-license">gst_plugin_get_license</link>
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-package">gst_plugin_get_package</link>
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-origin">gst_plugin_get_origin</link> (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+<link linkend="GModule">GModule</link>*    <link linkend="gst-plugin-get-module">gst_plugin_get_module</link>           (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-get-version">gst_plugin_get_version</link>
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-is-loaded">gst_plugin_is_loaded</link>            (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+<link linkend="GList">GList</link>*      <link linkend="gst-plugin-feature-filter">gst_plugin_feature_filter</link>       (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             <link linkend="GstPluginFeatureFilter">GstPluginFeatureFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="GList">GList</link>*      <link linkend="gst-plugin-list-feature-filter">gst_plugin_list_feature_filter</link>  (<link linkend="GList">GList</link> *list,
+                                             <link linkend="GstPluginFeatureFilter">GstPluginFeatureFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-name-filter">gst_plugin_name_filter</link>          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GList">GList</link>*      <link linkend="gst-plugin-get-feature-list">gst_plugin_get_feature_list</link>     (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+<link linkend="GstPluginFeature">GstPluginFeature</link>* <link linkend="gst-plugin-find-feature">gst_plugin_find_feature</link>   (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GType">GType</link> type);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-check-file">gst_plugin_check_file</link>           (const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="GstPlugin">GstPlugin</link>*  <link linkend="gst-plugin-load-file">gst_plugin_load_file</link>            (const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-unload-plugin">gst_plugin_unload_plugin</link>        (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+void        <link linkend="gst-plugin-add-feature">gst_plugin_add_feature</link>          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             <link linkend="GstPluginFeature">GstPluginFeature</link> *feature);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-load">gst_plugin_load</link>                 (const <link linkend="gchar">gchar</link> *name);
+
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GStreamer is extensible, so <classname>GstElements</classname> can be loaded at runtime.
+A plugin system can provide one or more of the basic <application>GStreamer</application>
+<link linkend="GstPluginFeature">GstPluginFeature</link> subclasses.
+</para>
+<para>
+A plugin should export a symbol <symbol>plugin_desc</symbol> that is a struct of type <link linkend="GstPluginDesc">GstPluginDesc</link>.
+the plugin loader will check the version of the core library the plugin was linked against
+and will create a new <link linkend="GstPlugin">GstPlugin</link>. It will then call the <link linkend="GstPluginInitFunc">GstPluginInitFunc</link> function
+that was provided in the plugin_desc.
+</para>
+<para>
+Once you have a handle to a <link linkend="GstPlugin">GstPlugin</link> (e.g. from the <link linkend="GstRegistryPool">GstRegistryPool</link>), you can
+add any object that subclasses <link linkend="GstPluginFeature">GstPluginFeature</link>.
+</para>
+<para>
+Use <link linkend="gst-plugin-find-feature">gst_plugin_find_feature</link>() and <link linkend="gst-plugin-get-feature-list">gst_plugin_get_feature_list</link>() to find features in a plugin.
+</para>
+<para>
+Usually plugins are always automaticlly loaded so you don't need to call <link linkend="gst-plugin-load">gst_plugin_load</link>() explicitly 
+to bring it into memory. There are options to statically link plugins to an app or even
+use GStreamer without a plugin repository in which case <link linkend="gst-plugin-load">gst_plugin_load</link>() can be needed 
+to bring the plugin into memory.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="gst-plugin-error-quark"/>gst_plugin_error_quark ()</title>
+<programlisting><link linkend="GQuark">GQuark</link>      gst_plugin_error_quark          (void);</programlisting>
+<para>
+Get the error quark
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>The error quark used in GError messages
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PLUGIN-ERROR-CAPS"/>GST_PLUGIN_ERROR</title>
+<programlisting>#define GST_PLUGIN_ERROR gst_plugin_error_quark ()
+</programlisting>
+<para>
+The error quark
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstPluginError"/>enum GstPluginError</title>
+<programlisting>typedef enum
+{
+  GST_PLUGIN_ERROR_MODULE,
+  GST_PLUGIN_ERROR_DEPENDENCIES,
+  GST_PLUGIN_ERROR_NAME_MISMATCH
+} GstPluginError;
+</programlisting>
+<para>
+The plugin loading errors
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_PLUGIN_ERROR_MODULE</literal></term>
+<listitem><simpara>The plugin could not be loaded
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PLUGIN_ERROR_DEPENDENCIES</literal></term>
+<listitem><simpara>The plugin has unresolved dependencies
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PLUGIN_ERROR_NAME_MISMATCH</literal></term>
+<listitem><simpara>The plugin has already be loaded from a different file
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPlugin"/>struct GstPlugin</title>
+<programlisting>struct GstPlugin {
+
+  GstPluginDesc	desc;
+
+  gchar *	filename;
+  GList *	features;	/* list of features provided */
+  gint		numfeatures;
+
+  gpointer	manager;	/* managing registry */
+  GModule *	module;		/* contains the module if plugin is loaded */
+
+  gpointer _gst_reserved[GST_PADDING];
+};
+</programlisting>
+<para>
+The plugin object
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstPluginDesc"/>struct GstPluginDesc</title>
+<programlisting>struct GstPluginDesc {
+
+  gint major_version;			/* major version of core that plugin was compiled for */
+  gint minor_version;			/* minor version of core that plugin was compiled for */
+  gchar *name;				/* unique name of plugin */
+  gchar *description;			/* description of plugin */
+  GstPluginInitFunc plugin_init;	/* pointer to plugin_init function */
+  GstPluginExitFunc plugin_exit;	/* pointer to exiting function */
+  gchar *version;			/* version of the plugin */
+  gchar *license;			/* effective license of plugin */
+  gchar *package;			/* package plugin belongs to */
+  gchar *origin;			/* URL to provider of plugin */
+
+  gpointer _gst_reserved[GST_PADDING];
+};
+</programlisting>
+<para>
+A plugins should export a variable of this type called plugin_desc. This plugin
+loaded will use this variable to initialize the plugin.
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="gint">gint</link> <structfield>major_version</structfield></term>
+<listitem><simpara>the major version number of core that plugin was compiled for
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gint">gint</link> <structfield>minor_version</structfield></term>
+<listitem><simpara>the minor version number of core that plugin was compiled for
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>name</structfield></term>
+<listitem><simpara>a unique name of the plugin
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>description</structfield></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GstPluginInitFunc">GstPluginInitFunc</link> <structfield>plugin_init</structfield></term>
+<listitem><simpara>The init function of this plugin.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GstPluginExitFunc">GstPluginExitFunc</link> <structfield>plugin_exit</structfield></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>version</structfield></term>
+<listitem><simpara>version of the plugin
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>license</structfield></term>
+<listitem><simpara>effective license of plugin
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>package</structfield></term>
+<listitem><simpara>package plugin belongs to
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>origin</structfield></term>
+<listitem><simpara>URL to provider of plugin
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gpointer">gpointer</link> <structfield>_gst_reserved</structfield>[GST_PADDING]</term>
+<listitem><simpara>
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPluginInitFunc"/>GstPluginInitFunc ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstPluginInitFunc)            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+A plugin should provide a pointer to a function of this type in the plugin_desc struct.
+It will be called by the loader at statup.
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara>The plugin object that can be used to register stuff for this plugin.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>A boolean indicating success or failure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPluginExitFunc"/>GstPluginExitFunc ()</title>
+<programlisting>void        (*GstPluginExitFunc)            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+Exiting function when plugin is unloaded.
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara>The plugin object that can be used to unregister stuff for this plugin.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PLUGIN-DEFINE-CAPS"/>GST_PLUGIN_DEFINE()</title>
+<programlisting>#define     GST_PLUGIN_DEFINE(major,minor,name,description,init,version,license,package,origin)</programlisting>
+<para>
+This macro needs to be used to define the entry point and meta data of a plugin.
+One would use this macro to export a plugin, so that it can be used by other applications
+</para><variablelist role="params">
+<varlistentry><term><parameter>major</parameter>&nbsp;:</term>
+<listitem><simpara>major version number of the gstreamer-core that plugin was compiled for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minor</parameter>&nbsp;:</term>
+<listitem><simpara>minor version number of the gstreamer-core that plugin was compiled for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>short, but unique name of the plugin
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>description</parameter>&nbsp;:</term>
+<listitem><simpara>information about the purpose of the plugin
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>init</parameter>&nbsp;:</term>
+<listitem><simpara>function pointer to the plugin_init method with the signature of <code>static gboolean plugin_init (GstPlugin * plugin)</code>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>version</parameter>&nbsp;:</term>
+<listitem><simpara>full version string (e.g. VERSION from config.h)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>license</parameter>&nbsp;:</term>
+<listitem><simpara>under which licence the package has been released, e.g. GPL, LGPL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>package</parameter>&nbsp;:</term>
+<listitem><simpara>the package-name (e.g. PACKAGE_NAME from config.h)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>origin</parameter>&nbsp;:</term>
+<listitem><simpara>a description from where the package comes from (e.g. the homepage URL)
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PLUGIN-DEFINE-STATIC-CAPS"/>GST_PLUGIN_DEFINE_STATIC()</title>
+<programlisting>#define     GST_PLUGIN_DEFINE_STATIC(major,minor,name,description,init,version,license,package,origin)</programlisting>
+<para>
+This macro needs to be used to define the entry point and meta data of a local plugin.
+One would use this macro to define a local plugin that can only be used by the own application.
+</para><variablelist role="params">
+<varlistentry><term><parameter>major</parameter>&nbsp;:</term>
+<listitem><simpara>major version number of the gstreamer-core that plugin was compiled for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minor</parameter>&nbsp;:</term>
+<listitem><simpara>minor version number of the gstreamer-core that plugin was compiled for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>short, but unique name of the plugin
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>description</parameter>&nbsp;:</term>
+<listitem><simpara>information about the purpose of the plugin
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>init</parameter>&nbsp;:</term>
+<listitem><simpara>function pointer to the plugin_init method with the signature of <code>static gboolean plugin_init (GstPlugin * plugin)</code>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>version</parameter>&nbsp;:</term>
+<listitem><simpara>full version string (e.g. VERSION from config.h)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>license</parameter>&nbsp;:</term>
+<listitem><simpara>under which licence the package has been released, e.g. GPL, LGPL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>package</parameter>&nbsp;:</term>
+<listitem><simpara>the package-name (e.g. PACKAGE_NAME from config.h)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>origin</parameter>&nbsp;:</term>
+<listitem><simpara>a description from where the package comes from (e.g. the homepage URL)
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-LICENSE-UNKNOWN-CAPS"/>GST_LICENSE_UNKNOWN</title>
+<programlisting>#define GST_LICENSE_UNKNOWN "unknown"
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstPluginFilter"/>GstPluginFilter ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstPluginFilter)              (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+A function that can be used with e.g. <link linkend="gst-registry-plugin-filter">gst_registry_plugin_filter</link>()
+to get a list of plugins that match certain criteria.
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara>the plugin to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>the user_data that has been passed on e.g. <link linkend="gst-registry-plugin-filter">gst_registry_plugin_filter</link>()
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>TRUE for a positive match, FALSE otherwise
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-name"/>gst_plugin_get_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_name   (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+Get the short name of the plugin</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the name of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the name of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-description"/>gst_plugin_get_description ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_description
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+Get the long descriptive name of the plugin</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get long name of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the long name of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-filename"/>gst_plugin_get_filename ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_filename
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+get the filename of the plugin</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the filename of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the filename of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-license"/>gst_plugin_get_license ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_license
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+get the license of the plugin</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the license of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the license of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-package"/>gst_plugin_get_package ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_package
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+get the package the plugin belongs to.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the package of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the package of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-origin"/>gst_plugin_get_origin ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_origin (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+get the URL where the plugin comes from</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the origin of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the origin of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-module"/>gst_plugin_get_module ()</title>
+<programlisting><link linkend="GModule">GModule</link>*    gst_plugin_get_module           (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+Gets the <link linkend="GModule">GModule</link> of the plugin. If the plugin isn't loaded yet, NULL is 
+returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> module belonging to the plugin or NULL if the plugin isn't 
+         loaded yet.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-version"/>gst_plugin_get_version ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_get_version
+                                            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+get the version of the plugin</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the version of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the version of the plugin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-is-loaded"/>gst_plugin_is_loaded ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_is_loaded            (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+queries if the plugin is loaded into memory</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE is loaded, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-filter"/>gst_plugin_feature_filter ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_plugin_feature_filter       (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             <link linkend="GstPluginFeatureFilter">GstPluginFeatureFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-list-feature-filter"/>gst_plugin_list_feature_filter ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_plugin_list_feature_filter  (<link linkend="GList">GList</link> *list,
+                                             <link linkend="GstPluginFeatureFilter">GstPluginFeatureFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filter</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-name-filter"/>gst_plugin_name_filter ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_name_filter          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+A standard filter that returns TRUE when the plugin is of the
+given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the plugin
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the plugin is of the given name.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-get-feature-list"/>gst_plugin_get_feature_list ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_plugin_get_feature_list     (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+get a list of all the features that this plugin provides</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin to get the features from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of features, use g_list_free to free the list.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-find-feature"/>gst_plugin_find_feature ()</title>
+<programlisting><link linkend="GstPluginFeature">GstPluginFeature</link>* gst_plugin_find_feature   (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Find a feature of the given name and type in the given plugin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to get the feature from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the feature to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> The type of the feature to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GstPluginFeature or NULL if the feature was not found.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-check-file"/>gst_plugin_check_file ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_check_file           (const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Checks if the given path represents a GStreamer plugin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin filename to check for pluginness
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a NULL-valued GError
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the given path is a GStreamer plugin.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-load-file"/>gst_plugin_load_file ()</title>
+<programlisting><link linkend="GstPlugin">GstPlugin</link>*  gst_plugin_load_file            (const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Loads the given plugin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin filename to load
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a NULL-valued GError
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new GstPlugin or NULL, if an error occurred.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-unload-plugin"/>gst_plugin_unload_plugin ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_unload_plugin        (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+Unload the given plugin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> The plugin to unload
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> whether or not the plugin unloaded
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-add-feature"/>gst_plugin_add_feature ()</title>
+<programlisting>void        gst_plugin_add_feature          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             <link linkend="GstPluginFeature">GstPluginFeature</link> *feature);</programlisting>
+<para>
+Add feature to the list of those provided by the plugin.
+There is a separate namespace for each plugin feature type.
+See <link linkend="gst-plugin-get-feature-list">gst_plugin_get_feature_list</link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> plugin to add feature to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara> feature to add
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-load"/>gst_plugin_load ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_load                 (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Load the named plugin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of plugin to load
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> whether the plugin was loaded or not
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstPluginFeature">GstPluginFeature</link>, <link linkend="GstType">GstType</link>, <link linkend="GstAutoplug">GstAutoplug</link>, <link linkend="GstElementFactory">GstElementFactory</link>
+</para>
+</refsect1>
+
+</refentry>

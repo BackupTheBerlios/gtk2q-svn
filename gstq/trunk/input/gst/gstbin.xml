@@ -1,0 +1,375 @@
+<refentry id="GstBin">
+<refmeta>
+<refentrytitle>GstBin</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstBin</refname><refpurpose>Base class for elements that contain other elements</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstBin-struct">GstBin</link>;
+enum        <link linkend="GstBinFlags">GstBinFlags</link>;
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-bin-new">gst_bin_new</link>                     (const <link linkend="gchar">gchar</link> *name);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-bin-add">gst_bin_add</link>                     (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element);
+void        <link linkend="gst-bin-add-many">gst_bin_add_many</link>                (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element_1,
+                                             ...);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-bin-remove">gst_bin_remove</link>                  (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element);
+void        <link linkend="gst-bin-remove-many">gst_bin_remove_many</link>             (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element_1,
+                                             ...);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-bin-get-by-name">gst_bin_get_by_name</link>             (<link linkend="GstBin">GstBin</link> *bin,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-bin-get-by-name-recurse-up">gst_bin_get_by_name_recurse_up</link>  (<link linkend="GstBin">GstBin</link> *bin,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-bin-get-by-interface">gst_bin_get_by_interface</link>        (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GType">GType</link> interface);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----<link linkend="GstElement">GstElement</link>
+               +----GstBin
+</synopsis>
+
+</refsect1>
+
+
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="GstBin-element-added">element-added</link>&quot;
+            void        user_function      (<link linkend="GstBin">GstBin</link> *gstbin,
+                                            <link linkend="GstElement">GstElement</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstBin-element-removed">element-removed</link>&quot;
+            void        user_function      (<link linkend="GstBin">GstBin</link> *gstbin,
+                                            <link linkend="GstElement">GstElement</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstBin is the simplest of the container elements, allowing elements to
+become children of itself.  Pads from the child elements can be ghosted to
+the bin, making the bin itself look transparently like any other element,
+allowing for deep nesting of predefined sub-pipelines.
+</para>
+<para>
+A new GstBin is created with <link linkend="gst-bin-new">gst_bin_new</link>(). Use a <link linkend="GstPipeline">GstPipeline</link> instead if you want 
+to create a toplevel bin because a normal bin doesn't have a scheduler of its
+own.
+</para>
+<para>
+After the bin has been created you will typically add elements to it with
+<link linkend="gst-bin-add">gst_bin_add</link>(). You can remove elements with <link linkend="gst-bin-remove">gst_bin_remove</link>().
+</para>
+<para>
+An element can be retrieved from a bin with <link linkend="gst-bin-get-by-name">gst_bin_get_by_name</link>(), using the
+elements name. <link linkend="gst-bin-get-by-name-recurse-up">gst_bin_get_by_name_recurse_up</link>() is mainly used for internal
+purposes and will query the parent bins when the element is not found in the
+current bin.
+</para>
+<para>
+The list of elements in a bin can be retrieved with <link linkend="gst-bin-get-list">gst_bin_get_list</link>().
+</para>
+<para>
+After the bin has been set to the PLAYING state (with <link linkend="gst-element-set-state">gst_element_set_state</link>()), 
+<link linkend="gst-bin-iterate">gst_bin_iterate</link>() is used to process the elements in the bin.
+</para>
+<para>
+The "element_added" signal is fired whenever a new element is added to the bin.
+</para>
+<para>
+The "element_removed" signal is fired whenever an element is removed from the bin.
+</para>
+<para>
+<link linkend="gst-bin-destroy">gst_bin_destroy</link>() is used to destroy the bin. 
+</para>
+<para>
+To control the selection of the clock in a bin, you can use the following methods:
+<link linkend="gst-bin-auto-clock">gst_bin_auto_clock</link>() to let the bin select a clock automatically, <link linkend="gst-bin-get-clock">gst_bin_get_clock</link>() to
+get the current clock of the bin and <link linkend="gst-bin-use-clock">gst_bin_use_clock</link>() to specify a clock explicitly.
+Note that the default behaviour is to automatically select a clock from one of the
+clock providers in the bin.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstBin-struct"/>struct GstBin</title>
+<programlisting>struct GstBin {
+  /* our children, subclass are supposed to update these
+   * fields to reflect their state with _iterate_*() */
+  gint 		 numchildren;
+  GList 	*children;
+  guint32	 children_cookie;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstBinFlags"/>enum GstBinFlags</title>
+<programlisting>typedef enum {
+  /* padding */
+  GST_BIN_FLAG_LAST		= GST_ELEMENT_FLAG_LAST + 5
+} GstBinFlags;
+</programlisting>
+<para>
+GstBinFlags are a set of flags specific to bins. Most are set/used
+internally. They can be checked using the <link linkend="GST-FLAG-IS-SET-CAPS">GST_FLAG_IS_SET</link>() macro,
+and (un)set using <link linkend="GST-FLAG-SET-CAPS">GST_FLAG_SET</link>() and <link linkend="GST-FLAG-UNSET-CAPS">GST_FLAG_UNSET</link>().</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_BIN_FLAG_LAST</literal></term>
+<listitem><simpara> the last enum in the series of flags in a bin,
+derived classes can use this as first value in a list of flags.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-new"/>gst_bin_new ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_bin_new                     (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Create a new bin with given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new bin
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> new bin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-add"/>gst_bin_add ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_bin_add                     (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Adds the given element to the bin.  Sets the element's parent, and thus
+takes ownership of the element. An element can only be added to one bin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstBin">GstBin</link> to add element to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstElement">GstElement</link> to add to bin
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the element could be added, FALSE on wrong parameters or
+the bin does not want to accept the element.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-add-many"/>gst_bin_add_many ()</title>
+<programlisting>void        gst_bin_add_many                (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element_1,
+                                             ...);</programlisting>
+<para>
+Adds a NULL-terminated list of elements to a bin.  This function is
+equivalent to calling #<link linkend="gst-bin-add">gst_bin_add</link>() for each member of the list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> the bin to add the elements to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element_1</parameter>&nbsp;:</term>
+<listitem><simpara> the first element to add to the bin
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> additional elements to add to the bin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-remove"/>gst_bin_remove ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_bin_remove                  (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Remove the element from its associated bin, unparenting it as well.
+Unparenting the element means that the element will be dereferenced,
+so if the bin holds the only reference to the element, the element
+will be freed in the process of removing it from the bin.  If you
+want the element to still exist after removing, you need to call
+<link linkend="gst-object-ref">gst_object_ref</link> before removing it from the bin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstBin">GstBin</link> to remove element from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstElement">GstElement</link> to remove
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the element could be removed, FALSE on wrong parameters or
+the bin does not want to remove the element.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-remove-many"/>gst_bin_remove_many ()</title>
+<programlisting>void        gst_bin_remove_many             (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GstElement">GstElement</link> *element_1,
+                                             ...);</programlisting>
+<para>
+Remove a list of elements from a bin. This function is equivalent
+to calling <link linkend="gst-bin-remove">gst_bin_remove</link> with each member of the list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> the bin to remove the elements from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element_1</parameter>&nbsp;:</term>
+<listitem><simpara> the first element to remove from the bin
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> NULL-terminated list of elements to remove from the bin
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-get-by-name"/>gst_bin_get_by_name ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_bin_get_by_name             (<link linkend="GstBin">GstBin</link> *bin,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Get the element with the given name from this bin. This
+function recurses into subbins.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="Gstbin">Gstbin</link> to search
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the element name to search for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the element with the given name. Returns NULL if the
+element is not found or when bad parameters were given. Unref after
+usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-get-by-name-recurse-up"/>gst_bin_get_by_name_recurse_up ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_bin_get_by_name_recurse_up  (<link linkend="GstBin">GstBin</link> *bin,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Get the element with the given name from this bin. If the
+element is not found, a recursion is performed on the parent bin.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="Gstbin">Gstbin</link> to search
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the element name to search for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the element with the given name or NULL when the element
+was not found or bad parameters were given. Unref after usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-bin-get-by-interface"/>gst_bin_get_by_interface ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_bin_get_by_interface        (<link linkend="GstBin">GstBin</link> *bin,
+                                             <link linkend="GType">GType</link> interface);</programlisting>
+<para>
+Looks for the first element inside the bin that implements the given
+interface. If such an element is found, it returns the element. You can
+cast this element to the given interface afterwards.
+If you want all elements that implement the interface, use
+<link linkend="gst-bin-iterate-all-by-interface">gst_bin_iterate_all_by_interface</link>(). The function recurses bins inside bins.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>bin</parameter>&nbsp;:</term>
+<listitem><simpara> bin to find element in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>interface</parameter>&nbsp;:</term>
+<listitem><simpara> interface to be implemented by interface
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> An element inside the bin implementing the interface. Unref after
+         usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="GstBin-element-added"/>The &quot;element-added&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstBin">GstBin</link> *gstbin,
+                                            <link linkend="GstElement">GstElement</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Will be emmited if a new element was removed/added to this bin.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstbin</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>the element that was added to the bin
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstBin-element-removed"/>The &quot;element-removed&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstBin">GstBin</link> *gstbin,
+                                            <link linkend="GstElement">GstElement</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Will be emmited if an element was removed from this bin.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstbin</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>the element that was removed from the bin
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

@@ -1,0 +1,824 @@
+<refentry id="gstreamer-GstEvent">
+<refmeta>
+<refentrytitle>GstEvent</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstEvent</refname><refpurpose>Structure describing events that are passed up and down a pipeline</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstEvent">GstEvent</link>;
+enum        <link linkend="GstEventType">GstEventType</link>;
+#define     <link linkend="GST-EVENT-ANY-CAPS">GST_EVENT_ANY</link>
+#define     <link linkend="GST-EVENT-TRACE-NAME-CAPS">GST_EVENT_TRACE_NAME</link>
+#define     <link linkend="GST-EVENT-TYPE-CAPS">GST_EVENT_TYPE</link>                  (event)
+#define     <link linkend="GST-EVENT-TIMESTAMP-CAPS">GST_EVENT_TIMESTAMP</link>             (event)
+#define     <link linkend="GST-EVENT-SRC-CAPS">GST_EVENT_SRC</link>                   (event)
+#define     <link linkend="GST-EVENT-IS-INTERRUPT-CAPS">GST_EVENT_IS_INTERRUPT</link>          (event)
+#define     <link linkend="GST-SEEK-FORMAT-SHIFT-CAPS">GST_SEEK_FORMAT_SHIFT</link>
+#define     <link linkend="GST-SEEK-METHOD-SHIFT-CAPS">GST_SEEK_METHOD_SHIFT</link>
+#define     <link linkend="GST-SEEK-FLAGS-SHIFT-CAPS">GST_SEEK_FLAGS_SHIFT</link>
+#define     <link linkend="GST-SEEK-FORMAT-MASK-CAPS">GST_SEEK_FORMAT_MASK</link>
+#define     <link linkend="GST-SEEK-METHOD-MASK-CAPS">GST_SEEK_METHOD_MASK</link>
+#define     <link linkend="GST-SEEK-FLAGS-MASK-CAPS">GST_SEEK_FLAGS_MASK</link>
+enum        <link linkend="GstEventFlag">GstEventFlag</link>;
+#define     <link linkend="GST-EVENT-MASK-FUNCTION-CAPS">GST_EVENT_MASK_FUNCTION</link>         (type,functionname, ...)
+enum        <link linkend="GstSeekType">GstSeekType</link>;
+enum        <link linkend="GstSeekAccuracy">GstSeekAccuracy</link>;
+#define     <link linkend="GST-EVENT-SEEK-TYPE-CAPS">GST_EVENT_SEEK_TYPE</link>             (event)
+#define     <link linkend="GST-EVENT-SEEK-FORMAT-CAPS">GST_EVENT_SEEK_FORMAT</link>           (event)
+#define     <link linkend="GST-EVENT-SEEK-METHOD-CAPS">GST_EVENT_SEEK_METHOD</link>           (event)
+#define     <link linkend="GST-EVENT-SEEK-FLAGS-CAPS">GST_EVENT_SEEK_FLAGS</link>            (event)
+#define     <link linkend="GST-EVENT-SEEK-OFFSET-CAPS">GST_EVENT_SEEK_OFFSET</link>           (event)
+#define     <link linkend="GST-EVENT-SEEK-ENDOFFSET-CAPS">GST_EVENT_SEEK_ENDOFFSET</link>        (event)
+#define     <link linkend="GST-EVENT-SEEK-ACCURACY-CAPS">GST_EVENT_SEEK_ACCURACY</link>         (event)
+#define     <link linkend="GST-EVENT-DISCONT-OFFSET-CAPS">GST_EVENT_DISCONT_OFFSET</link>        (event,i)
+#define     <link linkend="GST-EVENT-DISCONT-OFFSET-LEN-CAPS">GST_EVENT_DISCONT_OFFSET_LEN</link>    (event)
+#define     <link linkend="GST-EVENT-SIZE-FORMAT-CAPS">GST_EVENT_SIZE_FORMAT</link>           (event)
+#define     <link linkend="GST-EVENT-SIZE-VALUE-CAPS">GST_EVENT_SIZE_VALUE</link>            (event)
+#define     <link linkend="GST-EVENT-RATE-VALUE-CAPS">GST_EVENT_RATE_VALUE</link>            (event)
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new">gst_event_new</link>                   (<link linkend="GstEventType">GstEventType</link> type);
+#define     <link linkend="gst-event-ref">gst_event_ref</link>                   (ev)
+#define     <link linkend="gst-event-unref">gst_event_unref</link>                 (ev)
+#define     <link linkend="gst-event-copy">gst_event_copy</link>                  (ev)
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-event-masks-contains">gst_event_masks_contains</link>        (const <link linkend="GstEventMask">GstEventMask</link> *masks,
+                                             <link linkend="GstEventMask">GstEventMask</link> *mask);
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-seek">gst_event_new_seek</link>              (<link linkend="GstSeekType">GstSeekType</link> type,
+                                             <link linkend="gint64">gint64</link> offset);
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-segment-seek">gst_event_new_segment_seek</link>      (<link linkend="GstSeekType">GstSeekType</link> type,
+                                             <link linkend="gint64">gint64</link> start,
+                                             <link linkend="gint64">gint64</link> stop);
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-size">gst_event_new_size</link>              (<link linkend="GstFormat">GstFormat</link> format,
+                                             <link linkend="gint64">gint64</link> value);
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-discontinuous">gst_event_new_discontinuous</link>     (<link linkend="gdouble">gdouble</link> rate,
+                                             <link linkend="GstFormat">GstFormat</link> format1,
+                                             ...);
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-discontinuous-valist">gst_event_new_discontinuous_valist</link>
+                                            (<link linkend="gdouble">gdouble</link> rate,
+                                             <link linkend="GstFormat">GstFormat</link> format1,
+                                             va_list var_args);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-event-discont-get-value">gst_event_discont_get_value</link>     (<link linkend="GstEvent">GstEvent</link> *event,
+                                             <link linkend="GstFormat">GstFormat</link> format,
+                                             <link linkend="gint64">gint64</link> *start_value,
+                                             <link linkend="gint64">gint64</link> *end_value);
+#define     <link linkend="gst-event-new-filler">gst_event_new_filler</link>            ()
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-flush">gst_event_new_flush</link>             (<link linkend="gboolean">gboolean</link> done);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The event classes are used to construct and query events.
+</para>
+
+<para>
+Events are usually created with <link linkend="gst-event-new">gst_event_new</link>() which takes the event type as an argument.
+properties specific to the event can be set afterwards with the provided macros. 
+The event should be unreferenced with <link linkend="gst-event-unref">gst_event_unref</link>().
+</para>
+<para>
+<link linkend="gst-event-new-seek">gst_event_new_seek</link>() is a usually used to create a seek event and it takes the 
+needed parameters for a seek event. 
+</para>
+<para>
+<link linkend="gst-event-new-flush">gst_event_new_flush</link>() creates a new flush event.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstEvent"/>struct GstEvent</title>
+<programlisting>struct GstEvent {
+
+  GstMiniObject mini_object;
+
+  GstEventType  type;
+  guint64	timestamp;
+  GstObject	*src;
+
+  union {
+    struct {
+      GstSeekType	type;
+      gint64		offset;
+      gint64		endoffset;
+      GstSeekAccuracy	accuracy;
+    } seek;
+    struct {
+      GstFormatValue	offsets[8];
+      gint		noffsets;
+      gdouble		rate;
+    } discont;
+    struct {
+      gboolean		done;
+    } flush;
+    struct {
+      GstFormat		format;
+      gint64		value;
+    } size;
+    struct {
+      gdouble		value;
+    } rate;
+    struct {
+      GstStructure	*structure;
+    } structure;
+  } event_data;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstEventType"/>enum GstEventType</title>
+<programlisting>typedef enum {
+  GST_EVENT_UNKNOWN		= 0,
+  GST_EVENT_EOS			= 1,
+  GST_EVENT_FLUSH		= 2,
+  GST_EVENT_DISCONTINUOUS	= 3,
+  GST_EVENT_QOS			= 4,
+  GST_EVENT_SEEK		= 5,
+  GST_EVENT_SIZE		= 8,
+  GST_EVENT_RATE		= 9,
+  GST_EVENT_NAVIGATION		= 10,
+  GST_EVENT_TAG			= 11
+} GstEventType;
+</programlisting>
+<para>
+</para>
+<para>
+The different major types of events.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-ANY-CAPS"/>GST_EVENT_ANY</title>
+<programlisting>#define GST_EVENT_ANY GST_EVENT_NAVIGATION
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-TRACE-NAME-CAPS"/>GST_EVENT_TRACE_NAME</title>
+<programlisting>#define GST_EVENT_TRACE_NAME	"GstEvent"
+</programlisting>
+<para>
+The name used for memory allocation tracing
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-TYPE-CAPS"/>GST_EVENT_TYPE()</title>
+<programlisting>#define GST_EVENT_TYPE(event)		(GST_EVENT(event)-&gt;type)
+</programlisting>
+<para>
+Get the event type.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-TIMESTAMP-CAPS"/>GST_EVENT_TIMESTAMP()</title>
+<programlisting>#define GST_EVENT_TIMESTAMP(event)	(GST_EVENT(event)-&gt;timestamp)
+</programlisting>
+<para>
+Get the timestamp of the event.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SRC-CAPS"/>GST_EVENT_SRC()</title>
+<programlisting>#define GST_EVENT_SRC(event)		(GST_EVENT(event)-&gt;src)
+</programlisting>
+<para>
+The source object that generated this event
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-IS-INTERRUPT-CAPS"/>GST_EVENT_IS_INTERRUPT()</title>
+<programlisting>#define GST_EVENT_IS_INTERRUPT(event) (GST_EVENT_TYPE (event) == GST_EVENT_INTERRUPT)
+</programlisting>
+<para>
+Check if the event is an interrupt event
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-SEEK-FORMAT-SHIFT-CAPS"/>GST_SEEK_FORMAT_SHIFT</title>
+<programlisting>#define GST_SEEK_FORMAT_SHIFT	0
+</programlisting>
+<para>
+Shift for the format in the GstSeekType
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-SEEK-METHOD-SHIFT-CAPS"/>GST_SEEK_METHOD_SHIFT</title>
+<programlisting>#define GST_SEEK_METHOD_SHIFT	16
+</programlisting>
+<para>
+Shift for the method in the GstSeekType
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-SEEK-FLAGS-SHIFT-CAPS"/>GST_SEEK_FLAGS_SHIFT</title>
+<programlisting>#define GST_SEEK_FLAGS_SHIFT	20
+</programlisting>
+<para>
+Shift for the flags in the GstSeekType
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-SEEK-FORMAT-MASK-CAPS"/>GST_SEEK_FORMAT_MASK</title>
+<programlisting>#define GST_SEEK_FORMAT_MASK	0x0000ffff
+</programlisting>
+<para>
+Mask for the format in the GstSeekType
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-SEEK-METHOD-MASK-CAPS"/>GST_SEEK_METHOD_MASK</title>
+<programlisting>#define GST_SEEK_METHOD_MASK	0x000f0000
+</programlisting>
+<para>
+Mask for the method in the GstSeekType
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-SEEK-FLAGS-MASK-CAPS"/>GST_SEEK_FLAGS_MASK</title>
+<programlisting>#define GST_SEEK_FLAGS_MASK	0xfff00000
+</programlisting>
+<para>
+Mask for the flags in the GstSeekType
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstEventFlag"/>enum GstEventFlag</title>
+<programlisting>typedef enum {
+  GST_EVENT_FLAG_NONE		= 0,
+
+  /* indicates negative rates are supported */
+  GST_RATE_FLAG_NEGATIVE	= (1 &lt;&lt; 1)
+} GstEventFlag;
+</programlisting>
+<para>
+Event flags are used when querying for supported events
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_EVENT_FLAG_NONE</literal></term>
+<listitem><simpara>no value
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RATE_FLAG_NEGATIVE</literal></term>
+<listitem><simpara>indicates negative rates are supported
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-MASK-FUNCTION-CAPS"/>GST_EVENT_MASK_FUNCTION()</title>
+<programlisting>#define     GST_EVENT_MASK_FUNCTION(type,functionname, ...)</programlisting>
+<para>
+A convenience macro to create event mask functions
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>The type of the first argument of the function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>functionname</parameter>&nbsp;:</term>
+<listitem><simpara>the name of the function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>event masks, the last element is marked with 0
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstSeekType"/>enum GstSeekType</title>
+<programlisting>typedef enum {
+  /* | with some format */
+  /* | with one of these */
+  GST_SEEK_METHOD_CUR		= (1 &lt;&lt; (GST_SEEK_METHOD_SHIFT + 0)),
+  GST_SEEK_METHOD_SET		= (1 &lt;&lt; (GST_SEEK_METHOD_SHIFT + 1)),
+  GST_SEEK_METHOD_END		= (1 &lt;&lt; (GST_SEEK_METHOD_SHIFT + 2)),
+
+  /* | with optional seek flags */
+  /* seek flags */
+  GST_SEEK_FLAG_FLUSH		= (1 &lt;&lt; (GST_SEEK_FLAGS_SHIFT + 0)),
+  GST_SEEK_FLAG_ACCURATE	= (1 &lt;&lt; (GST_SEEK_FLAGS_SHIFT + 1)),
+  GST_SEEK_FLAG_KEY_UNIT	= (1 &lt;&lt; (GST_SEEK_FLAGS_SHIFT + 2)),
+  GST_SEEK_FLAG_SEGMENT_LOOP	= (1 &lt;&lt; (GST_SEEK_FLAGS_SHIFT + 3))
+	
+} GstSeekType;
+</programlisting>
+<para>
+The different types of seek events. When constructing a seek event a format,
+a seek method and optional flags are OR-ed together. The seek event is then
+inserted into the graph with #<link linkend="gst-pad-send-event">gst_pad_send_event</link>() or #<link linkend="gst-element-send-event">gst_element_send_event</link>().
+
+Following example illustrates how to insert a seek event (1 second in the stream)
+in a pipeline.
+<example>
+<title>Insertion of a seek event into a pipeline</title>
+  <programlisting>
+  gboolean res;
+  GstEvent *event;
+
+  event = gst_event_new_seek (
+            GST_FORMAT_TIME |		/* seek on time */
+	    GST_SEEK_METHOD_SET |	/* set the absolute position */
+	    GST_SEEK_FLAG_FLUSH,	/* flush any pending data */
+	    1 * GST_SECOND);		/* the seek offset (1 second) */
+
+  res = gst_element_send_event (GST_ELEMENT (osssink), event);
+  if (!res) {
+    g_warning ("seek failed");
+  }
+  </programlisting>
+</example>
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_SEEK_METHOD_CUR</literal></term>
+<listitem><simpara>Seek to an relative position
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_METHOD_SET</literal></term>
+<listitem><simpara>Seek to an absolute position
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_METHOD_END</literal></term>
+<listitem><simpara>Seek relative to the end of the stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_FLAG_FLUSH</literal></term>
+<listitem><simpara>Flush any pending data while seeking
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_FLAG_ACCURATE</literal></term>
+<listitem><simpara>Seek as accurately as possible
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_FLAG_KEY_UNIT</literal></term>
+<listitem><simpara>Seek to a nearby key unit
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_FLAG_SEGMENT_LOOP</literal></term>
+<listitem><simpara>Loop between start and stop in a segmented seek
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstSeekAccuracy"/>enum GstSeekAccuracy</title>
+<programlisting>typedef enum {
+  GST_SEEK_CERTAIN,
+  GST_SEEK_FUZZY
+} GstSeekAccuracy;
+</programlisting>
+<para>
+The accuracy about a seek operation gives more information of how the seek was
+performed, namly if the seek was accurate or fuzzy.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_SEEK_CERTAIN</literal></term>
+<listitem><simpara>The seek was exact
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_SEEK_FUZZY</literal></term>
+<listitem><simpara>The seek was fuzzy, exact position can not be guaranteed
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-TYPE-CAPS"/>GST_EVENT_SEEK_TYPE()</title>
+<programlisting>#define GST_EVENT_SEEK_TYPE(event)		(GST_EVENT(event)-&gt;event_data.seek.type)
+</programlisting>
+<para>
+Get the seektype of the GST_EVENT_SEEK.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-FORMAT-CAPS"/>GST_EVENT_SEEK_FORMAT()</title>
+<programlisting>#define GST_EVENT_SEEK_FORMAT(event)		(GST_EVENT_SEEK_TYPE(event) &amp; GST_SEEK_FORMAT_MASK)
+</programlisting>
+<para>
+The format of the seek value
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event operate on
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-METHOD-CAPS"/>GST_EVENT_SEEK_METHOD()</title>
+<programlisting>#define GST_EVENT_SEEK_METHOD(event)		(GST_EVENT_SEEK_TYPE(event) &amp; GST_SEEK_METHOD_MASK)
+</programlisting>
+<para>
+The seek method to use as one of <link linkend="GstSeekType">GstSeekType</link>
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event operate on
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-FLAGS-CAPS"/>GST_EVENT_SEEK_FLAGS()</title>
+<programlisting>#define GST_EVENT_SEEK_FLAGS(event)		(GST_EVENT_SEEK_TYPE(event) &amp; GST_SEEK_FLAGS_MASK)
+</programlisting>
+<para>
+The optional seek flags
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event operate on
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-OFFSET-CAPS"/>GST_EVENT_SEEK_OFFSET()</title>
+<programlisting>#define GST_EVENT_SEEK_OFFSET(event)		(GST_EVENT(event)-&gt;event_data.seek.offset)
+</programlisting>
+<para>
+Get the offset of the seek event.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-ENDOFFSET-CAPS"/>GST_EVENT_SEEK_ENDOFFSET()</title>
+<programlisting>#define GST_EVENT_SEEK_ENDOFFSET(event)		(GST_EVENT(event)-&gt;event_data.seek.endoffset)
+</programlisting>
+<para>
+The event stop position for a segment seek
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SEEK-ACCURACY-CAPS"/>GST_EVENT_SEEK_ACCURACY()</title>
+<programlisting>#define GST_EVENT_SEEK_ACCURACY(event)		(GST_EVENT(event)-&gt;event_data.seek.accuracy)
+</programlisting>
+<para>
+Indicates how accurate the event was performed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-DISCONT-OFFSET-CAPS"/>GST_EVENT_DISCONT_OFFSET()</title>
+<programlisting>#define GST_EVENT_DISCONT_OFFSET(event,i)	(GST_EVENT(event)-&gt;event_data.discont.offsets[i])
+</programlisting>
+<para>
+The offset of the discont event. A discont event can hold up to 8 different
+format/value pairs.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>i</parameter>&nbsp;:</term>
+<listitem><simpara>The offset/value pair.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-DISCONT-OFFSET-LEN-CAPS"/>GST_EVENT_DISCONT_OFFSET_LEN()</title>
+<programlisting>#define GST_EVENT_DISCONT_OFFSET_LEN(event)	(GST_EVENT(event)-&gt;event_data.discont.noffsets)
+</programlisting>
+<para>
+Get the number of offset/value pairs this event has.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SIZE-FORMAT-CAPS"/>GST_EVENT_SIZE_FORMAT()</title>
+<programlisting>#define GST_EVENT_SIZE_FORMAT(event)		(GST_EVENT(event)-&gt;event_data.size.format)
+</programlisting>
+<para>
+The format of the size event.
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-SIZE-VALUE-CAPS"/>GST_EVENT_SIZE_VALUE()</title>
+<programlisting>#define GST_EVENT_SIZE_VALUE(event)		(GST_EVENT(event)-&gt;event_data.size.value)
+</programlisting>
+<para>
+The value of the size event
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-EVENT-RATE-VALUE-CAPS"/>GST_EVENT_RATE_VALUE()</title>
+<programlisting>#define GST_EVENT_RATE_VALUE(event)		(GST_EVENT(event)-&gt;event_data.rate.value)
+</programlisting>
+<para>
+Get access to the rate vale field
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>The event to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new"/>gst_event_new ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new                   (<link linkend="GstEventType">GstEventType</link> type);</programlisting>
+<para>
+Allocate a new event of the given type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> The type of the new event
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-ref"/>gst_event_ref()</title>
+<programlisting>#define         gst_event_ref(ev)		GST_EVENT (gst_mini_object_ref (GST_MINI_OBJECT (ev)))
+</programlisting>
+<para>
+Increase the refcount of this event
+</para><variablelist role="params">
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>The event to refcount
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-unref"/>gst_event_unref()</title>
+<programlisting>#define         gst_event_unref(ev)		gst_mini_object_unref (GST_MINI_OBJECT (ev))
+</programlisting>
+<para>
+Decrease the refcount of an event, freeing it if the refcount reaches 0
+</para><variablelist role="params">
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>The event to unref
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-copy"/>gst_event_copy()</title>
+<programlisting>#define         gst_event_copy(ev)		GST_EVENT (gst_mini_object_copy (GST_MINI_OBJECT (ev)))
+</programlisting>
+<para>
+Copy the event using the event specific copy function
+</para><variablelist role="params">
+<varlistentry><term><parameter>ev</parameter>&nbsp;:</term>
+<listitem><simpara>The event to copy
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>A new event that is a copy of the given input event
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-masks-contains"/>gst_event_masks_contains ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_event_masks_contains        (const <link linkend="GstEventMask">GstEventMask</link> *masks,
+                                             <link linkend="GstEventMask">GstEventMask</link> *mask);</programlisting>
+<para>
+See if the given eventmask is inside the eventmask array.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>masks</parameter>&nbsp;:</term>
+<listitem><simpara> The eventmask array to search
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mask</parameter>&nbsp;:</term>
+<listitem><simpara> the event mask to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the eventmask is found inside the array
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-seek"/>gst_event_new_seek ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_seek              (<link linkend="GstSeekType">GstSeekType</link> type,
+                                             <link linkend="gint64">gint64</link> offset);</programlisting>
+<para>
+Allocate a new seek event with the given parameters.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> The type of the seek event
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara> The offset of the seek
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new seek event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-segment-seek"/>gst_event_new_segment_seek ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_segment_seek      (<link linkend="GstSeekType">GstSeekType</link> type,
+                                             <link linkend="gint64">gint64</link> start,
+                                             <link linkend="gint64">gint64</link> stop);</programlisting>
+<para>
+Allocate a new segment seek event with the given parameters.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> The type of the seek event
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&nbsp;:</term>
+<listitem><simpara> The start offset of the seek
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>stop</parameter>&nbsp;:</term>
+<listitem><simpara> The stop offset of the seek
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new segment seek event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-size"/>gst_event_new_size ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_size              (<link linkend="GstFormat">GstFormat</link> format,
+                                             <link linkend="gint64">gint64</link> value);</programlisting>
+<para>
+Create a new size event with the given values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara> The format of the size value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> The value of the size event
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The new size event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-discontinuous"/>gst_event_new_discontinuous ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_discontinuous     (<link linkend="gdouble">gdouble</link> rate,
+                                             <link linkend="GstFormat">GstFormat</link> format1,
+                                             ...);</programlisting>
+<para>
+Allocate a new discontinuous event with the given format/value pairs. Note
+that the values are of type gint64 - you may not use simple integers such
+as "0" when calling this function, always cast them like "(gint64) 0".
+Terminate the list with <link linkend="GST-FORMAT-UNDEFINED-CAPS">GST_FORMAT_UNDEFINED</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>rate</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format1</parameter>&nbsp;:</term>
+<listitem><simpara> The format of the discont value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> more discont values and formats
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new discontinuous event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-discontinuous-valist"/>gst_event_new_discontinuous_valist ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_discontinuous_valist
+                                            (<link linkend="gdouble">gdouble</link> rate,
+                                             <link linkend="GstFormat">GstFormat</link> format1,
+                                             va_list var_args);</programlisting>
+<para>
+Allocate a new discontinuous event with the given format/value pairs. Note
+that the values are of type gint64 - you may not use simple integers such
+as "0" when calling this function, always cast them like "(gint64) 0".
+Terminate the list with <link linkend="GST-FORMAT-UNDEFINED-CAPS">GST_FORMAT_UNDEFINED</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>rate</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format1</parameter>&nbsp;:</term>
+<listitem><simpara> The format of the discont value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var_args</parameter>&nbsp;:</term>
+<listitem><simpara> more discont values and formats
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new discontinuous event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-discont-get-value"/>gst_event_discont_get_value ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_event_discont_get_value     (<link linkend="GstEvent">GstEvent</link> *event,
+                                             <link linkend="GstFormat">GstFormat</link> format,
+                                             <link linkend="gint64">gint64</link> *start_value,
+                                             <link linkend="gint64">gint64</link> *end_value);</programlisting>
+<para>
+Get the value for the given format in the discontinous event.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara> The event to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara> The format of the discontinuous value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start_value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end_value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the discontinuous event carries the specified
+format/value pair.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-filler"/>gst_event_new_filler()</title>
+<programlisting>#define		gst_event_new_filler()		gst_event_new(GST_EVENT_FILLER)
+</programlisting>
+<para>
+Create a new dummy event that should be ignored
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-flush"/>gst_event_new_flush ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_flush             (<link linkend="gboolean">gboolean</link> done);</programlisting>
+<para>
+Allocate a new flush event.</para>
+<para>
+Create a new flush event.
+</para><variablelist role="params">
+<varlistentry><term><parameter>done</parameter>&nbsp;:</term>
+<listitem><simpara> Indicates the end of the flush
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new flush event.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstPad">GstPad</link>, <link linkend="GstElement">GstElement</link>
+</para>
+</refsect1>
+
+</refentry>

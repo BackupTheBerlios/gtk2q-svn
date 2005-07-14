@@ -1,0 +1,79 @@
+<refentry id="gstreamer-GstSystemClock">
+<refmeta>
+<refentrytitle>GstSystemClock</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstSystemClock</refname><refpurpose>Default clock that uses the current system time</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstSystemClock">GstSystemClock</link>;
+<link linkend="GstClock">GstClock</link>*   <link linkend="gst-system-clock-obtain">gst_system_clock_obtain</link>         (void);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The System clock is an implementation of GstClock using the
+system time.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstSystemClock"/>struct GstSystemClock</title>
+<programlisting>struct GstSystemClock {
+
+  GstClock 	 clock;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-system-clock-obtain"/>gst_system_clock_obtain ()</title>
+<programlisting><link linkend="GstClock">GstClock</link>*   gst_system_clock_obtain         (void);</programlisting>
+<para>
+Get a handle to the default system clock. The refcount of the
+clock will be increased so you need to unref the clock after 
+usage.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the default clock.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstClock">GstClock</link>
+</para>
+</refsect1>
+
+</refentry>

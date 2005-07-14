@@ -1,0 +1,50 @@
+<informaltable pgwide="1" frame="none">
+<tgroup cols="3">
+<colspec colwidth="1*"/>
+<colspec colwidth="1*"/>
+<colspec colwidth="1*"/>
+<tbody>
+<row>
+<entry><link linkend="GInterface">GInterface</link></entry>
+<entry><link linkend="GObject">GObject</link></entry>
+<entry><link linkend="GstBin">GstBin</link></entry>
+</row>
+<row>
+<entry><link linkend="GstClock">GstClock</link></entry>
+<entry><link linkend="GstElement">GstElement</link></entry>
+<entry><link linkend="GstElementFactory">GstElementFactory</link></entry>
+</row>
+<row>
+<entry><link linkend="GstGhostPad">GstGhostPad</link></entry>
+<entry><link linkend="GstImplementsInterface">GstImplementsInterface</link></entry>
+<entry><link linkend="GstIndex">GstIndex</link></entry>
+</row>
+<row>
+<entry><link linkend="GstIndexFactory">GstIndexFactory</link></entry>
+<entry><link linkend="GstObject">GstObject</link></entry>
+<entry><link linkend="GstPad">GstPad</link></entry>
+</row>
+<row>
+<entry><link linkend="GstPadTemplate">GstPadTemplate</link></entry>
+<entry><link linkend="GstPipeline">GstPipeline</link></entry>
+<entry><link linkend="GstPluginFeature">GstPluginFeature</link></entry>
+</row>
+<row>
+<entry><link linkend="GstProxyPad">GstProxyPad</link></entry>
+<entry><link linkend="GstQueue">GstQueue</link></entry>
+<entry><link linkend="GstRegistry">GstRegistry</link></entry>
+</row>
+<row>
+<entry><link linkend="GstScheduler">GstScheduler</link></entry>
+<entry><link linkend="GstSchedulerFactory">GstSchedulerFactory</link></entry>
+<entry><link linkend="GstSignalObject">GstSignalObject</link></entry>
+</row>
+<row>
+<entry><link linkend="GstTagSetter">GstTagSetter</link></entry>
+<entry><link linkend="GstTypeFindFactory">GstTypeFindFactory</link></entry>
+<entry><link linkend="GstURIHandler">GstURIHandler</link></entry>
+</row>
+<row>
+<entry><link linkend="GstXML">GstXML</link></entry>
+<entry><link linkend="GstXMLRegistry">GstXMLRegistry</link></entry>
+</tbody></tgroup></informaltable>

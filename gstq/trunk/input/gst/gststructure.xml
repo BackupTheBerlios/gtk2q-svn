@@ -1,0 +1,752 @@
+<refentry id="gstreamer-GstStructure">
+<refmeta>
+<refentrytitle>GstStructure</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstStructure</refname><refpurpose>Generic structure containing fields of names and values</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstStructure">GstStructure</link>;
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstStructureForeachFunc">*GstStructureForeachFunc</link>)      (<link linkend="GQuark">GQuark</link> field_id,
+                                             const <link linkend="GValue">GValue</link> *value,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-structure-empty-new">gst_structure_empty_new</link>       (const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-structure-id-empty-new">gst_structure_id_empty_new</link>    (<link linkend="GQuark">GQuark</link> quark);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-structure-new">gst_structure_new</link>             (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *firstfield,
+                                             ...);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-structure-new-valist">gst_structure_new_valist</link>      (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *firstfield,
+                                             va_list varargs);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-structure-copy">gst_structure_copy</link>            (const <link linkend="GstStructure">GstStructure</link> *structure);
+void        <link linkend="gst-structure-free">gst_structure_free</link>              (<link linkend="GstStructure">GstStructure</link> *structure);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-structure-get-name">gst_structure_get_name</link>
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure);
+void        <link linkend="gst-structure-set-name">gst_structure_set_name</link>          (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GQuark">GQuark</link>      <link linkend="gst-structure-get-name-id">gst_structure_get_name_id</link>       (const <link linkend="GstStructure">GstStructure</link> *structure);
+G_CONST_RETURN <link linkend="GValue">GValue</link>* <link linkend="gst-structure-id-get-value">gst_structure_id_get_value</link>
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             <link linkend="GQuark">GQuark</link> field);
+void        <link linkend="gst-structure-id-set-value">gst_structure_id_set_value</link>      (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             <link linkend="GQuark">GQuark</link> field,
+                                             const <link linkend="GValue">GValue</link> *value);
+G_CONST_RETURN <link linkend="GValue">GValue</link>* <link linkend="gst-structure-get-value">gst_structure_get_value</link>
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);
+void        <link linkend="gst-structure-set-value">gst_structure_set_value</link>         (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             const <link linkend="GValue">GValue</link> *value);
+void        <link linkend="gst-structure-set">gst_structure_set</link>               (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             ...);
+void        <link linkend="gst-structure-set-valist">gst_structure_set_valist</link>        (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             va_list varargs);
+void        <link linkend="gst-structure-remove-field">gst_structure_remove_field</link>      (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);
+void        <link linkend="gst-structure-remove-fields">gst_structure_remove_fields</link>     (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             ...);
+void        <link linkend="gst-structure-remove-fields-valist">gst_structure_remove_fields_valist</link>
+                                            (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             va_list varargs);
+void        <link linkend="gst-structure-remove-all-fields">gst_structure_remove_all_fields</link> (<link linkend="GstStructure">GstStructure</link> *structure);
+<link linkend="GType">GType</link>       <link linkend="gst-structure-get-field-type">gst_structure_get_field_type</link>    (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-foreach">gst_structure_foreach</link>           (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             <link linkend="GstStructureForeachFunc">GstStructureForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="gint">gint</link>        <link linkend="gst-structure-n-fields">gst_structure_n_fields</link>          (const <link linkend="GstStructure">GstStructure</link> *structure);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-has-field">gst_structure_has_field</link>         (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-has-field-typed">gst_structure_has_field_typed</link>   (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="GType">GType</link> type);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-get-boolean">gst_structure_get_boolean</link>       (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="gboolean">gboolean</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-get-int">gst_structure_get_int</link>           (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="gint">gint</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-get-fourcc">gst_structure_get_fourcc</link>        (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="guint32">guint32</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-structure-get-double">gst_structure_get_double</link>        (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="gdouble">gdouble</link> *value);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-structure-get-string">gst_structure_get_string</link>
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-structure-to-string">gst_structure_to_string</link>         (const <link linkend="GstStructure">GstStructure</link> *structure);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-structure-from-string">gst_structure_from_string</link>     (const <link linkend="gchar">gchar</link> *string,
+                                             <link linkend="gchar">gchar</link> **end);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstStructure"/>struct GstStructure</title>
+<programlisting>struct GstStructure {
+
+  GType type;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstStructureForeachFunc"/>GstStructureForeachFunc ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstStructureForeachFunc)      (<link linkend="GQuark">GQuark</link> field_id,
+                                             const <link linkend="GValue">GValue</link> *value,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>field_id</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-empty-new"/>gst_structure_empty_new ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_structure_empty_new       (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Creates a new, empty <link linkend="GstStructure">GstStructure</link> with the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new, empty <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-id-empty-new"/>gst_structure_id_empty_new ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_structure_id_empty_new    (<link linkend="GQuark">GQuark</link> quark);</programlisting>
+<para>
+Creates a new, empty <link linkend="GstStructure">GstStructure</link> with the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>quark</parameter>&nbsp;:</term>
+<listitem><simpara> name of new structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new, empty <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-new"/>gst_structure_new ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_structure_new             (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *firstfield,
+                                             ...);</programlisting>
+<para>
+Creates a new <link linkend="GstStructure">GstStructure</link> with the given name.  Parses the
+list of variable arguments and sets fields to the values listed.
+Variable arguments should be passed as field name, field type,
+and value.  Last variable argument should be NULL.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>firstfield</parameter>&nbsp;:</term>
+<listitem><simpara> name of first field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> additional arguments
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-new-valist"/>gst_structure_new_valist ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_structure_new_valist      (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *firstfield,
+                                             va_list varargs);</programlisting>
+<para>
+Creates a new <link linkend="GstStructure">GstStructure</link> with the given name.  Structure fields
+are set according to the varargs in a manner similar to
+<parameter>gst_structure_new</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>firstfield</parameter>&nbsp;:</term>
+<listitem><simpara> name of first field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>varargs</parameter>&nbsp;:</term>
+<listitem><simpara> variable argument list
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-copy"/>gst_structure_copy ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_structure_copy            (const <link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Duplicates a <link linkend="GstStructure">GstStructure</link> and all its fields and values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link> to duplicate
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstStructure">GstStructure</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-free"/>gst_structure_free ()</title>
+<programlisting>void        gst_structure_free              (<link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Frees a <link linkend="GstStructure">GstStructure</link> and all its fields and values. The structure must not
+have a parent when this function is called.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstStructure">GstStructure</link> to free
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-name"/>gst_structure_get_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_structure_get_name
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Accessor fuction.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the quark representing the name of the structure.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-set-name"/>gst_structure_set_name ()</title>
+<programlisting>void        gst_structure_set_name          (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Sets the name of the structure to the given name.  The string
+provided is copied before being used.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the new name of the structure
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-name-id"/>gst_structure_get_name_id ()</title>
+<programlisting><link linkend="GQuark">GQuark</link>      gst_structure_get_name_id       (const <link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-id-get-value"/>gst_structure_id_get_value ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GValue">GValue</link>* gst_structure_id_get_value
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             <link linkend="GQuark">GQuark</link> field);</programlisting>
+<para>
+Accessor function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GQuark">GQuark</link> of the field to get
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GValue">GValue</link> corresponding to the field with the given name 
+         identifier.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-id-set-value"/>gst_structure_id_set_value ()</title>
+<programlisting>void        gst_structure_id_set_value      (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             <link linkend="GQuark">GQuark</link> field,
+                                             const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Sets the field with the given ID to the provided value.  If the field
+does not exist, it is created.  If the field exists, the previous
+value is freed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GQuark">GQuark</link> representing a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> the new value of the field
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-value"/>gst_structure_get_value ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GValue">GValue</link>* gst_structure_get_value
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);</programlisting>
+<para>
+Accessor function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to get
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GValue">GValue</link> corresponding to the field with the given name.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-set-value"/>gst_structure_set_value ()</title>
+<programlisting>void        gst_structure_set_value         (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Sets the field with the given name to the provided value.  If the field
+does not exist, it is created.  If the field exists, the previous
+value is freed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> the new value of the field
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-set"/>gst_structure_set ()</title>
+<programlisting>void        gst_structure_set               (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             ...);</programlisting>
+<para>
+Parses the variable arguments and sets fields accordingly.
+Variable arguments should be in the form field name, field type
+(as a GType), value.  The last variable argument should be NULL.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> variable arguments
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-set-valist"/>gst_structure_set_valist ()</title>
+<programlisting>void        gst_structure_set_valist        (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             va_list varargs);</programlisting>
+<para>
+va_list form of <link linkend="gst-structure-set">gst_structure_set</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>varargs</parameter>&nbsp;:</term>
+<listitem><simpara> variable arguments
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-remove-field"/>gst_structure_remove_field ()</title>
+<programlisting>void        gst_structure_remove_field      (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);</programlisting>
+<para>
+Removes the field with the given name.  If the field with the given
+name does not exist, the structure is unchanged.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-remove-fields"/>gst_structure_remove_fields ()</title>
+<programlisting>void        gst_structure_remove_fields     (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             ...);</programlisting>
+<para>
+Removes the field with the given names. If a field does not exist, the
+argument is ignored.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to remove
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> NULL-terminated list of more fieldnames to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-remove-fields-valist"/>gst_structure_remove_fields_valist ()</title>
+<programlisting>void        gst_structure_remove_fields_valist
+                                            (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             va_list varargs);</programlisting>
+<para>
+Removes the field with the given names. If a field does not exist, the
+argument is ignored.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field to remove
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>varargs</parameter>&nbsp;:</term>
+<listitem><simpara> NULL-terminated list of more fieldnames to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-remove-all-fields"/>gst_structure_remove_all_fields ()</title>
+<programlisting>void        gst_structure_remove_all_fields (<link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Removes all fields in a GstStructure.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-field-type"/>gst_structure_get_field_type ()</title>
+<programlisting><link linkend="GType">GType</link>       gst_structure_get_field_type    (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);</programlisting>
+<para>
+Finds the field with the given name, and returns the type of the
+value it contains.  If the field is not found, G_TYPE_INVALID is
+returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the field
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GValue">GValue</link> of the field
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-foreach"/>gst_structure_foreach ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_foreach           (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             <link linkend="GstStructureForeachFunc">GstStructureForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Calls the provided function once for each field in the <link linkend="GstStructure">GstStructure</link>. The
+function must not modify the fields. Also see <link linkend="gst-structure-map-in-place">gst_structure_map_in_place</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> a function to call for each field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> private data
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the supplied function returns TRUE For each of the fields,
+FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-n-fields"/>gst_structure_n_fields ()</title>
+<programlisting><link linkend="gint">gint</link>        gst_structure_n_fields          (const <link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Accessor function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the number of fields in the structure
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-has-field"/>gst_structure_has_field ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_has_field         (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);</programlisting>
+<para>
+Accessor function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the structure contains a field with the given name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-has-field-typed"/>gst_structure_has_field_typed ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_has_field_typed   (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Accessor function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the type of a value
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the structure contains a field with the given name and type
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-boolean"/>gst_structure_get_boolean ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_get_boolean       (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="gboolean">gboolean</link> *value);</programlisting>
+<para>
+Sets the boolean pointed to by <parameter>value</parameter> corresponding to the value of the
+given field.  Caller is responsible for making sure the field exists
+and has the correct type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to a <link linkend="gboolean">gboolean</link> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the value could be set correctly
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-int"/>gst_structure_get_int ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_get_int           (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="gint">gint</link> *value);</programlisting>
+<para>
+Sets the int pointed to by <parameter>value</parameter> corresponding to the value of the
+given field.  Caller is responsible for making sure the field exists
+and has the correct type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to an int to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the value could be set correctly
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-fourcc"/>gst_structure_get_fourcc ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_get_fourcc        (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="guint32">guint32</link> *value);</programlisting>
+<para>
+Sets the <link linkend="GstFourcc">GstFourcc</link> pointed to by <parameter>value</parameter> corresponding to the value of the
+given field.  Caller is responsible for making sure the field exists
+and has the correct type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to a <link linkend="GstFourcc">GstFourcc</link> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the value could be set correctly
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-double"/>gst_structure_get_double ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_structure_get_double        (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname,
+                                             <link linkend="gdouble">gdouble</link> *value);</programlisting>
+<para>
+Sets the double pointed to by <parameter>value</parameter> corresponding to the value of the
+given field.  Caller is responsible for making sure the field exists
+and has the correct type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to a <link linkend="GstFourcc">GstFourcc</link> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the value could be set correctly
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-get-string"/>gst_structure_get_string ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_structure_get_string
+                                            (const <link linkend="GstStructure">GstStructure</link> *structure,
+                                             const <link linkend="gchar">gchar</link> *fieldname);</programlisting>
+<para>
+Finds the field corresponding to <parameter>fieldname</parameter>, and returns the string
+contained in the field's value.  Caller is responsible for making
+sure the field exists and has the correct type.
+</para>
+<para>
+The string should not be modified, and remains valid until the next
+call to a gst_structure_*() function with the given structure.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of a field
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to the string
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-to-string"/>gst_structure_to_string ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_structure_to_string         (const <link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Converts <parameter>structure</parameter> to a human-readable representation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to string allocated by <link linkend="g-malloc">g_malloc</link>()
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-structure-from-string"/>gst_structure_from_string ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_structure_from_string     (const <link linkend="gchar">gchar</link> *string,
+                                             <link linkend="gchar">gchar</link> **end);</programlisting>
+<para>
+Creates a <link linkend="GstStructure">GstStructure</link> from a string representation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> a string representation of a <link linkend="GstStructure">GstStructure</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&nbsp;:</term>
+<listitem><simpara> FIXME, deduce from code
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

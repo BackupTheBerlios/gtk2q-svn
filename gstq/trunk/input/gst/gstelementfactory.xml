@@ -1,0 +1,337 @@
+<refentry id="GstElementFactory">
+<refmeta>
+<refentrytitle>GstElementFactory</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstElementFactory</refname><refpurpose>Create GstElements from a factory</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstElementFactory-struct">GstElementFactory</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-register">gst_element_register</link>            (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="guint">guint</link> rank,
+                                             <link linkend="GType">GType</link> type);
+<link linkend="GstElementFactory">GstElementFactory</link>* <link linkend="gst-element-factory-find">gst_element_factory_find</link> (const <link linkend="gchar">gchar</link> *name);
+<link linkend="GType">GType</link>       <link linkend="gst-element-factory-get-element-type">gst_element_factory_get_element_type</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-element-factory-get-longname">gst_element_factory_get_longname</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-element-factory-get-klass">gst_element_factory_get_klass</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-element-factory-get-description">gst_element_factory_get_description</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-element-factory-get-author">gst_element_factory_get_author</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+<link linkend="guint">guint</link>       <link linkend="gst-element-factory-get-num-pad-templates">gst_element_factory_get_num_pad_templates</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+<link linkend="guint">guint</link>       <link linkend="gst-element-factory-get-uri-type">gst_element_factory_get_uri_type</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+<link linkend="gchar">gchar</link>**     <link linkend="gst-element-factory-get-uri-protocols">gst_element_factory_get_uri_protocols</link>
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-element-factory-create">gst_element_factory_create</link>      (<link linkend="GstElementFactory">GstElementFactory</link> *factory,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-element-factory-make">gst_element_factory_make</link>        (const <link linkend="gchar">gchar</link> *factoryname,
+                                             const <link linkend="gchar">gchar</link> *name);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstPluginFeature">GstPluginFeature</link>
+         +----GstElementFactory
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstElementFactory is used to create instances of elements. A GstElementfactory
+can be added to a <link linkend="GstPlugin">GstPlugin</link> as it is also a <link linkend="GstPluginFeature">GstPluginFeature</link>.
+</para>
+<para>
+Use <link linkend="gst-element-factory-new">gst_element_factory_new</link>() to create a new factory which can be added to a plugin 
+with <link linkend="gst-plugin-add-feature">gst_plugin_add_feature</link>().
+</para>
+<para>
+<link linkend="gst-element-factory-add-pad-template">gst_element_factory_add_pad_template</link>() is used to add a padtemplate to the factory.
+This function will enable the application to query for elementfactories that handle
+a specific media type.
+</para>
+<para>
+Use the <link linkend="gst-element-factory-find">gst_element_factory_find</link>() and <link linkend="gst-element-factory-create">gst_element_factory_create</link>() functions
+to create element instances or use <link linkend="gst-element-factory-make">gst_element_factory_make</link>() as a convenient 
+shortcut.
+</para>
+<para>
+The following code example shows you how to create a GstFileSrc element.
+</para>
+
+<para>
+  <programlisting role="C">
+  <link linkend="include">include</link> &lt;gst/gst.h&gt;
+
+  GstElement *src;
+  GstElementFactory *srcfactory;
+
+  gst_init(&amp;argc,&amp;argv);
+
+  srcfactory = gst_element_factory_find("filesrc");
+  g_return_if_fail(srcfactory != NULL);
+
+  src = gst_element_factory_create(srcfactory,"src");
+  g_return_if_fail(src != NULL);
+  ...
+  </programlisting>
+</para>
+<para>
+An elementfactory can be assigned a rank with <link linkend="gst-element-factory-set-rank">gst_element_factory_set_rank</link>() 
+so that the autopluggers can select a plugin more appropriatly
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstElementFactory-struct"/>struct GstElementFactory</title>
+<programlisting>struct GstElementFactory;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-element-register"/>gst_element_register ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_register            (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="guint">guint</link> rank,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Create a new elementfactory capable of instantiating objects of the
+given type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstPlugin">GstPlugin</link> to register the element with
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of elements of this type
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rank</parameter>&nbsp;:</term>
+<listitem><simpara> rank of element (higher rank means more importance when autoplugging)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> GType of element to register
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the registering succeeded, FALSE on error
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-find"/>gst_element_factory_find ()</title>
+<programlisting><link linkend="GstElementFactory">GstElementFactory</link>* gst_element_factory_find (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Search for an element factory of the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of factory to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <link linkend="GstElementFactory">GstElementFactory</link> if found, NULL otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-element-type"/>gst_element_factory_get_element_type ()</title>
+<programlisting><link linkend="GType">GType</link>       gst_element_factory_get_element_type
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Get the <link linkend="GType">GType</link> for elements managed by this factory</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> factory to get managed <link linkend="GType">GType</link> from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GType">GType</link> for elements managed by this factory
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-longname"/>gst_element_factory_get_longname ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_element_factory_get_longname
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Gets the longname for this factory</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementFactory">GstElementFactory</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the longname
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-klass"/>gst_element_factory_get_klass ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_element_factory_get_klass
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-description"/>gst_element_factory_get_description ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_element_factory_get_description
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Gets the description for this factory.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementFactory">GstElementFactory</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the description
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-author"/>gst_element_factory_get_author ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_element_factory_get_author
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Gets the author for this factory.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementFactory">GstElementFactory</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the author
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-num-pad-templates"/>gst_element_factory_get_num_pad_templates ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_element_factory_get_num_pad_templates
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Gets the number of pad_templates in this factory.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementFactory">GstElementFactory</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the number of pad_templates
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-uri-type"/>gst_element_factory_get_uri_type ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_element_factory_get_uri_type
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Gets the type of URIs the element supports or GST_URI_UNKNOWN if none.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementFactory">GstElementFactory</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> type of URIs this element supports
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-get-uri-protocols"/>gst_element_factory_get_uri_protocols ()</title>
+<programlisting><link linkend="gchar">gchar</link>**     gst_element_factory_get_uri_protocols
+                                            (<link linkend="GstElementFactory">GstElementFactory</link> *factory);</programlisting>
+<para>
+Gets a NULL-terminated array of protocols this element supports or NULL, if
+no protocols are supported. You may not change the contents of the returned
+array as it is still ownt by the element factory. Use <link linkend="g-strdupv">g_strdupv</link>() if you want to.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementFactory">GstElementFactory</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the supported protocols or NULL
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-create"/>gst_element_factory_create ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_element_factory_create      (<link linkend="GstElementFactory">GstElementFactory</link> *factory,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Create a new element of the type defined by the given elementfactory.
+It will be given the name supplied, since all elements require a name as
+their first argument.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> factory to instantiate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new element
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> new <link linkend="GstElement">GstElement</link> or NULL if the element couldn't be created
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-factory-make"/>gst_element_factory_make ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_element_factory_make        (const <link linkend="gchar">gchar</link> *factoryname,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Create a new element of the type defined by the given element factory.
+If name is NULL, then the element will receive a guaranteed unique name,
+consisting of the element factory name and a number.
+If name is given, it will be given the name supplied.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factoryname</parameter>&nbsp;:</term>
+<listitem><simpara> a named factory to instantiate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new element
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> new <link linkend="GstElement">GstElement</link> or NULL if unable to create element
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstElement">GstElement</link>, <link linkend="GstPlugin">GstPlugin</link>, <link linkend="GstPluginFeature">GstPluginFeature</link>, <link linkend="GstPadTemplate">GstPadTemplate</link>.
+</para>
+</refsect1>
+
+</refentry>

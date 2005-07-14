@@ -1,0 +1,153 @@
+<refentry id="GstIndexFactory">
+<refmeta>
+<refentrytitle>GstIndexFactory</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstIndexFactory</refname><refpurpose>Create GstIndexes from a factory</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstIndexFactory-struct">GstIndexFactory</link>;
+<link linkend="GstIndexFactory">GstIndexFactory</link>* <link linkend="gst-index-factory-new">gst_index_factory_new</link>      (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *longdesc,
+                                             <link linkend="GType">GType</link> type);
+void        <link linkend="gst-index-factory-destroy">gst_index_factory_destroy</link>       (<link linkend="GstIndexFactory">GstIndexFactory</link> *factory);
+<link linkend="GstIndexFactory">GstIndexFactory</link>* <link linkend="gst-index-factory-find">gst_index_factory_find</link>     (const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstIndex">GstIndex</link>*   <link linkend="gst-index-factory-create">gst_index_factory_create</link>        (<link linkend="GstIndexFactory">GstIndexFactory</link> *factory);
+<link linkend="GstIndex">GstIndex</link>*   <link linkend="gst-index-factory-make">gst_index_factory_make</link>          (const <link linkend="gchar">gchar</link> *name);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstPluginFeature">GstPluginFeature</link>
+         +----GstIndexFactory
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstIndexFactory is used to dynamically create GstIndex implementations.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstIndexFactory-struct"/>struct GstIndexFactory</title>
+<programlisting>struct GstIndexFactory;</programlisting>
+<para>
+The GstIndexFactory object
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-index-factory-new"/>gst_index_factory_new ()</title>
+<programlisting><link linkend="GstIndexFactory">GstIndexFactory</link>* gst_index_factory_new      (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *longdesc,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Create a new indexfactory with the given parameters</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of indexfactory to create
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>longdesc</parameter>&nbsp;:</term>
+<listitem><simpara> long description of indexfactory to create
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the GType of the GstIndex element of this factory
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstIndexFactory">GstIndexFactory</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-index-factory-destroy"/>gst_index_factory_destroy ()</title>
+<programlisting>void        gst_index_factory_destroy       (<link linkend="GstIndexFactory">GstIndexFactory</link> *factory);</programlisting>
+<para>
+Removes the index from the global list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> factory to destroy
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-index-factory-find"/>gst_index_factory_find ()</title>
+<programlisting><link linkend="GstIndexFactory">GstIndexFactory</link>* gst_index_factory_find     (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Search for an indexfactory of the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of indexfactory to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <link linkend="GstIndexFactory">GstIndexFactory</link> if found, NULL otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-index-factory-create"/>gst_index_factory_create ()</title>
+<programlisting><link linkend="GstIndex">GstIndex</link>*   gst_index_factory_create        (<link linkend="GstIndexFactory">GstIndexFactory</link> *factory);</programlisting>
+<para>
+Create a new <link linkend="GstIndex">GstIndex</link> instance from the 
+given indexfactory.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> the factory used to create the instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new <link linkend="GstIndex">GstIndex</link> instance.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-index-factory-make"/>gst_index_factory_make ()</title>
+<programlisting><link linkend="GstIndex">GstIndex</link>*   gst_index_factory_make          (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Create a new <link linkend="GstIndex">GstIndex</link> instance from the 
+indexfactory with the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the factory used to create the instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new <link linkend="GstIndex">GstIndex</link> instance.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstIndex">GstIndex</link>
+</para>
+</refsect1>
+
+</refentry>

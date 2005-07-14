@@ -1,0 +1,243 @@
+<refentry id="GstSchedulerFactory">
+<refmeta>
+<refentrytitle>GstSchedulerFactory</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstSchedulerFactory</refname><refpurpose>Create schedulers from a factory</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstSchedulerFactory-struct">GstSchedulerFactory</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-scheduler-register">gst_scheduler_register</link>          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *longdesc,
+                                             <link linkend="GType">GType</link> type);
+<link linkend="GstSchedulerFactory">GstSchedulerFactory</link>* <link linkend="gst-scheduler-factory-new">gst_scheduler_factory_new</link>
+                                            (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *longdesc,
+                                             <link linkend="GType">GType</link> type);
+void        <link linkend="gst-scheduler-factory-destroy">gst_scheduler_factory_destroy</link>   (<link linkend="GstSchedulerFactory">GstSchedulerFactory</link> *factory);
+<link linkend="GstSchedulerFactory">GstSchedulerFactory</link>* <link linkend="gst-scheduler-factory-find">gst_scheduler_factory_find</link>
+                                            (const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstScheduler">GstScheduler</link>* <link linkend="gst-scheduler-factory-create">gst_scheduler_factory_create</link>  (<link linkend="GstSchedulerFactory">GstSchedulerFactory</link> *factory,
+                                             <link linkend="GstElement">GstElement</link> *parent);
+<link linkend="GstScheduler">GstScheduler</link>* <link linkend="gst-scheduler-factory-make">gst_scheduler_factory_make</link>    (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstElement">GstElement</link> *parent);
+void        <link linkend="gst-scheduler-factory-set-default-name">gst_scheduler_factory_set_default_name</link>
+                                            (const <link linkend="gchar">gchar</link> *name);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-scheduler-factory-get-default-name">gst_scheduler_factory_get_default_name</link>
+                                            (void);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstPluginFeature">GstPluginFeature</link>
+         +----GstSchedulerFactory
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A schedulerfactory is used to create instances of a scheduler. It
+can be added to a <link linkend="GstPlugin">GstPlugin</link> as it extends <link linkend="GstPluginFeature">GstPluginFeature</link>.
+</para>
+<para>
+Use <link linkend="gst-scheduler-factory-new">gst_scheduler_factory_new</link>() to create a new scheduler which can be registered
+to a plugin with <link linkend="gst-plugin-add-feature">gst_plugin_add_feature</link>().
+</para>
+<para>
+Use <link linkend="gst-scheduler-factory-find">gst_scheduler_factory_find</link>() to find the named schedulerfactory.
+or use <link linkend="gst-scheduler-factory-get-list">gst_scheduler_factory_get_list</link>() to get a  list of all available schedulers.
+</para>
+<para>
+Once an schedulerfactory has been obtained use <link linkend="gst-scheduler-factory-create">gst_scheduler_factory_create</link>() to
+instantiate a real scheduler. Optionally <link linkend="gst-scheduler-factory-make">gst_scheduler_factory_make</link>() to create
+a scheduler from the named factory.
+</para>
+<para>
+Use <link linkend="gst-scheduler-factory-destroy">gst_scheduler_factory_destroy</link>() to remove the factory from the global list.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstSchedulerFactory-struct"/>struct GstSchedulerFactory</title>
+<programlisting>struct GstSchedulerFactory;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-register"/>gst_scheduler_register ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_scheduler_register          (<link linkend="GstPlugin">GstPlugin</link> *plugin,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *longdesc,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Registers a scheduler with GStreamer.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPlugin">GstPlugin</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of the scheduler to register
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>longdesc</parameter>&nbsp;:</term>
+<listitem><simpara> description of the scheduler
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GType">GType</link> of the scheduler to register
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the registering succeeded, FALSE on error.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.8.5
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-new"/>gst_scheduler_factory_new ()</title>
+<programlisting><link linkend="GstSchedulerFactory">GstSchedulerFactory</link>* gst_scheduler_factory_new
+                                            (const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *longdesc,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Create a new schedulerfactory with the given parameters</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of schedulerfactory to create
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>longdesc</parameter>&nbsp;:</term>
+<listitem><simpara> long description of schedulerfactory to create
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the gtk type of the GstScheduler element of this factory
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstSchedulerFactory">GstSchedulerFactory</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-destroy"/>gst_scheduler_factory_destroy ()</title>
+<programlisting>void        gst_scheduler_factory_destroy   (<link linkend="GstSchedulerFactory">GstSchedulerFactory</link> *factory);</programlisting>
+<para>
+Removes the scheduler from the global list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> factory to destroy
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-find"/>gst_scheduler_factory_find ()</title>
+<programlisting><link linkend="GstSchedulerFactory">GstSchedulerFactory</link>* gst_scheduler_factory_find
+                                            (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Search for an schedulerfactory of the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of schedulerfactory to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> <link linkend="GstSchedulerFactory">GstSchedulerFactory</link> if found, NULL otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-create"/>gst_scheduler_factory_create ()</title>
+<programlisting><link linkend="GstScheduler">GstScheduler</link>* gst_scheduler_factory_create  (<link linkend="GstSchedulerFactory">GstSchedulerFactory</link> *factory,
+                                             <link linkend="GstElement">GstElement</link> *parent);</programlisting>
+<para>
+Create a new <link linkend="GstScheduler">GstScheduler</link> instance from the 
+given schedulerfactory with the given parent. <parameter>parent</parameter> will
+have its scheduler set to the returned <link linkend="GstScheduler">GstScheduler</link> instance.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>factory</parameter>&nbsp;:</term>
+<listitem><simpara> the factory used to create the instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> the parent element of this scheduler
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new <link linkend="GstScheduler">GstScheduler</link> instance with a reference count of <literal>1</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-make"/>gst_scheduler_factory_make ()</title>
+<programlisting><link linkend="GstScheduler">GstScheduler</link>* gst_scheduler_factory_make    (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstElement">GstElement</link> *parent);</programlisting>
+<para>
+Create a new <link linkend="GstScheduler">GstScheduler</link> instance from the 
+schedulerfactory with the given name and parent. <parameter>parent</parameter> will
+have its scheduler set to the returned <link linkend="GstScheduler">GstScheduler</link> instance.
+If <literal>NULL</literal> is passed as <parameter>name</parameter>, the default scheduler name will
+be used.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the factory used to create the instance
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> the parent element of this scheduler
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new <link linkend="GstScheduler">GstScheduler</link> instance with a reference count of <literal>1</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-set-default-name"/>gst_scheduler_factory_set_default_name ()</title>
+<programlisting>void        gst_scheduler_factory_set_default_name
+                                            (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Set the default schedulerfactory name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the factory used as a default
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-factory-get-default-name"/>gst_scheduler_factory_get_default_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_scheduler_factory_get_default_name
+                                            (void);</programlisting>
+<para>
+Get the default schedulerfactory name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the name of the default scheduler.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,1481 @@
+<refentry id="GstElement">
+<refmeta>
+<refentrytitle>GstElement</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstElement</refname><refpurpose>Abstract base class for all pipeline elements</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstElement-struct">GstElement</link>;
+#define     <link linkend="GST-NUM-STATES-CAPS">GST_NUM_STATES</link>
+#define     <link linkend="GST-STATE-CAPS">GST_STATE</link>                       (obj)
+#define     <link linkend="GST-STATE-PENDING-CAPS">GST_STATE_PENDING</link>               (obj)
+#define     <link linkend="GST-STATE-TRANSITION-CAPS">GST_STATE_TRANSITION</link>            (obj)
+#define     <link linkend="GST-STATE-NULL-TO-READY-CAPS">GST_STATE_NULL_TO_READY</link>
+#define     <link linkend="GST-STATE-READY-TO-PAUSED-CAPS">GST_STATE_READY_TO_PAUSED</link>
+#define     <link linkend="GST-STATE-PAUSED-TO-PLAYING-CAPS">GST_STATE_PAUSED_TO_PLAYING</link>
+#define     <link linkend="GST-STATE-PLAYING-TO-PAUSED-CAPS">GST_STATE_PLAYING_TO_PAUSED</link>
+#define     <link linkend="GST-STATE-PAUSED-TO-READY-CAPS">GST_STATE_PAUSED_TO_READY</link>
+#define     <link linkend="GST-STATE-READY-TO-NULL-CAPS">GST_STATE_READY_TO_NULL</link>
+#define     <link linkend="GST-ELEMENT-QUERY-TYPE-FUNCTION-CAPS">GST_ELEMENT_QUERY_TYPE_FUNCTION</link> (functionname, ...)
+#define     <link linkend="GST-ELEMENT-FORMATS-FUNCTION-CAPS">GST_ELEMENT_FORMATS_FUNCTION</link>    (functionname, ...)
+#define     <link linkend="GST-ELEMENT-EVENT-MASK-FUNCTION-CAPS">GST_ELEMENT_EVENT_MASK_FUNCTION</link> (functionname, ...)
+enum        <link linkend="GstElementFlags">GstElementFlags</link>;
+#define     <link linkend="GST-ELEMENT-NAME-CAPS">GST_ELEMENT_NAME</link>                (obj)
+#define     <link linkend="GST-ELEMENT-PARENT-CAPS">GST_ELEMENT_PARENT</link>              (obj)
+#define     <link linkend="GST-ELEMENT-CLOCK-CAPS">GST_ELEMENT_CLOCK</link>               (obj)
+#define     <link linkend="GST-ELEMENT-PADS-CAPS">GST_ELEMENT_PADS</link>                (obj)
+#define     <link linkend="GST-ELEMENT-ERROR-CAPS">GST_ELEMENT_ERROR</link>               (el, domain, code, text, debug)
+void        <link linkend="gst-element-class-add-pad-template">gst_element_class_add_pad_template</link>
+                                            (<link linkend="GstElementClass">GstElementClass</link> *klass,
+                                             <link linkend="GstPadTemplate">GstPadTemplate</link> *templ);
+void        <link linkend="gst-element-class-install-std-props">gst_element_class_install_std_props</link>
+                                            (<link linkend="GstElementClass">GstElementClass</link> *klass,
+                                             const <link linkend="gchar">gchar</link> *first_name,
+                                             ...);
+void        <link linkend="gst-element-class-set-details">gst_element_class_set_details</link>   (<link linkend="GstElementClass">GstElementClass</link> *klass,
+                                             const <link linkend="GstElementDetails">GstElementDetails</link> *details);
+#define     <link linkend="gst-element-get-name">gst_element_get_name</link>            (elem)
+#define     <link linkend="gst-element-set-name">gst_element_set_name</link>            (elem,name)
+#define     <link linkend="gst-element-get-parent">gst_element_get_parent</link>          (elem)
+#define     <link linkend="gst-element-set-parent">gst_element_set_parent</link>          (elem,parent)
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-requires-clock">gst_element_requires_clock</link>      (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-provides-clock">gst_element_provides_clock</link>      (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="GstClock">GstClock</link>*   <link linkend="gst-element-get-clock">gst_element_get_clock</link>           (<link linkend="GstElement">GstElement</link> *element);
+void        <link linkend="gst-element-set-clock">gst_element_set_clock</link>           (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstClock">GstClock</link> *clock);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-is-indexable">gst_element_is_indexable</link>        (<link linkend="GstElement">GstElement</link> *element);
+void        <link linkend="gst-element-set-index">gst_element_set_index</link>           (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstIndex">GstIndex</link> *index);
+<link linkend="GstIndex">GstIndex</link>*   <link linkend="gst-element-get-index">gst_element_get_index</link>           (<link linkend="GstElement">GstElement</link> *element);
+void        <link linkend="gst-element-set-scheduler">gst_element_set_scheduler</link>       (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstScheduler">GstScheduler</link> *sched);
+<link linkend="GstScheduler">GstScheduler</link>* <link linkend="gst-element-get-scheduler">gst_element_get_scheduler</link>     (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-add-pad">gst_element_add_pad</link>             (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-remove-pad">gst_element_remove_pad</link>          (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-element-get-pad">gst_element_get_pad</link>             (<link linkend="GstElement">GstElement</link> *element,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-element-get-static-pad">gst_element_get_static_pad</link>      (<link linkend="GstElement">GstElement</link> *element,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-element-get-request-pad">gst_element_get_request_pad</link>     (<link linkend="GstElement">GstElement</link> *element,
+                                             const <link linkend="gchar">gchar</link> *name);
+void        <link linkend="gst-element-release-request-pad">gst_element_release_request_pad</link> (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-element-get-compatible-pad">gst_element_get_compatible_pad</link>  (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="GstPadTemplate">GstPadTemplate</link>* <link linkend="gst-element-class-get-pad-template">gst_element_class_get_pad_template</link>
+                                            (<link linkend="GstElementClass">GstElementClass</link> *element_class,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="GList">GList</link>*      <link linkend="gst-element-class-get-pad-template-list">gst_element_class_get_pad_template_list</link>
+                                            (<link linkend="GstElementClass">GstElementClass</link> *element_class);
+<link linkend="GstPadTemplate">GstPadTemplate</link>* <link linkend="gst-element-get-compatible-pad-template">gst_element_get_compatible_pad_template</link>
+                                            (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPadTemplate">GstPadTemplate</link> *compattempl);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-link">gst_element_link</link>                (<link linkend="GstElement">GstElement</link> *src,
+                                             <link linkend="GstElement">GstElement</link> *dest);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-link-many">gst_element_link_many</link>           (<link linkend="GstElement">GstElement</link> *element_1,
+                                             <link linkend="GstElement">GstElement</link> *element_2,
+                                             ...);
+void        <link linkend="gst-element-unlink">gst_element_unlink</link>              (<link linkend="GstElement">GstElement</link> *src,
+                                             <link linkend="GstElement">GstElement</link> *dest);
+void        <link linkend="gst-element-unlink-many">gst_element_unlink_many</link>         (<link linkend="GstElement">GstElement</link> *element_1,
+                                             <link linkend="GstElement">GstElement</link> *element_2,
+                                             ...);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-link-pads">gst_element_link_pads</link>           (<link linkend="GstElement">GstElement</link> *src,
+                                             const <link linkend="gchar">gchar</link> *srcpadname,
+                                             <link linkend="GstElement">GstElement</link> *dest,
+                                             const <link linkend="gchar">gchar</link> *destpadname);
+void        <link linkend="gst-element-unlink-pads">gst_element_unlink_pads</link>         (<link linkend="GstElement">GstElement</link> *src,
+                                             const <link linkend="gchar">gchar</link> *srcpadname,
+                                             <link linkend="GstElement">GstElement</link> *dest,
+                                             const <link linkend="gchar">gchar</link> *destpadname);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-send-event">gst_element_send_event</link>          (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstEvent">GstEvent</link> *event);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-seek">gst_element_seek</link>                (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstSeekType">GstSeekType</link> seek_type,
+                                             <link linkend="guint64">guint64</link> offset);
+G_CONST_RETURN <link linkend="GstQueryType">GstQueryType</link>* <link linkend="gst-element-get-query-types">gst_element_get_query_types</link>
+                                            (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-query">gst_element_query</link>               (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstQuery">GstQuery</link> *query);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-is-locked-state">gst_element_is_locked_state</link>     (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-set-locked-state">gst_element_set_locked_state</link>    (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="gboolean">gboolean</link> locked_state);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-element-sync-state-with-parent">gst_element_sync_state_with_parent</link>
+                                            (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="GstElementStateReturn">GstElementStateReturn</link> <link linkend="gst-element-get-state">gst_element_get_state</link> (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstElementState">GstElementState</link> *state,
+                                             <link linkend="GstElementState">GstElementState</link> *pending,
+                                             <link linkend="GTimeVal">GTimeVal</link> *timeout);
+<link linkend="GstElementStateReturn">GstElementStateReturn</link> <link linkend="gst-element-set-state">gst_element_set_state</link> (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstElementState">GstElementState</link> state);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-element-state-get-name">gst_element_state_get_name</link>
+                                            (<link linkend="GstElementState">GstElementState</link> state);
+<link linkend="GstElementFactory">GstElementFactory</link>* <link linkend="gst-element-get-factory">gst_element_get_factory</link>  (<link linkend="GstElement">GstElement</link> *element);
+void        <link linkend="gst-element-no-more-pads">gst_element_no_more_pads</link>        (<link linkend="GstElement">GstElement</link> *element);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----GstElement
+</synopsis>
+
+</refsect1>
+
+
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="GstElement-new-pad">new-pad</link>&quot;   void        user_function      (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="GObject">GObject</link> *object,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstElement-no-more-pads">no-more-pads</link>&quot;
+            void        user_function      (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstElement-pad-removed">pad-removed</link>&quot;
+            void        user_function      (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="GObject">GObject</link> *object,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstElement-state-change">state-change</link>&quot;
+            void        user_function      (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="gint">gint</link> int,
+                                            <link linkend="gint">gint</link> int,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstElement is the base class needed to construct an element that can be
+used in a GStreamer pipeline.  As such, it is not a functional entity, and
+cannot do anything when placed in a pipeline.
+</para>
+
+<para>
+The name of a GstElement can be get with <link linkend="gst-element-get-name">gst_element_get_name</link>() and set with
+<link linkend="gst-element-set-name">gst_element_set_name</link>().  For speed, <link linkend="GST-ELEMENT-NAME-CAPS">GST_ELEMENT_NAME</link>() can be used in the 
+core.
+Do not use this in plug-ins or applications in order to retain ABI 
+compatibility.
+</para>
+
+<para>
+All elements have pads (of the type <link linkend="GstPad">GstPad</link>).  These pads link to pads on
+other elements.  Buffers flow between these linked pads.
+A GstElement has a GList of <link linkend="GstPad">GstPad</link> structures for all their input (or sink)
+and output (or source) pads.  
+Core and plug-in writers can add and remove pads with <link linkend="gst-element-add-pad">gst_element_add_pad</link>()
+and <link linkend="gst-element-remove-pad">gst_element_remove_pad</link>().
+Application writers can manipulate ghost pads (copies of real pads inside a bin)
+with <link linkend="gst-element-add-ghost-pad">gst_element_add_ghost_pad</link>() and <link linkend="gst-element-remove-ghost-pad">gst_element_remove_ghost_pad</link>().
+A pad of an element can be retrieved by name with <link linkend="gst-element-get-pad">gst_element_get_pad</link>().
+A GList of all pads can be retrieved with <link linkend="gst-element-get-pad-list">gst_element_get_pad_list</link>().
+</para>
+
+<para>
+Elements can be linked through their pads.
+If the link is straightforward, use the <link linkend="gst-element-link">gst_element_link</link>() 
+convenience function to link two elements, or <link linkend="gst-element-link-many">gst_element_link_many</link>() 
+for more elements in a row.
+Use <link linkend="gst-element-link-filtered">gst_element_link_filtered</link>() to link two elements constrained by
+a specified set of <link linkend="GstCaps">GstCaps</link>.
+For finer control, use <link linkend="gst-element-link-pads">gst_element_link_pads</link>() and 
+<link linkend="gst-element-link-pads-filtered">gst_element_link_pads_filtered</link>() to specify the pads to link on 
+each element by name.
+</para>
+
+<para>
+Each element has a state (see <link linkend="GstElementState">GstElementState</link>).  You can get and set the state
+of an element with <link linkend="gst-element-get-state">gst_element_get_state</link>() and <link linkend="gst-element-set-state">gst_element_set_state</link>().  
+You can wait for an element to change it's state with <link linkend="gst-element-wait-state-change">gst_element_wait_state_change</link>().
+To get a string representation of a <link linkend="GstElementState">GstElementState</link>, use 
+<link linkend="gst-element-state-get-name">gst_element_state_get_name</link>().
+</para>
+
+<para>
+You can get and set a <link linkend="GstClock">GstClock</link> on an element using <link linkend="gst-element-get-clock">gst_element_get_clock</link>()
+and <link linkend="gst-element-set-clock">gst_element_set_clock</link>().  You can wait for the clock to reach a given
+<link linkend="GstClockTime">GstClockTime</link> using <link linkend="gst-element-clock-wait">gst_element_clock_wait</link>().
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstElement-struct"/>struct GstElement</title>
+<programlisting>struct GstElement {
+  /* element state */
+  GMutex               *state_lock;
+  GCond                *state_cond;
+  guint8                current_state;
+  guint8                pending_state;
+  gboolean              state_error; /* flag is set when the element has an error in the last state
+                                        change. it is cleared when doing another state change. */
+  /* element manager */
+  GstPipeline  	       *manager;
+  GstBus       	       *bus;
+  GstScheduler 	       *scheduler;
+
+  /* allocated clock */
+  GstClock	       *clock;
+  GstClockTimeDiff    	base_time; /* NULL/READY: 0 - PAUSED: current time - PLAYING: difference to clock */
+
+  /* element pads, these lists can only be iterated while holding
+   * the LOCK or checking the cookie after each LOCK. */
+  guint16               numpads;
+  GList                *pads;
+  guint16               numsrcpads;
+  GList                *srcpads;
+  guint16               numsinkpads;
+  GList                *sinkpads;
+  guint32               pads_cookie;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-NUM-STATES-CAPS"/>GST_NUM_STATES</title>
+<programlisting>#define GST_NUM_STATES 4
+</programlisting>
+<para>
+The maximun number of states.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-CAPS"/>GST_STATE()</title>
+<programlisting>#define GST_STATE(obj)			(GST_ELEMENT(obj)-&gt;current_state)
+</programlisting>
+<para>
+This macro returns the current state of the element.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Element to return state for.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-PENDING-CAPS"/>GST_STATE_PENDING()</title>
+<programlisting>#define GST_STATE_PENDING(obj)		(GST_ELEMENT(obj)-&gt;pending_state)
+</programlisting>
+<para>
+This macro returns the currently pending state of the element.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Element to return the pending state for.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-TRANSITION-CAPS"/>GST_STATE_TRANSITION()</title>
+<programlisting>#define GST_STATE_TRANSITION(obj)	((GST_STATE(obj)&lt;&lt;8) | GST_STATE_PENDING(obj))
+</programlisting>
+<para>
+Returns the state transition this object is going through.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>the Element to return the state transition for
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-NULL-TO-READY-CAPS"/>GST_STATE_NULL_TO_READY</title>
+<programlisting>#define GST_STATE_NULL_TO_READY		((GST_STATE_NULL&lt;&lt;8) | GST_STATE_READY)
+</programlisting>
+<para>
+The Element is going from the NULL state to the READY state.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-READY-TO-PAUSED-CAPS"/>GST_STATE_READY_TO_PAUSED</title>
+<programlisting>#define GST_STATE_READY_TO_PAUSED	((GST_STATE_READY&lt;&lt;8) | GST_STATE_PAUSED)
+</programlisting>
+<para>
+The Element is going from the READY state to the PAUSED state.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-PAUSED-TO-PLAYING-CAPS"/>GST_STATE_PAUSED_TO_PLAYING</title>
+<programlisting>#define GST_STATE_PAUSED_TO_PLAYING	((GST_STATE_PAUSED&lt;&lt;8) | GST_STATE_PLAYING)
+</programlisting>
+<para>
+The Element is going from the PAUSED state to the PLAYING state.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-PLAYING-TO-PAUSED-CAPS"/>GST_STATE_PLAYING_TO_PAUSED</title>
+<programlisting>#define GST_STATE_PLAYING_TO_PAUSED	((GST_STATE_PLAYING&lt;&lt;8) | GST_STATE_PAUSED)
+</programlisting>
+<para>
+The Element is going from the PLAYING state to the PAUSED state.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-PAUSED-TO-READY-CAPS"/>GST_STATE_PAUSED_TO_READY</title>
+<programlisting>#define GST_STATE_PAUSED_TO_READY	((GST_STATE_PAUSED&lt;&lt;8) | GST_STATE_READY)
+</programlisting>
+<para>
+The Element is going from the PAUSED state to the READY state.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATE-READY-TO-NULL-CAPS"/>GST_STATE_READY_TO_NULL</title>
+<programlisting>#define GST_STATE_READY_TO_NULL		((GST_STATE_READY&lt;&lt;8) | GST_STATE_NULL)
+</programlisting>
+<para>
+The Element is going from the READY state to the NULL state.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-QUERY-TYPE-FUNCTION-CAPS"/>GST_ELEMENT_QUERY_TYPE_FUNCTION()</title>
+<programlisting>#define     GST_ELEMENT_QUERY_TYPE_FUNCTION(functionname, ...)</programlisting>
+<para>
+Helper macro to create query type functions
+</para><variablelist role="params">
+<varlistentry><term><parameter>functionname</parameter>&nbsp;:</term>
+<listitem><simpara>The function name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>list of query types.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-FORMATS-FUNCTION-CAPS"/>GST_ELEMENT_FORMATS_FUNCTION()</title>
+<programlisting>#define     GST_ELEMENT_FORMATS_FUNCTION(functionname, ...)</programlisting>
+<para>
+Halper macro to create element format functions
+</para><variablelist role="params">
+<varlistentry><term><parameter>functionname</parameter>&nbsp;:</term>
+<listitem><simpara>The function name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>formats
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-EVENT-MASK-FUNCTION-CAPS"/>GST_ELEMENT_EVENT_MASK_FUNCTION()</title>
+<programlisting>#define     GST_ELEMENT_EVENT_MASK_FUNCTION(functionname, ...)</programlisting>
+<para>
+A helper macro to create a mask function
+</para><variablelist role="params">
+<varlistentry><term><parameter>functionname</parameter>&nbsp;:</term>
+<listitem><simpara>the name of the mask function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>Masks
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstElementFlags"/>enum GstElementFlags</title>
+<programlisting>typedef enum
+{
+  /* private flags that can be used by the scheduler */
+  GST_ELEMENT_SCHEDULER_PRIVATE1,
+  GST_ELEMENT_SCHEDULER_PRIVATE2,
+
+  /* ignore state changes from parent */
+  GST_ELEMENT_LOCKED_STATE,
+
+  /* the element is a sink */
+  GST_ELEMENT_IS_SINK,
+
+  /* use some padding for future expansion */
+  GST_ELEMENT_FLAG_LAST		= GST_OBJECT_FLAG_LAST + 16
+} GstElementFlags;
+</programlisting>
+<para>
+This enum defines the standard flags that an element may have.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-NAME-CAPS"/>GST_ELEMENT_NAME()</title>
+<programlisting>#define GST_ELEMENT_NAME(obj)			(GST_OBJECT_NAME(obj))
+</programlisting>
+<para>
+Gets the name of this element.  Used in the core.  Not ABI-compatible.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>A <link linkend="GstElement">GstElement</link> to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-PARENT-CAPS"/>GST_ELEMENT_PARENT()</title>
+<programlisting>#define GST_ELEMENT_PARENT(obj)			(GST_ELEMENT_CAST(GST_OBJECT_PARENT(obj)))
+</programlisting>
+<para>
+Get the parent object of this element.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstElement">GstElement</link> to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-CLOCK-CAPS"/>GST_ELEMENT_CLOCK()</title>
+<programlisting>#define GST_ELEMENT_CLOCK(obj)			(GST_ELEMENT_CAST(obj)-&gt;clock)
+</programlisting>
+<para>
+Get the clock of this element
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstElement">GstElement</link> to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-PADS-CAPS"/>GST_ELEMENT_PADS()</title>
+<programlisting>#define GST_ELEMENT_PADS(obj)			(GST_ELEMENT_CAST(obj)-&gt;pads)
+</programlisting>
+<para>
+Get the pads of this elements.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstElement">GstElement</link> to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-ELEMENT-ERROR-CAPS"/>GST_ELEMENT_ERROR()</title>
+<programlisting>#define     GST_ELEMENT_ERROR(el, domain, code, text, debug)</programlisting>
+<para>
+Utility function that elements can use in case they encountered a fatal
+data processing error. The pipeline will throw an error signal and the
+application will be requested to stop further media processing.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>el</parameter>&nbsp;:</term>
+<listitem><simpara> the element that throws the error
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>domain</parameter>&nbsp;:</term>
+<listitem><simpara> like CORE, LIBRARY, RESOURCE or STREAM (see <link linkend="GstError">GstError</link>)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>code</parameter>&nbsp;:</term>
+<listitem><simpara> error code defined for that domain (see <link linkend="GstError">GstError</link>)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>text</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>debug</parameter>&nbsp;:</term>
+<listitem><simpara> debugging information for the message (format string and args enclosed in round brackets)
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-class-add-pad-template"/>gst_element_class_add_pad_template ()</title>
+<programlisting>void        gst_element_class_add_pad_template
+                                            (<link linkend="GstElementClass">GstElementClass</link> *klass,
+                                             <link linkend="GstPadTemplate">GstPadTemplate</link> *templ);</programlisting>
+<para>
+Adds a padtemplate to an element class. This is mainly used in the _base_init
+functions of classes.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>klass</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstElementClass">GstElementClass</link> to add the pad template to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>templ</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPadTemplate">GstPadTemplate</link> to add to the element class.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-class-install-std-props"/>gst_element_class_install_std_props ()</title>
+<programlisting>void        gst_element_class_install_std_props
+                                            (<link linkend="GstElementClass">GstElementClass</link> *klass,
+                                             const <link linkend="gchar">gchar</link> *first_name,
+                                             ...);</programlisting>
+<para>
+Adds a list of standardized properties with types to the <parameter>klass</parameter>.
+the id is for the property switch in your get_prop method, and
+the flags determine readability / writeability.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>klass</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstElementClass">GstElementClass</link> to add the properties to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first_name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the first property.
+in a NULL terminated
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> the id and flags of the first property, followed by
+further 'name', 'id', 'flags' triplets and terminated by NULL.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-class-set-details"/>gst_element_class_set_details ()</title>
+<programlisting>void        gst_element_class_set_details   (<link linkend="GstElementClass">GstElementClass</link> *klass,
+                                             const <link linkend="GstElementDetails">GstElementDetails</link> *details);</programlisting>
+<para>
+Sets the detailed information for a <link linkend="GstElementClass">GstElementClass</link>.
+<note>This function is for use in _base_init functions only.</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>klass</parameter>&nbsp;:</term>
+<listitem><simpara> class to set details for
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>details</parameter>&nbsp;:</term>
+<listitem><simpara> details to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-name"/>gst_element_get_name()</title>
+<programlisting>#define			gst_element_get_name(elem)	gst_object_get_name(GST_OBJECT(elem))
+</programlisting>
+<para>
+Gets the name of the element.
+</para><variablelist role="params">
+<varlistentry><term><parameter>elem</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the name of the element.
+
+
+<!-- link -->
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-name"/>gst_element_set_name()</title>
+<programlisting>#define			gst_element_set_name(elem,name)	gst_object_set_name(GST_OBJECT(elem),name)
+</programlisting>
+<para>
+Sets the name of the element, getting rid of the old name if there was one.
+</para><variablelist role="params">
+<varlistentry><term><parameter>elem</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstElement">GstElement</link> to set the name of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>the new name of the element.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-parent"/>gst_element_get_parent()</title>
+<programlisting>#define			gst_element_get_parent(elem)	gst_object_get_parent(GST_OBJECT(elem))
+</programlisting>
+<para>
+Gets the parent of an element.
+</para><variablelist role="params">
+<varlistentry><term><parameter>elem</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstElement">GstElement</link> to get the parent of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the <link linkend="GstObject">GstObject</link> parent of the element.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-parent"/>gst_element_set_parent()</title>
+<programlisting>#define			gst_element_set_parent(elem,parent)	gst_object_set_parent(GST_OBJECT(elem),parent)
+</programlisting>
+<para>
+Sets the parent of an element.
+</para><variablelist role="params">
+<varlistentry><term><parameter>elem</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstElement">GstElement</link> to set the parent of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> the new <link linkend="GstObject">GstObject</link> parent of the object.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-requires-clock"/>gst_element_requires_clock ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_requires_clock      (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Query if the element requires a clock.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the element requires a clock
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-provides-clock"/>gst_element_provides_clock ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_provides_clock      (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Query if the element provides a clock.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the element provides a clock
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-clock"/>gst_element_get_clock ()</title>
+<programlisting><link linkend="GstClock">GstClock</link>*   gst_element_get_clock           (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Gets the clock of the element. If the element provides a clock,
+this function will return this clock. For elements that do not
+provide a clock, this function returns NULL.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to get the clock of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstClock">GstClock</link> of the element. unref after usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-clock"/>gst_element_set_clock ()</title>
+<programlisting>void        gst_element_set_clock           (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstClock">GstClock</link> *clock);</programlisting>
+<para>
+Sets the clock for the element. This function increases the
+refcount on the clock. Any previously set clock on the object
+is unreffed.
+</para>
+<para>
+MT safe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to set the clock for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>clock</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstClock">GstClock</link> to set for the element.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-is-indexable"/>gst_element_is_indexable ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_is_indexable        (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Queries if the element can be indexed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the element can be indexed.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-index"/>gst_element_set_index ()</title>
+<programlisting>void        gst_element_set_index           (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstIndex">GstIndex</link> *index);</programlisting>
+<para>
+Set the specified GstIndex on the element.
+</para>
+<para>
+MT safe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstIndex">GstIndex</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-index"/>gst_element_get_index ()</title>
+<programlisting><link linkend="GstIndex">GstIndex</link>*   gst_element_get_index           (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Gets the index from the element.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a <link linkend="GstIndex">GstIndex</link> or NULL when no index was set on the
+element. unref after usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-scheduler"/>gst_element_set_scheduler ()</title>
+<programlisting>void        gst_element_set_scheduler       (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstScheduler">GstScheduler</link> *sched);</programlisting>
+<para>
+Sets the scheduler of the element.  For internal use only, unless you're
+testing elements.
+</para>
+<para>
+MT safe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to set the scheduler of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sched</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-scheduler"/>gst_element_get_scheduler ()</title>
+<programlisting><link linkend="GstScheduler">GstScheduler</link>* gst_element_get_scheduler     (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Returns the scheduler of the element.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to get the scheduler of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the element's <link linkend="GstScheduler">GstScheduler</link>.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-add-pad"/>gst_element_add_pad ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_add_pad             (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Adds a pad (link point) to <parameter>element</parameter>. <parameter>pad</parameter>'s parent will be set to <parameter>element</parameter>;
+see <link linkend="gst-object-set-parent">gst_object_set_parent</link>() for refcounting information.
+</para>
+<para>
+Pads are not automatically activated so elements should perform the needed
+steps to activate the pad. 
+</para>
+<para>
+The pad and the element should be unlocked when calling this function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to add the pad to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to add to the element.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pad could be added. This function can fail when
+passing bad arguments or when a pad with the same name already existed.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-remove-pad"/>gst_element_remove_pad ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_remove_pad          (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Removes <parameter>pad</parameter> from <parameter>element</parameter>. <parameter>pad</parameter> will be destroyed if it has not been
+referenced elsewhere.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to remove pad from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to remove from the element.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pad could be removed. Can return FALSE if the
+pad is not belonging to the provided element or when wrong parameters
+are passed to this function.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-pad"/>gst_element_get_pad ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_element_get_pad             (<link linkend="GstElement">GstElement</link> *element,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Retrieves a pad from <parameter>element</parameter> by name. Tries <link linkend="gst-element-get-static-pad">gst_element_get_static_pad</link>()
+first, then <link linkend="gst-element-get-request-pad">gst_element_get_request_pad</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the pad to retrieve.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstPad">GstPad</link> if found, otherwise <literal>NULL</literal>. Unref after usage.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-static-pad"/>gst_element_get_static_pad ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_element_get_static_pad      (<link linkend="GstElement">GstElement</link> *element,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Retrieves a pad from <parameter>element</parameter> by name. This version only retrieves
+already-existing (i.e. 'static') pads.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to find a static pad of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the static <link linkend="GstPad">GstPad</link> to retrieve.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the requested <link linkend="GstPad">GstPad</link> if found, otherwise NULL. unref after
+usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-request-pad"/>gst_element_get_request_pad ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_element_get_request_pad     (<link linkend="GstElement">GstElement</link> *element,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Retrieves a pad from the element by name. This version only retrieves
+request pads.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to find a request pad of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the request <link linkend="GstPad">GstPad</link> to retrieve.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> requested <link linkend="GstPad">GstPad</link> if found, otherwise NULL. Unref after usage.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-release-request-pad"/>gst_element_release_request_pad ()</title>
+<programlisting>void        gst_element_release_request_pad (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Makes the element free the previously requested pad as obtained
+with <link linkend="gst-element-get-request-pad">gst_element_get_request_pad</link>().
+</para>
+<para>
+MT safe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to release the request pad of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to release.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-compatible-pad"/>gst_element_get_compatible_pad ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_element_get_compatible_pad  (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPad">GstPad</link> *pad,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Looks for an unlinked pad to which the given pad can link. It is not
+guaranteed that linking the pads will work, though it should work in most
+cases.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> in which the pad should be found.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to find a compatible one for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstPad">GstPad</link> to which a link can be made, or <literal>NULL</literal> if one cannot be
+found.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-class-get-pad-template"/>gst_element_class_get_pad_template ()</title>
+<programlisting><link linkend="GstPadTemplate">GstPadTemplate</link>* gst_element_class_get_pad_template
+                                            (<link linkend="GstElementClass">GstElementClass</link> *element_class,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Retrieves a padtemplate from <parameter>element_class</parameter> with the given name.
+<note>If you use this function in the <link linkend="GInstanceInitFunc">GInstanceInitFunc</link> of an object class
+that has subclasses, make sure to pass the g_class parameter of the
+<link linkend="GInstanceInitFunc">GInstanceInitFunc</link> here.</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element_class</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementClass">GstElementClass</link> to get the pad template of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the <link linkend="GstPadTemplate">GstPadTemplate</link> to get.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstPadTemplate">GstPadTemplate</link> with the given name, or NULL if none was found.
+No unreferencing is necessary.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-class-get-pad-template-list"/>gst_element_class_get_pad_template_list ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_element_class_get_pad_template_list
+                                            (<link linkend="GstElementClass">GstElementClass</link> *element_class);</programlisting>
+<para>
+Retrieves a list of the pad templates associated with <parameter>element_class</parameter>. The
+list must not be modified by the calling code.
+<note>If you use this function in the <link linkend="GInstanceInitFunc">GInstanceInitFunc</link> of an object class
+that has subclasses, make sure to pass the g_class parameter of the
+<link linkend="GInstanceInitFunc">GInstanceInitFunc</link> here.</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element_class</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementClass">GstElementClass</link> to get pad templates of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GList">GList</link> of padtemplates.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-compatible-pad-template"/>gst_element_get_compatible_pad_template ()</title>
+<programlisting><link linkend="GstPadTemplate">GstPadTemplate</link>* gst_element_get_compatible_pad_template
+                                            (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstPadTemplate">GstPadTemplate</link> *compattempl);</programlisting>
+<para>
+Retrieves a pad template from <parameter>element</parameter> that is compatible with <parameter>compattempl</parameter>.
+Pads from compatible templates can be linked together.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to get a compatible pad template for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>compattempl</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadTemplate">GstPadTemplate</link> to find a compatible template for.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a compatible <link linkend="GstPadTemplate">GstPadTemplate</link>, or NULL if none was found. No
+unreferencing is necessary.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-link"/>gst_element_link ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_link                (<link linkend="GstElement">GstElement</link> *src,
+                                             <link linkend="GstElement">GstElement</link> *dest);</programlisting>
+<para>
+Links <parameter>src</parameter> to <parameter>dest</parameter>. The link must be from source to
+destination; the other direction will not be tried. The function looks for
+existing pads that aren't linked yet. It will request new pads if necessary.
+If multiple links are possible, only one is established.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> containing the source pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstElement">GstElement</link> containing the destination pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the elements could be linked, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-link-many"/>gst_element_link_many ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_link_many           (<link linkend="GstElement">GstElement</link> *element_1,
+                                             <link linkend="GstElement">GstElement</link> *element_2,
+                                             ...);</programlisting>
+<para>
+Chain together a series of elements. Uses <link linkend="gst-element-link">gst_element_link</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element_1</parameter>&nbsp;:</term>
+<listitem><simpara> the first <link linkend="GstElement">GstElement</link> in the link chain.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element_2</parameter>&nbsp;:</term>
+<listitem><simpara> the second <link linkend="GstElement">GstElement</link> in the link chain.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> the NULL-terminated list of elements to link in order.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-unlink"/>gst_element_unlink ()</title>
+<programlisting>void        gst_element_unlink              (<link linkend="GstElement">GstElement</link> *src,
+                                             <link linkend="GstElement">GstElement</link> *dest);</programlisting>
+<para>
+Unlinks all source pads of the source element with all sink pads
+of the sink element to which they are linked.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> the source <link linkend="GstElement">GstElement</link> to unlink.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> the sink <link linkend="GstElement">GstElement</link> to unlink.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-unlink-many"/>gst_element_unlink_many ()</title>
+<programlisting>void        gst_element_unlink_many         (<link linkend="GstElement">GstElement</link> *element_1,
+                                             <link linkend="GstElement">GstElement</link> *element_2,
+                                             ...);</programlisting>
+<para>
+Unlinks a series of elements. Uses <link linkend="gst-element-unlink">gst_element_unlink</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element_1</parameter>&nbsp;:</term>
+<listitem><simpara> the first <link linkend="GstElement">GstElement</link> in the link chain.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element_2</parameter>&nbsp;:</term>
+<listitem><simpara> the second <link linkend="GstElement">GstElement</link> in the link chain.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> the NULL-terminated list of elements to unlink in order.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-link-pads"/>gst_element_link_pads ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_link_pads           (<link linkend="GstElement">GstElement</link> *src,
+                                             const <link linkend="gchar">gchar</link> *srcpadname,
+                                             <link linkend="GstElement">GstElement</link> *dest,
+                                             const <link linkend="gchar">gchar</link> *destpadname);</programlisting>
+<para>
+Links the two named pads of the source and destination elements.
+Side effect is that if one of the pads has no parent, it becomes a
+child of the parent of the other element.  If they have different
+parents, the link fails.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> containing the source pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>srcpadname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the <link linkend="GstPad">GstPad</link> in source element or NULL for any pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstElement">GstElement</link> containing the destination pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destpadname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the <link linkend="GstPad">GstPad</link> in destination element or NULL for any pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pads could be linked, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-unlink-pads"/>gst_element_unlink_pads ()</title>
+<programlisting>void        gst_element_unlink_pads         (<link linkend="GstElement">GstElement</link> *src,
+                                             const <link linkend="gchar">gchar</link> *srcpadname,
+                                             <link linkend="GstElement">GstElement</link> *dest,
+                                             const <link linkend="gchar">gchar</link> *destpadname);</programlisting>
+<para>
+Unlinks the two named pads of the source and destination elements.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> containing the source pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>srcpadname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the <link linkend="GstPad">GstPad</link> in source element.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> containing the destination pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destpadname</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the <link linkend="GstPad">GstPad</link> in destination element.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-send-event"/>gst_element_send_event ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_send_event          (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstEvent">GstEvent</link> *event);</programlisting>
+<para>
+Sends an event to an element. If the element doesn't
+implement an event handler, the event will be forwarded
+to a random sink pad. This function takes owership of the
+provided event so you should _ref it if you want to reuse
+the event after this call.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to send the event to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstEvent">GstEvent</link> to send to the element.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the event was handled.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-seek"/>gst_element_seek ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_seek                (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstSeekType">GstSeekType</link> seek_type,
+                                             <link linkend="guint64">guint64</link> offset);</programlisting>
+<para>
+Sends a seek event to an element.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to send the event to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>seek_type</parameter>&nbsp;:</term>
+<listitem><simpara> the method to use for seeking.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara> the offset to seek to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the event was handled.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-query-types"/>gst_element_get_query_types ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstQueryType">GstQueryType</link>* gst_element_get_query_types
+                                            (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Get an array of query types from the element.
+If the element doesn't implement a query types function,
+the query will be forwarded to a random sink pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> An array of <link linkend="GstQueryType">GstQueryType</link> elements that should not
+be freed or modified.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-query"/>gst_element_query ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_query               (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstQuery">GstQuery</link> *query);</programlisting>
+<para>
+Performs a query on the given element. If the format is set
+to GST_FORMAT_DEFAULT and this function returns TRUE, the
+format pointer will hold the default format.
+For element that don't implement a query handler, this function
+forwards the query to a random usable sinkpad of this element.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to perform the query on.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the query could be performed.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-is-locked-state"/>gst_element_is_locked_state ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_is_locked_state     (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Checks if the state of an element is locked.
+If the state of an element is locked, state changes of the parent don't
+affect the element.
+This way you can leave currently unused elements inside bins. Just lock their
+state before changing the state from <link linkend="GST-STATE-NULL-CAPS">GST_STATE_NULL</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the element's state is locked.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-locked-state"/>gst_element_set_locked_state ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_set_locked_state    (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="gboolean">gboolean</link> locked_state);</programlisting>
+<para>
+Locks the state of an element, so state changes of the parent don't affect
+this element anymore.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>locked_state</parameter>&nbsp;:</term>
+<listitem><simpara> TRUE to lock the element's state
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the state was changed, FALSE if bad params were given or
+the element was already in the correct state.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-sync-state-with-parent"/>gst_element_sync_state_with_parent ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_element_sync_state_with_parent
+                                            (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Tries to change the state of the element to the same as its parent.
+If this function returns FALSE, the state of element is undefined.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the element's state could be synced to the parent's state.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-state"/>gst_element_get_state ()</title>
+<programlisting><link linkend="GstElementStateReturn">GstElementStateReturn</link> gst_element_get_state (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstElementState">GstElementState</link> *state,
+                                             <link linkend="GstElementState">GstElementState</link> *pending,
+                                             <link linkend="GTimeVal">GTimeVal</link> *timeout);</programlisting>
+<para>
+Gets the state of the element. 
+</para>
+<para>
+For elements that performed an ASYNC state change, as reported by 
+#<link linkend="gst-element-set-state">gst_element_set_state</link>(), this function will block up to the 
+specified timeout value for the state change to complete. 
+If the element completes the state change or goes into
+an error, this function returns immediatly with a return value of
+GST_STATE_SUCCESS or GST_STATE_FAILURE respectively.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to get the state of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>state</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to <link linkend="GstElementState">GstElementState</link> to hold the state. Can be NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pending</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to <link linkend="GstElementState">GstElementState</link> to hold the pending state.
+          Can be NULL.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeout</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GTimeVal">GTimeVal</link> to specify the timeout for an async
+          state change or NULL for infinite timeout.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> GST_STATE_SUCCESS if the element has no more pending state and
+         the last state change succeeded, GST_STATE_ASYNC
+         if the element is still performing a state change or 
+         GST_STATE_FAILURE if the last state change failed.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-set-state"/>gst_element_set_state ()</title>
+<programlisting><link linkend="GstElementStateReturn">GstElementStateReturn</link> gst_element_set_state (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="GstElementState">GstElementState</link> state);</programlisting>
+<para>
+Sets the state of the element. This function will try to set the
+requested state by going through all the intermediary states and calling
+the class's state change function for each.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to change state of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>state</parameter>&nbsp;:</term>
+<listitem><simpara> the element's new <link linkend="GstElementState">GstElementState</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> Result of the state change using <link linkend="GstElementStateReturn">GstElementStateReturn</link>.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-state-get-name"/>gst_element_state_get_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_element_state_get_name
+                                            (<link linkend="GstElementState">GstElementState</link> state);</programlisting>
+<para>
+Gets a string representing the given state.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>state</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElementState">GstElementState</link> to get the name of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a string with the name of the state.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-get-factory"/>gst_element_get_factory ()</title>
+<programlisting><link linkend="GstElementFactory">GstElementFactory</link>* gst_element_get_factory  (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Retrieves the factory that was used to create this element.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link> to request the element factory of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstElementFactory">GstElementFactory</link> used for creating this element.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-element-no-more-pads"/>gst_element_no_more_pads ()</title>
+<programlisting>void        gst_element_no_more_pads        (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Use this function to signal that the element does not expect any more pads
+to show up in the current pipeline. This function should be called whenever
+pads have been added by the element itself. Elements with GST_PAD_SOMETIMES
+pad templates use this in combination with autopluggers to figure out that
+the element is done initializing its pads.
+</para>
+<para>
+MT safe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstElement">GstElement</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="GstElement-new-pad"/>The &quot;new-pad&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="GObject">GObject</link> *object,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+a new <link linkend="GstPad">GstPad</link> has been added to the element</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstelement</parameter>&nbsp;:</term>
+<listitem><simpara> the object which received the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstElement-no-more-pads"/>The &quot;no-more-pads&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+?</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstelement</parameter>&nbsp;:</term>
+<listitem><simpara> the object which received the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstElement-pad-removed"/>The &quot;pad-removed&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="GObject">GObject</link> *object,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+a <link linkend="GstPad">GstPad</link> has been removed from the element</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstelement</parameter>&nbsp;:</term>
+<listitem><simpara> the object which received the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstElement-state-change"/>The &quot;state-change&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstElement">GstElement</link> *gstelement,
+                                            <link linkend="gint">gint</link> int,
+                                            <link linkend="gint">gint</link> int,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+the <link linkend="GstElementState">GstElementState</link> of the element has been changed</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstelement</parameter>&nbsp;:</term>
+<listitem><simpara> the object which received the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>int</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>int</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstElementFactory">GstElementFactory</link>, <link linkend="GstPad">GstPad</link>
+</para>
+
+<!-- basic object functions -->
+</refsect1>
+
+</refentry>

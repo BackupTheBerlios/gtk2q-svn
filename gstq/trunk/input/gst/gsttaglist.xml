@@ -1,0 +1,1724 @@
+<refentry id="gstreamer-GstTagList">
+<refmeta>
+<refentrytitle>GstTagList</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstTagList</refname><refpurpose>List of tags and values used to describe media metadata</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+typedef     <link linkend="GstTagList">GstTagList</link>;
+enum        <link linkend="GstTagMergeMode">GstTagMergeMode</link>;
+enum        <link linkend="GstTagFlag">GstTagFlag</link>;
+void        (<link linkend="GstTagForeachFunc">*GstTagForeachFunc</link>)            (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+void        (<link linkend="GstTagMergeFunc">*GstTagMergeFunc</link>)              (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);
+void        <link linkend="gst-tag-register">gst_tag_register</link>                (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstTagFlag">GstTagFlag</link> flag,
+                                             <link linkend="GType">GType</link> type,
+                                             const <link linkend="gchar">gchar</link> *nick,
+                                             const <link linkend="gchar">gchar</link> *blurb,
+                                             <link linkend="GstTagMergeFunc">GstTagMergeFunc</link> func);
+void        <link linkend="gst-tag-merge-use-first">gst_tag_merge_use_first</link>         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);
+void        <link linkend="gst-tag-merge-strings-with-comma">gst_tag_merge_strings_with_comma</link>
+                                            (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-exists">gst_tag_exists</link>                  (const <link linkend="gchar">gchar</link> *tag);
+<link linkend="GType">GType</link>       <link linkend="gst-tag-get-type">gst_tag_get_type</link>                (const <link linkend="gchar">gchar</link> *tag);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-tag-get-nick">gst_tag_get_nick</link>      (const <link linkend="gchar">gchar</link> *tag);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-tag-get-description">gst_tag_get_description</link>
+                                            (const <link linkend="gchar">gchar</link> *tag);
+<link linkend="GstTagFlag">GstTagFlag</link>  <link linkend="gst-tag-get-flag">gst_tag_get_flag</link>                (const <link linkend="gchar">gchar</link> *tag);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-is-fixed">gst_tag_is_fixed</link>                (const <link linkend="gchar">gchar</link> *tag);
+<link linkend="GstTagList">GstTagList</link>* <link linkend="gst-tag-list-new">gst_tag_list_new</link>                (void);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-is-tag-list">gst_is_tag_list</link>                 (<link linkend="gconstpointer">gconstpointer</link> p);
+<link linkend="GstTagList">GstTagList</link>* <link linkend="gst-tag-list-copy">gst_tag_list_copy</link>               (const <link linkend="GstTagList">GstTagList</link> *list);
+void        <link linkend="gst-tag-list-insert">gst_tag_list_insert</link>             (<link linkend="GstTagList">GstTagList</link> *into,
+                                             const <link linkend="GstTagList">GstTagList</link> *from,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);
+<link linkend="GstTagList">GstTagList</link>* <link linkend="gst-tag-list-merge">gst_tag_list_merge</link>              (const <link linkend="GstTagList">GstTagList</link> *list1,
+                                             const <link linkend="GstTagList">GstTagList</link> *list2,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);
+void        <link linkend="gst-tag-list-free">gst_tag_list_free</link>               (<link linkend="GstTagList">GstTagList</link> *list);
+<link linkend="guint">guint</link>       <link linkend="gst-tag-list-get-tag-size">gst_tag_list_get_tag_size</link>       (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag);
+void        <link linkend="gst-tag-list-add">gst_tag_list_add</link>                (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);
+void        <link linkend="gst-tag-list-add-values">gst_tag_list_add_values</link>         (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);
+void        <link linkend="gst-tag-list-add-valist">gst_tag_list_add_valist</link>         (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);
+void        <link linkend="gst-tag-list-add-valist-values">gst_tag_list_add_valist_values</link>  (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);
+void        <link linkend="gst-tag-list-remove-tag">gst_tag_list_remove_tag</link>         (<link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag);
+void        <link linkend="gst-tag-list-foreach">gst_tag_list_foreach</link>            (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagForeachFunc">GstTagForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+G_CONST_RETURN <link linkend="GValue">GValue</link>* <link linkend="gst-tag-list-get-value-index">gst_tag_list_get_value_index</link>
+                                            (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-copy-value">gst_tag_list_copy_value</link>         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-char">gst_tag_list_get_char</link>           (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gchar">gchar</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-char-index">gst_tag_list_get_char_index</link>     (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gchar">gchar</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-uchar">gst_tag_list_get_uchar</link>          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guchar">guchar</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-uchar-index">gst_tag_list_get_uchar_index</link>    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="guchar">guchar</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-boolean">gst_tag_list_get_boolean</link>        (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gboolean">gboolean</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-boolean-index">gst_tag_list_get_boolean_index</link>  (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gboolean">gboolean</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-int">gst_tag_list_get_int</link>            (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gint">gint</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-int-index">gst_tag_list_get_int_index</link>      (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gint">gint</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-uint">gst_tag_list_get_uint</link>           (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-uint-index">gst_tag_list_get_uint_index</link>     (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="guint">guint</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-long">gst_tag_list_get_long</link>           (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="glong">glong</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-long-index">gst_tag_list_get_long_index</link>     (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="glong">glong</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-ulong">gst_tag_list_get_ulong</link>          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gulong">gulong</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-ulong-index">gst_tag_list_get_ulong_index</link>    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gulong">gulong</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-int64">gst_tag_list_get_int64</link>          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gint64">gint64</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-int64-index">gst_tag_list_get_int64_index</link>    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gint64">gint64</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-uint64">gst_tag_list_get_uint64</link>         (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint64">guint64</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-uint64-index">gst_tag_list_get_uint64_index</link>   (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="guint64">guint64</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-float">gst_tag_list_get_float</link>          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gfloat">gfloat</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-float-index">gst_tag_list_get_float_index</link>    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gfloat">gfloat</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-double">gst_tag_list_get_double</link>         (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gdouble">gdouble</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-double-index">gst_tag_list_get_double_index</link>   (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gdouble">gdouble</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-string">gst_tag_list_get_string</link>         (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gchar">gchar</link> **value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-string-index">gst_tag_list_get_string_index</link>   (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gchar">gchar</link> **value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-pointer">gst_tag_list_get_pointer</link>        (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gpointer">gpointer</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-tag-list-get-pointer-index">gst_tag_list_get_pointer_index</link>  (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gpointer">gpointer</link> *value);
+<link linkend="GstEvent">GstEvent</link>*   <link linkend="gst-event-new-tag">gst_event_new_tag</link>               (<link linkend="GstTagList">GstTagList</link> *list);
+<link linkend="GstTagList">GstTagList</link>* <link linkend="gst-event-tag-get-list">gst_event_tag_get_list</link>          (<link linkend="GstEvent">GstEvent</link> *tag_event);
+#define     <link linkend="GST-TAG-TITLE-CAPS">GST_TAG_TITLE</link>
+#define     <link linkend="GST-TAG-ARTIST-CAPS">GST_TAG_ARTIST</link>
+#define     <link linkend="GST-TAG-ALBUM-CAPS">GST_TAG_ALBUM</link>
+#define     <link linkend="GST-TAG-DATE-CAPS">GST_TAG_DATE</link>
+#define     <link linkend="GST-TAG-GENRE-CAPS">GST_TAG_GENRE</link>
+#define     <link linkend="GST-TAG-COMMENT-CAPS">GST_TAG_COMMENT</link>
+#define     <link linkend="GST-TAG-TRACK-NUMBER-CAPS">GST_TAG_TRACK_NUMBER</link>
+#define     <link linkend="GST-TAG-TRACK-COUNT-CAPS">GST_TAG_TRACK_COUNT</link>
+#define     <link linkend="GST-TAG-ALBUM-VOLUME-NUMBER-CAPS">GST_TAG_ALBUM_VOLUME_NUMBER</link>
+#define     <link linkend="GST-TAG-ALBUM-VOLUME-COUNT-CAPS">GST_TAG_ALBUM_VOLUME_COUNT</link>
+#define     <link linkend="GST-TAG-LOCATION-CAPS">GST_TAG_LOCATION</link>
+#define     <link linkend="GST-TAG-DESCRIPTION-CAPS">GST_TAG_DESCRIPTION</link>
+#define     <link linkend="GST-TAG-VERSION-CAPS">GST_TAG_VERSION</link>
+#define     <link linkend="GST-TAG-ISRC-CAPS">GST_TAG_ISRC</link>
+#define     <link linkend="GST-TAG-ORGANIZATION-CAPS">GST_TAG_ORGANIZATION</link>
+#define     <link linkend="GST-TAG-COPYRIGHT-CAPS">GST_TAG_COPYRIGHT</link>
+#define     <link linkend="GST-TAG-CONTACT-CAPS">GST_TAG_CONTACT</link>
+#define     <link linkend="GST-TAG-LICENSE-CAPS">GST_TAG_LICENSE</link>
+#define     <link linkend="GST-TAG-PERFORMER-CAPS">GST_TAG_PERFORMER</link>
+#define     <link linkend="GST-TAG-DURATION-CAPS">GST_TAG_DURATION</link>
+#define     <link linkend="GST-TAG-CODEC-CAPS">GST_TAG_CODEC</link>
+#define     <link linkend="GST-TAG-VIDEO-CODEC-CAPS">GST_TAG_VIDEO_CODEC</link>
+#define     <link linkend="GST-TAG-AUDIO-CODEC-CAPS">GST_TAG_AUDIO_CODEC</link>
+#define     <link linkend="GST-TAG-BITRATE-CAPS">GST_TAG_BITRATE</link>
+#define     <link linkend="GST-TAG-NOMINAL-BITRATE-CAPS">GST_TAG_NOMINAL_BITRATE</link>
+#define     <link linkend="GST-TAG-MINIMUM-BITRATE-CAPS">GST_TAG_MINIMUM_BITRATE</link>
+#define     <link linkend="GST-TAG-MAXIMUM-BITRATE-CAPS">GST_TAG_MAXIMUM_BITRATE</link>
+#define     <link linkend="GST-TAG-SERIAL-CAPS">GST_TAG_SERIAL</link>
+#define     <link linkend="GST-TAG-ENCODER-CAPS">GST_TAG_ENCODER</link>
+#define     <link linkend="GST-TAG-ENCODER-VERSION-CAPS">GST_TAG_ENCODER_VERSION</link>
+#define     <link linkend="GST-TAG-TRACK-GAIN-CAPS">GST_TAG_TRACK_GAIN</link>
+#define     <link linkend="GST-TAG-TRACK-PEAK-CAPS">GST_TAG_TRACK_PEAK</link>
+#define     <link linkend="GST-TAG-ALBUM-GAIN-CAPS">GST_TAG_ALBUM_GAIN</link>
+#define     <link linkend="GST-TAG-ALBUM-PEAK-CAPS">GST_TAG_ALBUM_PEAK</link>
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstTagList"/>GstTagList</title>
+<programlisting>typedef GstStructure GstTagList;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTagMergeMode"/>enum GstTagMergeMode</title>
+<programlisting>typedef enum {
+  GST_TAG_MERGE_UNDEFINED,
+  GST_TAG_MERGE_REPLACE_ALL,
+  GST_TAG_MERGE_REPLACE,
+  GST_TAG_MERGE_APPEND,
+  GST_TAG_MERGE_PREPEND,
+  GST_TAG_MERGE_KEEP,
+  GST_TAG_MERGE_KEEP_ALL,
+  /* add more */
+  GST_TAG_MERGE_COUNT
+} GstTagMergeMode;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTagFlag"/>enum GstTagFlag</title>
+<programlisting>typedef enum {
+  GST_TAG_FLAG_UNDEFINED,
+  GST_TAG_FLAG_META,
+  GST_TAG_FLAG_ENCODED,
+  GST_TAG_FLAG_DECODED,
+  GST_TAG_FLAG_COUNT
+} GstTagFlag;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTagForeachFunc"/>GstTagForeachFunc ()</title>
+<programlisting>void        (*GstTagForeachFunc)            (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstTagMergeFunc"/>GstTagMergeFunc ()</title>
+<programlisting>void        (*GstTagMergeFunc)              (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-register"/>gst_tag_register ()</title>
+<programlisting>void        gst_tag_register                (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstTagFlag">GstTagFlag</link> flag,
+                                             <link linkend="GType">GType</link> type,
+                                             const <link linkend="gchar">gchar</link> *nick,
+                                             const <link linkend="gchar">gchar</link> *blurb,
+                                             <link linkend="GstTagMergeFunc">GstTagMergeFunc</link> func);</programlisting>
+<para>
+Registers a new tag type for the use with GStreamer's type system. If a type
+with that name is already registered, that one is used.
+The old registration may have used a different type however. So don't rely
+on your supplied values.
+This function takes ownership of all supplied variables.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name or identifier string
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara> a flag describing the type of tag info
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the type this data is in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>nick</parameter>&nbsp;:</term>
+<listitem><simpara> human-readable name
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>blurb</parameter>&nbsp;:</term>
+<listitem><simpara> a human-readable description about this tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> function for merging multiple values of this tag
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-merge-use-first"/>gst_tag_merge_use_first ()</title>
+<programlisting>void        gst_tag_merge_use_first         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);</programlisting>
+<para>
+This is a convenience function for the func argument of <link linkend="gst-tag-register">gst_tag_register</link>(). 
+It creates a copy of the first value from the list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> uninitialized GValue to store result in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> GValue to copy from
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-merge-strings-with-comma"/>gst_tag_merge_strings_with_comma ()</title>
+<programlisting>void        gst_tag_merge_strings_with_comma
+                                            (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);</programlisting>
+<para>
+This is a convenience function for the func argument of <link linkend="gst-tag-register">gst_tag_register</link>().
+It concatenates all given strings using a comma. The tag must be registered
+as a G_TYPE_STRING or this function will fail.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> uninitialized GValue to store result in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> GValue to copy from
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-exists"/>gst_tag_exists ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_exists                  (const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Checks if the given type is already registered.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> name of the tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the type is already registered
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-get-type"/>gst_tag_get_type ()</title>
+<programlisting><link linkend="GType">GType</link>       gst_tag_get_type                (const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Gets the <link linkend="GType">GType</link> used for this tag.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> the tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GType">GType</link> of this tag
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-get-nick"/>gst_tag_get_nick ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_tag_get_nick      (const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Returns the human-readable name of this tag, You must not change or free 
+this string.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> the tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the human-readable name of this tag
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-get-description"/>gst_tag_get_description ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_tag_get_description
+                                            (const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Returns the human-readable description of this tag, You must not change or 
+free this string.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> the tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the human-readable description of this tag
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-get-flag"/>gst_tag_get_flag ()</title>
+<programlisting><link linkend="GstTagFlag">GstTagFlag</link>  gst_tag_get_flag                (const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Gets the flag of <parameter>tag</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> the tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the flag of this tag.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-is-fixed"/>gst_tag_is_fixed ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_is_fixed                (const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Checks if the given tag is fixed. A fixed tag can only contain one value.
+Unfixed tags can contain lists of values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the given tag is fixed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-new"/>gst_tag_list_new ()</title>
+<programlisting><link linkend="GstTagList">GstTagList</link>* gst_tag_list_new                (void);</programlisting>
+<para>
+Creates a new empty GstTagList.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> An empty tag list
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-is-tag-list"/>gst_is_tag_list ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_is_tag_list                 (<link linkend="gconstpointer">gconstpointer</link> p);</programlisting>
+<para>
+Checks if the given pointer is a taglist.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>p</parameter>&nbsp;:</term>
+<listitem><simpara> Object that might be a taglist
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the given pointer is a taglist
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-copy"/>gst_tag_list_copy ()</title>
+<programlisting><link linkend="GstTagList">GstTagList</link>* gst_tag_list_copy               (const <link linkend="GstTagList">GstTagList</link> *list);</programlisting>
+<para>
+Copies a given <link linkend="GstTagList">GstTagList</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to copy
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> copy of the given list
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-insert"/>gst_tag_list_insert ()</title>
+<programlisting>void        gst_tag_list_insert             (<link linkend="GstTagList">GstTagList</link> *into,
+                                             const <link linkend="GstTagList">GstTagList</link> *from,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);</programlisting>
+<para>
+Inserts the tags of the second list into the first list using the given mode.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>into</parameter>&nbsp;:</term>
+<listitem><simpara> list to merge into
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>from</parameter>&nbsp;:</term>
+<listitem><simpara> list to merge from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-merge"/>gst_tag_list_merge ()</title>
+<programlisting><link linkend="GstTagList">GstTagList</link>* gst_tag_list_merge              (const <link linkend="GstTagList">GstTagList</link> *list1,
+                                             const <link linkend="GstTagList">GstTagList</link> *list2,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);</programlisting>
+<para>
+Merges the two given lists into a new list. If one of the lists is NULL, a
+copy of the other is returned. If both lists are NULL, NULL is returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list1</parameter>&nbsp;:</term>
+<listitem><simpara> first list to merge
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>list2</parameter>&nbsp;:</term>
+<listitem><simpara> second list to merge
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new list
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-free"/>gst_tag_list_free ()</title>
+<programlisting>void        gst_tag_list_free               (<link linkend="GstTagList">GstTagList</link> *list);</programlisting>
+<para>
+Frees the given list and all associated values.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> the list to free
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-tag-size"/>gst_tag_list_get_tag_size ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_tag_list_get_tag_size       (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Checks how many value are stored in this tag list for the given tag.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> a taglist
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> the tag to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The number of tags stored
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-add"/>gst_tag_list_add ()</title>
+<programlisting>void        gst_tag_list_add                (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);</programlisting>
+<para>
+Sets the values for the given tags using the specified mode.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to set tags in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> NULL-terminated list of values to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-add-values"/>gst_tag_list_add_values ()</title>
+<programlisting>void        gst_tag_list_add_values         (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);</programlisting>
+<para>
+Sets the GValues for the given tags using the specified mode.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to set tags in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> GValues to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-add-valist"/>gst_tag_list_add_valist ()</title>
+<programlisting>void        gst_tag_list_add_valist         (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);</programlisting>
+<para>
+Sets the values for the given tags using the specified mode.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to set tags in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var_args</parameter>&nbsp;:</term>
+<listitem><simpara> tag / value pairs to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-add-valist-values"/>gst_tag_list_add_valist_values ()</title>
+<programlisting>void        gst_tag_list_add_valist_values  (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);</programlisting>
+<para>
+Sets the GValues for the given tags using the specified mode.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to set tags in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var_args</parameter>&nbsp;:</term>
+<listitem><simpara> tag / GValue pairs to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-remove-tag"/>gst_tag_list_remove_tag ()</title>
+<programlisting>void        gst_tag_list_remove_tag         (<link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Removes the goven tag from the taglist.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to remove tag from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-foreach"/>gst_tag_list_foreach ()</title>
+<programlisting>void        gst_tag_list_foreach            (<link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagForeachFunc">GstTagForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Calls the given function for each tag inside the tag list. Note that if there
+is no tag, the function won't be called at all.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to iterate over
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> function to be called for each tag
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> user specified data
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-value-index"/>gst_tag_list_get_value_index ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GValue">GValue</link>* gst_tag_list_get_value_index
+                                            (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index);</programlisting>
+<para>
+Gets the value that is at the given index for the given tag in the given 
+list.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GStTagList">GStTagList</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to read out
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara> number of entry to read out
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The GValue for the specified entry or NULL if the tag wasn't available
+    or the tag doesn't have as many entries
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-copy-value"/>gst_tag_list_copy_value ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_copy_value         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag);</programlisting>
+<para>
+Copies the contents for the given tag into the value, merging multiple values 
+into one if multiple values are associated with the tag.
+You must <link linkend="g-value-unset">g_value_unset</link>() the value after use.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> uninitialized <link linkend="GValue">GValue</link> to copy into
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> list to get the tag from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to read out
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if a value was copied, FALSE if the tag didn't exist in the 
+    given list.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-char"/>gst_tag_list_get_char ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_char           (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gchar">gchar</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-char-index"/>gst_tag_list_get_char_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_char_index     (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gchar">gchar</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-uchar"/>gst_tag_list_get_uchar ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_uchar          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guchar">guchar</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-uchar-index"/>gst_tag_list_get_uchar_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_uchar_index    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="guchar">guchar</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-boolean"/>gst_tag_list_get_boolean ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_boolean        (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gboolean">gboolean</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-boolean-index"/>gst_tag_list_get_boolean_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_boolean_index  (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gboolean">gboolean</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-int"/>gst_tag_list_get_int ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_int            (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gint">gint</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-int-index"/>gst_tag_list_get_int_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_int_index      (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gint">gint</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-uint"/>gst_tag_list_get_uint ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_uint           (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-uint-index"/>gst_tag_list_get_uint_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_uint_index     (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="guint">guint</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-long"/>gst_tag_list_get_long ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_long           (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="glong">glong</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-long-index"/>gst_tag_list_get_long_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_long_index     (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="glong">glong</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-ulong"/>gst_tag_list_get_ulong ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_ulong          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gulong">gulong</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-ulong-index"/>gst_tag_list_get_ulong_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_ulong_index    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gulong">gulong</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-int64"/>gst_tag_list_get_int64 ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_int64          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gint64">gint64</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-int64-index"/>gst_tag_list_get_int64_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_int64_index    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gint64">gint64</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-uint64"/>gst_tag_list_get_uint64 ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_uint64         (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint64">guint64</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-uint64-index"/>gst_tag_list_get_uint64_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_uint64_index   (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="guint64">guint64</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-float"/>gst_tag_list_get_float ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_float          (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gfloat">gfloat</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-float-index"/>gst_tag_list_get_float_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_float_index    (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gfloat">gfloat</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-double"/>gst_tag_list_get_double ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_double         (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gdouble">gdouble</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-double-index"/>gst_tag_list_get_double_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_double_index   (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gdouble">gdouble</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-string"/>gst_tag_list_get_string ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_string         (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gchar">gchar</link> **value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-string-index"/>gst_tag_list_get_string_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_string_index   (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gchar">gchar</link> **value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-pointer"/>gst_tag_list_get_pointer ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_pointer        (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="gpointer">gpointer</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-list-get-pointer-index"/>gst_tag_list_get_pointer_index ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_tag_list_get_pointer_index  (const <link linkend="GstTagList">GstTagList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             <link linkend="guint">guint</link> index,
+                                             <link linkend="gpointer">gpointer</link> *value);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-new-tag"/>gst_event_new_tag ()</title>
+<programlisting><link linkend="GstEvent">GstEvent</link>*   gst_event_new_tag               (<link linkend="GstTagList">GstTagList</link> *list);</programlisting>
+<para>
+Creates a new tag event with the given list and takes ownership of it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> the tag list to put into the event or NULL for an empty list
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new tag event
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-event-tag-get-list"/>gst_event_tag_get_list ()</title>
+<programlisting><link linkend="GstTagList">GstTagList</link>* gst_event_tag_get_list          (<link linkend="GstEvent">GstEvent</link> *tag_event);</programlisting>
+<para>
+Gets the taglist from a given tagging event.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>tag_event</parameter>&nbsp;:</term>
+<listitem><simpara> a tagging <link linkend="GstEvent">GstEvent</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The <link linkend="GstTagList">GstTagList</link> of the event
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-TITLE-CAPS"/>GST_TAG_TITLE</title>
+<programlisting>#define GST_TAG_TITLE			"title"
+</programlisting>
+<para>
+commonly used title</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ARTIST-CAPS"/>GST_TAG_ARTIST</title>
+<programlisting>#define GST_TAG_ARTIST			"artist"
+</programlisting>
+<para>
+person(s) responsible for the recording</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ALBUM-CAPS"/>GST_TAG_ALBUM</title>
+<programlisting>#define GST_TAG_ALBUM			"album"
+</programlisting>
+<para>
+album containing this data</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-DATE-CAPS"/>GST_TAG_DATE</title>
+<programlisting>#define GST_TAG_DATE			"date"
+</programlisting>
+<para>
+date the data was created (in Julian calendar days)</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-GENRE-CAPS"/>GST_TAG_GENRE</title>
+<programlisting>#define GST_TAG_GENRE			"genre"
+</programlisting>
+<para>
+genre this data belongs to</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-COMMENT-CAPS"/>GST_TAG_COMMENT</title>
+<programlisting>#define GST_TAG_COMMENT			"comment"
+</programlisting>
+<para>
+free text commenting the data</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-TRACK-NUMBER-CAPS"/>GST_TAG_TRACK_NUMBER</title>
+<programlisting>#define GST_TAG_TRACK_NUMBER		"track-number"
+</programlisting>
+<para>
+track number inside a collection</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-TRACK-COUNT-CAPS"/>GST_TAG_TRACK_COUNT</title>
+<programlisting>#define GST_TAG_TRACK_COUNT		"track-count"
+</programlisting>
+<para>
+count of tracks inside collection this track belongs to</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ALBUM-VOLUME-NUMBER-CAPS"/>GST_TAG_ALBUM_VOLUME_NUMBER</title>
+<programlisting>#define GST_TAG_ALBUM_VOLUME_NUMBER	"album-disc-number"
+</programlisting>
+<para>
+disc number inside a collection</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ALBUM-VOLUME-COUNT-CAPS"/>GST_TAG_ALBUM_VOLUME_COUNT</title>
+<programlisting>#define GST_TAG_ALBUM_VOLUME_COUNT	"album-disc-count"
+</programlisting>
+<para>
+count of discs inside collection this disc belongs to</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-LOCATION-CAPS"/>GST_TAG_LOCATION</title>
+<programlisting>#define GST_TAG_LOCATION		"location"
+</programlisting>
+<para>
+original location of file as a URI</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-DESCRIPTION-CAPS"/>GST_TAG_DESCRIPTION</title>
+<programlisting>#define GST_TAG_DESCRIPTION		"description"
+</programlisting>
+<para>
+short text describing the content of the data</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-VERSION-CAPS"/>GST_TAG_VERSION</title>
+<programlisting>#define GST_TAG_VERSION			"version"
+</programlisting>
+<para>
+version of this data</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ISRC-CAPS"/>GST_TAG_ISRC</title>
+<programlisting>#define GST_TAG_ISRC			"isrc"
+</programlisting>
+<para>
+International Standard Recording Code - see http://www.ifpi.org/isrc/</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ORGANIZATION-CAPS"/>GST_TAG_ORGANIZATION</title>
+<programlisting>#define GST_TAG_ORGANIZATION		"organization"
+</programlisting>
+<para>
+organization</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-COPYRIGHT-CAPS"/>GST_TAG_COPYRIGHT</title>
+<programlisting>#define GST_TAG_COPYRIGHT		"copyright"
+</programlisting>
+<para>
+copyright notice of the data</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-CONTACT-CAPS"/>GST_TAG_CONTACT</title>
+<programlisting>#define GST_TAG_CONTACT			"contact"
+</programlisting>
+<para>
+contact information</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-LICENSE-CAPS"/>GST_TAG_LICENSE</title>
+<programlisting>#define GST_TAG_LICENSE			"license"
+</programlisting>
+<para>
+license of data</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-PERFORMER-CAPS"/>GST_TAG_PERFORMER</title>
+<programlisting>#define GST_TAG_PERFORMER		"performer"
+</programlisting>
+<para>
+person(s) performing</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-DURATION-CAPS"/>GST_TAG_DURATION</title>
+<programlisting>#define GST_TAG_DURATION		"duration"
+</programlisting>
+<para>
+length in GStreamer time units (nanoseconds)</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-CODEC-CAPS"/>GST_TAG_CODEC</title>
+<programlisting>#define GST_TAG_CODEC			"codec"
+</programlisting>
+<para>
+codec the data is stored in</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-VIDEO-CODEC-CAPS"/>GST_TAG_VIDEO_CODEC</title>
+<programlisting>#define GST_TAG_VIDEO_CODEC		"video-codec"
+</programlisting>
+<para>
+codec the video data is stored in</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-AUDIO-CODEC-CAPS"/>GST_TAG_AUDIO_CODEC</title>
+<programlisting>#define GST_TAG_AUDIO_CODEC		"audio-codec"
+</programlisting>
+<para>
+codec the audio data is stored in</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-BITRATE-CAPS"/>GST_TAG_BITRATE</title>
+<programlisting>#define GST_TAG_BITRATE			"bitrate"
+</programlisting>
+<para>
+exact or average bitrate in bits/s</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-NOMINAL-BITRATE-CAPS"/>GST_TAG_NOMINAL_BITRATE</title>
+<programlisting>#define GST_TAG_NOMINAL_BITRATE		"nominal-bitrate"
+</programlisting>
+<para>
+nominal bitrate in bits/s</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-MINIMUM-BITRATE-CAPS"/>GST_TAG_MINIMUM_BITRATE</title>
+<programlisting>#define GST_TAG_MINIMUM_BITRATE		"minimum-bitrate"
+</programlisting>
+<para>
+minimum bitrate in bits/s</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-MAXIMUM-BITRATE-CAPS"/>GST_TAG_MAXIMUM_BITRATE</title>
+<programlisting>#define GST_TAG_MAXIMUM_BITRATE		"maximum-bitrate"
+</programlisting>
+<para>
+maximum bitrate in bits/s</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-SERIAL-CAPS"/>GST_TAG_SERIAL</title>
+<programlisting>#define GST_TAG_SERIAL			"serial"
+</programlisting>
+<para>
+serial number of track</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ENCODER-CAPS"/>GST_TAG_ENCODER</title>
+<programlisting>#define GST_TAG_ENCODER			"encoder"
+</programlisting>
+<para>
+encoder used to encode this stream</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ENCODER-VERSION-CAPS"/>GST_TAG_ENCODER_VERSION</title>
+<programlisting>#define GST_TAG_ENCODER_VERSION		"encoder-version"
+</programlisting>
+<para>
+version of the encoder used to encode this stream</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-TRACK-GAIN-CAPS"/>GST_TAG_TRACK_GAIN</title>
+<programlisting>#define GST_TAG_TRACK_GAIN		"replaygain-track-gain"
+</programlisting>
+<para>
+track gain in db</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-TRACK-PEAK-CAPS"/>GST_TAG_TRACK_PEAK</title>
+<programlisting>#define GST_TAG_TRACK_PEAK		"replaygain-track-peak"
+</programlisting>
+<para>
+peak of the track</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ALBUM-GAIN-CAPS"/>GST_TAG_ALBUM_GAIN</title>
+<programlisting>#define GST_TAG_ALBUM_GAIN  		"replaygain-album-gain"
+</programlisting>
+<para>
+album gain in db</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-TAG-ALBUM-PEAK-CAPS"/>GST_TAG_ALBUM_PEAK</title>
+<programlisting>#define GST_TAG_ALBUM_PEAK		"replaygain-album-peak"
+</programlisting>
+<para>
+peak of the album</para>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

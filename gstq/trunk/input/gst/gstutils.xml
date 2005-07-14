@@ -1,0 +1,444 @@
+<refentry id="gstreamer-GstUtils">
+<refmeta>
+<refentrytitle>GstUtils</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstUtils</refname><refpurpose>various utility functions</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+void        <link linkend="gst-util-set-value-from-string">gst_util_set_value_from_string</link>  (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="gchar">gchar</link> *value_str);
+void        <link linkend="gst-util-set-object-arg">gst_util_set_object_arg</link>         (<link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *value);
+void        <link linkend="gst-util-dump-mem">gst_util_dump_mem</link>               (const <link linkend="guchar">guchar</link> *mem,
+                                             <link linkend="guint">guint</link> size);
+void        <link linkend="gst-print-pad-caps">gst_print_pad_caps</link>              (<link linkend="GString">GString</link> *buf,
+                                             <link linkend="gint">gint</link> indent,
+                                             <link linkend="GstPad">GstPad</link> *pad);
+void        <link linkend="gst-print-element-args">gst_print_element_args</link>          (<link linkend="GString">GString</link> *buf,
+                                             <link linkend="gint">gint</link> indent,
+                                             <link linkend="GstElement">GstElement</link> *element);
+#define     <link linkend="GST-BOILERPLATE-FULL-CAPS">GST_BOILERPLATE_FULL</link>            (type, type_as_function, parent_type, parent_type_macro, additional_initializations)
+#define     <link linkend="GST-BOILERPLATE-CAPS">GST_BOILERPLATE</link>                 (type,type_as_function,parent_type,parent_type_macro)
+#define     <link linkend="GST-CALL-PARENT-CAPS">GST_CALL_PARENT</link>                 (parent_class_cast, name, args)
+#define     <link linkend="GST-CALL-PARENT-WITH-DEFAULT-CAPS">GST_CALL_PARENT_WITH_DEFAULT</link>    (parent_class_cast, name, args, def_return)
+#define     <link linkend="GST-READ-UINT8-CAPS">GST_READ_UINT8</link>                  (data)
+#define     <link linkend="GST-READ-UINT16-LE-CAPS">GST_READ_UINT16_LE</link>              (data)
+#define     <link linkend="GST-READ-UINT16-BE-CAPS">GST_READ_UINT16_BE</link>              (data)
+#define     <link linkend="GST-READ-UINT32-LE-CAPS">GST_READ_UINT32_LE</link>              (data)
+#define     <link linkend="GST-READ-UINT32-BE-CAPS">GST_READ_UINT32_BE</link>              (data)
+#define     <link linkend="GST-READ-UINT64-LE-CAPS">GST_READ_UINT64_LE</link>              (data)
+#define     <link linkend="GST-READ-UINT64-BE-CAPS">GST_READ_UINT64_BE</link>              (data)
+#define     <link linkend="GST-WRITE-UINT8-CAPS">GST_WRITE_UINT8</link>                 (data, num)
+#define     <link linkend="GST-WRITE-UINT16-LE-CAPS">GST_WRITE_UINT16_LE</link>             (data, num)
+#define     <link linkend="GST-WRITE-UINT16-BE-CAPS">GST_WRITE_UINT16_BE</link>             (data, num)
+#define     <link linkend="GST-WRITE-UINT32-LE-CAPS">GST_WRITE_UINT32_LE</link>             (data, num)
+#define     <link linkend="GST-WRITE-UINT32-BE-CAPS">GST_WRITE_UINT32_BE</link>             (data, num)
+#define     <link linkend="GST-WRITE-UINT64-LE-CAPS">GST_WRITE_UINT64_LE</link>             (data, num)
+#define     <link linkend="GST-WRITE-UINT64-BE-CAPS">GST_WRITE_UINT64_BE</link>             (data, num)
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="gst-util-set-value-from-string"/>gst_util_set_value_from_string ()</title>
+<programlisting>void        gst_util_set_value_from_string  (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="gchar">gchar</link> *value_str);</programlisting>
+<para>
+Converts the string to the type of the value and
+sets the value with it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> the value to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value_str</parameter>&nbsp;:</term>
+<listitem><simpara> the string to get the value from
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-util-set-object-arg"/>gst_util_set_object_arg ()</title>
+<programlisting>void        gst_util_set_object_arg         (<link linkend="GObject">GObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             const <link linkend="gchar">gchar</link> *value);</programlisting>
+<para>
+Convertes the string value to the type of the objects argument and
+sets the argument with it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> the object to set the argument of
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the argument to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> the string value to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-util-dump-mem"/>gst_util_dump_mem ()</title>
+<programlisting>void        gst_util_dump_mem               (const <link linkend="guchar">guchar</link> *mem,
+                                             <link linkend="guint">guint</link> size);</programlisting>
+<para>
+Dumps the memory block into a hex representation. Useful for debugging.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>mem</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to the memory to dump
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara> the size of the memory block to dump
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-print-pad-caps"/>gst_print_pad_caps ()</title>
+<programlisting>void        gst_print_pad_caps              (<link linkend="GString">GString</link> *buf,
+                                             <link linkend="gint">gint</link> indent,
+                                             <link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Write the pad capabilities in a human readable format into
+the given GString.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara> the buffer to print the caps in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>indent</parameter>&nbsp;:</term>
+<listitem><simpara> initial indentation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the pad to print the caps from
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-print-element-args"/>gst_print_element_args ()</title>
+<programlisting>void        gst_print_element_args          (<link linkend="GString">GString</link> *buf,
+                                             <link linkend="gint">gint</link> indent,
+                                             <link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Print the element argument in a human readable format in the given
+GString.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara> the buffer to print the args in
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>indent</parameter>&nbsp;:</term>
+<listitem><simpara> initial indentation
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> the element to print the args of
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BOILERPLATE-FULL-CAPS"/>GST_BOILERPLATE_FULL()</title>
+<programlisting>#define     GST_BOILERPLATE_FULL(type, type_as_function, parent_type, parent_type_macro, additional_initializations)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type_as_function</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent_type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent_type_macro</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>additional_initializations</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BOILERPLATE-CAPS"/>GST_BOILERPLATE()</title>
+<programlisting>#define     GST_BOILERPLATE(type,type_as_function,parent_type,parent_type_macro)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type_as_function</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent_type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent_type_macro</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CALL-PARENT-CAPS"/>GST_CALL_PARENT()</title>
+<programlisting>#define     GST_CALL_PARENT(parent_class_cast, name, args)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent_class_cast</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CALL-PARENT-WITH-DEFAULT-CAPS"/>GST_CALL_PARENT_WITH_DEFAULT()</title>
+<programlisting>#define     GST_CALL_PARENT_WITH_DEFAULT(parent_class_cast, name, args, def_return)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent_class_cast</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>args</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>def_return</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT8-CAPS"/>GST_READ_UINT8()</title>
+<programlisting>#define     GST_READ_UINT8(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT16-LE-CAPS"/>GST_READ_UINT16_LE()</title>
+<programlisting>#define     GST_READ_UINT16_LE(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT16-BE-CAPS"/>GST_READ_UINT16_BE()</title>
+<programlisting>#define     GST_READ_UINT16_BE(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT32-LE-CAPS"/>GST_READ_UINT32_LE()</title>
+<programlisting>#define     GST_READ_UINT32_LE(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT32-BE-CAPS"/>GST_READ_UINT32_BE()</title>
+<programlisting>#define     GST_READ_UINT32_BE(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT64-LE-CAPS"/>GST_READ_UINT64_LE()</title>
+<programlisting>#define     GST_READ_UINT64_LE(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-READ-UINT64-BE-CAPS"/>GST_READ_UINT64_BE()</title>
+<programlisting>#define     GST_READ_UINT64_BE(data)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT8-CAPS"/>GST_WRITE_UINT8()</title>
+<programlisting>#define     GST_WRITE_UINT8(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT16-LE-CAPS"/>GST_WRITE_UINT16_LE()</title>
+<programlisting>#define     GST_WRITE_UINT16_LE(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT16-BE-CAPS"/>GST_WRITE_UINT16_BE()</title>
+<programlisting>#define     GST_WRITE_UINT16_BE(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT32-LE-CAPS"/>GST_WRITE_UINT32_LE()</title>
+<programlisting>#define     GST_WRITE_UINT32_LE(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT32-BE-CAPS"/>GST_WRITE_UINT32_BE()</title>
+<programlisting>#define     GST_WRITE_UINT32_BE(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT64-LE-CAPS"/>GST_WRITE_UINT64_LE()</title>
+<programlisting>#define     GST_WRITE_UINT64_LE(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-WRITE-UINT64-BE-CAPS"/>GST_WRITE_UINT64_BE()</title>
+<programlisting>#define     GST_WRITE_UINT64_BE(data, num)</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,34 @@
+gst_object_replace
+-------------------
+
+GstObject info: while doing {'args': [[u'GstObject**', u'oldobj'],
+[u'GstObject
+*', u'newobj']], 'return': u'void', 'name': u'gst_object_replace'}
+too many pointers
+KeyError: u'GstObject**'
+error while processing ../input/gst/gstobject.xml
+
+
+gst_object_default_deep_notify
+------------------------------
+
+error gchar** too many pointers
+GstObject info: while doing {'args': [[u'GObject*', u'object1'], [u'GstObject*', u'orig'], [u'GParamSpec*', u'pspec'], [u'gchar**', u'excluded_props']], 'return': u'void', 'name': u'gst_object_default_deep_notify'}
+
+GstXML.object-loaded
+--------------------
+
+GstXML info: for signal {'cproto': u'void        user_function 
+(GstXML *gstxml, GstObject *arg1, gpointer arg2, gpointer user_data);', 
+'name': u'object-loaded'} arg (u'gpointer', u'arg2')
+
+GstIndex
+---------
+
+GstIndex unknown proptype1 for  resolver GstIndexResolver TGstIndexResolver
+
+GstPad caps
+------------
+
+GstPad unknown proptype1 for  caps GstCaps TGstCaps
+

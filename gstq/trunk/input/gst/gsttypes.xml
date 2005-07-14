@@ -1,0 +1,173 @@
+<refentry id="gstreamer-GstTypes">
+<refmeta>
+<refentrytitle>GstTypes</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstTypes</refname><refpurpose>various global enums and constants</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+enum        <link linkend="GstElementState">GstElementState</link>;
+enum        <link linkend="GstElementStateReturn">GstElementStateReturn</link>;
+enum        <link linkend="GstRank">GstRank</link>;
+#define     <link linkend="GST-PADDING-CAPS">GST_PADDING</link>
+#define     <link linkend="GST-PADDING-INIT-CAPS">GST_PADDING_INIT</link>
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstElementState"/>enum GstElementState</title>
+<programlisting>typedef enum {
+  GST_STATE_VOID_PENDING        = 0,
+  GST_STATE_NULL                = (1 &lt;&lt; 0),
+  GST_STATE_READY               = (1 &lt;&lt; 1),
+  GST_STATE_PAUSED              = (1 &lt;&lt; 2),
+  GST_STATE_PLAYING             = (1 &lt;&lt; 3)
+} GstElementState;
+</programlisting>
+<para>
+These contants describe the state a <link linkend="GstElement">GstElement</link> is in and transition scheduled for the <link linkend="GstElement">GstElement</link> (the pending state).
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_STATE_VOID_PENDING</literal></term>
+<listitem><simpara>no transition is schedules for this element
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STATE_NULL</literal></term>
+<listitem><simpara>this is the default state all elements are in, after they have been created and are doing nothing
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STATE_READY</literal></term>
+<listitem><simpara>the element is ready to start doing something
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STATE_PAUSED</literal></term>
+<listitem><simpara>the element is paused for a period of time
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STATE_PLAYING</literal></term>
+<listitem><simpara>the element is doing something
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstElementStateReturn"/>enum GstElementStateReturn</title>
+<programlisting>typedef enum {
+  GST_STATE_FAILURE             = 0,
+  GST_STATE_SUCCESS             = 1,
+  GST_STATE_ASYNC               = 2
+} GstElementStateReturn;
+</programlisting>
+<para>
+One of these values is returned from a <link linkend="gst-element-set-state">gst_element_set_state</link>() call.
+As GST_STATE_FAILURE is equal to 0, one can use a boolean comparission
+against the GstElementStateReturn value.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_STATE_FAILURE</literal></term>
+<listitem><simpara>the state of the element could not be changed
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STATE_SUCCESS</literal></term>
+<listitem><simpara>the state of the element has already be changed
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_STATE_ASYNC</literal></term>
+<listitem><simpara>the state of the element will change in the near future
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstRank"/>enum GstRank</title>
+<programlisting>typedef enum {
+  GST_RANK_NONE                 = 0,
+  GST_RANK_MARGINAL             = 64,
+  GST_RANK_SECONDARY            = 128,
+  GST_RANK_PRIMARY              = 256
+} GstRank;
+</programlisting>
+<para>
+Element priority ranks. Defines the order in which the autoplugger (or similar
+rank-picking mechanisms) will choose this element over an alternative one
+with the same function.
+The rank is a unsigned integer ranging from 0 (GST_RANK_NONE) to 256 (GST_RANK_PRIMARY).
+These constants serve as a rough guidiance for defining the rank of a <link linkend="GstPlugin">GstPlugin</link> using
+<link linkend="gst-plugin-feature-set-rank">gst_plugin_feature_set_rank</link>().
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_RANK_NONE</literal></term>
+<listitem><simpara>will be chosen last or not at all
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RANK_MARGINAL</literal></term>
+<listitem><simpara>unlikly to be chosen
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RANK_SECONDARY</literal></term>
+<listitem><simpara>likely to be chosen
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_RANK_PRIMARY</literal></term>
+<listitem><simpara>will be chosen first
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PADDING-CAPS"/>GST_PADDING</title>
+<programlisting>#define GST_PADDING 4
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-PADDING-INIT-CAPS"/>GST_PADDING_INIT</title>
+<programlisting>#define GST_PADDING_INIT	{ 0 }
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

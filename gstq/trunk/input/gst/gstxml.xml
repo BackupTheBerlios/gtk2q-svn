@@ -1,0 +1,296 @@
+<refentry id="GstXML">
+<refmeta>
+<refentrytitle>GstXML</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstXML</refname><refpurpose>XML save/restore operations of pipelines</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstXML-struct">GstXML</link>;
+<link linkend="xmlDocPtr">xmlDocPtr</link>   <link linkend="gst-xml-write">gst_xml_write</link>                   (<link linkend="GstElement">GstElement</link> *element);
+<link linkend="gint">gint</link>        <link linkend="gst-xml-write-file">gst_xml_write_file</link>              (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="FILE-CAPS">FILE</link> *out);
+<link linkend="GstXML">GstXML</link>*     <link linkend="gst-xml-new">gst_xml_new</link>                     (void);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-xml-parse-doc">gst_xml_parse_doc</link>               (<link linkend="GstXML">GstXML</link> *xml,
+                                             <link linkend="xmlDocPtr">xmlDocPtr</link> doc,
+                                             const <link linkend="guchar">guchar</link> *root);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-xml-parse-file">gst_xml_parse_file</link>              (<link linkend="GstXML">GstXML</link> *xml,
+                                             const <link linkend="guchar">guchar</link> *fname,
+                                             const <link linkend="guchar">guchar</link> *root);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-xml-parse-memory">gst_xml_parse_memory</link>            (<link linkend="GstXML">GstXML</link> *xml,
+                                             <link linkend="guchar">guchar</link> *buffer,
+                                             <link linkend="guint">guint</link> size,
+                                             const <link linkend="gchar">gchar</link> *root);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-xml-get-element">gst_xml_get_element</link>             (<link linkend="GstXML">GstXML</link> *xml,
+                                             const <link linkend="guchar">guchar</link> *name);
+<link linkend="GList">GList</link>*      <link linkend="gst-xml-get-topelements">gst_xml_get_topelements</link>         (<link linkend="GstXML">GstXML</link> *xml);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-xml-make-element">gst_xml_make_element</link>            (<link linkend="xmlNodePtr">xmlNodePtr</link> cur,
+                                             <link linkend="GstObject">GstObject</link> *parent);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----GstXML
+</synopsis>
+
+</refsect1>
+
+
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="GstXML-object-loaded">object-loaded</link>&quot;
+            void        user_function      (<link linkend="GstXML">GstXML</link> *gstxml,
+                                            <link linkend="GstObject">GstObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstXML-struct"/>struct GstXML</title>
+<programlisting>struct GstXML;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-write"/>gst_xml_write ()</title>
+<programlisting><link linkend="xmlDocPtr">xmlDocPtr</link>   gst_xml_write                   (<link linkend="GstElement">GstElement</link> *element);</programlisting>
+<para>
+Converts the given element into an XML presentation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> The element to write out
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to an XML document
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-write-file"/>gst_xml_write_file ()</title>
+<programlisting><link linkend="gint">gint</link>        gst_xml_write_file              (<link linkend="GstElement">GstElement</link> *element,
+                                             <link linkend="FILE-CAPS">FILE</link> *out);</programlisting>
+<para>
+Converts the given element into XML and writes the formatted XML to an open
+file.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>element</parameter>&nbsp;:</term>
+<listitem><simpara> The element to write out
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>out</parameter>&nbsp;:</term>
+<listitem><simpara> an open file, like stdout
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> number of bytes written on success, -1 otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-new"/>gst_xml_new ()</title>
+<programlisting><link linkend="GstXML">GstXML</link>*     gst_xml_new                     (void);</programlisting>
+<para>
+Create a new GstXML parser object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to a new GstXML object.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-parse-doc"/>gst_xml_parse_doc ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_xml_parse_doc               (<link linkend="GstXML">GstXML</link> *xml,
+                                             <link linkend="xmlDocPtr">xmlDocPtr</link> doc,
+                                             const <link linkend="guchar">guchar</link> *root);</programlisting>
+<para>
+Fills the GstXML object with the elements from the
+xmlDocPtr.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to a GstXML object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>doc</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to an xml document to parse
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>root</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the root object to build
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-parse-file"/>gst_xml_parse_file ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_xml_parse_file              (<link linkend="GstXML">GstXML</link> *xml,
+                                             const <link linkend="guchar">guchar</link> *fname,
+                                             const <link linkend="guchar">guchar</link> *root);</programlisting>
+<para>
+Fills the GstXML object with the corresponding elements from
+the XML file fname. Optionally it will only build the element from
+the element node root (if it is not NULL). This feature is useful
+if you only want to build a specific element from an XML file
+but not the pipeline it is embedded in.
+</para>
+<para>
+Pass "-" as fname to read from stdin. You can also pass a URI
+of any format that libxml supports, including http.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to a GstXML object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fname</parameter>&nbsp;:</term>
+<listitem><simpara> The filename with the xml description
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>root</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the root object to build
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-parse-memory"/>gst_xml_parse_memory ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_xml_parse_memory            (<link linkend="GstXML">GstXML</link> *xml,
+                                             <link linkend="guchar">guchar</link> *buffer,
+                                             <link linkend="guint">guint</link> size,
+                                             const <link linkend="gchar">gchar</link> *root);</programlisting>
+<para>
+Fills the GstXML object with the corresponding elements from
+an in memory XML buffer.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to a GstXML object
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to the in memory XML buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara> the size of the buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>root</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the root objects to build
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-get-element"/>gst_xml_get_element ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_xml_get_element             (<link linkend="GstXML">GstXML</link> *xml,
+                                             const <link linkend="guchar">guchar</link> *name);</programlisting>
+<para>
+This function is used to get a pointer to the GstElement corresponding
+to name in the pipeline description. You would use this if you have
+to do anything to the element after loading.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&nbsp;:</term>
+<listitem><simpara> The GstXML to get the element from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> The name of element to retreive
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to a new GstElement
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-get-topelements"/>gst_xml_get_topelements ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_xml_get_topelements         (<link linkend="GstXML">GstXML</link> *xml);</programlisting>
+<para>
+Retrive a list of toplevel elements.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>xml</parameter>&nbsp;:</term>
+<listitem><simpara> The GstXML to get the elements from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of elements
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-xml-make-element"/>gst_xml_make_element ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_xml_make_element            (<link linkend="xmlNodePtr">xmlNodePtr</link> cur,
+                                             <link linkend="GstObject">GstObject</link> *parent);</programlisting>
+<para>
+Load the element from the XML description</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>cur</parameter>&nbsp;:</term>
+<listitem><simpara> the xml node
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> the parent of this object when it's loaded
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new element
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="GstXML-object-loaded"/>The &quot;object-loaded&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstXML">GstXML</link> *gstxml,
+                                            <link linkend="GstObject">GstObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para>
+
+@: 
+@: 
+@:<variablelist role="params">
+<varlistentry><term><parameter>gstxml</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg2</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

@@ -1,0 +1,255 @@
+<refentry id="gstreamer-GstRegistryPool">
+<refmeta>
+<refentrytitle>GstRegistryPool</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstRegistryPool</refname><refpurpose>Management of a group of <link linkend="GstRegistry">GstRegistry</link> objects</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+<link linkend="GList">GList</link>*      <link linkend="gst-registry-pool-list">gst_registry_pool_list</link>          (void);
+void        <link linkend="gst-registry-pool-add">gst_registry_pool_add</link>           (<link linkend="GstRegistry">GstRegistry</link> *registry,
+                                             <link linkend="guint">guint</link> priority);
+void        <link linkend="gst-registry-pool-remove">gst_registry_pool_remove</link>        (<link linkend="GstRegistry">GstRegistry</link> *registry);
+void        <link linkend="gst-registry-pool-add-plugin">gst_registry_pool_add_plugin</link>    (<link linkend="GstPlugin">GstPlugin</link> *plugin);
+void        <link linkend="gst-registry-pool-load-all">gst_registry_pool_load_all</link>      (void);
+<link linkend="GList">GList</link>*      <link linkend="gst-registry-pool-plugin-filter">gst_registry_pool_plugin_filter</link> (<link linkend="GstPluginFilter">GstPluginFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="GList">GList</link>*      <link linkend="gst-registry-pool-feature-filter">gst_registry_pool_feature_filter</link>
+                                            (<link linkend="GstPluginFeatureFilter">GstPluginFeatureFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="GList">GList</link>*      <link linkend="gst-registry-pool-plugin-list">gst_registry_pool_plugin_list</link>   (void);
+<link linkend="GList">GList</link>*      <link linkend="gst-registry-pool-feature-list">gst_registry_pool_feature_list</link>  (<link linkend="GType">GType</link> type);
+<link linkend="GstPlugin">GstPlugin</link>*  <link linkend="gst-registry-pool-find-plugin">gst_registry_pool_find_plugin</link>   (const <link linkend="gchar">gchar</link> *name);
+<link linkend="GstPluginFeature">GstPluginFeature</link>* <link linkend="gst-registry-pool-find-feature">gst_registry_pool_find_feature</link>
+                                            (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GType">GType</link> type);
+<link linkend="GstRegistry">GstRegistry</link>* <link linkend="gst-registry-pool-get-prefered">gst_registry_pool_get_prefered</link> (<link linkend="GstRegistryFlags">GstRegistryFlags</link> flags);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The registry pool manages the available registries and plugins in
+the system.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="gst-registry-pool-list"/>gst_registry_pool_list ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_registry_pool_list          (void);</programlisting>
+<para>
+Get a list of all registries in the pool</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a Glist of GstRegistries, g_list_free after use.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-add"/>gst_registry_pool_add ()</title>
+<programlisting>void        gst_registry_pool_add           (<link linkend="GstRegistry">GstRegistry</link> *registry,
+                                             <link linkend="guint">guint</link> priority);</programlisting>
+<para>
+Add the registry to the pool with the given priority.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>registry</parameter>&nbsp;:</term>
+<listitem><simpara> the registry to add
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>priority</parameter>&nbsp;:</term>
+<listitem><simpara> the priority of the registry
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-remove"/>gst_registry_pool_remove ()</title>
+<programlisting>void        gst_registry_pool_remove        (<link linkend="GstRegistry">GstRegistry</link> *registry);</programlisting>
+<para>
+Remove the registry from the pool.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>registry</parameter>&nbsp;:</term>
+<listitem><simpara> the registry to remove
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-add-plugin"/>gst_registry_pool_add_plugin ()</title>
+<programlisting>void        gst_registry_pool_add_plugin    (<link linkend="GstPlugin">GstPlugin</link> *plugin);</programlisting>
+<para>
+Add the plugin to the global pool of plugins.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>plugin</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin to add
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-load-all"/>gst_registry_pool_load_all ()</title>
+<programlisting>void        gst_registry_pool_load_all      (void);</programlisting>
+<para>
+Load all the registries in the pool. Registries with the
+GST_REGISTRY_DELAYED_LOADING will not be loaded.</para>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-plugin-filter"/>gst_registry_pool_plugin_filter ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_registry_pool_plugin_filter (<link linkend="GstPluginFilter">GstPluginFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Runs a filter against all plugins in all registries and returns a GList with
+the results. If the first flag is set, only the first match is 
+returned (as a list with a single object).</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>filter</parameter>&nbsp;:</term>
+<listitem><simpara> the filter to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first</parameter>&nbsp;:</term>
+<listitem><simpara> only return first match
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> user data passed to the filter function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of plugins, g_list_free after use.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-feature-filter"/>gst_registry_pool_feature_filter ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_registry_pool_feature_filter
+                                            (<link linkend="GstPluginFeatureFilter">GstPluginFeatureFilter</link> filter,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Apply the filter function to all features and return a list
+of those features that satisfy the filter. If the first flag
+is TRUE, only the first match is returned in a GList with
+one element.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>filter</parameter>&nbsp;:</term>
+<listitem><simpara> the filter to apply to the feature list
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first</parameter>&nbsp;:</term>
+<listitem><simpara> return the first matching feature
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> data passed to the filter function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of pluginfeatures, g_list_free after use.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-plugin-list"/>gst_registry_pool_plugin_list ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_registry_pool_plugin_list   (void);</programlisting>
+<para>
+Get a list of all plugins in the pool.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of plugins, g_list_free after use.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-feature-list"/>gst_registry_pool_feature_list ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_registry_pool_feature_list  (<link linkend="GType">GType</link> type);</programlisting>
+<para>
+Get a list of all pluginfeatures of the given type in the pool.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the type of the features to list.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a GList of pluginfeatures, g_list_free after use.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-find-plugin"/>gst_registry_pool_find_plugin ()</title>
+<programlisting><link linkend="GstPlugin">GstPlugin</link>*  gst_registry_pool_find_plugin   (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Get the named plugin from the registry pool</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the plugin to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The plugin with the given name or NULL if the plugin 
+was not found.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-find-feature"/>gst_registry_pool_find_feature ()</title>
+<programlisting><link linkend="GstPluginFeature">GstPluginFeature</link>* gst_registry_pool_find_feature
+                                            (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GType">GType</link> type);</programlisting>
+<para>
+Get the pluginfeature with the given name and type from the pool of
+registries.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the pluginfeature to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the type of the pluginfeature to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A pluginfeature with the given name and type or NULL if the feature
+was not found.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-registry-pool-get-prefered"/>gst_registry_pool_get_prefered ()</title>
+<programlisting><link linkend="GstRegistry">GstRegistry</link>* gst_registry_pool_get_prefered (<link linkend="GstRegistryFlags">GstRegistryFlags</link> flags);</programlisting>
+<para>
+Get the prefered registry with the given flags</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>flags</parameter>&nbsp;:</term>
+<listitem><simpara> The flags for the prefered registry
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The registry with the flags.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+GstRegistry
+</para>
+</refsect1>
+
+</refentry>

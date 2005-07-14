@@ -1,0 +1,726 @@
+<refentry id="gstreamer-GstBuffer">
+<refmeta>
+<refentrytitle>GstBuffer</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstBuffer</refname><refpurpose>Data-passing buffer type, supporting sub-buffers.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstBuffer">GstBuffer</link>;
+<link linkend="GstBuffer">GstBuffer</link>*  <link linkend="gst-buffer-new">gst_buffer_new</link>                  (void);
+<link linkend="GstBuffer">GstBuffer</link>*  <link linkend="gst-buffer-new-and-alloc">gst_buffer_new_and_alloc</link>        (<link linkend="guint">guint</link> size);
+enum        <link linkend="GstBufferFlag">GstBufferFlag</link>;
+#define     <link linkend="GST-BUFFER-FLAGS-CAPS">GST_BUFFER_FLAGS</link>                (buf)
+#define     <link linkend="GST-BUFFER-FLAG-IS-SET-CAPS">GST_BUFFER_FLAG_IS_SET</link>          (buf,flag)
+#define     <link linkend="GST-BUFFER-FLAG-SET-CAPS">GST_BUFFER_FLAG_SET</link>             (buf,flag)
+#define     <link linkend="GST-BUFFER-FLAG-UNSET-CAPS">GST_BUFFER_FLAG_UNSET</link>           (buf,flag)
+#define     <link linkend="gst-buffer-set-data">gst_buffer_set_data</link>             (buf, data, size)
+#define     <link linkend="GST-BUFFER-DATA-CAPS">GST_BUFFER_DATA</link>                 (buf)
+#define     <link linkend="GST-BUFFER-SIZE-CAPS">GST_BUFFER_SIZE</link>                 (buf)
+#define     <link linkend="GST-BUFFER-TIMESTAMP-CAPS">GST_BUFFER_TIMESTAMP</link>            (buf)
+#define     <link linkend="GST-BUFFER-DURATION-CAPS">GST_BUFFER_DURATION</link>             (buf)
+#define     <link linkend="GST-BUFFER-OFFSET-CAPS">GST_BUFFER_OFFSET</link>               (buf)
+#define     <link linkend="GST-BUFFER-OFFSET-END-CAPS">GST_BUFFER_OFFSET_END</link>           (buf)
+#define     <link linkend="gst-buffer-ref">gst_buffer_ref</link>                  (buf)
+#define     <link linkend="gst-buffer-unref">gst_buffer_unref</link>                (buf)
+void        <link linkend="gst-buffer-stamp">gst_buffer_stamp</link>                (<link linkend="GstBuffer">GstBuffer</link> *dest,
+                                             const <link linkend="GstBuffer">GstBuffer</link> *src);
+#define     <link linkend="gst-buffer-copy">gst_buffer_copy</link>                 (buf)
+#define     <link linkend="gst-buffer-is-writable">gst_buffer_is_writable</link>          (buf)
+<link linkend="GstBuffer">GstBuffer</link>*  <link linkend="gst-buffer-create-sub">gst_buffer_create_sub</link>           (<link linkend="GstBuffer">GstBuffer</link> *parent,
+                                             <link linkend="guint">guint</link> offset,
+                                             <link linkend="guint">guint</link> size);
+<link linkend="GstBuffer">GstBuffer</link>*  <link linkend="gst-buffer-join">gst_buffer_join</link>                 (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2);
+<link linkend="GstBuffer">GstBuffer</link>*  <link linkend="gst-buffer-merge">gst_buffer_merge</link>                (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2);
+<link linkend="GstBuffer">GstBuffer</link>*  <link linkend="gst-buffer-span">gst_buffer_span</link>                 (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="guint32">guint32</link> offset,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2,
+                                             <link linkend="guint32">guint32</link> len);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-buffer-is-span-fast">gst_buffer_is_span_fast</link>         (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2);
+#define     <link linkend="GST-BUFFER-TRACE-NAME-CAPS">GST_BUFFER_TRACE_NAME</link>
+#define     <link linkend="GST-BUFFER-OFFSET-NONE-CAPS">GST_BUFFER_OFFSET_NONE</link>
+#define     <link linkend="GST-BUFFER-MAXSIZE-NONE-CAPS">GST_BUFFER_MAXSIZE_NONE</link>
+#define     <link linkend="GST-BUFFER-DURATION-IS-VALID-CAPS">GST_BUFFER_DURATION_IS_VALID</link>    (buffer)
+#define     <link linkend="GST-BUFFER-TIMESTAMP-IS-VALID-CAPS">GST_BUFFER_TIMESTAMP_IS_VALID</link>   (buffer)
+#define     <link linkend="GST-BUFFER-OFFSET-IS-VALID-CAPS">GST_BUFFER_OFFSET_IS_VALID</link>      (buffer)
+#define     <link linkend="GST-BUFFER-OFFSET-END-IS-VALID-CAPS">GST_BUFFER_OFFSET_END_IS_VALID</link>  (buffer)
+#define     <link linkend="GST-BUFFER-MAXSIZE-IS-VALID-CAPS">GST_BUFFER_MAXSIZE_IS_VALID</link>     (buffer)
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Buffers are the basic unit of data transfer in GStreamer.  The GstBuffer type
+provides all the state necessary to define a region of memory as part of a
+stream.  Sub-buffers are also supported, allowing a smaller region of a
+buffer to become its own buffer, with mechanisms in place to ensure that
+neither memory space goes away. 
+</para>
+<para>
+Buffers are usually created with <link linkend="gst-buffer-new">gst_buffer_new</link>(). After a buffer has been 
+created one will typically allocate memory for it and set the size of the 
+buffer data.  The following example creates a buffer that can hold a given
+video frame with a given width, height and bits per plane.
+<example>
+<title>Creating a buffer for a video frame</title>
+  <programlisting>
+  GstBuffer *buffer;
+  gint size, width, height, bpp;
+
+  ...
+
+  size = width * height * bpp;
+
+  buffer = <link linkend="gst-buffer-new">gst_buffer_new</link>();
+  GST_BUFFER_SIZE (buffer) = size;
+  GST_BUFFER_DATA (buffer) = g_alloc (size);
+  ...
+  </programlisting>
+</example>
+</para>
+<para>
+Alternatively, use <link linkend="gst-buffer-new-and-alloc">gst_buffer_new_and_alloc</link>() 
+to create a buffer with preallocated data of a given size.
+</para>
+<para>
+If an element knows what pad you will push the buffer out on, it should use
+<link linkend="gst-pad-alloc-buffer">gst_pad_alloc_buffer</link>() instead to create a buffer.  This allows downstream
+elements to provide special buffers to write in, like hardware buffers.
+</para>
+<para>
+<link linkend="gst-buffer-ref">gst_buffer_ref</link>() is used to increase the refcount of a buffer. This must be
+done when you want to keep a handle to the buffer after pushing it to the
+next element.
+</para>
+<para>
+To efficiently create a smaller buffer out of an existing one, you can
+use <link linkend="gst-buffer-create-sub">gst_buffer_create_sub</link>().
+</para>
+<para>
+If the plug-in wants to modify the buffer in-place, it should first obtain
+a buffer that is safe to modify by using <link linkend="gst-buffer-copy-on-write">gst_buffer_copy_on_write</link>().  This
+function is optimized so that a copy will only be made when it is necessary.
+</para>
+<para>
+Several flags of the buffer can be set and unset with the <link linkend="GST-BUFFER-FLAG-SET-CAPS">GST_BUFFER_FLAG_SET</link>()
+and <link linkend="GST-BUFFER-FLAG-UNSET-CAPS">GST_BUFFER_FLAG_UNSET</link>() macros. Use <link linkend="GST-BUFFER-FLAG-IS-SET-CAPS">GST_BUFFER_FLAG_IS_SET</link>() to test it
+a certain <link linkend="GstBufferFlag">GstBufferFlag</link> is set.
+</para>
+<para>
+Buffers can be efficiently merged into a larger buffer with <link linkend="gst-buffer-merge">gst_buffer_merge</link>() and
+<link linkend="gst-buffer-span">gst_buffer_span</link>() if the <link linkend="gst-buffer-is-span-fast">gst_buffer_is_span_fast</link>() function returns TRUE.
+</para>
+<para>
+An element should either unref the buffer or push it out on a src pad
+using <link linkend="gst-pad-push">gst_pad_push</link>() (see <link linkend="GstPad">GstPad</link>).
+
+Buffers usually are freed by unreffing them with <link linkend="gst-buffer-unref">gst_buffer_unref</link>().
+Do not use <link linkend="gst-buffer-free">gst_buffer_free</link>() : this function effectively frees the buffer
+regardless of the refcount, which is dangerous.
+</para>
+
+<para>
+Last reviewed on August 12th, 2004 (0.8.5)
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstBuffer"/>struct GstBuffer</title>
+<programlisting>struct GstBuffer {
+
+  GstMiniObject		 mini_object;
+
+  /* pointer to data and its size */
+  guint8		*data;			/* pointer to buffer data */
+  guint			 size;			/* size of buffer data */
+
+  /* timestamp */
+  GstClockTime		 timestamp;
+  GstClockTime		 duration;
+
+  /* the media type of this buffer */
+  GstCaps		*caps;
+
+  /* media specific offset
+   * for video frames, this could be the number of frames,
+   * for audio data, this could be the number of audio samples,
+   * for file data or compressed data, this could be the number of bytes
+   * offset_end is the last offset contained in the buffer. The format specifies
+   * the meaning of both of them exactly.
+   */
+  guint64		 offset;
+  guint64		 offset_end;
+
+};
+</programlisting>
+<para>
+The basic structure of a buffer.
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-new"/>gst_buffer_new ()</title>
+<programlisting><link linkend="GstBuffer">GstBuffer</link>*  gst_buffer_new                  (void);</programlisting>
+<para>
+Creates a newly allocated buffer without any data.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstBuffer">GstBuffer</link>.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-new-and-alloc"/>gst_buffer_new_and_alloc ()</title>
+<programlisting><link linkend="GstBuffer">GstBuffer</link>*  gst_buffer_new_and_alloc        (<link linkend="guint">guint</link> size);</programlisting>
+<para>
+Creates a newly allocated buffer with data of the given size.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara> the size of the new buffer's data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstBuffer">GstBuffer</link>.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstBufferFlag"/>enum GstBufferFlag</title>
+<programlisting>typedef enum {
+  GST_BUFFER_FLAG_READONLY = GST_MINI_OBJECT_FLAG_READONLY,
+  GST_BUFFER_FLAG_ORIGINAL = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 0),		/* original data, not copied, not currently used  */
+  GST_BUFFER_FLAG_PREROLL = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 1),		/* sample should not be displayed */
+  GST_BUFFER_FLAG_DISCONT = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 2),		/* buffer is first after discontinuity in the stream */
+  GST_BUFFER_FLAG_IN_CAPS = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 3),		/* buffer is also part of caps */
+  GST_BUFFER_FLAG_GAP = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 4),		/* buffer has been created to fill a gap in the stream */
+  GST_BUFFER_FLAG_DELTA_UNIT = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 5),	/* can't be used as sync point in stream */
+  GST_BUFFER_FLAG_LAST = (GST_MINI_OBJECT_FLAG_LAST &lt;&lt; 8)
+} GstBufferFlag;
+</programlisting>
+<para>
+A set of buffer flags used to describe properties of a <link linkend="GstBuffer">GstBuffer</link>.</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_READONLY</literal></term>
+<listitem><simpara> the buffer is read-only.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_ORIGINAL</literal></term>
+<listitem><simpara> buffer is not a copy of another buffer.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_PREROLL</literal></term>
+<listitem><simpara> the buffer is part of a preroll and should not be
+displayed.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_DISCONT</literal></term>
+<listitem><simpara> the buffer marks a discontinuity in the stream.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_IN_CAPS</literal></term>
+<listitem><simpara> the buffer has been added as a field in a <link linkend="GstCaps">GstCaps</link>.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_GAP</literal></term>
+<listitem><simpara> the buffer has been created to fill a gap in the stream.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_DELTA_UNIT</literal></term>
+<listitem><simpara> this unit cannot be decoded independently.
+Since 0.8.5
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_BUFFER_FLAG_LAST</literal></term>
+<listitem><simpara> additional flags can be added starting from this flag.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-FLAGS-CAPS"/>GST_BUFFER_FLAGS()</title>
+<programlisting>#define GST_BUFFER_FLAGS(buf)                   GST_MINI_OBJECT_FLAGS(buf)
+</programlisting>
+<para>
+Gets the flags from this buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to retrieve the flags from.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-FLAG-IS-SET-CAPS"/>GST_BUFFER_FLAG_IS_SET()</title>
+<programlisting>#define GST_BUFFER_FLAG_IS_SET(buf,flag)        GST_MINI_OBJECT_FLAG_IS_SET (buf, flag)
+</programlisting>
+<para>
+Gives the status of a given flag of a buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to query flags of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstBufferFlag">GstBufferFlag</link> to check.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-FLAG-SET-CAPS"/>GST_BUFFER_FLAG_SET()</title>
+<programlisting>#define GST_BUFFER_FLAG_SET(buf,flag)           GST_MINI_OBJECT_FLAG_SET (buf, flag)
+</programlisting>
+<para>
+Sets a buffer flag.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to modify flags of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstBufferFlag">GstBufferFlag</link> to set.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-FLAG-UNSET-CAPS"/>GST_BUFFER_FLAG_UNSET()</title>
+<programlisting>#define GST_BUFFER_FLAG_UNSET(buf,flag)         GST_MINI_OBJECT_FLAG_UNSET (buf, flag)
+</programlisting>
+<para>
+Clears a buffer flag.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to modify flags of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstBufferFlag">GstBufferFlag</link> to clear.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-set-data"/>gst_buffer_set_data()</title>
+<programlisting>#define     gst_buffer_set_data(buf, data, size)</programlisting>
+<para>
+A convenience function to set the data and size on a buffer
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>The buffer to modify
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>The data to set on the buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara>The size to set on the buffer
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-DATA-CAPS"/>GST_BUFFER_DATA()</title>
+<programlisting>#define GST_BUFFER_DATA(buf)			(GST_BUFFER(buf)-&gt;data)
+</programlisting>
+<para>
+Retrieves a pointer to the data element of this buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to get data pointer of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the pointer to the actual data contents of the buffer.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-SIZE-CAPS"/>GST_BUFFER_SIZE()</title>
+<programlisting>#define GST_BUFFER_SIZE(buf)			(GST_BUFFER(buf)-&gt;size)
+</programlisting>
+<para>
+Gets the size of the data in this buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to get data size of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-TIMESTAMP-CAPS"/>GST_BUFFER_TIMESTAMP()</title>
+<programlisting>#define GST_BUFFER_TIMESTAMP(buf)		(GST_BUFFER(buf)-&gt;timestamp)
+</programlisting>
+<para>
+Gets the timestamp for this buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to get timestamp of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-DURATION-CAPS"/>GST_BUFFER_DURATION()</title>
+<programlisting>#define GST_BUFFER_DURATION(buf)		(GST_BUFFER(buf)-&gt;duration)
+</programlisting>
+<para>
+Gets the duration in nanoseconds of the data in the buffer.
+Value will be GST_CLOCK_TIME_NONE if the duration is unknown.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to get the duration from.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-OFFSET-CAPS"/>GST_BUFFER_OFFSET()</title>
+<programlisting>#define GST_BUFFER_OFFSET(buf)			(GST_BUFFER(buf)-&gt;offset)
+</programlisting>
+<para>
+Gets the offset in the source file of the beinning of this buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to get offset of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-OFFSET-END-CAPS"/>GST_BUFFER_OFFSET_END()</title>
+<programlisting>#define GST_BUFFER_OFFSET_END(buf)		(GST_BUFFER(buf)-&gt;offset_end)
+</programlisting>
+<para>
+Gets the offset in the source file of the end of this buffer.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to get offset of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-ref"/>gst_buffer_ref()</title>
+<programlisting>#define		gst_buffer_ref(buf)		GST_BUFFER (gst_mini_object_ref (GST_MINI_OBJECT (buf)))
+</programlisting>
+<para>
+Increases the refcount of the given buffer by one.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to increase the refcount of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-unref"/>gst_buffer_unref()</title>
+<programlisting>#define		gst_buffer_unref(buf)		gst_mini_object_unref (GST_MINI_OBJECT (buf))
+</programlisting>
+<para>
+Decreases the refcount of the buffer. If the refcount reaches 0, the buffer
+will be freed.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to unref.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-stamp"/>gst_buffer_stamp ()</title>
+<programlisting>void        gst_buffer_stamp                (<link linkend="GstBuffer">GstBuffer</link> *dest,
+                                             const <link linkend="GstBuffer">GstBuffer</link> *src);</programlisting>
+<para>
+Copies additional information (timestamps and offsets) from one buffer to
+the other.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> buffer to stamp
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> buffer to stamp from
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-copy"/>gst_buffer_copy()</title>
+<programlisting>#define		gst_buffer_copy(buf)		GST_BUFFER (gst_mini_object_copy (GST_MINI_OBJECT (buf)))
+</programlisting>
+<para>
+Copies the given buffer using the copy function of the parent GstData structure.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to copy.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a new <link linkend="GstBuffer">GstBuffer</link> copy of the buffer.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-is-writable"/>gst_buffer_is_writable()</title>
+<programlisting>#define		gst_buffer_is_writable(buf)	gst_mini_object_is_writable (GST_MINI_OBJECT (buf))
+</programlisting>
+<para>
+Tests if you can safely write data into a buffer's data array.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstBuffer">GstBuffer</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-create-sub"/>gst_buffer_create_sub ()</title>
+<programlisting><link linkend="GstBuffer">GstBuffer</link>*  gst_buffer_create_sub           (<link linkend="GstBuffer">GstBuffer</link> *parent,
+                                             <link linkend="guint">guint</link> offset,
+                                             <link linkend="guint">guint</link> size);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-join"/>gst_buffer_join ()</title>
+<programlisting><link linkend="GstBuffer">GstBuffer</link>*  gst_buffer_join                 (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf2</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-merge"/>gst_buffer_merge ()</title>
+<programlisting><link linkend="GstBuffer">GstBuffer</link>*  gst_buffer_merge                (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2);</programlisting>
+<para>
+Create a new buffer that is the concatenation of the two source
+buffers, and takes ownership of the original source buffers.
+</para>
+<para>
+If the buffers point to contiguous areas of memory, the buffer
+is created without copying the data.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf1</parameter>&nbsp;:</term>
+<listitem><simpara> a first source <link linkend="GstBuffer">GstBuffer</link> to merge.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf2</parameter>&nbsp;:</term>
+<listitem><simpara> the second source <link linkend="GstBuffer">GstBuffer</link> to merge.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstBuffer">GstBuffer</link> that's the concatenation of the source buffers.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-span"/>gst_buffer_span ()</title>
+<programlisting><link linkend="GstBuffer">GstBuffer</link>*  gst_buffer_span                 (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="guint32">guint32</link> offset,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2,
+                                             <link linkend="guint32">guint32</link> len);</programlisting>
+<para>
+Creates a new buffer that consists of part of buf1 and buf2.
+Logically, buf1 and buf2 are concatenated into a single larger
+buffer, and a new buffer is created at the given offset inside
+this space, with a given length.
+</para>
+<para>
+If the two source buffers are children of the same larger buffer,
+and are contiguous, the new buffer will be a child of the shared
+parent, and thus no copying is necessary. you can use 
+<link linkend="gst-buffer-is-span-fast">gst_buffer_is_span_fast</link>() to determine if a memcpy will be needed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf1</parameter>&nbsp;:</term>
+<listitem><simpara> a first source <link linkend="GstBuffer">GstBuffer</link> to merge.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara> the offset in the first buffer from where the new
+buffer should start.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf2</parameter>&nbsp;:</term>
+<listitem><simpara> the second source <link linkend="GstBuffer">GstBuffer</link> to merge.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&nbsp;:</term>
+<listitem><simpara> the total length of the new buffer.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstBuffer">GstBuffer</link> that spans the two source buffers.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-buffer-is-span-fast"/>gst_buffer_is_span_fast ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_buffer_is_span_fast         (<link linkend="GstBuffer">GstBuffer</link> *buf1,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buf2);</programlisting>
+<para>
+Determines whether a <link linkend="gst-buffer-span">gst_buffer_span</link>() can be done without copying
+the contents, that is, whether the data areas are contiguous.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buf1</parameter>&nbsp;:</term>
+<listitem><simpara> a first source <link linkend="GstBuffer">GstBuffer</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf2</parameter>&nbsp;:</term>
+<listitem><simpara> the second source <link linkend="GstBuffer">GstBuffer</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the buffers are contiguous,
+FALSE if a copy would be required.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-TRACE-NAME-CAPS"/>GST_BUFFER_TRACE_NAME</title>
+<programlisting>#define GST_BUFFER_TRACE_NAME		"GstBuffer"
+</programlisting>
+<para>
+The name used for tracing memory allocations
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-OFFSET-NONE-CAPS"/>GST_BUFFER_OFFSET_NONE</title>
+<programlisting>#define GST_BUFFER_OFFSET_NONE	((guint64)-1)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-MAXSIZE-NONE-CAPS"/>GST_BUFFER_MAXSIZE_NONE</title>
+<programlisting>#define GST_BUFFER_MAXSIZE_NONE	((guint)0)
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-DURATION-IS-VALID-CAPS"/>GST_BUFFER_DURATION_IS_VALID()</title>
+<programlisting>#define GST_BUFFER_DURATION_IS_VALID(buffer)	(GST_CLOCK_TIME_IS_VALID (GST_BUFFER_DURATION (buffer)))
+</programlisting>
+<para>
+Tests if the duration is known.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstBuffer">GstBuffer</link> to check for the duration
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-TIMESTAMP-IS-VALID-CAPS"/>GST_BUFFER_TIMESTAMP_IS_VALID()</title>
+<programlisting>#define GST_BUFFER_TIMESTAMP_IS_VALID(buffer)	(GST_CLOCK_TIME_IS_VALID (GST_BUFFER_TIMESTAMP (buffer)))
+</programlisting>
+<para>
+Tests if the timestamp is known.
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstBuffer">GstBuffer</link> to check for the timestamp
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-OFFSET-IS-VALID-CAPS"/>GST_BUFFER_OFFSET_IS_VALID()</title>
+<programlisting>#define GST_BUFFER_OFFSET_IS_VALID(buffer)	(GST_BUFFER_OFFSET (buffer) != GST_BUFFER_OFFSET_NONE)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-OFFSET-END-IS-VALID-CAPS"/>GST_BUFFER_OFFSET_END_IS_VALID()</title>
+<programlisting>#define GST_BUFFER_OFFSET_END_IS_VALID(buffer)	(GST_BUFFER_OFFSET_END (buffer) != GST_BUFFER_OFFSET_NONE)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-BUFFER-MAXSIZE-IS-VALID-CAPS"/>GST_BUFFER_MAXSIZE_IS_VALID()</title>
+<programlisting>#define GST_BUFFER_MAXSIZE_IS_VALID(buffer)	(GST_BUFFER_MAXSIZE (buffer) != GST_BUFFER_MAXSIZE_NONE)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstBufferPool">GstBufferPool</link>, <link linkend="GstPad">GstPad</link>, <link linkend="GstData">GstData</link>
+</para>
+</refsect1>
+
+</refentry>

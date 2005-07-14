@@ -1,0 +1,91 @@
+<refentry id="gstreamer-GstVersion">
+<refmeta>
+<refentrytitle>GstVersion</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstVersion</refname><refpurpose>GStreamer version macros.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+#define     <link linkend="GST-VERSION-MAJOR-CAPS">GST_VERSION_MAJOR</link>
+#define     <link linkend="GST-VERSION-MINOR-CAPS">GST_VERSION_MINOR</link>
+#define     <link linkend="GST-VERSION-MICRO-CAPS">GST_VERSION_MICRO</link>
+void        <link linkend="gst-version">gst_version</link>                     (<link linkend="guint">guint</link> *major,
+                                             <link linkend="guint">guint</link> *minor,
+                                             <link linkend="guint">guint</link> *micro);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Use these macros e.g. when defining own plugins.
+The version macros get defined by including "gst/gst.h".
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GST-VERSION-MAJOR-CAPS"/>GST_VERSION_MAJOR</title>
+<programlisting>#define GST_VERSION_MAJOR (0)
+</programlisting>
+<para>
+The major version of GStreamer at compile time
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-VERSION-MINOR-CAPS"/>GST_VERSION_MINOR</title>
+<programlisting>#define GST_VERSION_MINOR (9)
+</programlisting>
+<para>
+The minor version of GStreamer at compile time
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-VERSION-MICRO-CAPS"/>GST_VERSION_MICRO</title>
+<programlisting>#define GST_VERSION_MICRO (1)
+</programlisting>
+<para>
+The micro version of GStreamer at compile time
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-version"/>gst_version ()</title>
+<programlisting>void        gst_version                     (<link linkend="guint">guint</link> *major,
+                                             <link linkend="guint">guint</link> *minor,
+                                             <link linkend="guint">guint</link> *micro);</programlisting>
+<para>
+Gets the version number of the GStreamer library.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>major</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a guint to store the major version number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minor</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a guint to store the minor version number
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>micro</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to a guint to store the micro version number
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

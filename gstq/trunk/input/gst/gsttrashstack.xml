@@ -1,0 +1,90 @@
+<refentry id="gstreamer-GstTrashStack">
+<refmeta>
+<refentrytitle>gsttrashstack</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>gsttrashstack</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstTrashStack">GstTrashStack</link>;
+struct      <link linkend="GstTrashStackElement">GstTrashStackElement</link>;
+typedef     <link linkend="gst-vgpointer">gst_vgpointer</link>;
+typedef     <link linkend="gst-vgulong">gst_vgulong</link>;
+#define     <link linkend="SMP-LOCK-CAPS">SMP_LOCK</link>
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstTrashStack"/>struct GstTrashStack</title>
+<programlisting>struct GstTrashStack {
+
+  gst_vgpointer 	head;  
+  gst_vgulong		count; 		/* for the ABA problem */
+  GMutex                *lock;		/* lock for C fallback */
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTrashStackElement"/>struct GstTrashStackElement</title>
+<programlisting>struct GstTrashStackElement {
+
+  GstTrashStackElement *next;
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-vgpointer"/>gst_vgpointer</title>
+<programlisting>typedef volatile gpointer gst_vgpointer;/* gtk-doc volatile workaround */
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-vgulong"/>gst_vgulong</title>
+<programlisting>typedef volatile gulong gst_vgulong;    /* gtk-doc volatile workaround */
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="SMP-LOCK-CAPS"/>SMP_LOCK</title>
+<programlisting>#define     SMP_LOCK</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

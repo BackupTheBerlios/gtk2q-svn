@@ -1,0 +1,280 @@
+<refentry id="GstTagSetter">
+<refmeta>
+<refentrytitle>GstTagSetter</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstTagSetter</refname><refpurpose>Element interface that allows setting and retrieval of media metadata</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstTagSetter-struct">GstTagSetter</link>;
+struct      <link linkend="GstTagSetterIFace">GstTagSetterIFace</link>;
+void        <link linkend="gst-tag-setter-merge">gst_tag_setter_merge</link>            (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             const <link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);
+void        <link linkend="gst-tag-setter-add">gst_tag_setter_add</link>              (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);
+void        <link linkend="gst-tag-setter-add-values">gst_tag_setter_add_values</link>       (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);
+void        <link linkend="gst-tag-setter-add-valist">gst_tag_setter_add_valist</link>       (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);
+void        <link linkend="gst-tag-setter-add-valist-values">gst_tag_setter_add_valist_values</link>
+                                            (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);
+G_CONST_RETURN <link linkend="GstTagList">GstTagList</link>* <link linkend="gst-tag-setter-get-list">gst_tag_setter_get_list</link>
+                                            (<link linkend="GstTagSetter">GstTagSetter</link> *setter);
+void        <link linkend="gst-tag-setter-set-merge-mode">gst_tag_setter_set_merge_mode</link>   (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);
+<link linkend="GstTagMergeMode">GstTagMergeMode</link> <link linkend="gst-tag-setter-get-merge-mode">gst_tag_setter_get_merge_mode</link>
+                                            (<link linkend="GstTagSetter">GstTagSetter</link> *setter);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GInterface">GInterface</link>
+   +----GstTagSetter
+</synopsis>
+
+</refsect1>
+
+
+<refsect1>
+<title>Prerequisites</title>
+<para>
+GstTagSetter requires <link linkend="GstElement">GstElement</link>.
+</para>
+</refsect1>
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstTagSetter-struct"/>struct GstTagSetter</title>
+<programlisting>struct GstTagSetter;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstTagSetterIFace"/>struct GstTagSetterIFace</title>
+<programlisting>struct GstTagSetterIFace {
+
+  GTypeInterface g_iface;
+
+  /* signals */
+
+  /* virtual table */
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-merge"/>gst_tag_setter_merge ()</title>
+<programlisting>void        gst_tag_setter_merge            (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             const <link linkend="GstTagList">GstTagList</link> *list,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);</programlisting>
+<para>
+Merges the given list into the setter's list using the given mode.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> a tag list to merge from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to merge with
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-add"/>gst_tag_setter_add ()</title>
+<programlisting>void        gst_tag_setter_add              (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);</programlisting>
+<para>
+Adds the given tag / value pairs on the setter using the given merge mode. 
+The list must be terminated with GST_TAG_INVALID.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> more tag / value pairs to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-add-values"/>gst_tag_setter_add_values ()</title>
+<programlisting>void        gst_tag_setter_add_values       (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             ...);</programlisting>
+<para>
+Adds the given tag / GValue pairs on the setter using the given merge mode. 
+The list must be terminated with GST_TAG_INVALID.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> more tag / GValue pairs to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-add-valist"/>gst_tag_setter_add_valist ()</title>
+<programlisting>void        gst_tag_setter_add_valist       (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);</programlisting>
+<para>
+Adds the given tag / value pairs on the setter using the given merge mode. 
+The list must be terminated with GST_TAG_INVALID.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var_args</parameter>&nbsp;:</term>
+<listitem><simpara> tag / value pairs to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-add-valist-values"/>gst_tag_setter_add_valist_values ()</title>
+<programlisting>void        gst_tag_setter_add_valist_values
+                                            (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode,
+                                             const <link linkend="gchar">gchar</link> *tag,
+                                             va_list var_args);</programlisting>
+<para>
+Adds the given tag / GValue pairs on the setter using the given merge mode. 
+The list must be terminated with GST_TAG_INVALID.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>tag</parameter>&nbsp;:</term>
+<listitem><simpara> tag to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var_args</parameter>&nbsp;:</term>
+<listitem><simpara> tag / GValue pairs to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-get-list"/>gst_tag_setter_get_list ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstTagList">GstTagList</link>* gst_tag_setter_get_list
+                                            (<link linkend="GstTagSetter">GstTagSetter</link> *setter);</programlisting>
+<para>
+Retrieves a copy of the current list of tags the setter uses.
+You need to <link linkend="gst-tag-list-free">gst_tag_list_free</link>() the list after use.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a current snapshot of the taglist used in the setter
+    or NULL if none is used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-set-merge-mode"/>gst_tag_setter_set_merge_mode ()</title>
+<programlisting>void        gst_tag_setter_set_merge_mode   (<link linkend="GstTagSetter">GstTagSetter</link> *setter,
+                                             <link linkend="GstTagMergeMode">GstTagMergeMode</link> mode);</programlisting>
+<para>
+Sets the given merge mode that is used for adding tags from events to tags
+specified by this interface. The default is <link linkend="GST-TAG-MERGE-KEEP-CAPS">GST_TAG_MERGE_KEEP</link>, which keeps
+the tags by this interface and discards tags from events.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> The mode with which tags are added
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-tag-setter-get-merge-mode"/>gst_tag_setter_get_merge_mode ()</title>
+<programlisting><link linkend="GstTagMergeMode">GstTagMergeMode</link> gst_tag_setter_get_merge_mode
+                                            (<link linkend="GstTagSetter">GstTagSetter</link> *setter);</programlisting>
+<para>
+Queries the mode by which tags inside the setter are overwritten by tags 
+from events</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>setter</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstTagSetter">GstTagSetter</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the merge mode used inside the element.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,99 @@
+<refentry id="gstreamer-GstFilter">
+<refmeta>
+<refentrytitle>GstFilter</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstFilter</refname><refpurpose>Take data in and spit data out</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstFilterFunc">*GstFilterFunc</link>)                (<link linkend="gpointer">gpointer</link> obj,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="GList">GList</link>*      <link linkend="gst-filter-run">gst_filter_run</link>                  (const <link linkend="GList">GList</link> *list,
+                                             <link linkend="GstFilterFunc">GstFilterFunc</link> func,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Filters take data in and spit data out. They are the main Element in a filter graph.
+Filters have zero or more inputs and zero or more outputs. Filters are linked
+together to form filter graphs. A GstFilter is the base class and is not very usefull
+on its own.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstFilterFunc"/>GstFilterFunc ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstFilterFunc)                (<link linkend="gpointer">gpointer</link> obj,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-filter-run"/>gst_filter_run ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_filter_run                  (const <link linkend="GList">GList</link> *list,
+                                             <link linkend="GstFilterFunc">GstFilterFunc</link> func,
+                                             <link linkend="gboolean">gboolean</link> first,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Iterates over the elements in <parameter>list</parameter>, calling <parameter>func</parameter> with the
+list item data for each item.  If <parameter>func</parameter> returns TRUE, <parameter>data</parameter> is
+prepended to the list of results returned.  If <parameter>first</parameter> is true,
+the search is halted after the first result is found.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> a linked list
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> the function to execute for each item
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>first</parameter>&nbsp;:</term>
+<listitem><simpara> flag to stop execution after a successful item
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> user data
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the list of results
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,241 @@
+<refentry id="GstPluginFeature">
+<refmeta>
+<refentrytitle>GstPluginFeature</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstPluginFeature</refname><refpurpose>Base class for contents of a GstPlugin</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstPluginFeature-struct">GstPluginFeature</link>;
+#define     <link linkend="GST-PLUGIN-FEATURE-NAME-CAPS">GST_PLUGIN_FEATURE_NAME</link>         (feature)
+typedef     <link linkend="GstTypeNameData">GstTypeNameData</link>;
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstPluginFeatureFilter">*GstPluginFeatureFilter</link>)       (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-feature-ensure-loaded">gst_plugin_feature_ensure_loaded</link>
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);
+void        <link linkend="gst-plugin-feature-unload-thyself">gst_plugin_feature_unload_thyself</link>
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-plugin-feature-type-name-filter">gst_plugin_feature_type_name_filter</link>
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             <link linkend="GstTypeNameData">GstTypeNameData</link> *data);
+void        <link linkend="gst-plugin-feature-set-rank">gst_plugin_feature_set_rank</link>     (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             <link linkend="guint">guint</link> rank);
+void        <link linkend="gst-plugin-feature-set-name">gst_plugin_feature_set_name</link>     (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="guint">guint</link>       <link linkend="gst-plugin-feature-get-rank">gst_plugin_feature_get_rank</link>     (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);
+G_CONST_RETURN <link linkend="gchar">gchar</link>* <link linkend="gst-plugin-feature-get-name">gst_plugin_feature_get_name</link>
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----GstPluginFeature
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This is a base class for anything that can be added to a <link linkend="GstPlugin">GstPlugin</link>.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstPluginFeature-struct"/>struct GstPluginFeature</title>
+<programlisting>struct GstPluginFeature;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-PLUGIN-FEATURE-NAME-CAPS"/>GST_PLUGIN_FEATURE_NAME()</title>
+<programlisting>#define GST_PLUGIN_FEATURE_NAME(feature)  (GST_PLUGIN_FEATURE (feature)-&gt;name)
+</programlisting>
+<para>
+Get the name of the feature
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara>The feature to query
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstTypeNameData"/>GstTypeNameData</title>
+<programlisting>typedef struct {
+  const gchar 	*name;
+  GType		 type;
+} GstTypeNameData;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstPluginFeatureFilter"/>GstPluginFeatureFilter ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstPluginFeatureFilter)       (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+A function that can be used with e.g. <link linkend="gst-registry-feature-filter">gst_registry_feature_filter</link>()
+to get a list of pluginfeature that match certain criteria.
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara>the pluginfeature to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>the user_data that has been passed on e.g. <link linkend="gst-registry-feature-filter">gst_registry_feature_filter</link>()
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>TRUE for a positive match, FALSE otherwise
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-ensure-loaded"/>gst_plugin_feature_ensure_loaded ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_feature_ensure_loaded
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);</programlisting>
+<para>
+Check if the plugin containing the feature is loaded,
+if not, the plugin will be loaded.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin feature to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a boolean indicating the feature is loaded.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-unload-thyself"/>gst_plugin_feature_unload_thyself ()</title>
+<programlisting>void        gst_plugin_feature_unload_thyself
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);</programlisting>
+<para>
+Unload the given feature. This will decrease the refcount
+in the plugin and will eventually unload the plugin</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara> the plugin feature to check
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-type-name-filter"/>gst_plugin_feature_type_name_filter ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_plugin_feature_type_name_filter
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             <link linkend="GstTypeNameData">GstTypeNameData</link> *data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-set-rank"/>gst_plugin_feature_set_rank ()</title>
+<programlisting>void        gst_plugin_feature_set_rank     (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             <link linkend="guint">guint</link> rank);</programlisting>
+<para>
+Specifies a rank for a plugin feature, so that autoplugging uses
+the most appropriate feature.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara> feature to rank
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>rank</parameter>&nbsp;:</term>
+<listitem><simpara> rank value - higher number means more priority rank
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-set-name"/>gst_plugin_feature_set_name ()</title>
+<programlisting>void        gst_plugin_feature_set_name     (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Sets the name of a plugin feature. The name uniquely identifies a feature
+within all features of the same type. Renaming a plugin feature is not 
+allowed. A copy is made of the name so you should free the supplied <parameter>name</parameter>
+after calling this function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara> a feature
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-get-rank"/>gst_plugin_feature_get_rank ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_plugin_feature_get_rank     (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-plugin-feature-get-name"/>gst_plugin_feature_get_name ()</title>
+<programlisting>G_CONST_RETURN <link linkend="gchar">gchar</link>* gst_plugin_feature_get_name
+                                            (<link linkend="GstPluginFeature">GstPluginFeature</link> *feature);</programlisting>
+<para>
+Gets the name of a plugin feature.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>feature</parameter>&nbsp;:</term>
+<listitem><simpara> a feature
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the name
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstPlugin">GstPlugin</link>
+</para>
+</refsect1>
+
+</refentry>

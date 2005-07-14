@@ -1,0 +1,805 @@
+<refentry id="GstObject">
+<refmeta>
+<refentrytitle>GstObject</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstObject</refname><refpurpose>Base class for the GStreamer object hierarchy</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstObject-struct">GstObject</link>;
+enum        <link linkend="GstObjectFlags">GstObjectFlags</link>;
+#define     <link linkend="GST-FLAGS-CAPS">GST_FLAGS</link>                       (obj)
+#define     <link linkend="GST-FLAG-IS-SET-CAPS">GST_FLAG_IS_SET</link>                 (obj,flag)
+#define     <link linkend="GST-FLAG-SET-CAPS">GST_FLAG_SET</link>                    (obj,flag)
+#define     <link linkend="GST-FLAG-UNSET-CAPS">GST_FLAG_UNSET</link>                  (obj,flag)
+#define     <link linkend="GST-OBJECT-NAME-CAPS">GST_OBJECT_NAME</link>                 (obj)
+#define     <link linkend="GST-OBJECT-PARENT-CAPS">GST_OBJECT_PARENT</link>               (obj)
+#define     <link linkend="GST-LOCK-CAPS">GST_LOCK</link>                        (obj)
+#define     <link linkend="GST-TRYLOCK-CAPS">GST_TRYLOCK</link>                     (obj)
+#define     <link linkend="GST-UNLOCK-CAPS">GST_UNLOCK</link>                      (obj)
+#define     <link linkend="GST-GET-LOCK-CAPS">GST_GET_LOCK</link>                    (obj)
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-object-set-name">gst_object_set_name</link>             (<link linkend="GstObject">GstObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-object-get-name">gst_object_get_name</link>             (<link linkend="GstObject">GstObject</link> *object);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-object-set-parent">gst_object_set_parent</link>           (<link linkend="GstObject">GstObject</link> *object,
+                                             <link linkend="GstObject">GstObject</link> *parent);
+<link linkend="GstObject">GstObject</link>*  <link linkend="gst-object-get-parent">gst_object_get_parent</link>           (<link linkend="GstObject">GstObject</link> *object);
+void        <link linkend="gst-object-unparent">gst_object_unparent</link>             (<link linkend="GstObject">GstObject</link> *object);
+void        <link linkend="gst-object-default-deep-notify">gst_object_default_deep_notify</link>  (<link linkend="GObject">GObject</link> *object,
+                                             <link linkend="GstObject">GstObject</link> *orig,
+                                             <link linkend="GParamSpec">GParamSpec</link> *pspec,
+                                             <link linkend="gchar">gchar</link> **excluded_props);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-object-check-uniqueness">gst_object_check_uniqueness</link>     (<link linkend="GList">GList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="xmlNodePtr">xmlNodePtr</link>  <link linkend="gst-object-save-thyself">gst_object_save_thyself</link>         (<link linkend="GstObject">GstObject</link> *object,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> parent);
+void        <link linkend="gst-object-restore-thyself">gst_object_restore_thyself</link>      (<link linkend="GstObject">GstObject</link> *object,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> self);
+<link linkend="GstObject">GstObject</link>*  <link linkend="gst-object-ref">gst_object_ref</link>                  (<link linkend="GstObject">GstObject</link> *object);
+<link linkend="GstObject">GstObject</link>*  <link linkend="gst-object-unref">gst_object_unref</link>                (<link linkend="GstObject">GstObject</link> *object);
+void        <link linkend="gst-object-sink">gst_object_sink</link>                 (<link linkend="GstObject">GstObject</link> *object);
+void        <link linkend="gst-object-replace">gst_object_replace</link>              (<link linkend="GstObject">GstObject</link> **oldobj,
+                                             <link linkend="GstObject">GstObject</link> *newobj);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-object-get-path-string">gst_object_get_path_string</link>      (<link linkend="GstObject">GstObject</link> *object);
+<link linkend="guint">guint</link>       <link linkend="gst-class-signal-connect">gst_class_signal_connect</link>        (<link linkend="GstObjectClass">GstObjectClass</link> *klass,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="gpointer">gpointer</link> func,
+                                             <link linkend="gpointer">gpointer</link> func_data);
+void        <link linkend="gst-class-signal-emit-by-name">gst_class_signal_emit_by_name</link>   (<link linkend="GstObject">GstObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> self);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----GstObject
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="GstObject--name">name</link>&quot;                 <link linkend="gchararray">gchararray</link>           : Read / Write / Construct
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="GstObject-deep-notify">deep-notify</link>&quot;
+            void        user_function      (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="GParamSpec">GParamSpec</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstObject-object-saved">object-saved</link>&quot;
+            void        user_function      (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstObject-parent-set">parent-set</link>&quot;
+            void        user_function      (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstObject-parent-unset">parent-unset</link>&quot;
+            void        user_function      (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstObject provides a root for the object hierarchy tree filed in by the
+GST library.  It is currently a thin wrapper on top of
+<classname>GObject</classname>. It is an abstract class that is not
+very usable on its own.
+</para>
+
+<para>
+GstObject gives us basic refcounting, parenting functionality and locking.
+Most of the function are just extended for special gstreamer needs and can be
+found under the same name in the base class of GstObject which is GObject
+(e.g. g_object_ref becomes gst_object_ref).
+</para>
+
+<para>
+The most interesting difference between GstObject and GObject is the "floating"
+reference count. A GObject is created with a reference count of 1, owned by the
+creator of the GObject. (The owner of a reference is the code section that has
+the right to call <link linkend="gst-object-unref">gst_object_unref</link>() in order to remove that reference.)
+A GstObject is created with a reference count of 1 also, but it isn't owned by
+anyone; calling <link linkend="gst-object-unref">gst_object_unref</link>() on the newly-created GtkObject is incorrect.
+Instead, the initial reference count of a GstObject is "floating". The floating
+reference can be removed by anyone at any time, by calling <link linkend="gst-object-sink">gst_object_sink</link>().
+<link linkend="gst-object-sink">gst_object_sink</link>() does nothing if an object is already sunk (has no floating
+reference).
+</para>
+<para>
+When you add a GstElement to its parent container, the parent container will do
+this:
+<programlisting>
+  gst_object_ref (GST_OBJECT (child_element));
+  gst_object_sink (GST_OBJECT (child_element));
+</programlisting>
+This means that the container now owns a reference to the child element (since
+it called <link linkend="gst-object-ref">gst_object_ref</link>()), and the child element has no floating reference.
+</para>
+<para>
+The purpose of the floating reference is to keep the child element alive until
+you add it to a parent container:
+<programlisting>
+   element = gst_element_factory_make (factoryname, name);
+   /* element has one floating reference to keep it alive */
+   gtk_bin_add (GTK_BIN (bin), element);
+   /* element has one non-floating reference owned by the container */
+</programlisting>
+</para>
+<para>
+Another effect of this is, that calling <link linkend="gst-object-unref">gst_object_unref</link>() on a bin object, will
+also destoy all the GstElement objects in it. The same is true for calling
+<link linkend="gst-bin-remove">gst_bin_remove</link>().
+</para>
+
+<para>
+<link linkend="gst-object-set-name">gst_object_set_name</link>() and <link linkend="gst-object-get-name">gst_object_get_name</link>() are used to set/get the name of the 
+object.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstObject-struct"/>struct GstObject</title>
+<programlisting>struct GstObject {
+  gint           refcount;
+
+  GMutex        *lock;        /* object LOCK */
+  gchar         *name;        /* object name */
+  gchar         *name_prefix; /* used for debugging */
+  GstObject     *parent;      /* this object's parent, weak ref */
+  guint32        flags;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstObjectFlags"/>enum GstObjectFlags</title>
+<programlisting>typedef enum
+{
+  GST_OBJECT_DISPOSING   = 0,
+  GST_OBJECT_DESTROYED   = 1,
+  GST_OBJECT_FLOATING,
+
+  GST_OBJECT_FLAG_LAST   = 4
+} GstObjectFlags;
+</programlisting>
+<para>
+Flags for an object
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_OBJECT_DISPOSING</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_OBJECT_DESTROYED</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_OBJECT_FLOATING</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_OBJECT_FLAG_LAST</literal></term>
+<listitem><simpara>subclasses can add additional flags starting from this flag
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FLAGS-CAPS"/>GST_FLAGS()</title>
+<programlisting>#define GST_FLAGS(obj)                  (GST_OBJECT_CAST (obj)-&gt;flags)
+</programlisting>
+<para>
+This macro returns the entire set of flags for the object.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to return flags for.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FLAG-IS-SET-CAPS"/>GST_FLAG_IS_SET()</title>
+<programlisting>#define GST_FLAG_IS_SET(obj,flag)       (!!(GST_FLAGS (obj) &amp; (1&lt;&lt;(flag))))
+</programlisting>
+<para>
+This macro checks to see if the given flag is set.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>GstSrc to check for flag in.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara>Flag to check for, must be a single bit in guint32.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FLAG-SET-CAPS"/>GST_FLAG_SET()</title>
+<programlisting>#define GST_FLAG_SET(obj,flag)          G_STMT_START{ (GST_FLAGS (obj) |= (1&lt;&lt;(flag))); }G_STMT_END
+</programlisting>
+<para>
+This macro sets the given bits.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to set flag in.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara>Flag to set, can by any number of bits in guint32.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FLAG-UNSET-CAPS"/>GST_FLAG_UNSET()</title>
+<programlisting>#define GST_FLAG_UNSET(obj,flag)        G_STMT_START{ (GST_FLAGS (obj) &amp;= ~(1&lt;&lt;(flag))); }G_STMT_END
+</programlisting>
+<para>
+This macro usets the given bits.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to unset flag in.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flag</parameter>&nbsp;:</term>
+<listitem><simpara>Flag to set, must be a single bit in guint32.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-OBJECT-NAME-CAPS"/>GST_OBJECT_NAME()</title>
+<programlisting>#define GST_OBJECT_NAME(obj)            (GST_OBJECT_CAST(obj)-&gt;name)
+</programlisting>
+<para>
+Get the name of this object
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to get the name of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-OBJECT-PARENT-CAPS"/>GST_OBJECT_PARENT()</title>
+<programlisting>#define GST_OBJECT_PARENT(obj)          (GST_OBJECT_CAST(obj)-&gt;parent)
+</programlisting>
+<para>
+Get the parent of this object
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to get the parent of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-LOCK-CAPS"/>GST_LOCK()</title>
+<programlisting>#define GST_LOCK(obj)                   (g_mutex_lock(GST_OBJECT_CAST(obj)-&gt;lock))
+</programlisting>
+<para>
+This macro will obtain a lock on the object, making serialization
+possible.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to lock.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-TRYLOCK-CAPS"/>GST_TRYLOCK()</title>
+<programlisting>#define GST_TRYLOCK(obj)                (g_mutex_trylock(GST_OBJECT_CAST(obj)-&gt;lock))
+</programlisting>
+<para>
+This macro will try to obtain a lock on the object, but will return with
+FALSE if it can't get it immediately.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to try to get a lock on.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-UNLOCK-CAPS"/>GST_UNLOCK()</title>
+<programlisting>#define GST_UNLOCK(obj)                 (g_mutex_unlock(GST_OBJECT_CAST(obj)-&gt;lock))
+</programlisting>
+<para>
+This macro releases a lock on the object.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to unlock.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-GET-LOCK-CAPS"/>GST_GET_LOCK()</title>
+<programlisting>#define GST_GET_LOCK(obj)               (GST_OBJECT_CAST(obj)-&gt;lock)
+</programlisting>
+<para>
+Acquire a reference to the mutex of this object.
+</para><variablelist role="params">
+<varlistentry><term><parameter>obj</parameter>&nbsp;:</term>
+<listitem><simpara>Object to get the mutex of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-set-name"/>gst_object_set_name ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_object_set_name             (<link linkend="GstObject">GstObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Sets the name of the object, or gives the object a guaranteed unique
+name (if <parameter>name</parameter> is NULL).
+This function makes a copy of the provided name, so the caller
+retains ownership of the name it sent.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstObject">GstObject</link> to set the name of
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>   new name of object
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the name could be set. Objects that have
+a parent cannot be renamed.
+
+MT safe.  This function grabs and releases the object's LOCK.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-get-name"/>gst_object_get_name ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_object_get_name             (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Returns a copy of the name of the object.
+Caller should <link linkend="g-free">g_free</link>() the return value after usage.
+For a nameless object, this returns NULL, which you can safely <link linkend="g-free">g_free</link>()
+as well.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstObject">GstObject</link> to get the name of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the name of the object. <link linkend="g-free">g_free</link>() after usage.
+
+MT safe. This function grabs and releases the object's LOCK.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-set-parent"/>gst_object_set_parent ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_object_set_parent           (<link linkend="GstObject">GstObject</link> *object,
+                                             <link linkend="GstObject">GstObject</link> *parent);</programlisting>
+<para>
+Sets the parent of <parameter>object</parameter>. The object's reference count will be incremented,
+and any floating reference will be removed (see <link linkend="gst-object-sink">gst_object_sink</link>()).
+</para>
+<para>
+Causes the parent-set signal to be emitted.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to set parent of
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> new parent of object
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the parent could be set or FALSE when the object
+already had a parent, the object and parent are the same or wrong
+parameters were provided.
+
+MT safe. Grabs and releases the object's LOCK.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-get-parent"/>gst_object_get_parent ()</title>
+<programlisting><link linkend="GstObject">GstObject</link>*  gst_object_get_parent           (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Returns the parent of <parameter>object</parameter>. This function increases the refcount
+of the parent object so you should <link linkend="gst-object-unref">gst_object_unref</link>() it after usage.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to get parent of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> parent of the object, this can be NULL if the object has no
+  parent. unref after usage.
+
+MT safe. Grabs and releases the object's LOCK.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-unparent"/>gst_object_unparent ()</title>
+<programlisting>void        gst_object_unparent             (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Clear the parent of <parameter>object</parameter>, removing the associated reference.
+This function decreases the refcount of the object so the object
+might not point to valid memory anymore after calling this function.
+</para>
+<para>
+MT safe. Grabs and releases the object's lock.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to unparent
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-default-deep-notify"/>gst_object_default_deep_notify ()</title>
+<programlisting>void        gst_object_default_deep_notify  (<link linkend="GObject">GObject</link> *object,
+                                             <link linkend="GstObject">GstObject</link> *orig,
+                                             <link linkend="GParamSpec">GParamSpec</link> *pspec,
+                                             <link linkend="gchar">gchar</link> **excluded_props);</programlisting>
+<para>
+A default deep_notify signal callback for an element. The user data 
+should contain a pointer to an array of strings that should be excluded 
+from the notify. The default handler will print the new value of the property 
+using g_print.
+</para>
+<para>
+MT safe. This function grabs and releases the object's LOCK or getting the
+         path string of the object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GObject">GObject</link> that signalled the notify.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>orig</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstObject">GstObject</link> that initiated the notify.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pspec</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GParamSpec">GParamSpec</link> of the property.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>excluded_props</parameter>&nbsp;:</term>
+<listitem><simpara> a set of user-specified properties to exclude or
+ NULL to show all changes.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-check-uniqueness"/>gst_object_check_uniqueness ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_object_check_uniqueness     (<link linkend="GList">GList</link> *list,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Checks to see if there is any object named <parameter>name</parameter> in <parameter>list</parameter>. This function
+does not do any locking of any kind. You might want to protect the
+provided list with the lock of the owner of the list. This function
+will lock each GstObject in the list to compare the name, so be
+carefull when passing a list with a locked object.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>list</parameter>&nbsp;:</term>
+<listitem><simpara> a list of <link linkend="GstObject">GstObject</link> to check through
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name to search for
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the name does not appear in the list, FALSE if it does.
+
+MT safe. Grabs and releases the LOCK of each object in the list.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-save-thyself"/>gst_object_save_thyself ()</title>
+<programlisting><link linkend="xmlNodePtr">xmlNodePtr</link>  gst_object_save_thyself         (<link linkend="GstObject">GstObject</link> *object,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> parent);</programlisting>
+<para>
+Saves the given object into the parent XML node.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to save
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> The parent XML node to save the object into
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new xmlNodePtr with the saved object
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-restore-thyself"/>gst_object_restore_thyself ()</title>
+<programlisting>void        gst_object_restore_thyself      (<link linkend="GstObject">GstObject</link> *object,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> self);</programlisting>
+<para>
+Restores the given object with the data from the parent XML node.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to load into
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>self</parameter>&nbsp;:</term>
+<listitem><simpara> The XML node to load the object from
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-ref"/>gst_object_ref ()</title>
+<programlisting><link linkend="GstObject">GstObject</link>*  gst_object_ref                  (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Increments the refence count on the object. This function
+does not take the lock on the object because it relies on
+atomic refcounting.
+</para>
+<para>
+This object returns the input parameter to ease writing
+constructs like :
+ result = gst_object_ref (object->parent);</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to reference
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A pointer to the object
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-unref"/>gst_object_unref ()</title>
+<programlisting><link linkend="GstObject">GstObject</link>*  gst_object_unref                (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Decrements the refence count on the object.  If reference count hits
+zero, destroy the object. This function does not take the lock
+on the object as it relies on atomic refcounting.
+</para>
+<para>
+The unref method should never be called with the LOCK held since
+this might deadlock the dispose function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to unreference
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> NULL, so that constructs like
+
+  object = gst_object_unref (object);
+
+ automatically clear the input object pointer.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-sink"/>gst_object_sink ()</title>
+<programlisting>void        gst_object_sink                 (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Removes floating reference on an object.  Any newly created object has
+a refcount of 1 and is FLOATING.  This function should be used when
+creating a new object to symbolically 'take ownership' of the object.
+Use <link linkend="gst-object-set-parent">gst_object_set_parent</link> to have this done for you.
+</para>
+<para>
+MT safe. This function grabs and releases the object lock.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to sink
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-replace"/>gst_object_replace ()</title>
+<programlisting>void        gst_object_replace              (<link linkend="GstObject">GstObject</link> **oldobj,
+                                             <link linkend="GstObject">GstObject</link> *newobj);</programlisting>
+<para>
+Unrefs the object pointer to by oldobj, refs the newobj and
+puts the newobj in *oldobj. Be carefull when calling this
+function, it does not take any locks. You might want to lock
+the object owning the oldobj pointer before calling this
+function.
+</para>
+<para>
+Make sure not to LOCK the oldobj because it might be unreffed
+which could cause a deadlock when it is disposed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>oldobj</parameter>&nbsp;:</term>
+<listitem><simpara> pointer to place of old GstObject
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>newobj</parameter>&nbsp;:</term>
+<listitem><simpara> new GstObject
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-object-get-path-string"/>gst_object_get_path_string ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_object_get_path_string      (<link linkend="GstObject">GstObject</link> *object);</programlisting>
+<para>
+Generates a string describing the path of the object in
+the object hierarchy. Only useful (or used) for debugging.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> GstObject to get the path from
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a string describing the path of the object. You must
+         <link linkend="g-free">g_free</link>() the string after usage. 
+
+MT safe. Grabs and releases the object's LOCK for all objects
+         in the hierarchy.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-class-signal-connect"/>gst_class_signal_connect ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_class_signal_connect        (<link linkend="GstObjectClass">GstObjectClass</link> *klass,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="gpointer">gpointer</link> func,
+                                             <link linkend="gpointer">gpointer</link> func_data);</programlisting>
+<para>
+Connect to a class signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>klass</parameter>&nbsp;:</term>
+<listitem><simpara> the GstObjectClass to attach the signal to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the signal to attach to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> the signal function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func_data</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to user data
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the signal id.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-class-signal-emit-by-name"/>gst_class_signal_emit_by_name ()</title>
+<programlisting>void        gst_class_signal_emit_by_name   (<link linkend="GstObject">GstObject</link> *object,
+                                             const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> self);</programlisting>
+<para>
+emits the named class signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> the object that sends the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the signal to emit
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>self</parameter>&nbsp;:</term>
+<listitem><simpara> data for the signal
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="GstObject--name"/>&quot;<literal>name</literal>&quot; (<link linkend="gchararray">gchararray</link> : Read / Write / Construct)</term>
+<listitem>
+<para>
+The name of the object
+</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="GstObject-deep-notify"/>The &quot;deep-notify&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="GParamSpec">GParamSpec</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+The deep notify signal is used to be notified of property changes.
+it is typically attached to the toplevel bin to receive notifications
+from all the elements contained in that bin.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstobject</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>the object that originated the signal
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg2</parameter>&nbsp;:</term>
+<listitem><simpara>the property that changed
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstObject-object-saved"/>The &quot;object-saved&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Is trigered whenever a new object is saved to XML. You can connect to
+this signal to insert custom XML tags into the core XML.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstobject</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>the xmlNodePtr of the parent node
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstObject-parent-set"/>The &quot;parent-set&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Is emitted when the parent of an object is set.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstobject</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>the new parent
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstObject-parent-unset"/>The &quot;parent-unset&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstObject">GstObject</link> *gstobject,
+                                            <link linkend="GObject">GObject</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Is emitted when the parent of an object is unset.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstobject</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>the old parent
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

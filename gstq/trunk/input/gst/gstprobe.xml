@@ -1,0 +1,281 @@
+<refentry id="gstreamer-GstProbe">
+<refmeta>
+<refentrytitle>GstProbe</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstProbe</refname><refpurpose>Receive callbacks of data passing</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstProbe">GstProbe</link>;
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstProbeCallback">*GstProbeCallback</link>)             (<link linkend="GstProbe">GstProbe</link> *probe,
+                                             <link linkend="GstMiniObject">GstMiniObject</link> **data,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="GstProbe">GstProbe</link>*   <link linkend="gst-probe-new">gst_probe_new</link>                   (<link linkend="gboolean">gboolean</link> single_shot,
+                                             <link linkend="GstProbeCallback">GstProbeCallback</link> callback,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+void        <link linkend="gst-probe-destroy">gst_probe_destroy</link>               (<link linkend="GstProbe">GstProbe</link> *probe);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-probe-perform">gst_probe_perform</link>               (<link linkend="GstProbe">GstProbe</link> *probe,
+                                             <link linkend="GstMiniObject">GstMiniObject</link> **data);
+struct      <link linkend="GstProbeDispatcher">GstProbeDispatcher</link>;
+<link linkend="GstProbeDispatcher">GstProbeDispatcher</link>* <link linkend="gst-probe-dispatcher-new">gst_probe_dispatcher_new</link>
+                                            (void);
+void        <link linkend="gst-probe-dispatcher-destroy">gst_probe_dispatcher_destroy</link>    (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp);
+void        <link linkend="gst-probe-dispatcher-init">gst_probe_dispatcher_init</link>       (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp);
+void        <link linkend="gst-probe-dispatcher-set-active">gst_probe_dispatcher_set_active</link> (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="gboolean">gboolean</link> active);
+void        <link linkend="gst-probe-dispatcher-add-probe">gst_probe_dispatcher_add_probe</link>  (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="GstProbe">GstProbe</link> *probe);
+void        <link linkend="gst-probe-dispatcher-remove-probe">gst_probe_dispatcher_remove_probe</link>
+                                            (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="GstProbe">GstProbe</link> *probe);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-probe-dispatcher-dispatch">gst_probe_dispatcher_dispatch</link>   (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="GstMiniObject">GstMiniObject</link> **data);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+PadProbes are used to be signalled with a callback when certain GstData
+passes through pads.
+</para>
+<para>
+Probes are usually used in combination with a probe dispatcher that will
+enumerate all registered probes to signal them.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstProbe"/>struct GstProbe</title>
+<programlisting>struct GstProbe {
+
+  gboolean		single_shot;
+
+  GstProbeCallback	callback;
+  gpointer		user_data;
+};
+</programlisting>
+<para>
+The probe structure
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstProbeCallback"/>GstProbeCallback ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstProbeCallback)             (<link linkend="GstProbe">GstProbe</link> *probe,
+                                             <link linkend="GstMiniObject">GstMiniObject</link> **data,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+The function that will be called when a probe is activated.
+</para><variablelist role="params">
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara>The probe that signalled the callback
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>The GstData that triggered the probe
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>FALSE if the GstData should be removed from the stream.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-new"/>gst_probe_new ()</title>
+<programlisting><link linkend="GstProbe">GstProbe</link>*   gst_probe_new                   (<link linkend="gboolean">gboolean</link> single_shot,
+                                             <link linkend="GstProbeCallback">GstProbeCallback</link> callback,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Create a new probe with the specified parameters. The single shot
+probe will be fired only once. It is the responsability of the
+application to free the single probe after it has been fired.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>single_shot</parameter>&nbsp;:</term>
+<listitem><simpara> TRUE if a single shot probe is required
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>callback</parameter>&nbsp;:</term>
+<listitem><simpara> the function to call when the probe is triggered
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> data passed to the callback function
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstProbe">GstProbe</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-destroy"/>gst_probe_destroy ()</title>
+<programlisting>void        gst_probe_destroy               (<link linkend="GstProbe">GstProbe</link> *probe);</programlisting>
+<para>
+Free the memory associated with the probe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara> The probe to destroy
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-perform"/>gst_probe_perform ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_probe_perform               (<link linkend="GstProbe">GstProbe</link> *probe,
+                                             <link linkend="GstMiniObject">GstMiniObject</link> **data);</programlisting>
+<para>
+Perform the callback associated with the given probe.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara> The probe to trigger
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the result of the probe callback function.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstProbeDispatcher"/>struct GstProbeDispatcher</title>
+<programlisting>struct GstProbeDispatcher {
+
+  gboolean		active;
+
+  GSList		*probes;
+};
+</programlisting>
+<para>
+The structure of the probe dispatcher
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-new"/>gst_probe_dispatcher_new ()</title>
+<programlisting><link linkend="GstProbeDispatcher">GstProbeDispatcher</link>* gst_probe_dispatcher_new
+                                            (void);</programlisting>
+<para>
+Create a new probe dispatcher</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new probe dispatcher.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-destroy"/>gst_probe_dispatcher_destroy ()</title>
+<programlisting>void        gst_probe_dispatcher_destroy    (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp);</programlisting>
+<para>
+Free the memory allocated by the probe dispatcher. All pending
+probes are removed first.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>disp</parameter>&nbsp;:</term>
+<listitem><simpara> the dispatcher to destroy
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-init"/>gst_probe_dispatcher_init ()</title>
+<programlisting>void        gst_probe_dispatcher_init       (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp);</programlisting>
+<para>
+Initialize the dispatcher. Useful for statically allocated probe
+dispatchers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>disp</parameter>&nbsp;:</term>
+<listitem><simpara> the dispatcher to initialize
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-set-active"/>gst_probe_dispatcher_set_active ()</title>
+<programlisting>void        gst_probe_dispatcher_set_active (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="gboolean">gboolean</link> active);</programlisting>
+<para>
+Activate or deactivate the given dispatcher
+dispatchers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>disp</parameter>&nbsp;:</term>
+<listitem><simpara> the dispatcher to activate
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>active</parameter>&nbsp;:</term>
+<listitem><simpara> boolean to indicate activation or deactivation
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-add-probe"/>gst_probe_dispatcher_add_probe ()</title>
+<programlisting>void        gst_probe_dispatcher_add_probe  (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="GstProbe">GstProbe</link> *probe);</programlisting>
+<para>
+Adds the given probe to the dispatcher.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>disp</parameter>&nbsp;:</term>
+<listitem><simpara> the dispatcher to add the probe to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara> the probe to add to the dispatcher
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-remove-probe"/>gst_probe_dispatcher_remove_probe ()</title>
+<programlisting>void        gst_probe_dispatcher_remove_probe
+                                            (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="GstProbe">GstProbe</link> *probe);</programlisting>
+<para>
+Removes the given probe from the dispatcher.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>disp</parameter>&nbsp;:</term>
+<listitem><simpara> the dispatcher to remove the probe from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara> the probe to remove from the dispatcher
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-probe-dispatcher-dispatch"/>gst_probe_dispatcher_dispatch ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_probe_dispatcher_dispatch   (<link linkend="GstProbeDispatcher">GstProbeDispatcher</link> *disp,
+                                             <link linkend="GstMiniObject">GstMiniObject</link> **data);</programlisting>
+<para>
+Trigger all registered probes on the given dispatcher.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>disp</parameter>&nbsp;:</term>
+<listitem><simpara> the dispatcher to dispatch
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> the data that triggered the dispatch
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if all callbacks returned TRUE.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,813 @@
+<refentry id="gstreamer-GstCaps">
+<refmeta>
+<refentrytitle>GstCaps</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstCaps</refname><refpurpose>Structure describing sets of media formats</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+#define     <link linkend="GST-CAPS-FLAGS-ANY-CAPS">GST_CAPS_FLAGS_ANY</link>
+#define     <link linkend="GST-CAPS-ANY-CAPS">GST_CAPS_ANY</link>
+#define     <link linkend="GST-CAPS-NONE-CAPS">GST_CAPS_NONE</link>
+#define     <link linkend="GST-STATIC-CAPS-ANY-CAPS">GST_STATIC_CAPS_ANY</link>
+#define     <link linkend="GST-STATIC-CAPS-NONE-CAPS">GST_STATIC_CAPS_NONE</link>
+#define     <link linkend="GST-CAPS-IS-SIMPLE-CAPS">GST_CAPS_IS_SIMPLE</link>              (caps)
+#define     <link linkend="gst-caps-is-simple">gst_caps_is_simple</link>              (caps)
+#define     <link linkend="GST-DEBUG-CAPS-CAPS">GST_DEBUG_CAPS</link>                  (string, caps)
+#define     <link linkend="GST-STATIC-CAPS-CAPS">GST_STATIC_CAPS</link>                 (string)
+struct      <link linkend="GstCaps">GstCaps</link>;
+struct      <link linkend="GstStaticCaps">GstStaticCaps</link>;
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-new-empty">gst_caps_new_empty</link>              (void);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-new-any">gst_caps_new_any</link>                (void);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-new-simple">gst_caps_new_simple</link>             (const char *media_type,
+                                             const char *fieldname,
+                                             ...);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-new-full">gst_caps_new_full</link>               (<link linkend="GstStructure">GstStructure</link> *struct1,
+                                             ...);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-new-full-valist">gst_caps_new_full_valist</link>        (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             va_list var_args);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-copy">gst_caps_copy</link>                   (const <link linkend="GstCaps">GstCaps</link> *caps);
+G_CONST_RETURN <link linkend="GstCaps">GstCaps</link>* <link linkend="gst-static-caps-get">gst_static_caps_get</link> (<link linkend="GstStaticCaps">GstStaticCaps</link> *static_caps);
+void        <link linkend="gst-caps-append">gst_caps_append</link>                 (<link linkend="GstCaps">GstCaps</link> *caps1,
+                                             <link linkend="GstCaps">GstCaps</link> *caps2);
+void        <link linkend="gst-caps-append-structure">gst_caps_append_structure</link>       (<link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="GstStructure">GstStructure</link> *structure);
+int         <link linkend="gst-caps-get-size">gst_caps_get_size</link>               (const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="GstStructure">GstStructure</link>* <link linkend="gst-caps-get-structure">gst_caps_get_structure</link>        (const <link linkend="GstCaps">GstCaps</link> *caps,
+                                             int index);
+void        <link linkend="gst-caps-set-simple">gst_caps_set_simple</link>             (<link linkend="GstCaps">GstCaps</link> *caps,
+                                             char *field,
+                                             ...);
+void        <link linkend="gst-caps-set-simple-valist">gst_caps_set_simple_valist</link>      (<link linkend="GstCaps">GstCaps</link> *caps,
+                                             char *field,
+                                             va_list varargs);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-is-any">gst_caps_is_any</link>                 (const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-is-empty">gst_caps_is_empty</link>               (const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-is-fixed">gst_caps_is_fixed</link>               (const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-is-equal">gst_caps_is_equal</link>               (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-is-always-compatible">gst_caps_is_always_compatible</link>   (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-is-subset">gst_caps_is_subset</link>              (const <link linkend="GstCaps">GstCaps</link> *subset,
+                                             const <link linkend="GstCaps">GstCaps</link> *superset);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-intersect">gst_caps_intersect</link>              (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-union">gst_caps_union</link>                  (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-normalize">gst_caps_normalize</link>              (const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-do-simplify">gst_caps_do_simplify</link>            (<link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="xmlNodePtr">xmlNodePtr</link>  <link linkend="gst-caps-save-thyself">gst_caps_save_thyself</link>           (const <link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> parent);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-load-thyself">gst_caps_load_thyself</link>           (<link linkend="xmlNodePtr">xmlNodePtr</link> parent);
+void        <link linkend="gst-caps-replace">gst_caps_replace</link>                (<link linkend="GstCaps">GstCaps</link> **caps,
+                                             <link linkend="GstCaps">GstCaps</link> *newcaps);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-caps-to-string">gst_caps_to_string</link>              (const <link linkend="GstCaps">GstCaps</link> *caps);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-from-string">gst_caps_from_string</link>            (const <link linkend="gchar">gchar</link> *string);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-structure-fixate-field-nearest-int">gst_caps_structure_fixate_field_nearest_int</link>
+                                            (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const char *field_name,
+                                             int target);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-caps-structure-fixate-field-nearest-double">gst_caps_structure_fixate_field_nearest_double</link>
+                                            (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const char *field_name,
+                                             <link linkend="double">double</link> target);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-caps-subtract">gst_caps_subtract</link>               (const <link linkend="GstCaps">GstCaps</link> *minuend,
+                                             const <link linkend="GstCaps">GstCaps</link> *subtrahend);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GST-CAPS-FLAGS-ANY-CAPS"/>GST_CAPS_FLAGS_ANY</title>
+<programlisting>#define GST_CAPS_FLAGS_ANY	  (1 &lt;&lt; 0)
+</programlisting>
+<para>
+Flags that this caps has no specific content, but can contain anything.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-CAPS-ANY-CAPS"/>GST_CAPS_ANY</title>
+<programlisting>#define GST_CAPS_ANY              gst_caps_new_any()
+</programlisting>
+<para>
+Means that the element/pad can output 'anything'. Useful for elements
+that output unknown media, such as filesrc.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-CAPS-NONE-CAPS"/>GST_CAPS_NONE</title>
+<programlisting>#define GST_CAPS_NONE             gst_caps_new_empty()
+</programlisting>
+<para>
+The opposite of GST_CAPS_ANY: it means that the pad/element outputs an
+undefined media type that can not be detected.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-STATIC-CAPS-ANY-CAPS"/>GST_STATIC_CAPS_ANY</title>
+<programlisting>#define GST_STATIC_CAPS_ANY       GST_STATIC_CAPS("ANY")
+</programlisting>
+<para>
+Creates a static caps that matches anything. This can be used in pad
+templates.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a new <link linkend="GstCaps">GstCaps</link> instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-STATIC-CAPS-NONE-CAPS"/>GST_STATIC_CAPS_NONE</title>
+<programlisting>#define GST_STATIC_CAPS_NONE      GST_STATIC_CAPS("NONE")
+</programlisting>
+<para>
+Creates a static caps that matches nothing. This can be used in pad
+templates.
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a new <link linkend="GstCaps">GstCaps</link> instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-CAPS-IS-SIMPLE-CAPS"/>GST_CAPS_IS_SIMPLE()</title>
+<programlisting>#define GST_CAPS_IS_SIMPLE(caps) (gst_caps_get_size(caps) == 1)
+</programlisting>
+<para>
+Convinience macro that checks if the number of structures in the gives caps is
+exactly one.
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstCaps">GstCaps</link> instance to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-simple"/>gst_caps_is_simple()</title>
+<programlisting>#define gst_caps_is_simple(caps) GST_CAPS_IS_SIMPLE(caps)
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-DEBUG-CAPS-CAPS"/>GST_DEBUG_CAPS()</title>
+<programlisting>#define     GST_DEBUG_CAPS(string, caps)</programlisting>
+<warning><para><literal>GST_DEBUG_CAPS</literal> is deprecated and should not be used in newly-written code.</para></warning>
+<para>
+Convinience macro for prining out the contents of caps with <link linkend="GST-DEBUG-CAPS">GST_DEBUG</link>().
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara>a string the should be prepend to the caps data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara>the caps to print
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-STATIC-CAPS-CAPS"/>GST_STATIC_CAPS()</title>
+<programlisting>#define     GST_STATIC_CAPS(string)</programlisting>
+<para>
+Creates a static caps from an input string. This can be used in pad
+templates.
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara>the string describing the caps.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a new <link linkend="GstCaps">GstCaps</link> instance
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstCaps"/>struct GstCaps</title>
+<programlisting>struct GstCaps {
+
+  GType type;
+
+  /* refcounting */
+  gint           refcount;
+
+  guint16 flags;
+  GPtrArray *structs;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstStaticCaps"/>struct GstStaticCaps</title>
+<programlisting>struct GstStaticCaps {
+
+  GstCaps caps;
+  const char *string;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-new-empty"/>gst_caps_new_empty ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_new_empty              (void);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> that is empty.  That is, the returned
+<link linkend="GstCaps">GstCaps</link> contains no media formats.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-new-any"/>gst_caps_new_any ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_new_any                (void);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> that indicates that it is compatible with
+any media format.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-new-simple"/>gst_caps_new_simple ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_new_simple             (const char *media_type,
+                                             const char *fieldname,
+                                             ...);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> that contains one <link linkend="GstStructure">GstStructure</link>.  The
+structure is defined by the arguments, which have the same format
+as @<link linkend="gst-structure-new">gst_structure_new</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>media_type</parameter>&nbsp;:</term>
+<listitem><simpara> the media type of the structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fieldname</parameter>&nbsp;:</term>
+<listitem><simpara> first field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> additional arguments
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-new-full"/>gst_caps_new_full ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_new_full               (<link linkend="GstStructure">GstStructure</link> *struct1,
+                                             ...);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> and adds all the structures listed as
+arguments.  The list must be NULL-terminated.  The structures
+are not copied; the returned <link linkend="GstCaps">GstCaps</link> owns the structures.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>struct1</parameter>&nbsp;:</term>
+<listitem><simpara> the first structure to add
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> additional structures to add
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-new-full-valist"/>gst_caps_new_full_valist ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_new_full_valist        (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             va_list var_args);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> and adds all the structures listed as
+arguments.  The list must be NULL-terminated.  The structures
+are not copied; the returned <link linkend="GstCaps">GstCaps</link> owns the structures.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> the first structure to add
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>var_args</parameter>&nbsp;:</term>
+<listitem><simpara> additional structures to add
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-copy"/>gst_caps_copy ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_copy                   (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> as a copy of the old <parameter>caps</parameter>. The new caps will have a
+refcount of 1, owned by the caller. The structures are copied as well.
+</para>
+<para>
+Note that this function is the semantic equivalent of a <link linkend="gst-caps-ref">gst_caps_ref</link>()
+followed by a <link linkend="gst-caps-make-writable">gst_caps_make_writable</link>(). If you only want to hold on to a
+reference to the data, you should use <link linkend="gst-caps-ref">gst_caps_ref</link>().
+</para>
+<para>
+When you are finished with the caps, call <link linkend="gst-caps-unref">gst_caps_unref</link>() on it.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstCaps">GstCaps</link> to copy
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-static-caps-get"/>gst_static_caps_get ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstCaps">GstCaps</link>* gst_static_caps_get (<link linkend="GstStaticCaps">GstStaticCaps</link> *static_caps);</programlisting>
+<para>
+Converts a <link linkend="GstStaticCaps">GstStaticCaps</link> to a <link linkend="GstCaps">GstCaps</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>static_caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstStaticCaps">GstStaticCaps</link> to convert
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-append"/>gst_caps_append ()</title>
+<programlisting>void        gst_caps_append                 (<link linkend="GstCaps">GstCaps</link> *caps1,
+                                             <link linkend="GstCaps">GstCaps</link> *caps2);</programlisting>
+<para>
+Appends the structures contained in <parameter>caps2</parameter> to <parameter>caps1</parameter>. The structures in
+<parameter>caps2</parameter> are not copied -- they are transferred to <parameter>caps1</parameter>, and then <parameter>caps2</parameter> is
+freed. If either caps is ANY, the resulting caps will be ANY.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps1</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstCaps">GstCaps</link> that will be appended to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps2</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstCaps">GstCaps</link> to append
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-append-structure"/>gst_caps_append_structure ()</title>
+<programlisting>void        gst_caps_append_structure       (<link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="GstStructure">GstStructure</link> *structure);</programlisting>
+<para>
+Appends <parameter>structure</parameter> to <parameter>caps</parameter>.  The structure is not copied; <parameter>caps</parameter>
+becomes the owner of <parameter>structure</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstCaps">GstCaps</link> that will be appended to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstStructure">GstStructure</link> to append
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-get-size"/>gst_caps_get_size ()</title>
+<programlisting>int         gst_caps_get_size               (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Gets the number of structures contained in <parameter>caps</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the number of structures that <parameter>caps</parameter> contains
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-get-structure"/>gst_caps_get_structure ()</title>
+<programlisting><link linkend="GstStructure">GstStructure</link>* gst_caps_get_structure        (const <link linkend="GstCaps">GstCaps</link> *caps,
+                                             int index);</programlisting>
+<para>
+Finds the structure in <parameter>caps</parameter> that has the index <parameter>index</parameter>, and 
+returns it.
+</para>
+<para>
+WARNING: This function takes a const GstCaps *, but returns a
+non-const GstStructure *.  This is for programming convenience --
+the caller should be aware that structures inside a constant
+<parameter>GstCaps</parameter> should not be modified.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara> the index of the structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a pointer to the <link linkend="GstStructure">GstStructure</link> corresponding to <parameter>index</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-set-simple"/>gst_caps_set_simple ()</title>
+<programlisting>void        gst_caps_set_simple             (<link linkend="GstCaps">GstCaps</link> *caps,
+                                             char *field,
+                                             ...);</programlisting>
+<para>
+Sets fields in a simple <link linkend="GstCaps">GstCaps</link>.  A simple <link linkend="GstCaps">GstCaps</link> is one that
+only has one structure.  The arguments must be passed in the same
+manner as @<link linkend="gst-structure-set">gst_structure_set</link>(), and be NULL-terminated.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <parameter>GstCaps</parameter> to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field</parameter>&nbsp;:</term>
+<listitem><simpara> first field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara> additional parameters
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-set-simple-valist"/>gst_caps_set_simple_valist ()</title>
+<programlisting>void        gst_caps_set_simple_valist      (<link linkend="GstCaps">GstCaps</link> *caps,
+                                             char *field,
+                                             va_list varargs);</programlisting>
+<para>
+Sets fields in a simple <link linkend="GstCaps">GstCaps</link>.  A simple <link linkend="GstCaps">GstCaps</link> is one that
+only has one structure.  The arguments must be passed in the same
+manner as @<link linkend="gst-structure-set">gst_structure_set</link>(), and be NULL-terminated.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <parameter>GstCaps</parameter> to copy
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field</parameter>&nbsp;:</term>
+<listitem><simpara> first field to set
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>varargs</parameter>&nbsp;:</term>
+<listitem><simpara> additional parameters
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-any"/>gst_caps_is_any ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_is_any                 (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Determines if <parameter>caps</parameter> represents any media format.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <parameter>GstCaps</parameter> to test
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if <parameter>caps</parameter> represents any format.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-empty"/>gst_caps_is_empty ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_is_empty               (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Determines if <parameter>caps</parameter> represents no media formats.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <parameter>GstCaps</parameter> to test
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if <parameter>caps</parameter> represents no formats.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-fixed"/>gst_caps_is_fixed ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_is_fixed               (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Fixed <parameter>GstCaps</parameter> describe exactly one format, that is, they have exactly
+one structure, and each field in the structure describes a fixed type.
+Examples of non-fixed types are GST_TYPE_INT_RANGE and GST_TYPE_LIST.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the <parameter>GstCaps</parameter> to test
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if <parameter>caps</parameter> is fixed
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-equal"/>gst_caps_is_equal ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_is_equal               (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);</programlisting>
+<para>
+Checks if the given caps represent the same set of caps.
+<note>This function does not work reliably if optional properties for caps
+are included on one caps and omitted on the other.</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps1</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps2</parameter>&nbsp;:</term>
+<listitem><simpara> another <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if both caps are equal
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-always-compatible"/>gst_caps_is_always_compatible ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_is_always_compatible   (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);</programlisting>
+<para>
+A given <link linkend="GstCaps">GstCaps</link> structure is always compatible with another if
+every media format that is in the first is also contained in the
+second.  That is, <parameter>caps1</parameter> is a subset of <parameter>caps2</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps1</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstCaps">GstCaps</link> to test
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps2</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstCaps">GstCaps</link> to test
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if <parameter>caps1</parameter> is a subset of <parameter>caps2</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-is-subset"/>gst_caps_is_subset ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_is_subset              (const <link linkend="GstCaps">GstCaps</link> *subset,
+                                             const <link linkend="GstCaps">GstCaps</link> *superset);</programlisting>
+<para>
+Checks if all caps represented by <parameter>subset</parameter> are also represented by <parameter>superset</parameter>
+<note>This function does not work reliably if optional properties for caps
+are included on one caps and omitted on the other.</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>subset</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>superset</parameter>&nbsp;:</term>
+<listitem><simpara> a potentially greater <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if <parameter>subset</parameter> is a subset of <parameter>superset</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-intersect"/>gst_caps_intersect ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_intersect              (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> that contains all the formats that are common
+to both <parameter>caps1</parameter> and <parameter>caps2</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps1</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps2</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-union"/>gst_caps_union ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_union                  (const <link linkend="GstCaps">GstCaps</link> *caps1,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps2);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> that contains all the formats that are in
+either <parameter>caps1</parameter> and <parameter>caps2</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps1</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps2</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-normalize"/>gst_caps_normalize ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_normalize              (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Creates a new <link linkend="GstCaps">GstCaps</link> that represents the same set of formats as
+<parameter>caps</parameter>, but contains no lists.  Each list is expanded into separate
+<parameter>GstStructures</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to normalize
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the new <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-do-simplify"/>gst_caps_do_simplify ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_do_simplify            (<link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Modifies the given <parameter>caps</parameter> inplace into a representation that represents the 
+same set of formats, but in a simpler form.  Component structures that are 
+identical are merged.  Component structures that have values that can be 
+merged are also merged.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to simplify
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE, if the caps could be simplified
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-save-thyself"/>gst_caps_save_thyself ()</title>
+<programlisting><link linkend="xmlNodePtr">xmlNodePtr</link>  gst_caps_save_thyself           (const <link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="xmlNodePtr">xmlNodePtr</link> parent);</programlisting>
+<para>
+Serializes a <link linkend="GstCaps">GstCaps</link> to XML and adds it as a child node of <parameter>parent</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> structure
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> a XML parent node
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a XML node pointer
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-load-thyself"/>gst_caps_load_thyself ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_load_thyself           (<link linkend="xmlNodePtr">xmlNodePtr</link> parent);</programlisting>
+<para>
+Creates a <link linkend="GstCaps">GstCaps</link> from its XML serialization.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> a XML node
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstCaps">GstCaps</link> structure
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-replace"/>gst_caps_replace ()</title>
+<programlisting>void        gst_caps_replace                (<link linkend="GstCaps">GstCaps</link> **caps,
+                                             <link linkend="GstCaps">GstCaps</link> *newcaps);</programlisting>
+<para>
+Replaces *caps with <parameter>newcaps</parameter>.  Frees the <link linkend="GstCaps">GstCaps</link> in the location
+pointed to by <parameter>caps</parameter>, if applicable, then modifies <parameter>caps</parameter> to point to
+<parameter>newcaps</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a pointer to <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>newcaps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link> to replace *caps
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-to-string"/>gst_caps_to_string ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_caps_to_string              (const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Converts <parameter>caps</parameter> to a string representation.  This string representation
+can be converted back to a <link linkend="GstCaps">GstCaps</link> by <link linkend="gst-caps-from-string">gst_caps_from_string</link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a newly allocated string representing <parameter>caps</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-from-string"/>gst_caps_from_string ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_from_string            (const <link linkend="gchar">gchar</link> *string);</programlisting>
+<para>
+Converts <parameter>caps</parameter> from a string representation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> a string to convert to <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a newly allocated <link linkend="GstCaps">GstCaps</link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-structure-fixate-field-nearest-int"/>gst_caps_structure_fixate_field_nearest_int ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_structure_fixate_field_nearest_int
+                                            (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const char *field_name,
+                                             int target);</programlisting>
+<para>
+Fixates a <link linkend="GstStructure">GstStructure</link> by changing the given field to the nearest
+integer to <parameter>target</parameter> that is a subset of the existing field.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field_name</parameter>&nbsp;:</term>
+<listitem><simpara> a field in <parameter>structure</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>target</parameter>&nbsp;:</term>
+<listitem><simpara> the target value of the fixation
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the structure could be fixated
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-structure-fixate-field-nearest-double"/>gst_caps_structure_fixate_field_nearest_double ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_caps_structure_fixate_field_nearest_double
+                                            (<link linkend="GstStructure">GstStructure</link> *structure,
+                                             const char *field_name,
+                                             <link linkend="double">double</link> target);</programlisting>
+<para>
+Fixates a <link linkend="GstStructure">GstStructure</link> by changing the given field to the nearest
+double to <parameter>target</parameter> that is a subset of the existing field.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>structure</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstStructure">GstStructure</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>field_name</parameter>&nbsp;:</term>
+<listitem><simpara> a field in <parameter>structure</parameter>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>target</parameter>&nbsp;:</term>
+<listitem><simpara> the target value of the fixation
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the structure could be fixated
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-caps-subtract"/>gst_caps_subtract ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_caps_subtract               (const <link linkend="GstCaps">GstCaps</link> *minuend,
+                                             const <link linkend="GstCaps">GstCaps</link> *subtrahend);</programlisting>
+<para>
+Subtracts the <parameter>subtrahend</parameter> from the <parameter>minuend</parameter>.
+<note>This function does not work reliably if optional properties for caps
+are included on one caps and omitted on the other.</note></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>minuend</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstCaps">GstCaps</link> to substract from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>subtrahend</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GstCaps">GstCaps</link> to substract
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the resulting caps
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

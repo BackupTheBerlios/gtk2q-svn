@@ -1,0 +1,125 @@
+<refentry id="GstPipeline">
+<refmeta>
+<refentrytitle>GstPipeline</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstPipeline</refname><refpurpose>Top-level bin with scheduling and pipeline management functionality.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstPipeline-struct">GstPipeline</link>;
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-pipeline-new">gst_pipeline_new</link>                (const <link linkend="gchar">gchar</link> *name);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----<link linkend="GstElement">GstElement</link>
+               +----<link linkend="GstBin">GstBin</link>
+                     +----GstPipeline
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="GstPipeline--delay">delay</link>&quot;                <link linkend="guint64">guint64</link>              : Read / Write
+  &quot;<link linkend="GstPipeline--play-timeout">play-timeout</link>&quot;         <link linkend="guint64">guint64</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+In almost all cases, you'll want to use a GstPipeline when creating a
+filter graph.  The GstPipeline will manage all the scheduling issues,
+including threading, as well as provide simple interfaces to common
+functions, like 'Play'.
+</para>
+<para>
+<link linkend="gst-pipeline-new">gst_pipeline_new</link>() is used to create a pipeline. when you are done with 
+the pipeline, use <link linkend="gst-object-unref">gst_object_unref</link>() to free its resources.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstPipeline-struct"/>struct GstPipeline</title>
+<programlisting>struct GstPipeline {
+  GstClock      *fixed_clock;	/* fixed clock if any */
+  GstClockTime   stream_time;
+  GstClockTime   delay;
+  GstClockTime   play_timeout;
+
+  GList		*eosed;		/* list of elements that posted EOS */
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gst-pipeline-new"/>gst_pipeline_new ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_pipeline_new                (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Create a new pipeline with the given name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> name of new pipeline
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> newly created GstPipeline
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="GstPipeline--delay"/>&quot;<literal>delay</literal>&quot; (<link linkend="guint64">guint64</link> : Read / Write)</term>
+<listitem>
+<para>Expected delay needed for elements to spin up to PLAYING in nanoseconds.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstPipeline--play-timeout"/>&quot;<literal>play-timeout</literal>&quot; (<link linkend="guint64">guint64</link> : Read / Write)</term>
+<listitem>
+<para>Max timeout for going to PLAYING in nanoseconds.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstBin">GstBin</link>
+</para>
+</refsect1>
+
+</refentry>

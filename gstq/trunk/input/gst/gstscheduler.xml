@@ -1,0 +1,143 @@
+<refentry id="GstScheduler">
+<refmeta>
+<refentrytitle>GstScheduler</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstScheduler</refname><refpurpose>Abstract class for objects that manage the scheduling of groups of elements</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstScheduler-struct">GstScheduler</link>;
+enum        <link linkend="GstSchedulerFlags">GstSchedulerFlags</link>;
+#define     <link linkend="GST-SCHEDULER-PARENT-CAPS">GST_SCHEDULER_PARENT</link>            (sched)
+#define     <link linkend="GST-SCHEDULER-STATE-CAPS">GST_SCHEDULER_STATE</link>             (sched)
+void        <link linkend="gst-scheduler-setup">gst_scheduler_setup</link>             (<link linkend="GstScheduler">GstScheduler</link> *sched);
+void        <link linkend="gst-scheduler-reset">gst_scheduler_reset</link>             (<link linkend="GstScheduler">GstScheduler</link> *sched);
+#define     <link linkend="GST-SCHEDULER-DEFAULT-NAME-CAPS">GST_SCHEDULER_DEFAULT_NAME</link>
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----GstScheduler
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This is a base class for custom schedulers.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstScheduler-struct"/>struct GstScheduler</title>
+<programlisting>struct GstScheduler;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstSchedulerFlags"/>enum GstSchedulerFlags</title>
+<programlisting>typedef enum {
+  /* padding */
+  GST_SCHEDULER_FLAG_LAST 		= GST_OBJECT_FLAG_LAST + 4
+} GstSchedulerFlags;
+</programlisting>
+<para>
+Flags for the scheduler
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_SCHEDULER_FLAG_LAST</literal></term>
+<listitem><simpara>subclasses can start numbering their flags starting
+                          from here.
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-SCHEDULER-PARENT-CAPS"/>GST_SCHEDULER_PARENT()</title>
+<programlisting>#define GST_SCHEDULER_PARENT(sched)		((sched)-&gt;parent)
+</programlisting>
+<para>
+Get the parent object of this scheduler.
+</para><variablelist role="params">
+<varlistentry><term><parameter>sched</parameter>&nbsp;:</term>
+<listitem><simpara>the scheduler to get the parent of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-SCHEDULER-STATE-CAPS"/>GST_SCHEDULER_STATE()</title>
+<programlisting>#define GST_SCHEDULER_STATE(sched)		((sched)-&gt;state)
+</programlisting>
+<para>
+Get the state of the scheduler.
+</para><variablelist role="params">
+<varlistentry><term><parameter>sched</parameter>&nbsp;:</term>
+<listitem><simpara>the scheduler to get the state of.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-setup"/>gst_scheduler_setup ()</title>
+<programlisting>void        gst_scheduler_setup             (<link linkend="GstScheduler">GstScheduler</link> *sched);</programlisting>
+<para>
+Prepare the scheduler.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sched</parameter>&nbsp;:</term>
+<listitem><simpara> the scheduler
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-scheduler-reset"/>gst_scheduler_reset ()</title>
+<programlisting>void        gst_scheduler_reset             (<link linkend="GstScheduler">GstScheduler</link> *sched);</programlisting>
+<para>
+Reset the schedulers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sched</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstScheduler">GstScheduler</link> to reset.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-SCHEDULER-DEFAULT-NAME-CAPS"/>GST_SCHEDULER_DEFAULT_NAME</title>
+<programlisting>#define GST_SCHEDULER_DEFAULT_NAME	"thread"
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

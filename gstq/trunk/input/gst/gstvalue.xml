@@ -1,0 +1,1168 @@
+<refentry id="gstreamer-GstValue">
+<refmeta>
+<refentrytitle>GstValue</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstValue</refname><refpurpose>GValue implementations specific to GStreamer</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+#define     <link linkend="GST-MAKE-FOURCC-CAPS">GST_MAKE_FOURCC</link>                 (a,b,c,d)
+#define     <link linkend="GST-STR-FOURCC-CAPS">GST_STR_FOURCC</link>                  (f)
+#define     <link linkend="GST-FOURCC-FORMAT-CAPS">GST_FOURCC_FORMAT</link>
+#define     <link linkend="GST-FOURCC-ARGS-CAPS">GST_FOURCC_ARGS</link>                 (fourcc)
+#define     <link linkend="GST-VALUE-HOLDS-FOURCC-CAPS">GST_VALUE_HOLDS_FOURCC</link>          (x)
+#define     <link linkend="GST-VALUE-HOLDS-INT-RANGE-CAPS">GST_VALUE_HOLDS_INT_RANGE</link>       (x)
+#define     <link linkend="GST-VALUE-HOLDS-DOUBLE-RANGE-CAPS">GST_VALUE_HOLDS_DOUBLE_RANGE</link>    (x)
+#define     <link linkend="GST-VALUE-HOLDS-LIST-CAPS">GST_VALUE_HOLDS_LIST</link>            (x)
+#define     <link linkend="GST-VALUE-HOLDS-FIXED-LIST-CAPS">GST_VALUE_HOLDS_FIXED_LIST</link>      (x)
+#define     <link linkend="GST-VALUE-HOLDS-CAPS-CAPS">GST_VALUE_HOLDS_CAPS</link>            (x)
+#define     <link linkend="GST-VALUE-HOLDS-FRACTION-CAPS">GST_VALUE_HOLDS_FRACTION</link>        (x)
+#define     <link linkend="GST-VALUE-LESS-THAN-CAPS">GST_VALUE_LESS_THAN</link>
+#define     <link linkend="GST-VALUE-EQUAL-CAPS">GST_VALUE_EQUAL</link>
+#define     <link linkend="GST-VALUE-GREATER-THAN-CAPS">GST_VALUE_GREATER_THAN</link>
+#define     <link linkend="GST-VALUE-UNORDERED-CAPS">GST_VALUE_UNORDERED</link>
+int         (<link linkend="GstValueCompareFunc">*GstValueCompareFunc</link>)          (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+char*       (<link linkend="GstValueSerializeFunc">*GstValueSerializeFunc</link>)        (const <link linkend="GValue">GValue</link> *value1);
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstValueDeserializeFunc">*GstValueDeserializeFunc</link>)      (<link linkend="GValue">GValue</link> *dest,
+                                             const char *s);
+int         (<link linkend="GstValueUnionFunc">*GstValueUnionFunc</link>)            (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+int         (<link linkend="GstValueIntersectFunc">*GstValueIntersectFunc</link>)        (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+int         (<link linkend="GstValueSubtractFunc">*GstValueSubtractFunc</link>)         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *minuend,
+                                             const <link linkend="GValue">GValue</link> *subtrahend);
+struct      <link linkend="GstValueTable">GstValueTable</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-type-is-fixed">gst_type_is_fixed</link>               (<link linkend="GType">GType</link> type);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-is-fixed">gst_value_is_fixed</link>              (const <link linkend="GValue">GValue</link> *value);
+void        <link linkend="gst-value-register">gst_value_register</link>              (const <link linkend="GstValueTable">GstValueTable</link> *table);
+void        <link linkend="gst-value-init-and-copy">gst_value_init_and_copy</link>         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);
+<link linkend="gchar">gchar</link>*      <link linkend="gst-value-serialize">gst_value_serialize</link>             (const <link linkend="GValue">GValue</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-deserialize">gst_value_deserialize</link>           (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="gchar">gchar</link> *src);
+void        <link linkend="gst-value-list-append-value">gst_value_list_append_value</link>     (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="GValue">GValue</link> *append_value);
+void        <link linkend="gst-value-list-prepend-value">gst_value_list_prepend_value</link>    (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="GValue">GValue</link> *prepend_value);
+void        <link linkend="gst-value-list-concat">gst_value_list_concat</link>           (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+<link linkend="guint">guint</link>       <link linkend="gst-value-list-get-size">gst_value_list_get_size</link>         (const <link linkend="GValue">GValue</link> *value);
+G_CONST_RETURN <link linkend="GValue">GValue</link>* <link linkend="gst-value-list-get-value">gst_value_list_get_value</link>
+                                            (const <link linkend="GValue">GValue</link> *value,
+                                             <link linkend="guint">guint</link> index);
+void        <link linkend="gst-value-set-fourcc">gst_value_set_fourcc</link>            (<link linkend="GValue">GValue</link> *value,
+                                             <link linkend="guint32">guint32</link> fourcc);
+<link linkend="guint32">guint32</link>     <link linkend="gst-value-get-fourcc">gst_value_get_fourcc</link>            (const <link linkend="GValue">GValue</link> *value);
+void        <link linkend="gst-value-set-int-range">gst_value_set_int_range</link>         (<link linkend="GValue">GValue</link> *value,
+                                             int start,
+                                             int end);
+int         <link linkend="gst-value-get-int-range-min">gst_value_get_int_range_min</link>     (const <link linkend="GValue">GValue</link> *value);
+int         <link linkend="gst-value-get-int-range-max">gst_value_get_int_range_max</link>     (const <link linkend="GValue">GValue</link> *value);
+void        <link linkend="gst-value-set-double-range">gst_value_set_double_range</link>      (<link linkend="GValue">GValue</link> *value,
+                                             <link linkend="double">double</link> start,
+                                             <link linkend="double">double</link> end);
+<link linkend="double">double</link>      <link linkend="gst-value-get-double-range-min">gst_value_get_double_range_min</link>  (const <link linkend="GValue">GValue</link> *value);
+<link linkend="double">double</link>      <link linkend="gst-value-get-double-range-max">gst_value_get_double_range_max</link>  (const <link linkend="GValue">GValue</link> *value);
+G_CONST_RETURN <link linkend="GstCaps">GstCaps</link>* <link linkend="gst-value-get-caps">gst_value_get_caps</link>  (const <link linkend="GValue">GValue</link> *value);
+void        <link linkend="gst-value-set-caps">gst_value_set_caps</link>              (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps);
+int         <link linkend="gst-value-get-fraction-numerator">gst_value_get_fraction_numerator</link>
+                                            (const <link linkend="GValue">GValue</link> *value);
+int         <link linkend="gst-value-get-fraction-denominator">gst_value_get_fraction_denominator</link>
+                                            (const <link linkend="GValue">GValue</link> *value);
+void        <link linkend="gst-value-set-fraction">gst_value_set_fraction</link>          (<link linkend="GValue">GValue</link> *value,
+                                             int numerator,
+                                             int denominator);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-fraction-multiply">gst_value_fraction_multiply</link>     (<link linkend="GValue">GValue</link> *product,
+                                             const <link linkend="GValue">GValue</link> *factor1,
+                                             const <link linkend="GValue">GValue</link> *factor2);
+int         <link linkend="gst-value-compare">gst_value_compare</link>               (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-can-compare">gst_value_can_compare</link>           (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-union">gst_value_union</link>                 (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-can-union">gst_value_can_union</link>             (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+void        <link linkend="gst-value-register-union-func">gst_value_register_union_func</link>   (<link linkend="GType">GType</link> type1,
+                                             <link linkend="GType">GType</link> type2,
+                                             <link linkend="GstValueUnionFunc">GstValueUnionFunc</link> func);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-subtract">gst_value_subtract</link>              (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *minuend,
+                                             const <link linkend="GValue">GValue</link> *subtrahend);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-can-subtract">gst_value_can_subtract</link>          (const <link linkend="GValue">GValue</link> *minuend,
+                                             const <link linkend="GValue">GValue</link> *subtrahend);
+void        <link linkend="gst-value-register-subtract-func">gst_value_register_subtract_func</link>
+                                            (<link linkend="GType">GType</link> minuend_type,
+                                             <link linkend="GType">GType</link> subtrahend_type,
+                                             <link linkend="GstValueSubtractFunc">GstValueSubtractFunc</link> func);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-intersect">gst_value_intersect</link>             (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-value-can-intersect">gst_value_can_intersect</link>         (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);
+void        <link linkend="gst-value-register-intersect-func">gst_value_register_intersect_func</link>
+                                            (<link linkend="GType">GType</link> type1,
+                                             <link linkend="GType">GType</link> type2,
+                                             <link linkend="GstValueIntersectFunc">GstValueIntersectFunc</link> func);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GST-MAKE-FOURCC-CAPS"/>GST_MAKE_FOURCC()</title>
+<programlisting>#define GST_MAKE_FOURCC(a,b,c,d)        (guint32)((a)|(b)&lt;&lt;8|(c)&lt;&lt;16|(d)&lt;&lt;24)
+</programlisting>
+<para>
+will transform four characters into a host-endiannness guint32 fourcc:
+<informalexample>
+<programlisting>
+guint32 fourcc = GST_MAKE_FOURCC ('M','J','P','G');
+</programlisting>
+</informalexample>
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&nbsp;:</term>
+<listitem><simpara>the first component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&nbsp;:</term>
+<listitem><simpara>the second component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>c</parameter>&nbsp;:</term>
+<listitem><simpara>the third component
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>d</parameter>&nbsp;:</term>
+<listitem><simpara>the fourth component
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-STR-FOURCC-CAPS"/>GST_STR_FOURCC()</title>
+<programlisting>#define GST_STR_FOURCC(f)               (guint32)(((f)[0])|((f)[1]&lt;&lt;8)|((f)[2]&lt;&lt;16)|((f)[3]&lt;&lt;24))
+</programlisting>
+<para>
+Creates a fourcc from an input string. The input string should consisnt
+of at least four characters (this is not checked for!).
+<informalexample>
+<programlisting>
+guint32 fourcc = GST_STR_FOURCC("MJPG");
+</programlisting>
+</informalexample>
+</para><variablelist role="params">
+<varlistentry><term><parameter>f</parameter>&nbsp;:</term>
+<listitem><simpara>a string with four characters
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FOURCC-FORMAT-CAPS"/>GST_FOURCC_FORMAT</title>
+<programlisting>#define GST_FOURCC_FORMAT "%c%c%c%c"
+</programlisting>
+<para>
+Can be used to properly output a fourcc (a guint32) value in a
+printf()-style text message.
+<informalexample>
+<programlisting>
+printf ("fourcc: %" GST_FOURCC_FORMAT "\n", GST_FOURCC_ARGS (fcc));
+</programlisting>
+</informalexample>
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-FOURCC-ARGS-CAPS"/>GST_FOURCC_ARGS()</title>
+<programlisting>#define     GST_FOURCC_ARGS(fourcc)</programlisting>
+<para>
+Can be used to properly output a fourcc (a guint32) value in a
+printf()-style text message.
+<informalexample>
+<programlisting>
+printf ("fourcc: %" GST_FOURCC_FORMAT "\n", GST_FOURCC_ARGS (fcc));
+</programlisting>
+</informalexample>
+</para><variablelist role="params">
+<varlistentry><term><parameter>fourcc</parameter>&nbsp;:</term>
+<listitem><simpara>the fourcc value to print
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-FOURCC-CAPS"/>GST_VALUE_HOLDS_FOURCC()</title>
+<programlisting>#define GST_VALUE_HOLDS_FOURCC(x)       (G_VALUE_HOLDS(x, gst_type_fourcc))
+</programlisting>
+<para>
+Checks if the give GValue contains a FOURCC value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-INT-RANGE-CAPS"/>GST_VALUE_HOLDS_INT_RANGE()</title>
+<programlisting>#define GST_VALUE_HOLDS_INT_RANGE(x)    (G_VALUE_HOLDS(x, gst_type_int_range))
+</programlisting>
+<para>
+Checks if the give GValue contains a INT_RANGE value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-DOUBLE-RANGE-CAPS"/>GST_VALUE_HOLDS_DOUBLE_RANGE()</title>
+<programlisting>#define GST_VALUE_HOLDS_DOUBLE_RANGE(x) (G_VALUE_HOLDS(x, gst_type_double_range))
+</programlisting>
+<para>
+Checks if the give GValue contains a DOUBLE_RANGE value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-LIST-CAPS"/>GST_VALUE_HOLDS_LIST()</title>
+<programlisting>#define GST_VALUE_HOLDS_LIST(x)         (G_VALUE_HOLDS(x, gst_type_list))
+</programlisting>
+<para>
+Checks if the give GValue contains a LIST value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-FIXED-LIST-CAPS"/>GST_VALUE_HOLDS_FIXED_LIST()</title>
+<programlisting>#define GST_VALUE_HOLDS_FIXED_LIST(x)   (G_VALUE_HOLDS(x, gst_type_fixed_list))
+</programlisting>
+<para>
+Checks if the give GValue contains a FIXED_LIST value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-CAPS-CAPS"/>GST_VALUE_HOLDS_CAPS()</title>
+<programlisting>#define GST_VALUE_HOLDS_CAPS(x)		(G_VALUE_HOLDS(x, GST_TYPE_CAPS))
+</programlisting>
+<para>
+Checks if the give GValue contains a CAPS value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-HOLDS-FRACTION-CAPS"/>GST_VALUE_HOLDS_FRACTION()</title>
+<programlisting>#define GST_VALUE_HOLDS_FRACTION(x)	(G_VALUE_HOLDS(x, gst_type_fraction))
+</programlisting>
+<para>
+Checks if the give GValue contains a FRACTION value.
+</para><variablelist role="params">
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GValue">GValue</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-LESS-THAN-CAPS"/>GST_VALUE_LESS_THAN</title>
+<programlisting>#define GST_VALUE_LESS_THAN              (-1)
+</programlisting>
+<para>
+Indicates that the first value provided to a comparison function
+(<link linkend="gst-value-compare">gst_value_compare</link>()) is lesser than the second one.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-EQUAL-CAPS"/>GST_VALUE_EQUAL</title>
+<programlisting>#define GST_VALUE_EQUAL                   0
+</programlisting>
+<para>
+Indicates that the first value provided to a comparison function
+(<link linkend="gst-value-compare">gst_value_compare</link>()) is equal to the second one.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-GREATER-THAN-CAPS"/>GST_VALUE_GREATER_THAN</title>
+<programlisting>#define GST_VALUE_GREATER_THAN            1
+</programlisting>
+<para>
+Indicates that the first value provided to a comparison function
+(<link linkend="gst-value-compare">gst_value_compare</link>()) is greater than the second one.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-VALUE-UNORDERED-CAPS"/>GST_VALUE_UNORDERED</title>
+<programlisting>#define GST_VALUE_UNORDERED               2
+</programlisting>
+<para>
+Indicates that the comparison function (<link linkend="gst-value-compare">gst_value_compare</link>()) can not
+determine a order for the two provided values.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstValueCompareFunc"/>GstValueCompareFunc ()</title>
+<programlisting>int         (*GstValueCompareFunc)          (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>one of GST_VALUE_LESS_THAN, GST_VALUE_EQUAL,
+GST_VALUE_GREATER_THAN or GST_VALUE_UNORDERED
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstValueSerializeFunc"/>GstValueSerializeFunc ()</title>
+<programlisting>char*       (*GstValueSerializeFunc)        (const <link linkend="GValue">GValue</link> *value1);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstValueDeserializeFunc"/>GstValueDeserializeFunc ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstValueDeserializeFunc)      (<link linkend="GValue">GValue</link> *dest,
+                                             const char *s);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>s</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstValueUnionFunc"/>GstValueUnionFunc ()</title>
+<programlisting>int         (*GstValueUnionFunc)            (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstValueIntersectFunc"/>GstValueIntersectFunc ()</title>
+<programlisting>int         (*GstValueIntersectFunc)        (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Functions having this type calculate the intersection of <parameter>value1</parameter>
+and <parameter>value2</parameter>.  If the intersection is non-empty, the result is
+placed in <parameter>dest</parameter> and TRUE is returned.  If the intersection is
+empty, <parameter>dest</parameter> is unmodified and FALSE is returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> a uninitialized <link linkend="GValue">GValue</link> that will hold the calculated
+intersection value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the intersection is non-empty, FALSE otherwise
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstValueSubtractFunc"/>GstValueSubtractFunc ()</title>
+<programlisting>int         (*GstValueSubtractFunc)         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *minuend,
+                                             const <link linkend="GValue">GValue</link> *subtrahend);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minuend</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>subtrahend</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstValueTable"/>struct GstValueTable</title>
+<programlisting>struct GstValueTable {
+
+  GType type;
+  GstValueCompareFunc compare;
+  GstValueSerializeFunc serialize;
+  GstValueDeserializeFunc deserialize;
+
+};
+</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="GType">GType</link> <structfield>type</structfield></term>
+<listitem><simpara> GType that the functions operate on.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GstValueCompareFunc">GstValueCompareFunc</link> <structfield>compare</structfield></term>
+<listitem><simpara> A function that compares two values of this type.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GstValueSerializeFunc">GstValueSerializeFunc</link> <structfield>serialize</structfield></term>
+<listitem><simpara> A function that transforms a value of this type to a
+string.  Strings created by this function must be unique and should
+be human readable.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="GstValueDeserializeFunc">GstValueDeserializeFunc</link> <structfield>deserialize</structfield></term>
+<listitem><simpara> A function that transforms a string to a value of
+this type.  This function must transform strings created by the
+serialize function back to the original value.  This function may
+optionally transform other strings into values.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-type-is-fixed"/>gst_type_is_fixed ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_type_is_fixed               (<link linkend="GType">GType</link> type);</programlisting>
+<para>
+Tests if the given GType, if available in a GstStructure (or any other
+container) will contain a "fixed" (which means: one possible value) or
+an "unfixed" (which means: multiple possible values, such as data lists
+or data ranges) value.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GType">GType</link> to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> true if the type is "fixed".
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-is-fixed"/>gst_value_is_fixed ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_is_fixed              (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Tests if the given GValue, if available in a GstStructure (or any other
+container) contains a "fixed" (which means: one value) or an "unfixed"
+(which means: multiple possible values, such as data lists or data
+ranges) value.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GValue">GValue</link> to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> true if the value is "fixed".
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-register"/>gst_value_register ()</title>
+<programlisting>void        gst_value_register              (const <link linkend="GstValueTable">GstValueTable</link> *table);</programlisting>
+<para>
+Registers functions to perform calculations on <link linkend="GValues">GValues</link> of a given
+type.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> structure containing functions to register
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-init-and-copy"/>gst_value_init_and_copy ()</title>
+<programlisting>void        gst_value_init_and_copy         (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *src);</programlisting>
+<para>
+Initialises the target value to be of the same type as source and then copies
+the contents from source to target.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> the target value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> the source value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-serialize"/>gst_value_serialize ()</title>
+<programlisting><link linkend="gchar">gchar</link>*      gst_value_serialize             (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+tries to transform the given <parameter>value</parameter> into a string representation that allows
+getting back this string later on using <link linkend="gst-value-deserialize">gst_value_deserialize</link>().</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GValue">GValue</link> to serialize
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the serialization for <parameter>value</parameter> or NULL if none exists
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-deserialize"/>gst_value_deserialize ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_deserialize           (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="gchar">gchar</link> *src);</programlisting>
+<para>
+Tries to deserialize a string into the type specified by the given GValue.
+If the operation succeeds, TRUE is returned, FALSE otherwise.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> <link linkend="GValue">GValue</link> to fill with contents of deserialization
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src</parameter>&nbsp;:</term>
+<listitem><simpara> string to deserialize
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE on success
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-list-append-value"/>gst_value_list_append_value ()</title>
+<programlisting>void        gst_value_list_append_value     (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="GValue">GValue</link> *append_value);</programlisting>
+<para>
+Appends <parameter>append_value</parameter> to the GstValueList in <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GstValueList to append a value to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>append_value</parameter>&nbsp;:</term>
+<listitem><simpara> the value to append
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-list-prepend-value"/>gst_value_list_prepend_value ()</title>
+<programlisting>void        gst_value_list_prepend_value    (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="GValue">GValue</link> *prepend_value);</programlisting>
+<para>
+Prepends <parameter>prepend_value</parameter> to the GstValueList in <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GstValueList to prepend a value to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>prepend_value</parameter>&nbsp;:</term>
+<listitem><simpara> the value to prepend
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-list-concat"/>gst_value_list_concat ()</title>
+<programlisting>void        gst_value_list_concat           (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Concatenates copies of value1 and value2 into a list.  The value
+<parameter>dest</parameter> is initialized to the type GST_TYPE_LIST.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> an uninitialized <link linkend="GValue">GValue</link> to take the result
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> first value to put into the union
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> second value to put into the union
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-list-get-size"/>gst_value_list_get_size ()</title>
+<programlisting><link linkend="guint">guint</link>       gst_value_list_get_size         (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the number of values contained in <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GstValueList
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the number of values
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-list-get-value"/>gst_value_list_get_value ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GValue">GValue</link>* gst_value_list_get_value
+                                            (const <link linkend="GValue">GValue</link> *value,
+                                             <link linkend="guint">guint</link> index);</programlisting>
+<para>
+Gets the value that is a member of the list contained in <parameter>value</parameter> and
+has the index <parameter>index</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GstValueList
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara> index of value to get from the list
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the value at the given index
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-set-fourcc"/>gst_value_set_fourcc ()</title>
+<programlisting>void        gst_value_set_fourcc            (<link linkend="GValue">GValue</link> *value,
+                                             <link linkend="guint32">guint32</link> fourcc);</programlisting>
+<para>
+Sets <parameter>value</parameter> to <parameter>fourcc</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FOURCC
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>fourcc</parameter>&nbsp;:</term>
+<listitem><simpara> the fourcc to set
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-fourcc"/>gst_value_get_fourcc ()</title>
+<programlisting><link linkend="guint32">guint32</link>     gst_value_get_fourcc            (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the fourcc contained in <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FOURCC
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the fourcc contained in <parameter>value</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-set-int-range"/>gst_value_set_int_range ()</title>
+<programlisting>void        gst_value_set_int_range         (<link linkend="GValue">GValue</link> *value,
+                                             int start,
+                                             int end);</programlisting>
+<para>
+Sets <parameter>value</parameter> to the range specified by <parameter>start</parameter> and <parameter>end</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_INT_RANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&nbsp;:</term>
+<listitem><simpara> the start of the range
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&nbsp;:</term>
+<listitem><simpara> the end of the range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-int-range-min"/>gst_value_get_int_range_min ()</title>
+<programlisting>int         gst_value_get_int_range_min     (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the minimum of the range specified by <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_INT_RANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the minimum of the range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-int-range-max"/>gst_value_get_int_range_max ()</title>
+<programlisting>int         gst_value_get_int_range_max     (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the maximum of the range specified by <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_INT_RANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the maxumum of the range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-set-double-range"/>gst_value_set_double_range ()</title>
+<programlisting>void        gst_value_set_double_range      (<link linkend="GValue">GValue</link> *value,
+                                             <link linkend="double">double</link> start,
+                                             <link linkend="double">double</link> end);</programlisting>
+<para>
+Sets <parameter>value</parameter> to the range specified by <parameter>start</parameter> and <parameter>end</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_DOUBLE_RANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>start</parameter>&nbsp;:</term>
+<listitem><simpara> the start of the range
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>end</parameter>&nbsp;:</term>
+<listitem><simpara> the end of the range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-double-range-min"/>gst_value_get_double_range_min ()</title>
+<programlisting><link linkend="double">double</link>      gst_value_get_double_range_min  (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the minimum of the range specified by <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_DOUBLE_RANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the minumum of the range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-double-range-max"/>gst_value_get_double_range_max ()</title>
+<programlisting><link linkend="double">double</link>      gst_value_get_double_range_max  (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the maximum of the range specified by <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_DOUBLE_RANGE
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the maxumum of the range
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-caps"/>gst_value_get_caps ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstCaps">GstCaps</link>* gst_value_get_caps  (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the contents of <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_CAPS
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the contents of <parameter>value</parameter>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-set-caps"/>gst_value_set_caps ()</title>
+<programlisting>void        gst_value_set_caps              (<link linkend="GValue">GValue</link> *value,
+                                             const <link linkend="GstCaps">GstCaps</link> *caps);</programlisting>
+<para>
+Sets the contents of <parameter>value</parameter> to coorespond to <parameter>caps</parameter>.  The actual
+<link linkend="GstCaps">GstCaps</link> structure is copied before it is used.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_CAPS
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the caps to set the value to
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-fraction-numerator"/>gst_value_get_fraction_numerator ()</title>
+<programlisting>int         gst_value_get_fraction_numerator
+                                            (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the numerator of the fraction specified by <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FRACTION
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the numerator of the fraction.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-get-fraction-denominator"/>gst_value_get_fraction_denominator ()</title>
+<programlisting>int         gst_value_get_fraction_denominator
+                                            (const <link linkend="GValue">GValue</link> *value);</programlisting>
+<para>
+Gets the denominator of the fraction specified by <parameter>value</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FRACTION
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the denominator of the fraction.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-set-fraction"/>gst_value_set_fraction ()</title>
+<programlisting>void        gst_value_set_fraction          (<link linkend="GValue">GValue</link> *value,
+                                             int numerator,
+                                             int denominator);</programlisting>
+<para>
+Sets <parameter>value</parameter> to the fraction specified by <parameter>numerator</parameter> over <parameter>denominator</parameter>.
+The fraction gets reduced to the smallest numerator and denominator,
+and if necessary the sign is moved to the numerator.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FRACTION
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>numerator</parameter>&nbsp;:</term>
+<listitem><simpara> the numerator of the fraction
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>denominator</parameter>&nbsp;:</term>
+<listitem><simpara> the denominator of the fraction
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-fraction-multiply"/>gst_value_fraction_multiply ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_fraction_multiply     (<link linkend="GValue">GValue</link> *product,
+                                             const <link linkend="GValue">GValue</link> *factor1,
+                                             const <link linkend="GValue">GValue</link> *factor2);</programlisting>
+<para>
+Multiplies the two GValues containing a GstFraction and sets <parameter>product</parameter>
+to the product of the two fractions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>product</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FRACTION
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>factor1</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FRACTION
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>factor2</parameter>&nbsp;:</term>
+<listitem><simpara> a GValue initialized to GST_TYPE_FRACTION
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> FALSE in case of an error (like integer overflow), TRUE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-compare"/>gst_value_compare ()</title>
+<programlisting>int         gst_value_compare               (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Compares <parameter>value1</parameter> and <parameter>value2</parameter>.  If <parameter>value1</parameter> and <parameter>value2</parameter> cannot be
+compared, the function returns GST_VALUE_UNORDERED.  Otherwise,
+if <parameter>value1</parameter> is greater than <parameter>value2</parameter>, GST_VALUE_GREATER is returned.
+If <parameter>value1</parameter> is less than <parameter>value2</parameter>, GST_VALUE_LESSER is returned.
+If the values are equal, GST_VALUE_EQUAL is returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to compare
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to compare
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A GstValueCompareType value
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-can-compare"/>gst_value_can_compare ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_can_compare           (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Determines if <parameter>value1</parameter> and <parameter>value2</parameter> can be compared.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to compare
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to compare
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the values can be compared
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-union"/>gst_value_union ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_union                 (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Creates a GValue cooresponding to the union of <parameter>value1</parameter> and <parameter>value2</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> the destination value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the values could be unioned
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-can-union"/>gst_value_can_union ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_can_union             (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Determines if <parameter>value1</parameter> and <parameter>value2</parameter> can be non-trivially unioned.
+Any two values can be trivially unioned by adding both of them
+to a GstValueList.  However, certain types have the possibility
+to be unioned in a simpler way.  For example, an integer range
+and an integer can be unioned if the integer is a subset of the
+integer range.  If there is the possibility that two values can
+be unioned, this function returns TRUE.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if there is a function allowing the two values to
+be unioned.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-register-union-func"/>gst_value_register_union_func ()</title>
+<programlisting>void        gst_value_register_union_func   (<link linkend="GType">GType</link> type1,
+                                             <link linkend="GType">GType</link> type2,
+                                             <link linkend="GstValueUnionFunc">GstValueUnionFunc</link> func);</programlisting>
+<para>
+Registers a union function that can create a union between GValues
+of the type <parameter>type1</parameter> and <parameter>type2</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type1</parameter>&nbsp;:</term>
+<listitem><simpara> a type to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type2</parameter>&nbsp;:</term>
+<listitem><simpara> another type to union
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> a function that implments creating a union between the two types
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-subtract"/>gst_value_subtract ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_subtract              (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *minuend,
+                                             const <link linkend="GValue">GValue</link> *subtrahend);</programlisting>
+<para>
+Subtracts <parameter>subtrahend</parameter> from <parameter>minuend</parameter> and stores the result in <parameter>dest</parameter>.
+Note that this means subtraction as in sets, not as in mathematics.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> the destination value for the result if the subtraction is not empty
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minuend</parameter>&nbsp;:</term>
+<listitem><simpara> the value to subtract from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>subtrahend</parameter>&nbsp;:</term>
+<listitem><simpara> the value to subtract
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the subtraction is not empty
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-can-subtract"/>gst_value_can_subtract ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_can_subtract          (const <link linkend="GValue">GValue</link> *minuend,
+                                             const <link linkend="GValue">GValue</link> *subtrahend);</programlisting>
+<para>
+Checks if it's possible to subtract <parameter>subtrahend</parameter> from <parameter>minuend</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>minuend</parameter>&nbsp;:</term>
+<listitem><simpara> the value to subtract from
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>subtrahend</parameter>&nbsp;:</term>
+<listitem><simpara> the value to subtract
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if a subtraction is possible
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-register-subtract-func"/>gst_value_register_subtract_func ()</title>
+<programlisting>void        gst_value_register_subtract_func
+                                            (<link linkend="GType">GType</link> minuend_type,
+                                             <link linkend="GType">GType</link> subtrahend_type,
+                                             <link linkend="GstValueSubtractFunc">GstValueSubtractFunc</link> func);</programlisting>
+<para>
+Registers <parameter>func</parameter> as a function capable of subtracting the values of 
+<parameter>subtrahend_type</parameter> from values of <parameter>minuend_type</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>minuend_type</parameter>&nbsp;:</term>
+<listitem><simpara> type of the minuend
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>subtrahend_type</parameter>&nbsp;:</term>
+<listitem><simpara> type of the subtrahend
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> function to use
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-intersect"/>gst_value_intersect ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_intersect             (<link linkend="GValue">GValue</link> *dest,
+                                             const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Calculates the intersection of two values.  If the values have
+a non-empty intersection, the value representing the intersection
+is placed in <parameter>dest</parameter>.  If the intersection is non-empty, <parameter>dest</parameter> is
+not modified.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>dest</parameter>&nbsp;:</term>
+<listitem><simpara> a uninitialized <link linkend="GValue">GValue</link> that will hold the calculated
+intersection value
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the intersection is non-empty
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-can-intersect"/>gst_value_can_intersect ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_value_can_intersect         (const <link linkend="GValue">GValue</link> *value1,
+                                             const <link linkend="GValue">GValue</link> *value2);</programlisting>
+<para>
+Determines if intersecting two values will produce a valid result.
+Two values will produce a valid intersection if they have the same
+type, or if there is a method (registered by
+<link linkend="gst-value-register-intersection-func">gst_value_register_intersection_func</link>) to calculate the intersection.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>value1</parameter>&nbsp;:</term>
+<listitem><simpara> a value to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>value2</parameter>&nbsp;:</term>
+<listitem><simpara> another value to intersect
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the values can intersect
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-value-register-intersect-func"/>gst_value_register_intersect_func ()</title>
+<programlisting>void        gst_value_register_intersect_func
+                                            (<link linkend="GType">GType</link> type1,
+                                             <link linkend="GType">GType</link> type2,
+                                             <link linkend="GstValueIntersectFunc">GstValueIntersectFunc</link> func);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>type1</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type2</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,217 @@
+<refentry id="GstQueue">
+<refmeta>
+<refentrytitle>GstQueue</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstQueue</refname><refpurpose>Simple asynchronous data queue.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstQueue-struct">GstQueue</link>;
+struct      <link linkend="GstQueueSize">GstQueueSize</link>;
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----<link linkend="GstElement">GstElement</link>
+               +----GstQueue
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="GstQueue--block-timeout">block-timeout</link>&quot;        <link linkend="guint64">guint64</link>              : Read / Write
+  &quot;<link linkend="GstQueue--current-level-buffers">current-level-buffers</link>&quot; <link linkend="guint">guint</link>                : Read
+  &quot;<link linkend="GstQueue--current-level-bytes">current-level-bytes</link>&quot;  <link linkend="guint">guint</link>                : Read
+  &quot;<link linkend="GstQueue--current-level-time">current-level-time</link>&quot;   <link linkend="guint64">guint64</link>              : Read
+  &quot;<link linkend="GstQueue--leaky">leaky</link>&quot;                <link linkend="GstQueueLeaky">GstQueueLeaky</link>        : Read / Write
+  &quot;<link linkend="GstQueue--max-size-buffers">max-size-buffers</link>&quot;     <link linkend="guint">guint</link>                : Read / Write
+  &quot;<link linkend="GstQueue--max-size-bytes">max-size-bytes</link>&quot;       <link linkend="guint">guint</link>                : Read / Write
+  &quot;<link linkend="GstQueue--max-size-time">max-size-time</link>&quot;        <link linkend="guint64">guint64</link>              : Read / Write
+  &quot;<link linkend="GstQueue--may-deadlock">may-deadlock</link>&quot;         <link linkend="gboolean">gboolean</link>             : Read / Write
+  &quot;<link linkend="GstQueue--min-threshold-buffers">min-threshold-buffers</link>&quot; <link linkend="guint">guint</link>                : Read / Write
+  &quot;<link linkend="GstQueue--min-threshold-bytes">min-threshold-bytes</link>&quot;  <link linkend="guint">guint</link>                : Read / Write
+  &quot;<link linkend="GstQueue--min-threshold-time">min-threshold-time</link>&quot;   <link linkend="guint64">guint64</link>              : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="GstQueue-overrun">overrun</link>&quot;   void        user_function      (<link linkend="GstQueue">GstQueue</link> *gstqueue,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstQueue-running">running</link>&quot;   void        user_function      (<link linkend="GstQueue">GstQueue</link> *gstqueue,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstQueue-underrun">underrun</link>&quot;  void        user_function      (<link linkend="GstQueue">GstQueue</link> *gstqueue,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Simple data queue. Data is queued till max_level buffers any subsequent buffers
+sent to this filter will block until free space becomes available in the buffer.
+The queue is typically used in conjunction with a thread.
+</para>
+<para>
+You can query how many buffers are queued with the level argument.
+</para>
+<para>
+The default queue length is set to 100.
+</para>
+<para>
+The queue blocks by default.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstQueue-struct"/>struct GstQueue</title>
+<programlisting>struct GstQueue;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstQueueSize"/>struct GstQueueSize</title>
+<programlisting>struct GstQueueSize {
+
+    guint   buffers;	/* no. of buffers */
+    guint   bytes;	/* no. of bytes */
+    guint64 time;	/* amount of time */
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="GstQueue--block-timeout"/>&quot;<literal>block-timeout</literal>&quot; (<link linkend="guint64">guint64</link> : Read / Write)</term>
+<listitem>
+<para>Nanoseconds until blocked queue times out and returns filler event. Value of -1 disables timeout.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--current-level-buffers"/>&quot;<literal>current-level-buffers</literal>&quot; (<link linkend="guint">guint</link> : Read)</term>
+<listitem>
+<para>Current number of buffers in the queue.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--current-level-bytes"/>&quot;<literal>current-level-bytes</literal>&quot; (<link linkend="guint">guint</link> : Read)</term>
+<listitem>
+<para>Current amount of data in the queue (bytes).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--current-level-time"/>&quot;<literal>current-level-time</literal>&quot; (<link linkend="guint64">guint64</link> : Read)</term>
+<listitem>
+<para>Current amount of data in the queue (in ns).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--leaky"/>&quot;<literal>leaky</literal>&quot; (<link linkend="GstQueueLeaky">GstQueueLeaky</link> : Read / Write)</term>
+<listitem>
+<para>Where the queue leaks, if at all.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--max-size-buffers"/>&quot;<literal>max-size-buffers</literal>&quot; (<link linkend="guint">guint</link> : Read / Write)</term>
+<listitem>
+<para>Max. number of buffers in the queue (0=disable).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--max-size-bytes"/>&quot;<literal>max-size-bytes</literal>&quot; (<link linkend="guint">guint</link> : Read / Write)</term>
+<listitem>
+<para>Max. amount of data in the queue (bytes, 0=disable).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--max-size-time"/>&quot;<literal>max-size-time</literal>&quot; (<link linkend="guint64">guint64</link> : Read / Write)</term>
+<listitem>
+<para>Max. amount of data in the queue (in ns, 0=disable).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--may-deadlock"/>&quot;<literal>may-deadlock</literal>&quot; (<link linkend="gboolean">gboolean</link> : Read / Write)</term>
+<listitem>
+<para>The queue may deadlock if it's full and not PLAYING.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--min-threshold-buffers"/>&quot;<literal>min-threshold-buffers</literal>&quot; (<link linkend="guint">guint</link> : Read / Write)</term>
+<listitem>
+<para>Min. number of buffers in the queue to allow reading (0=disable).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--min-threshold-bytes"/>&quot;<literal>min-threshold-bytes</literal>&quot; (<link linkend="guint">guint</link> : Read / Write)</term>
+<listitem>
+<para>Min. amount of data in the queue to allow reading (bytes, 0=disable).</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstQueue--min-threshold-time"/>&quot;<literal>min-threshold-time</literal>&quot; (<link linkend="guint64">guint64</link> : Read / Write)</term>
+<listitem>
+<para>Min. amount of data in the queue to allow reading (in ns, 0=disable).</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="GstQueue-overrun"/>The &quot;overrun&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstQueue">GstQueue</link> *gstqueue,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Reports that the buffer became full (overrun).
+A buffer is full if the total amount of data inside it (num-buffers, time,
+size) is higher than the boundary values which can be set through the GObject
+properties.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstqueue</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstQueue-running"/>The &quot;running&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstQueue">GstQueue</link> *gstqueue,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstqueue</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstQueue-underrun"/>The &quot;underrun&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstQueue">GstQueue</link> *gstqueue,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Reports that the buffer became empty (underrun).
+A buffer is empty if the total amount of data inside it (num-buffers, time,
+size) is lower than the boundary values which can be set through the GObject
+properties.
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstqueue</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

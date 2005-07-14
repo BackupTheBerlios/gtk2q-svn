@@ -1,0 +1,28 @@
+<screen>
+    <link linkend="GObject">GObject</link>
+        <link linkend="GstRegistry">GstRegistry</link>
+            <link linkend="GstXMLRegistry">GstXMLRegistry</link>
+        <link linkend="GstObject">GstObject</link>
+            <link linkend="GstPad">GstPad</link>
+                <link linkend="GstProxyPad">GstProxyPad</link>
+                    <link linkend="GstGhostPad">GstGhostPad</link>
+            <link linkend="GstElement">GstElement</link>
+                <link linkend="GstBin">GstBin</link>
+                    <link linkend="GstPipeline">GstPipeline</link>
+                <link linkend="GstQueue">GstQueue</link>
+            <link linkend="GstPadTemplate">GstPadTemplate</link>
+            <link linkend="GstClock">GstClock</link>
+            <link linkend="GstIndex">GstIndex</link>
+            <link linkend="GstScheduler">GstScheduler</link>
+            <link linkend="GstXML">GstXML</link>
+        <link linkend="GstPluginFeature">GstPluginFeature</link>
+            <link linkend="GstElementFactory">GstElementFactory</link>
+            <link linkend="GstSchedulerFactory">GstSchedulerFactory</link>
+            <link linkend="GstTypeFindFactory">GstTypeFindFactory</link>
+            <link linkend="GstIndexFactory">GstIndexFactory</link>
+        <link linkend="GstSignalObject">GstSignalObject</link>
+    <link linkend="GInterface">GInterface</link>
+        <link linkend="GstURIHandler">GstURIHandler</link>
+        <link linkend="GstImplementsInterface">GstImplementsInterface</link>
+        <link linkend="GstTagSetter">GstTagSetter</link>
+</screen>

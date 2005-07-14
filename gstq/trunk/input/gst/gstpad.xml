@@ -1,0 +1,1687 @@
+<refentry id="GstPad">
+<refmeta>
+<refentrytitle>GstPad</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstPad</refname><refpurpose>Object contained by elements that allows links to other elements</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+struct      <link linkend="GstPad-struct">GstPad</link>;
+#define     <link linkend="GST-PAD-LINK-FAILED-CAPS">GST_PAD_LINK_FAILED</link>             (ret)
+#define     <link linkend="GST-PAD-LINK-SUCCESSFUL-CAPS">GST_PAD_LINK_SUCCESSFUL</link>         (ret)
+<link linkend="GstFlowReturn">GstFlowReturn</link> (<link linkend="GstPadChainFunction">*GstPadChainFunction</link>)        (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buffer);
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstPadEventFunction">*GstPadEventFunction</link>)          (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstEvent">GstEvent</link> *event);
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstPadQueryFunction">*GstPadQueryFunction</link>)          (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstQuery">GstQuery</link> *query);
+<link linkend="GList">GList</link>*      (<link linkend="GstPadIntLinkFunction">*GstPadIntLinkFunction</link>)        (<link linkend="GstPad">GstPad</link> *pad);
+const <link linkend="GstQueryType">GstQueryType</link>* (<link linkend="GstPadQueryTypeFunction">*GstPadQueryTypeFunction</link>)
+                                            (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstPadLinkReturn">GstPadLinkReturn</link> (<link linkend="GstPadLinkFunction">*GstPadLinkFunction</link>)      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPad">GstPad</link> *peer);
+void        (<link linkend="GstPadUnlinkFunction">*GstPadUnlinkFunction</link>)         (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstCaps">GstCaps</link>*    (<link linkend="GstPadGetCapsFunction">*GstPadGetCapsFunction</link>)        (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstFlowReturn">GstFlowReturn</link> (<link linkend="GstPadBufferAllocFunction">*GstPadBufferAllocFunction</link>)  (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="guint64">guint64</link> offset,
+                                             <link linkend="guint">guint</link> size,
+                                             <link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="GstBuffer">GstBuffer</link> **buf);
+<link linkend="gboolean">gboolean</link>    (<link linkend="GstPadDispatcherFunction">*GstPadDispatcherFunction</link>)     (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="gpointer">gpointer</link> data);
+enum        <link linkend="GstPadDirection">GstPadDirection</link>;
+enum        <link linkend="GstPadFlags">GstPadFlags</link>;
+enum        <link linkend="GstPadLinkReturn">GstPadLinkReturn</link>;
+enum        <link linkend="GstPadPresence">GstPadPresence</link>;
+#define     <link linkend="GST-PAD-NAME-CAPS">GST_PAD_NAME</link>                    (pad)
+#define     <link linkend="GST-PAD-PARENT-CAPS">GST_PAD_PARENT</link>                  (pad)
+#define     <link linkend="GST-PAD-ELEMENT-PRIVATE-CAPS">GST_PAD_ELEMENT_PRIVATE</link>         (pad)
+#define     <link linkend="GST-PAD-PAD-TEMPLATE-CAPS">GST_PAD_PAD_TEMPLATE</link>            (pad)
+#define     <link linkend="GST-PAD-DIRECTION-CAPS">GST_PAD_DIRECTION</link>               (pad)
+#define     <link linkend="GST-PAD-CAPS-CAPS">GST_PAD_CAPS</link>                    (pad)
+#define     <link linkend="GST-PAD-PEER-CAPS">GST_PAD_PEER</link>                    (pad)
+#define     <link linkend="GST-PAD-IS-LINKED-CAPS">GST_PAD_IS_LINKED</link>               (pad)
+#define     <link linkend="GST-PAD-IS-USABLE-CAPS">GST_PAD_IS_USABLE</link>               (pad)
+#define     <link linkend="GST-PAD-IS-SRC-CAPS">GST_PAD_IS_SRC</link>                  (pad)
+#define     <link linkend="GST-PAD-IS-SINK-CAPS">GST_PAD_IS_SINK</link>                 (pad)
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-pad-new">gst_pad_new</link>                     (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstPadDirection">GstPadDirection</link> direction);
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-pad-new-from-template">gst_pad_new_from_template</link>       (<link linkend="GstPadTemplate">GstPadTemplate</link> *templ,
+                                             const <link linkend="gchar">gchar</link> *name);
+#define     <link linkend="gst-pad-get-name">gst_pad_get_name</link>                (pad)
+<link linkend="GstPadDirection">GstPadDirection</link> <link linkend="gst-pad-get-direction">gst_pad_get_direction</link>       (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-set-active">gst_pad_set_active</link>              (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstActivateMode">GstActivateMode</link> mode);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-is-active">gst_pad_is_active</link>               (<link linkend="GstPad">GstPad</link> *pad);
+void        <link linkend="gst-pad-set-element-private">gst_pad_set_element_private</link>     (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="gpointer">gpointer</link> priv);
+<link linkend="gpointer">gpointer</link>    <link linkend="gst-pad-get-element-private">gst_pad_get_element_private</link>     (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstElement">GstElement</link>* <link linkend="gst-pad-get-parent">gst_pad_get_parent</link>              (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstPadTemplate">GstPadTemplate</link>* <link linkend="gst-pad-get-pad-template">gst_pad_get_pad_template</link>    (<link linkend="GstPad">GstPad</link> *pad);
+void        <link linkend="gst-pad-set-bufferalloc-function">gst_pad_set_bufferalloc_function</link>
+                                            (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadBufferAllocFunction">GstPadBufferAllocFunction</link> bufalloc);
+<link linkend="GstFlowReturn">GstFlowReturn</link> <link linkend="gst-pad-alloc-buffer">gst_pad_alloc_buffer</link>          (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="guint64">guint64</link> offset,
+                                             <link linkend="gint">gint</link> size,
+                                             <link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="GstBuffer">GstBuffer</link> **buf);
+void        <link linkend="gst-pad-set-chain-function">gst_pad_set_chain_function</link>      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadChainFunction">GstPadChainFunction</link> chain);
+void        <link linkend="gst-pad-set-event-function">gst_pad_set_event_function</link>      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadEventFunction">GstPadEventFunction</link> event);
+void        <link linkend="gst-pad-set-link-function">gst_pad_set_link_function</link>       (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadLinkFunction">GstPadLinkFunction</link> link);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-can-link">gst_pad_can_link</link>                (<link linkend="GstPad">GstPad</link> *srcpad,
+                                             <link linkend="GstPad">GstPad</link> *sinkpad);
+void        <link linkend="gst-pad-set-unlink-function">gst_pad_set_unlink_function</link>     (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadUnlinkFunction">GstPadUnlinkFunction</link> unlink);
+<link linkend="GstPadLinkReturn">GstPadLinkReturn</link> <link linkend="gst-pad-link">gst_pad_link</link>               (<link linkend="GstPad">GstPad</link> *srcpad,
+                                             <link linkend="GstPad">GstPad</link> *sinkpad);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-unlink">gst_pad_unlink</link>                  (<link linkend="GstPad">GstPad</link> *srcpad,
+                                             <link linkend="GstPad">GstPad</link> *sinkpad);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-is-linked">gst_pad_is_linked</link>               (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstPad">GstPad</link>*     <link linkend="gst-pad-get-peer">gst_pad_get_peer</link>                (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-pad-get-negotiated-caps">gst_pad_get_negotiated_caps</link>     (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-pad-get-caps">gst_pad_get_caps</link>                (<link linkend="GstPad">GstPad</link> *pad);
+G_CONST_RETURN <link linkend="GstCaps">GstCaps</link>* <link linkend="gst-pad-get-pad-template-caps">gst_pad_get_pad_template_caps</link>
+                                            (<link linkend="GstPad">GstPad</link> *pad);
+void        <link linkend="gst-pad-set-getcaps-function">gst_pad_set_getcaps_function</link>    (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadGetCapsFunction">GstPadGetCapsFunction</link> getcaps);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-pad-proxy-getcaps">gst_pad_proxy_getcaps</link>           (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GstCaps">GstCaps</link>*    <link linkend="gst-pad-get-allowed-caps">gst_pad_get_allowed_caps</link>        (<link linkend="GstPad">GstPad</link> *srcpad);
+<link linkend="GstFlowReturn">GstFlowReturn</link> <link linkend="gst-pad-push">gst_pad_push</link>                  (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buffer);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-send-event">gst_pad_send_event</link>              (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstEvent">GstEvent</link> *event);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-event-default">gst_pad_event_default</link>           (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstEvent">GstEvent</link> *event);
+void        <link linkend="gst-pad-set-query-function">gst_pad_set_query_function</link>      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadQueryFunction">GstPadQueryFunction</link> query);
+void        <link linkend="gst-pad-set-query-type-function">gst_pad_set_query_type_function</link> (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadQueryTypeFunction">GstPadQueryTypeFunction</link> type_func);
+G_CONST_RETURN <link linkend="GstQueryType">GstQueryType</link>* <link linkend="gst-pad-get-query-types">gst_pad_get_query_types</link>
+                                            (<link linkend="GstPad">GstPad</link> *pad);
+G_CONST_RETURN <link linkend="GstQueryType">GstQueryType</link>* <link linkend="gst-pad-get-query-types-default">gst_pad_get_query_types_default</link>
+                                            (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-query">gst_pad_query</link>                   (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstQuery">GstQuery</link> *query);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-query-default">gst_pad_query_default</link>           (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstQuery">GstQuery</link> *query);
+void        <link linkend="gst-pad-set-internal-link-function">gst_pad_set_internal_link_function</link>
+                                            (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadIntLinkFunction">GstPadIntLinkFunction</link> intlink);
+<link linkend="GList">GList</link>*      <link linkend="gst-pad-get-internal-links">gst_pad_get_internal_links</link>      (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="GList">GList</link>*      <link linkend="gst-pad-get-internal-links-default">gst_pad_get_internal_links_default</link>
+                                            (<link linkend="GstPad">GstPad</link> *pad);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-pad-dispatcher">gst_pad_dispatcher</link>              (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadDispatcherFunction">GstPadDispatcherFunction</link> dispatch,
+                                             <link linkend="gpointer">gpointer</link> data);
+#define     <link linkend="gst-pad-add-probe">gst_pad_add_probe</link>               (pad, probe)
+#define     <link linkend="gst-pad-remove-probe">gst_pad_remove_probe</link>            (pad, probe)
+void        <link linkend="gst-pad-load-and-link">gst_pad_load_and_link</link>           (<link linkend="xmlNodePtr">xmlNodePtr</link> self,
+                                             <link linkend="GstObject">GstObject</link> *parent);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GstObject">GstObject</link>
+         +----GstPad
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="GstPad--caps">caps</link>&quot;                 <link linkend="GstCaps">GstCaps</link>              : Read
+  &quot;<link linkend="GstPad--direction">direction</link>&quot;            <link linkend="GstPadDirection">GstPadDirection</link>      : Read / Write / Construct Only
+  &quot;<link linkend="GstPad--template">template</link>&quot;             <link linkend="GstPadTemplate">GstPadTemplate</link>       : Read / Write / Construct Only
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="GstPad-linked">linked</link>&quot;    void        user_function      (<link linkend="GstPad">GstPad</link> *gstpad,
+                                            <link linkend="GstPad">GstPad</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstPad-request-link">request-link</link>&quot;
+            void        user_function      (<link linkend="GstPad">GstPad</link> *gstpad,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="GstPad-unlinked">unlinked</link>&quot;  void        user_function      (<link linkend="GstPad">GstPad</link> *gstpad,
+                                            <link linkend="GstPad">GstPad</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A <link linkend="GstElement">GstElement</link> is linked to other elements via "pads", which are extremely 
+light-weight generic link points. 
+After two pads are retrieved from an element with <link linkend="gst-element-get-pad">gst_element_get_pad</link>(), 
+the pads can be link with <link linkend="gst-pad-link">gst_pad_link</link>(). (For quick links,
+you can also use <link linkend="gst-element-link">gst_element_link</link>(), which will make the obvious
+link for you if it's straightforward.)
+</para>
+<para>
+Pads are typically created from a <link linkend="GstPadTemplate">GstPadTemplate</link> with 
+<link linkend="gst-pad-new-from-template">gst_pad_new_from_template</link>().
+</para>
+<para>
+Pads have <link linkend="GstCaps">GstCaps</link> attached to it to describe the media type they
+are capable of dealing with. 
+<link linkend="gst-pad-get-caps">gst_pad_get_caps</link>() and <link linkend="gst-pad-try-set-caps">gst_pad_try_set_caps</link>() are used to
+manipulate the caps of the pads. 
+Pads created from a pad template cannot set capabilities that are 
+incompatible with the pad template capabilities.
+</para>
+<para>
+Pads without pad templates can be created with <link linkend="gst-pad-new">gst_pad_new</link>(),
+which takes a direction and a name as an argument.  If the name is NULL,
+then a guaranteed unique name will be assigned to it.
+</para>
+<para>
+<link linkend="gst-pad-get-parent">gst_pad_get_parent</link>() will retrieve the <link linkend="GstElement">GstElement</link> that owns the pad.
+</para>
+<para>
+A <link linkend="GstElement">GstElement</link> creating a pad will typically use the various 
+gst_pad_set_*<link linkend="function">_function</link>() calls to register callbacks for various events 
+on the pads.
+</para>
+<para>
+GstElements will use <link linkend="gst-pad-push">gst_pad_push</link>() and <link linkend="gst-pad-pull">gst_pad_pull</link>() to push out 
+or pull in a buffer. 
+<link linkend="gst-pad-select">gst_pad_select</link>() and <link linkend="gst-pad-selectv">gst_pad_selectv</link>() are used by plugins to wait for the
+first incoming buffer or event on any of the given set of pads.
+</para>
+<para>
+To send a <link linkend="GstEvent">GstEvent</link> on a pad, use <link linkend="gst-pad-send-event">gst_pad_send_event</link>().
+</para>
+
+<para>
+Last reviewed on December 13th, 2002 (0.5.0.1)
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstPad-struct"/>struct GstPad</title>
+<programlisting>struct GstPad {
+  /* streaming rec_lock */
+  GStaticRecMutex		*stream_rec_lock;
+  GstTask			*task;
+  GMutex			*preroll_lock;
+  GCond				*preroll_cond;
+
+  /* block cond, mutex is from the object */
+  GCond				*block_cond;
+  GstPadBlockCallback		 block_callback;
+  gpointer			 block_data;
+
+  /* the pad capabilities */
+  GstCaps 			*caps;
+  GstPadGetCapsFunction 	 getcapsfunc;
+  GstPadSetCapsFunction 	 setcapsfunc;
+  GstPadAcceptCapsFunction 	 acceptcapsfunc;
+  GstPadFixateCapsFunction 	 fixatecapsfunc;
+
+  GstPadActivateFunction	 activatefunc;
+
+  /* pad link */
+  GstPadLinkFunction 		 linkfunc;
+  GstPadUnlinkFunction 		 unlinkfunc;
+  GstPad 			*peer;
+
+  gpointer 			 sched_private;
+
+  /* data transport functions */
+  GstPadLoopFunction 		 loopfunc;
+  GstPadChainFunction 		 chainfunc;
+  GstPadCheckGetRangeFunction 	 checkgetrangefunc;
+  GstPadGetRangeFunction 	 getrangefunc;
+  GstPadEventFunction		 eventfunc;
+
+  GstActivateMode		 mode;
+
+  /* generic query method */
+  GstPadQueryTypeFunction	 querytypefunc;
+  GstPadQueryFunction		 queryfunc;
+
+  /* internal links */
+  GstPadIntLinkFunction		 intlinkfunc;
+
+  GstPadBufferAllocFunction      bufferallocfunc;
+
+  GstProbeDispatcher            probedisp;
+
+};
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-LINK-FAILED-CAPS"/>GST_PAD_LINK_FAILED()</title>
+<programlisting>#define GST_PAD_LINK_FAILED(ret) ((ret) &lt; GST_PAD_LINK_OK)
+</programlisting>
+<para>
+Macro to test if the given <link linkend="GstPadLinkReturn">GstPadLinkReturn</link> value indicates a
+failed negotiation step (REFUSED/DELAYED).
+</para><variablelist role="params">
+<varlistentry><term><parameter>ret</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPadLinkReturn">GstPadLinkReturn</link> value
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-LINK-SUCCESSFUL-CAPS"/>GST_PAD_LINK_SUCCESSFUL()</title>
+<programlisting>#define GST_PAD_LINK_SUCCESSFUL(ret) ((ret) &gt;= GST_PAD_LINK_OK)
+</programlisting>
+<para>
+Macro to test if the given <link linkend="GstPadLinkReturn">GstPadLinkReturn</link> value indicates a
+successfull negotiation step (OK/DONE).
+</para><variablelist role="params">
+<varlistentry><term><parameter>ret</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPadLinkReturn">GstPadLinkReturn</link> value
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadChainFunction"/>GstPadChainFunction ()</title>
+<programlisting><link linkend="GstFlowReturn">GstFlowReturn</link> (*GstPadChainFunction)        (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buffer);</programlisting>
+<para>
+A function that will be called when chaining buffers.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPad">GstPad</link> that performed the chain.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadEventFunction"/>GstPadEventFunction ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstPadEventFunction)          (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstEvent">GstEvent</link> *event);</programlisting>
+<para>
+Function signature to handle an event for the pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPad">GstPad</link> to handle the event.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstEvent">GstEvent</link> to handle.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>TRUE if the pad could handle the event.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadQueryFunction"/>GstPadQueryFunction ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstPadQueryFunction)          (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstQuery">GstQuery</link> *query);</programlisting>
+<para>
+The signature of the query function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPad">GstPad</link> to query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>TRUE if the query could be performed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadIntLinkFunction"/>GstPadIntLinkFunction ()</title>
+<programlisting><link linkend="GList">GList</link>*      (*GstPadIntLinkFunction)        (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+The signature of the internal pad link function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>The <link linkend="GstPad">GstPad</link> to query.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a newly allocated <link linkend="GList">GList</link> of pads that are linked to 
+          the given pad on the inside of the parent element.  
+          The caller must call <link linkend="g-list-free">g_list_free</link>() on it after use.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadQueryTypeFunction"/>GstPadQueryTypeFunction ()</title>
+<programlisting>const <link linkend="GstQueryType">GstQueryType</link>* (*GstPadQueryTypeFunction)
+                                            (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+The signature of the query types function.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>an array of query types
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadLinkFunction"/>GstPadLinkFunction ()</title>
+<programlisting><link linkend="GstPadLinkReturn">GstPadLinkReturn</link> (*GstPadLinkFunction)      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPad">GstPad</link> *peer);</programlisting>
+<para>
+Function signature to handle a new link on the pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPad">GstPad</link> that is linked.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>peer</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the result of the link with the specified caps.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadUnlinkFunction"/>GstPadUnlinkFunction ()</title>
+<programlisting>void        (*GstPadUnlinkFunction)         (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadGetCapsFunction"/>GstPadGetCapsFunction ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    (*GstPadGetCapsFunction)        (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Returns a copy of the capabilities of the specified pad. By default this
+function will return the pad template capabilities, but can optionally
+be overridden.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPad">GstPad</link> to get the capabilities of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>a newly allocated copy <link linkend="GstCaps">GstCaps</link> of the pad.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadBufferAllocFunction"/>GstPadBufferAllocFunction ()</title>
+<programlisting><link linkend="GstFlowReturn">GstFlowReturn</link> (*GstPadBufferAllocFunction)  (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="guint64">guint64</link> offset,
+                                             <link linkend="guint">guint</link> size,
+                                             <link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="GstBuffer">GstBuffer</link> **buf);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadDispatcherFunction"/>GstPadDispatcherFunction ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    (*GstPadDispatcherFunction)     (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+A dispatcher function is called for all internally linked pads, see 
+<link linkend="gst-pad-dispatcher">gst_pad_dispatcher</link>().
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>the <link linkend="GstPad">GstPad</link> that is dispatched.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara>the gpointer to optional user data.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>TRUE if the dispatching procedure has to be stopped.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadDirection"/>enum GstPadDirection</title>
+<programlisting>typedef enum {
+  GST_PAD_UNKNOWN,
+  GST_PAD_SRC,
+  GST_PAD_SINK
+} GstPadDirection;
+</programlisting>
+<para>
+The direction of a pad.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_PAD_UNKNOWN</literal></term>
+<listitem><simpara>direction is unknown.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_SRC</literal></term>
+<listitem><simpara>the pad is a source pad.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_SINK</literal></term>
+<listitem><simpara>the pad is a sink pad.
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadFlags"/>enum GstPadFlags</title>
+<programlisting>typedef enum {
+  GST_PAD_BLOCKED		= GST_OBJECT_FLAG_LAST,
+  GST_PAD_FLUSHING,
+  GST_PAD_IN_GETCAPS,
+  GST_PAD_IN_SETCAPS,
+
+  GST_PAD_FLAG_LAST		= GST_OBJECT_FLAG_LAST + 8
+} GstPadFlags;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstPadLinkReturn"/>enum GstPadLinkReturn</title>
+<programlisting>typedef enum {
+  GST_PAD_LINK_NOSCHED          = -5,	/* pads cannot cooperate in scheduling */
+  GST_PAD_LINK_NOFORMAT         = -4,	/* pads do not have common format */
+  GST_PAD_LINK_REFUSED          = -3,	/* refused for some reason */
+  GST_PAD_LINK_WRONG_DIRECTION  = -2,	/* pads have wrong direction */
+  GST_PAD_LINK_WAS_LINKED       = -1,	/* pad was already linked */
+  GST_PAD_LINK_OK               =  0,	/* link ok */
+} GstPadLinkReturn;
+</programlisting>
+<para>
+The result of a pad link.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_PAD_LINK_NOSCHED</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_LINK_NOFORMAT</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_LINK_REFUSED</literal></term>
+<listitem><simpara>the link was refused.
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_LINK_WRONG_DIRECTION</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_LINK_WAS_LINKED</literal></term>
+<listitem><simpara>
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_LINK_OK</literal></term>
+<listitem><simpara>     the link succeeded.
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GstPadPresence"/>enum GstPadPresence</title>
+<programlisting>typedef enum {
+  GST_PAD_ALWAYS,
+  GST_PAD_SOMETIMES,
+  GST_PAD_REQUEST
+} GstPadPresence;
+</programlisting>
+<para>
+Indicates when this pad will become available.
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_PAD_ALWAYS</literal></term>
+<listitem><simpara>the pad is always available
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_SOMETIMES</literal></term>
+<listitem><simpara>the pad will become available depending on the media stream
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_PAD_REQUEST</literal></term>
+<listitem><simpara>the pad is only available on request with 
+<link linkend="gst-element-request-pad-by-name">gst_element_request_pad_by_name</link>() or <link linkend="gst-element-request-compatible-pad">gst_element_request_compatible_pad</link>().
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-NAME-CAPS"/>GST_PAD_NAME()</title>
+<programlisting>#define GST_PAD_NAME(pad)		(GST_OBJECT_NAME(pad))
+</programlisting>
+<para>
+Gets the name of the pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the name of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the pad's name.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-PARENT-CAPS"/>GST_PAD_PARENT()</title>
+<programlisting>#define GST_PAD_PARENT(pad)		(GST_ELEMENT_CAST(GST_OBJECT_PARENT(pad)))
+</programlisting>
+<para>
+Gets the parent element of this pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the parent of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the parent <link linkend="GstElement">GstElement</link> of this pad.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-ELEMENT-PRIVATE-CAPS"/>GST_PAD_ELEMENT_PRIVATE()</title>
+<programlisting>#define GST_PAD_ELEMENT_PRIVATE(pad)	(GST_PAD_CAST(pad)-&gt;element_private)
+</programlisting>
+<para>
+Gets the private data set by the element that owns the pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the private data of.
+<link linkend="Returns">Returns</link>: a gpointer to the private data.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-PAD-TEMPLATE-CAPS"/>GST_PAD_PAD_TEMPLATE()</title>
+<programlisting>#define GST_PAD_PAD_TEMPLATE(pad)	(GST_PAD_CAST(pad)-&gt;padtemplate)
+</programlisting>
+<para>
+Gets the pad template that was used to create this pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the pad template of.
+<link linkend="Returns">Returns</link>: the <link linkend="GstPadTemplate">GstPadTemplate</link> used to create the pad, or NULL if none was
+used.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-DIRECTION-CAPS"/>GST_PAD_DIRECTION()</title>
+<programlisting>#define GST_PAD_DIRECTION(pad)		(GST_PAD_CAST(pad)-&gt;direction)
+</programlisting>
+<para>
+Gets the pad's direction.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the direction of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the <link linkend="GstPadDirection">GstPadDirection</link> of the pad.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-CAPS-CAPS"/>GST_PAD_CAPS()</title>
+<programlisting>#define GST_PAD_CAPS(pad)		(GST_PAD_CAST(pad)-&gt;caps)
+</programlisting>
+<para>
+Gets the capabilities of a pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the capabilities of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the <link linkend="GstCaps">GstCaps</link> of the pad.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-PEER-CAPS"/>GST_PAD_PEER()</title>
+<programlisting>#define GST_PAD_PEER(pad)		(GST_PAD_CAST(pad)-&gt;peer)
+</programlisting>
+<para>
+Gets the peer pad of this pad.  The peer pad is the pad on to which the parent
+element is linked through this pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to get the peer pad of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>the peer <link linkend="GstPad">GstPad</link>.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-IS-LINKED-CAPS"/>GST_PAD_IS_LINKED()</title>
+<programlisting>#define GST_PAD_IS_LINKED(pad)		(GST_PAD_PEER(pad) != NULL)
+</programlisting>
+<para>
+Checks if the pad is linked.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to check.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-IS-USABLE-CAPS"/>GST_PAD_IS_USABLE()</title>
+<programlisting>#define     GST_PAD_IS_USABLE(pad)</programlisting>
+<para>
+Checks if a pad is usable. A usable pad is both linked and active.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to check
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-IS-SRC-CAPS"/>GST_PAD_IS_SRC()</title>
+<programlisting>#define GST_PAD_IS_SRC(pad)		(GST_PAD_DIRECTION(pad) == GST_PAD_SRC)
+</programlisting>
+<para>
+Checks if the pad is a source pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to check.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-PAD-IS-SINK-CAPS"/>GST_PAD_IS_SINK()</title>
+<programlisting>#define GST_PAD_IS_SINK(pad)		(GST_PAD_DIRECTION(pad) == GST_PAD_SINK)
+</programlisting>
+<para>
+Checks if the pad is a sink pad.
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>a <link linkend="GstPad">GstPad</link> to check.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-new"/>gst_pad_new ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_pad_new                     (const <link linkend="gchar">gchar</link> *name,
+                                             <link linkend="GstPadDirection">GstPadDirection</link> direction);</programlisting>
+<para>
+Creates a new pad with the given name in the given direction.
+If name is NULL, a guaranteed unique name (across all pads) 
+will be assigned.
+This function makes a copy of the name so you can safely free the name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the new pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>direction</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadDirection">GstPadDirection</link> of the pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstPad">GstPad</link>, or NULL in case of an error.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-new-from-template"/>gst_pad_new_from_template ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_pad_new_from_template       (<link linkend="GstPadTemplate">GstPadTemplate</link> *templ,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Creates a new pad with the given name from the given template.
+If name is NULL, a guaranteed unique name (across all pads) 
+will be assigned.
+This function makes a copy of the name so you can safely free the name.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>templ</parameter>&nbsp;:</term>
+<listitem><simpara> the pad template to use
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> the name of the element
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a new <link linkend="GstPad">GstPad</link>, or NULL in case of an error.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-name"/>gst_pad_get_name()</title>
+<programlisting>#define gst_pad_get_name(pad) gst_object_get_name (GST_OBJECT_CAST (pad))
+</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-direction"/>gst_pad_get_direction ()</title>
+<programlisting><link linkend="GstPadDirection">GstPadDirection</link> gst_pad_get_direction       (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the direction of the pad. The direction of the pad is
+decided at construction time so this function does not take 
+the LOCK.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to get the direction of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstPadDirection">GstPadDirection</link> of the pad.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-active"/>gst_pad_set_active ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_set_active              (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstActivateMode">GstActivateMode</link> mode);</programlisting>
+<para>
+Activates or deactivates the given pad in the given mode.
+</para>
+<para>
+For a source pad: PULL mode will call the getrange function,
+PUSH mode will require the element to call <link linkend="push">_push</link>() on the pad.
+</para>
+<para>
+For a sink pad: PULL mode will require the element to call
+the <link linkend="pull-range">_pull_range</link>() function, PUSH mode will call the chain function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to activate or deactivate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> the mode of the pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the operation was successfull.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-is-active"/>gst_pad_is_active ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_is_active               (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Query if a pad is active</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to query
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pad is active.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-element-private"/>gst_pad_set_element_private ()</title>
+<programlisting>void        gst_pad_set_element_private     (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="gpointer">gpointer</link> priv);</programlisting>
+<para>
+Set the given private data gpointer on the pad. 
+This function can only be used by the element that owns the pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to set the private data of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>priv</parameter>&nbsp;:</term>
+<listitem><simpara> The private data to attach to the pad.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-element-private"/>gst_pad_get_element_private ()</title>
+<programlisting><link linkend="gpointer">gpointer</link>    gst_pad_get_element_private     (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the private data of a pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to get the private data of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a <link linkend="gpointer">gpointer</link> to the private data.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-parent"/>gst_pad_get_parent ()</title>
+<programlisting><link linkend="GstElement">GstElement</link>* gst_pad_get_parent              (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the parent of <parameter>pad</parameter>, cast to a <link linkend="GstElement">GstElement</link>. If a <parameter>pad</parameter> has no parent or
+its parent is not an element, return NULL.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a pad
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The parent of the pad. The caller has a reference on the parent, so
+unref when you're finished with it.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-pad-template"/>gst_pad_get_pad_template ()</title>
+<programlisting><link linkend="GstPadTemplate">GstPadTemplate</link>* gst_pad_get_pad_template    (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the template for <parameter>pad</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstPadTemplate">GstPadTemplate</link> from which this pad was instantiated, or <literal>NULL</literal>
+if this pad has no template.
+
+FIXME: currently returns an unrefcounted padtemplate.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-bufferalloc-function"/>gst_pad_set_bufferalloc_function ()</title>
+<programlisting>void        gst_pad_set_bufferalloc_function
+                                            (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadBufferAllocFunction">GstPadBufferAllocFunction</link> bufalloc);</programlisting>
+<para>
+Sets the given bufferalloc function for the pad. Note that the
+bufferalloc function can only be set on sinkpads.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a sink <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>bufalloc</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadBufferAllocFunction">GstPadBufferAllocFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-alloc-buffer"/>gst_pad_alloc_buffer ()</title>
+<programlisting><link linkend="GstFlowReturn">GstFlowReturn</link> gst_pad_alloc_buffer          (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="guint64">guint64</link> offset,
+                                             <link linkend="gint">gint</link> size,
+                                             <link linkend="GstCaps">GstCaps</link> *caps,
+                                             <link linkend="GstBuffer">GstBuffer</link> **buf);</programlisting>
+<para>
+Allocates a new, empty buffer optimized to push to pad <parameter>pad</parameter>.  This
+function only works if <parameter>pad</parameter> is a source pad and has a peer. 
+</para>
+<para>
+You need to check the caps of the buffer after performing this 
+function and renegotiate to the format if needed.
+</para>
+<para>
+A new, empty <link linkend="GstBuffer">GstBuffer</link> will be put in the <parameter>buf</parameter> argument.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a source <link linkend="GstPad">GstPad</link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>offset</parameter>&nbsp;:</term>
+<listitem><simpara> the offset of the new buffer in the stream
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>size</parameter>&nbsp;:</term>
+<listitem><simpara> the size of the new buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>caps</parameter>&nbsp;:</term>
+<listitem><simpara> the caps of the new buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buf</parameter>&nbsp;:</term>
+<listitem><simpara> a newly allocated buffer
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a result code indicating success of the operation. Any
+result code other than GST_FLOW_OK is an error and <parameter>buf</parameter> should
+not be used.
+An error can occur if the pad is not connected or when the downstream
+peer elements cannot provide an acceptable buffer.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-chain-function"/>gst_pad_set_chain_function ()</title>
+<programlisting>void        gst_pad_set_chain_function      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadChainFunction">GstPadChainFunction</link> chain);</programlisting>
+<para>
+Sets the given chain function for the pad. The chain function is called to
+process a <link linkend="GstBuffer">GstBuffer</link> input buffer.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a sink <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>chain</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadChainFunction">GstPadChainFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-event-function"/>gst_pad_set_event_function ()</title>
+<programlisting>void        gst_pad_set_event_function      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadEventFunction">GstPadEventFunction</link> event);</programlisting>
+<para>
+Sets the given event handler for the pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a source <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadEventFunction">GstPadEventFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-link-function"/>gst_pad_set_link_function ()</title>
+<programlisting>void        gst_pad_set_link_function       (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadLinkFunction">GstPadLinkFunction</link> link);</programlisting>
+<para>
+Sets the given link function for the pad. It will be called when the pad is
+linked or relinked with caps. The caps passed to the link function is
+the caps for the connnection. It can contain a non fixed caps.
+</para>
+<para>
+The return value GST_PAD_LINK_OK should be used when the connection can be
+made.
+</para>
+<para>
+The return value GST_PAD_LINK_REFUSED should be used when the connection
+cannot be made for some reason.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>link</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadLinkFunction">GstPadLinkFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-can-link"/>gst_pad_can_link ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_can_link                (<link linkend="GstPad">GstPad</link> *srcpad,
+                                             <link linkend="GstPad">GstPad</link> *sinkpad);</programlisting>
+<para>
+Checks if the source pad and the sink pad can be linked.
+Both <parameter>srcpad</parameter> and <parameter>sinkpad</parameter> must be unlinked.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>srcpad</parameter>&nbsp;:</term>
+<listitem><simpara> the source <link linkend="GstPad">GstPad</link> to link.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sinkpad</parameter>&nbsp;:</term>
+<listitem><simpara> the sink <link linkend="GstPad">GstPad</link> to link.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pads can be linked, FALSE otherwise.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-unlink-function"/>gst_pad_set_unlink_function ()</title>
+<programlisting>void        gst_pad_set_unlink_function     (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadUnlinkFunction">GstPadUnlinkFunction</link> unlink);</programlisting>
+<para>
+Sets the given unlink function for the pad. It will be called
+when the pad is unlinked.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>unlink</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadUnlinkFunction">GstPadUnlinkFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-link"/>gst_pad_link ()</title>
+<programlisting><link linkend="GstPadLinkReturn">GstPadLinkReturn</link> gst_pad_link               (<link linkend="GstPad">GstPad</link> *srcpad,
+                                             <link linkend="GstPad">GstPad</link> *sinkpad);</programlisting>
+<para>
+Links the source pad and the sink pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>srcpad</parameter>&nbsp;:</term>
+<listitem><simpara> the source <link linkend="GstPad">GstPad</link> to link.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sinkpad</parameter>&nbsp;:</term>
+<listitem><simpara> the sink <link linkend="GstPad">GstPad</link> to link.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A result code indicating if the connection worked or
+         what went wrong.
+
+MT Safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-unlink"/>gst_pad_unlink ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_unlink                  (<link linkend="GstPad">GstPad</link> *srcpad,
+                                             <link linkend="GstPad">GstPad</link> *sinkpad);</programlisting>
+<para>
+Unlinks the source pad from the sink pad. Will emit the "unlinked" signal on
+both pads.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>srcpad</parameter>&nbsp;:</term>
+<listitem><simpara> the source <link linkend="GstPad">GstPad</link> to unlink.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>sinkpad</parameter>&nbsp;:</term>
+<listitem><simpara> the sink <link linkend="GstPad">GstPad</link> to unlink.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pads were unlinked. This function returns FALSE if
+the pads were not linked together.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-is-linked"/>gst_pad_is_linked ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_is_linked               (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Checks if a <parameter>pad</parameter> is linked to another pad or not.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> pad to check
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the pad is linked, FALSE otherwise.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-peer"/>gst_pad_get_peer ()</title>
+<programlisting><link linkend="GstPad">GstPad</link>*     gst_pad_get_peer                (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the peer of <parameter>pad</parameter>. This function refs the peer pad so
+you need to unref it after use.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to get the peer of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the peer <link linkend="GstPad">GstPad</link>. Unref after usage.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-negotiated-caps"/>gst_pad_get_negotiated_caps ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_pad_get_negotiated_caps     (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the capabilities of the media type that currently flows through <parameter>pad</parameter> 
+and its peer.
+</para>
+<para>
+This function can be used on both src and sinkpads. Note that srcpads are
+always negotiated before sinkpads so it is possible that the negotiated caps 
+on the srcpad do not match the negotiated caps of the peer.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the negotiated <link linkend="GstCaps">GstCaps</link> of the pad link.  Free the caps when
+you no longer need it. This function returns NULL when the <parameter>pad</parameter> has no 
+peer or is not negotiated yet.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-caps"/>gst_pad_get_caps ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_pad_get_caps                (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the capabilities of this pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a  <link linkend="GstPad">GstPad</link> to get the capabilities of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstCaps">GstCaps</link> of this pad. This function returns a new caps, so use 
+gst_caps_unref to get rid of it.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-pad-template-caps"/>gst_pad_get_pad_template_caps ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstCaps">GstCaps</link>* gst_pad_get_pad_template_caps
+                                            (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets the capabilities for <parameter>pad</parameter>'s template.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to get the template capabilities from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the <link linkend="GstCaps">GstCaps</link> of this pad template. If you intend to keep a reference
+on the caps, make a copy (see <link linkend="gst-caps-copy">gst_caps_copy</link>()).
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-getcaps-function"/>gst_pad_set_getcaps_function ()</title>
+<programlisting>void        gst_pad_set_getcaps_function    (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadGetCapsFunction">GstPadGetCapsFunction</link> getcaps);</programlisting>
+<para>
+Sets the given getcaps function for the pad. <parameter>getcaps</parameter> should return the
+allowable caps for a pad in the context of the element's state, its link to
+other elements, and the devices or files it has opened. These caps must be a
+subset of the pad template caps. In the NULL state with no links, <parameter>getcaps</parameter>
+should ideally return the same caps as the pad template. In rare
+circumstances, an object property can affect the caps returned by <parameter>getcaps</parameter>,
+but this is discouraged.
+</para>
+<para>
+You do not need to call this function if <parameter>pad</parameter>'s allowed caps are always the
+same as the pad template caps. This can only be true if the padtemplate 
+has fixed simple caps.
+</para>
+<para>
+For most filters, the caps returned by <parameter>getcaps</parameter> is directly affected by the
+allowed caps on other pads. For demuxers and decoders, the caps returned by
+the srcpad's getcaps function is directly related to the stream data. Again,
+<parameter>getcaps</parameter> should return the most specific caps it reasonably can, since this
+helps with autoplugging. 
+</para>
+<para>
+Note that the return value from <parameter>getcaps</parameter> is owned by the caller, so the caller
+should unref the caps after usage.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>getcaps</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadGetCapsFunction">GstPadGetCapsFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-proxy-getcaps"/>gst_pad_proxy_getcaps ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_pad_proxy_getcaps           (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Calls <link linkend="gst-pad-get-allowed-caps">gst_pad_get_allowed_caps</link>() for every other pad belonging to the
+same element as <parameter>pad</parameter>, and returns the intersection of the results.
+</para>
+<para>
+This function is useful as a default getcaps function for an element
+that can handle any stream format, but requires all its pads to have
+the same caps.  Two such elements are tee and aggregator.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to proxy.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the intersection of the other pads' allowed caps.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-allowed-caps"/>gst_pad_get_allowed_caps ()</title>
+<programlisting><link linkend="GstCaps">GstCaps</link>*    gst_pad_get_allowed_caps        (<link linkend="GstPad">GstPad</link> *srcpad);</programlisting>
+<para>
+Gets the capabilities of the allowed media types that can flow through <parameter>pad</parameter>
+and its peer. The pad must be a source pad.
+The caller must free the resulting caps.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>srcpad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>, it must a a source pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> the allowed <link linkend="GstCaps">GstCaps</link> of the pad link.  Free the caps when
+you no longer need it. This function returns NULL when the <parameter>pad</parameter> has no
+peer.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-push"/>gst_pad_push ()</title>
+<programlisting><link linkend="GstFlowReturn">GstFlowReturn</link> gst_pad_push                  (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstBuffer">GstBuffer</link> *buffer);</programlisting>
+<para>
+Pushes a buffer to the peer of <parameter>pad</parameter>. <parameter>pad</parameter> must be linked.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a source <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstBuffer">GstBuffer</link> to push.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a <link linkend="GstFlowReturn">GstFlowReturn</link> from the peer pad.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-send-event"/>gst_pad_send_event ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_send_event              (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstEvent">GstEvent</link> *event);</programlisting>
+<para>
+Sends the event to the pad. This function can be used
+by applications to send events in the pipeline.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to send the event to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstEvent">GstEvent</link> to send to the pad.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the event was handled.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-event-default"/>gst_pad_event_default ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_event_default           (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstEvent">GstEvent</link> *event);</programlisting>
+<para>
+Invokes the default event handler for the given pad. End-of-stream and
+discontinuity events are handled specially, and then the event is sent to all
+pads internally linked to <parameter>pad</parameter>. Note that if there are many possible sink
+pads that are internally linked to <parameter>pad</parameter>, only one will be sent an event.
+Multi-sinkpad elements should implement custom event handlers.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to call the default event handler on.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>event</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstEvent">GstEvent</link> to handle.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the event was sent succesfully.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-query-function"/>gst_pad_set_query_function ()</title>
+<programlisting>void        gst_pad_set_query_function      (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadQueryFunction">GstPadQueryFunction</link> query);</programlisting>
+<para>
+Set the given query function for the pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> of either direction.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadQueryFunction">GstPadQueryFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-query-type-function"/>gst_pad_set_query_type_function ()</title>
+<programlisting>void        gst_pad_set_query_type_function (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadQueryTypeFunction">GstPadQueryTypeFunction</link> type_func);</programlisting>
+<para>
+Set the given query type function for the pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> of either direction.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type_func</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadQueryTypeFunction">GstPadQueryTypeFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-query-types"/>gst_pad_get_query_types ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstQueryType">GstQueryType</link>* gst_pad_get_query_types
+                                            (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Get an array of supported queries that can be performed
+on this pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a zero-terminated array of <link linkend="GstQueryType">GstQueryType</link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-query-types-default"/>gst_pad_get_query_types_default ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstQueryType">GstQueryType</link>* gst_pad_get_query_types_default
+                                            (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Invoke the default dispatcher for the query types on
+the pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> an zero-terminated array of <link linkend="GstQueryType">GstQueryType</link>, or NULL if none of the
+internally-linked pads has a query types function.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-query"/>gst_pad_query ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_query                   (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstQuery">GstQuery</link> *query);</programlisting>
+<para>
+Dispatches a query to a pad. The query should have been allocated by the
+caller via one of the type-specific allocation functions in gstquery.h. The
+element is responsible for filling the query with an appropriate response,
+which should then be parsed with a type-specific query parsing function.
+</para>
+<para>
+Again, the caller is responsible for both the allocation and deallocation of
+the query structure.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to invoke the default query on.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstQuery">GstQuery</link> to perform.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the query could be performed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-query-default"/>gst_pad_query_default ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_query_default           (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstQuery">GstQuery</link> *query);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>query</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-set-internal-link-function"/>gst_pad_set_internal_link_function ()</title>
+<programlisting>void        gst_pad_set_internal_link_function
+                                            (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadIntLinkFunction">GstPadIntLinkFunction</link> intlink);</programlisting>
+<para>
+Sets the given internal link function for the pad.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> of either direction.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>intlink</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPadIntLinkFunction">GstPadIntLinkFunction</link> to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-internal-links"/>gst_pad_get_internal_links ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_pad_get_internal_links      (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets a list of pads to which the given pad is linked to
+inside of the parent element.
+The caller must free this list after use.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to get the internal links of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a newly allocated <link linkend="GList">GList</link> of pads.
+
+Not MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-get-internal-links-default"/>gst_pad_get_internal_links_default ()</title>
+<programlisting><link linkend="GList">GList</link>*      gst_pad_get_internal_links_default
+                                            (<link linkend="GstPad">GstPad</link> *pad);</programlisting>
+<para>
+Gets a list of pads to which the given pad is linked to
+inside of the parent element.
+This is the default handler, and thus returns a list of all of the
+pads inside the parent element with opposite direction.
+The caller must free this list after use.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstPad">GstPad</link> to get the internal links of.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> a newly allocated <link linkend="GList">GList</link> of pads.
+
+Not MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-dispatcher"/>gst_pad_dispatcher ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_pad_dispatcher              (<link linkend="GstPad">GstPad</link> *pad,
+                                             <link linkend="GstPadDispatcherFunction">GstPadDispatcherFunction</link> dispatch,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Invokes the given dispatcher function on all pads that are 
+internally linked to the given pad. 
+The GstPadDispatcherFunction should return TRUE when no further pads 
+need to be processed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GstPad">GstPad</link> to dispatch.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dispatch</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstDispatcherFunction">GstDispatcherFunction</link> to call.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> gpointer user data passed to the dispatcher function.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if one of the dispatcher functions returned TRUE.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-add-probe"/>gst_pad_add_probe()</title>
+<programlisting>#define     gst_pad_add_probe(pad, probe)</programlisting>
+<para>
+Adds the probe to the given pad
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>The pad to add the probe to
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara>The probe to add to the pad
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-remove-probe"/>gst_pad_remove_probe()</title>
+<programlisting>#define     gst_pad_remove_probe(pad, probe)</programlisting>
+<para>
+Remove the probe from the pad
+</para><variablelist role="params">
+<varlistentry><term><parameter>pad</parameter>&nbsp;:</term>
+<listitem><simpara>The pad to remove the probe of
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>probe</parameter>&nbsp;:</term>
+<listitem><simpara>The probe to remove
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-pad-load-and-link"/>gst_pad_load_and_link ()</title>
+<programlisting>void        gst_pad_load_and_link           (<link linkend="xmlNodePtr">xmlNodePtr</link> self,
+                                             <link linkend="GstObject">GstObject</link> *parent);</programlisting>
+<para>
+Reads the pad definition from the XML node and links the given pad
+in the element to a pad of an element up in the hierarchy.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>self</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="xmlNodePtr">xmlNodePtr</link> to read the description from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parent</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GstObject">GstObject</link> element that owns the pad.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<variablelist>
+<varlistentry><term><anchor id="GstPad--caps"/>&quot;<literal>caps</literal>&quot; (<link linkend="GstCaps">GstCaps</link> : Read)</term>
+<listitem>
+<para>The capabilities of the pad.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstPad--direction"/>&quot;<literal>direction</literal>&quot; (<link linkend="GstPadDirection">GstPadDirection</link> : Read / Write / Construct Only)</term>
+<listitem>
+<para>The direction of the pad.</para>
+</listitem></varlistentry>
+<varlistentry><term><anchor id="GstPad--template"/>&quot;<literal>template</literal>&quot; (<link linkend="GstPadTemplate">GstPadTemplate</link> : Read / Write / Construct Only)</term>
+<listitem>
+<para>The GstPadTemplate of this pad.</para>
+</listitem></varlistentry>
+
+</variablelist>
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="GstPad-linked"/>The &quot;linked&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstPad">GstPad</link> *gstpad,
+                                            <link linkend="GstPad">GstPad</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstpad</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstPad-request-link"/>The &quot;request-link&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstPad">GstPad</link> *gstpad,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstpad</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GstPad-unlinked"/>The &quot;unlinked&quot; signal</title>
+<programlisting>void        user_function                  (<link linkend="GstPad">GstPad</link> *gstpad,
+                                            <link linkend="GstPad">GstPad</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>gstpad</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>arg1</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstPadTemplate">GstPadTemplate</link>, <link linkend="GstElement">GstElement</link>, <link linkend="GstEvent">GstEvent</link>
+</para>
+</refsect1>
+
+</refentry>

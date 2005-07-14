@@ -1,0 +1,245 @@
+<refentry id="gstreamer-GstFormat">
+<refmeta>
+<refentrytitle>GstFormat</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstFormat</refname><refpurpose>Dynamically register new formats</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+enum        <link linkend="GstFormat">GstFormat</link>;
+#define     <link linkend="GST-FORMAT-PERCENT-MAX-CAPS">GST_FORMAT_PERCENT_MAX</link>
+#define     <link linkend="GST-FORMAT-PERCENT-SCALE-CAPS">GST_FORMAT_PERCENT_SCALE</link>
+struct      <link linkend="GstFormatDefinition">GstFormatDefinition</link>;
+#define     <link linkend="GST-FORMATS-FUNCTION-CAPS">GST_FORMATS_FUNCTION</link>            (type, functionname, ...)
+<link linkend="GstFormat">GstFormat</link>   <link linkend="gst-format-register">gst_format_register</link>             (const <link linkend="gchar">gchar</link> *nick,
+                                             const <link linkend="gchar">gchar</link> *description);
+<link linkend="GstFormat">GstFormat</link>   <link linkend="gst-format-get-by-nick">gst_format_get_by_nick</link>          (const <link linkend="gchar">gchar</link> *nick);
+<link linkend="gboolean">gboolean</link>    <link linkend="gst-formats-contains">gst_formats_contains</link>            (const <link linkend="GstFormat">GstFormat</link> *formats,
+                                             <link linkend="GstFormat">GstFormat</link> format);
+G_CONST_RETURN <link linkend="GstFormatDefinition">GstFormatDefinition</link>* <link linkend="gst-format-get-details">gst_format_get_details</link>
+                                            (<link linkend="GstFormat">GstFormat</link> format);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+GstFormats functions are used to register a new format to the gstreamer core.
+formats can be used to perform seeking or conversions/query operations.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="GstFormat"/>enum GstFormat</title>
+<programlisting>typedef enum {
+  GST_FORMAT_UNDEFINED 	=  0, /* must be first in list */
+  GST_FORMAT_DEFAULT   	=  1, /* samples for audio, frames/fields for video */
+  GST_FORMAT_BYTES   	=  2,
+  GST_FORMAT_TIME 	=  3,
+  GST_FORMAT_BUFFERS	=  4,
+  GST_FORMAT_PERCENT	=  5
+} GstFormat;
+</programlisting>
+<para>
+Standard predefined formats
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>GST_FORMAT_UNDEFINED</literal></term>
+<listitem><simpara>undefined format
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_FORMAT_DEFAULT</literal></term>
+<listitem><simpara>the default format of the pad/element
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_FORMAT_BYTES</literal></term>
+<listitem><simpara>bytes
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_FORMAT_TIME</literal></term>
+<listitem><simpara>time in nanoseconds
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_FORMAT_BUFFERS</literal></term>
+<listitem><simpara>buffers
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><literal>GST_FORMAT_PERCENT</literal></term>
+<listitem><simpara>percentage of stream
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FORMAT-PERCENT-MAX-CAPS"/>GST_FORMAT_PERCENT_MAX</title>
+<programlisting>#define	GST_FORMAT_PERCENT_MAX		G_GINT64_CONSTANT (1000000)
+</programlisting>
+<para>
+The PERCENT format is between 0 and this value
+</para></refsect2>
+<refsect2>
+<title><anchor id="GST-FORMAT-PERCENT-SCALE-CAPS"/>GST_FORMAT_PERCENT_SCALE</title>
+<programlisting>#define	GST_FORMAT_PERCENT_SCALE	G_GINT64_CONSTANT (10000)
+</programlisting>
+<para>
+The value used to scale down the reported PERCENT format value to
+its real value.
+</para></refsect2>
+<refsect2>
+<title><anchor id="GstFormatDefinition"/>struct GstFormatDefinition</title>
+<programlisting>struct GstFormatDefinition {
+
+  GstFormat  value;
+  gchar     *nick;
+  gchar     *description;
+};
+</programlisting>
+<para>
+A format definition
+</para><variablelist role="struct">
+<varlistentry>
+<term><link linkend="GstFormat">GstFormat</link> <structfield>value</structfield></term>
+<listitem><simpara>The unique id of this format
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>nick</structfield></term>
+<listitem><simpara>A short nick of the format
+</simpara></listitem>
+</varlistentry>
+<varlistentry>
+<term><link linkend="gchar">gchar</link> *<structfield>description</structfield></term>
+<listitem><simpara>A longer description of the format
+
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="GST-FORMATS-FUNCTION-CAPS"/>GST_FORMATS_FUNCTION()</title>
+<programlisting>#define     GST_FORMATS_FUNCTION(type, functionname, ...)</programlisting>
+<para>
+A convenience function to define a function that returns an array
+of formats.
+</para><variablelist role="params">
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>The type of the first argument of the function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>functionname</parameter>&nbsp;:</term>
+<listitem><simpara>The name of the function
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>...</parameter>&nbsp;:</term>
+<listitem><simpara>comma separated list of functions closed with 0
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-format-register"/>gst_format_register ()</title>
+<programlisting><link linkend="GstFormat">GstFormat</link>   gst_format_register             (const <link linkend="gchar">gchar</link> *nick,
+                                             const <link linkend="gchar">gchar</link> *description);</programlisting>
+<para>
+Create a new GstFormat based on the nick or return an
+already registered format with that nick.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>nick</parameter>&nbsp;:</term>
+<listitem><simpara> The nick of the new format
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>description</parameter>&nbsp;:</term>
+<listitem><simpara> The description of the new format
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> A new GstFormat or an already registered format
+with the same nick.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-format-get-by-nick"/>gst_format_get_by_nick ()</title>
+<programlisting><link linkend="GstFormat">GstFormat</link>   gst_format_get_by_nick          (const <link linkend="gchar">gchar</link> *nick);</programlisting>
+<para>
+Return the format registered with the given nick.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>nick</parameter>&nbsp;:</term>
+<listitem><simpara> The nick of the format
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The format with <parameter>nick</parameter> or GST_FORMAT_UNDEFINED
+if the format was not registered.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-formats-contains"/>gst_formats_contains ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    gst_formats_contains            (const <link linkend="GstFormat">GstFormat</link> *formats,
+                                             <link linkend="GstFormat">GstFormat</link> format);</programlisting>
+<para>
+See if the given format is inside the format array.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>formats</parameter>&nbsp;:</term>
+<listitem><simpara> The format array to search
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara> the format to find
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> TRUE if the format is found inside the array
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gst-format-get-details"/>gst_format_get_details ()</title>
+<programlisting>G_CONST_RETURN <link linkend="GstFormatDefinition">GstFormatDefinition</link>* gst_format_get_details
+                                            (<link linkend="GstFormat">GstFormat</link> format);</programlisting>
+<para>
+Get details about the given format.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>format</parameter>&nbsp;:</term>
+<listitem><simpara> The format to get details of
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara> The <link linkend="GstFormatDefinition">GstFormatDefinition</link> for <parameter>format</parameter> or NULL on failure.
+
+MT safe.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="GstPad">GstPad</link>, <link linkend="GstElement">GstElement</link>
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,46 @@
+<refentry id="gstreamer-GstCompat">
+<refmeta>
+<refentrytitle>GstCompat</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GSTREAMER Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GstCompat</refname><refpurpose>Deprecated API entries.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;gst/gst.h&gt;
+
+
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Please do not use in new code. This symbols are hidden by the GST_DISABLE_DEPRECATED define.
+One would have to add this to the CFLAGS when compiling old code.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+
+</refsect1>
+
+
+
+
+</refentry>
