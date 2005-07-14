@@ -17,7 +17,7 @@ ptype1 = {
 #    (interface names are added at the unit interface section)
 #    (implementation class names are added at the unit implementation section)
 pusedclasses = { # from class implementation: list of classes used (implementation 'uses' clause for classes, interface 'uses' clause for interfaces)
-	"TGnomeCanvas": ["IGtkObject", "DGnomeCanvasGroup"],
+	"TGnomeCanvas": ["IGtkObject", "TGnomeCanvasGroup"],
 	"TGnomeCanvasBpath": ["IGtkObject"],
 	"TGnomeCanvasClipgroup": ["IGtkObject"],
 	"TGnomeCanvasGroup": ["IGtkObject"],
@@ -211,7 +211,7 @@ paddfuncs = {
 			begin
 			  cgroup := gnome_canvas_root(PGnomeCanvas(Fobject));
 			  assert(Assigned(cgroup));
-			  Result := WrapGObject(cgroup, DGnomeCanvasGroup) as IGnomeCanvasGroup;
+			  Result := WrapGObject(cgroup, TGnomeCanvasGroup) as IGnomeCanvasGroup;
 			end;
 		""",
 		"GetWorldToCanvasAffine": """
