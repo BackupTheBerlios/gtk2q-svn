@@ -4,8 +4,9 @@ export gtkpascalgen_outdir="$(pwd)"
 export gtkpascalgen_indir="$(pwd)"
 
 x="$(pwd)"
-x="${x/\/trunk\/gtk-pascal-gen/}"
+#x="${x/\/trunk\/gtk-pascal-gen/}"
 x="${x/\/gtk-pascal-gen/}"
+x="${x/\/trunk/}"
 x="${x##*/}"
 # x = /home/dannym/src/pascal/gtk2q
 x="${x%q}"

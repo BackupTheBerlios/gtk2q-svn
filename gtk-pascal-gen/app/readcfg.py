@@ -28,9 +28,9 @@ def mergeArrays(a1, a2):
 o = sys.path
 try:
   sys.path = [os.environ["gtkpascalgen_indir"]] + sys.path
-  print sys.path
 except:
   pass
+  
 import localdefs
 sys.path = o
 
