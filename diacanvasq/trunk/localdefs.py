@@ -146,11 +146,11 @@ c2penumcopied = [ # enums copied to delphi as-is
 
 # structs copied from gtk to the wrapped (into unit u...types) 
 c2pstructcopied = { # simple structs copied to delphi as-is
-	## DiaCanvas c2penumcopied
-	"DiaStrength",
-	"DiaJoinStyle",
-	"DiaCapStyle",
-	"DiaEventMask",
+	## DiaCanvas
+	"DiaRectangle": "TDiaRectangle",
+	"DiaPoint": "TDiaPoint", # well actually its the same as artpoint
+	"DiaCanvasIter": "TDiaCanvasIter",
+	"DiaCanvasItemAffine": "TDiaCanvasItemAffine", # made that up
 }
 
 # class (not instance) functions to get from C
