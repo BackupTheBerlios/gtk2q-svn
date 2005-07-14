@@ -1,7 +1,7 @@
 
 include settings.mk
-LIBDIR = $(PREFIX)/lib/0.9
-VARDIR = $(VARPREFIX)/lib/0.9
+LIBDIR = $(PREFIX)/lib/gtk-pascal-gen/0.9
+VARDIR = $(VARPREFIX)/lib/gtk-pascal-gen/0.9
 #/usr/var)
 BINDIR = $(PREFIX)/bin
 
