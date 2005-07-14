@@ -23,7 +23,7 @@ install: gtk-pascal-gen
 	
 	#install -m 755 $(DESTDIR)$(LIBDIR)
 	install -m 644 templates/delphi/* $(DESTDIR)$(VARDIR)/templates/delphi
-	install -m 755 gtk-pascal-gen $(DESTDIR)$(LIBDIR)
+	install -m 755 gtk-pascal-gen $(DESTDIR)$(BINDIR)
 	install -m 755 app/*.py app/gen $(DESTDIR)$(LIBDIR)/app
 	
 clean:
