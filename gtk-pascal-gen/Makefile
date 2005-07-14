@@ -19,7 +19,7 @@ install: gtk-pascal-gen
 	
 	if [ ! -f "$(DESTDIR)$(VARDIR)/ids.txt" ] ; then install -m 666 ids.txt $(DESTDIR)$(VARDIR)/ids.txt ; fi
 	
-	if [ ! -f "$(DESTDIR)$(VARDIR)/deprecated.txt" ] ; then install -m 666 deprecated.txt $(DESTDIR)$(VARDIR)/deprecated.txt ; fi
+	#if [ ! -f "$(DESTDIR)$(VARDIR)/deprecated.txt" ] ; then install -m 666 deprecated.txt $(DESTDIR)$(VARDIR)/deprecated.txt ; fi
 	
 	#install -m 755 $(DESTDIR)$(LIBDIR)
 	install -m 644 templates/delphi/* $(DESTDIR)$(VARDIR)/templates/delphi

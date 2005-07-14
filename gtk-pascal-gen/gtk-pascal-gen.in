@@ -23,7 +23,10 @@ mod="${x}"
 
 export mod
 
-grep -R "is deprecated" "${gtkpascalgen_indir}/input/"* |grep "^.*<literal>\([^<]*\)</literal>.*$" |sed 's;^.*<literal>\([^<]*\)</literal>.*$;\1;' |grep -v "^NULL$" |sort |uniq >deprecated.txt
+grep -R "is deprecated" "${gtkpascalgen_indir}/input/"* | \
+grep "^.*<literal>\([^<]*\)</literal>.*$" | \
+sed 's;^.*<literal>\([^<]*\)</literal>.*$;\1;' | \
+grep -v "^NULL$" |sort |uniq >"${gtkpascalgen_indir}/deprecated.txt"
 
 app/gen ${mod}
 X="$?"

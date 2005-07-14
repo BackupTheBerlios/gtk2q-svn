@@ -35,7 +35,7 @@ path1 = sys.argv[3]
 
 fnlines = []
 
-lines = codecs.open("./deprecated.txt", "r", "UTF-8").readlines()
+lines = codecs.open(gtkpascalgen_indir + "/deprecated.txt", "r", "UTF-8").readlines()
 for line in lines:
 	line = line.strip()
 	
