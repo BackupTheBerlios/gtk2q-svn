@@ -1,0 +1,33 @@
+#
+# Makefile.fpc
+
+[package]
+name=eggtrayq
+version=0.0.1
+
+[target]
+programs=pas
+dirs=static output/eggtray
+
+[install]
+fpcpackage=y
+
+[default]
+fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q
+#nortl=y
+
+[prerules]
+ifndef CC
+CC = gcc
+endif
+
+[rules]  
+eggtrayicon.o: eggtreemodelunion.c  eggtreemodelunion.h
+	$(CC) -o eggtrayicon.o eggtrayicon.c
+
+eggtraymanager.o: eggtraymanager.c  eggtraymanager.h
+	$(CC) -o eggtraymanager.o eggtraymanager.c

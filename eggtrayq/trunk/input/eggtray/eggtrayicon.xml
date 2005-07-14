@@ -1,0 +1,127 @@
+<refentry id="libegg-EggTrayIcon">
+<refmeta>
+<refentrytitle>EggTrayIcon</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBEGG Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>EggTrayIcon</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;libegg/tray/eggtrayicon.h&gt;
+
+
+<link linkend="EggTrayIcon">EggTrayIcon</link>* <link linkend="egg-tray-icon-new-for-screen">egg_tray_icon_new_for_screen</link>   (<link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="EggTrayIcon">EggTrayIcon</link>* <link linkend="egg-tray-icon-new">egg_tray_icon_new</link>              (const <link linkend="gchar">gchar</link> *name);
+<link linkend="guint">guint</link>       <link linkend="egg-tray-icon-send-message">egg_tray_icon_send_message</link>      (<link linkend="EggTrayIcon">EggTrayIcon</link> *icon,
+                                             <link linkend="gint">gint</link> timeout,
+                                             const char *message,
+                                             <link linkend="gint">gint</link> len);
+void        <link linkend="egg-tray-icon-cancel-message">egg_tray_icon_cancel_message</link>    (<link linkend="EggTrayIcon">EggTrayIcon</link> *icon,
+                                             <link linkend="guint">guint</link> id);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="egg-tray-icon-new-for-screen"/>egg_tray_icon_new_for_screen ()</title>
+<programlisting><link linkend="EggTrayIcon">EggTrayIcon</link>* egg_tray_icon_new_for_screen   (<link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-icon-new"/>egg_tray_icon_new ()</title>
+<programlisting><link linkend="EggTrayIcon">EggTrayIcon</link>* egg_tray_icon_new              (const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-icon-send-message"/>egg_tray_icon_send_message ()</title>
+<programlisting><link linkend="guint">guint</link>       egg_tray_icon_send_message      (<link linkend="EggTrayIcon">EggTrayIcon</link> *icon,
+                                             <link linkend="gint">gint</link> timeout,
+                                             const char *message,
+                                             <link linkend="gint">gint</link> len);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>timeout</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>message</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>len</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-icon-cancel-message"/>egg_tray_icon_cancel_message ()</title>
+<programlisting>void        egg_tray_icon_cancel_message    (<link linkend="EggTrayIcon">EggTrayIcon</link> *icon,
+                                             <link linkend="guint">guint</link> id);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&nbsp;:</term>
+<listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

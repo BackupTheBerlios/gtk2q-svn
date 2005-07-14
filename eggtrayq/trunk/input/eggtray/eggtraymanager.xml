@@ -1,0 +1,120 @@
+<refentry id="libegg-EggTrayManager">
+<refmeta>
+<refentrytitle>EggTrayManager</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>LIBEGG Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>EggTrayManager</refname><refpurpose></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;libegg/tray/eggtraymanager.h&gt;
+
+
+struct      <link linkend="EggTrayManagerChild">EggTrayManagerChild</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="egg-tray-manager-check-running">egg_tray_manager_check_running</link>  (<link linkend="GdkScreen">GdkScreen</link> *screen);
+<link linkend="EggTrayManager">EggTrayManager</link>* <link linkend="egg-tray-manager-new">egg_tray_manager_new</link>        (void);
+<link linkend="gboolean">gboolean</link>    <link linkend="egg-tray-manager-manage-screen">egg_tray_manager_manage_screen</link>  (<link linkend="EggTrayManager">EggTrayManager</link> *manager,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen);
+char*       <link linkend="egg-tray-manager-get-child-title">egg_tray_manager_get_child_title</link>
+                                            (<link linkend="EggTrayManager">EggTrayManager</link> *manager,
+                                             <link linkend="EggTrayManagerChild">EggTrayManagerChild</link> *child);
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="EggTrayManagerChild"/>struct EggTrayManagerChild</title>
+<programlisting>struct EggTrayManagerChild;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-manager-check-running"/>egg_tray_manager_check_running ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    egg_tray_manager_check_running  (<link linkend="GdkScreen">GdkScreen</link> *screen);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-manager-new"/>egg_tray_manager_new ()</title>
+<programlisting><link linkend="EggTrayManager">EggTrayManager</link>* egg_tray_manager_new        (void);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-manager-manage-screen"/>egg_tray_manager_manage_screen ()</title>
+<programlisting><link linkend="gboolean">gboolean</link>    egg_tray_manager_manage_screen  (<link linkend="EggTrayManager">EggTrayManager</link> *manager,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>manager</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="egg-tray-manager-get-child-title"/>egg_tray_manager_get_child_title ()</title>
+<programlisting>char*       egg_tray_manager_get_child_title
+                                            (<link linkend="EggTrayManager">EggTrayManager</link> *manager,
+                                             <link linkend="EggTrayManagerChild">EggTrayManagerChild</link> *child);</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>manager</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>child</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis> :</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>
