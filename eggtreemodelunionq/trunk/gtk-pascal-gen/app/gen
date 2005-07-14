@@ -1,0 +1,168 @@
+#!/bin/bash
+
+# $1 (if present) -> module
+
+for s in ../input/* ../overrides/*
+do 
+	[ ! -d "$s" ] && continue
+	
+	t="$(basename "$s")"
+
+	[ ! -d "${gtkpascalgen_outdir}/output/$t" ] && mkdir -p "${gtkpascalgen_outdir}/output/$t"
+
+	extra=""
+	[ -f "$s/windows.xml" ] && extra="${extra} $s/windows.xml"
+	[ -f "$s/drawing.xml" ] && extra="${extra} $s/drawing.xml"
+	#[ -f "$s/pixbufs.xml" ] && extra="$s/pixbufs.xml"
+	[ -f "$s/pixmaps.xml" ] && extra="${extra} $s/pixmaps.xml"
+	[ -f "$s/input_devices.xml" ] && extra="${extra} $s/input_devices.xml"
+	[ -f "$s/images.xml" ] && extra="${extra} $s/images.xml"
+	[ -f "$s/colors.xml" ] && extra="${extra} $s/colors.xml"
+	[ -f "$s/visuals.xml" ] && extra="${extra} $s/visuals.xml"
+	[ -f "$s/regions.xml" ] && extra="${extra} $s/regions.xml"
+	[ -f "$s/gcs.xml" ] && extra="${extra} $s/gcs.xml"
+	[ -f "$s/animation.xml" ] && extra="${extra} $s/animation.xml"
+	[ -f "$s/dnd.xml" ] && extra="${extra} $s/dnd.xml"
+	[ -f "$s/netk-application.xml" ] && extra="${extra} $s/netk-application.xml"
+	[ -f "$s/netk-screen.xml" ] && extra="${extra} $s/netk-screen.xml"
+	[ -f "$s/netk-workspace.xml" ] && extra="${extra} $s/netk-workspace.xml"
+	[ -f "$s/netk-class-group.xml" ] && extra="${extra} $s/netk-class-group.xml"
+	[ -f "$s/netk-window.xml" ] && extra="${extra} $s/netk-window.xml"
+
+	dirname="$t"
+	[ "$t" = "diacanvas" ] && t="dia"
+
+	for u in "$s/$t"*.xml ${extra}
+	do
+		v="$(basename "$u")"
+		v="${v%.xml}"
+		
+		[ "$v" = ".svn" ] && continue
+		[ "$v" = "${t}*" ] && continue
+
+		[ "$v" = "gtkclist" ] && continue # DEPRECATED
+		[ "$v" = "gtkctree" ] && continue # DEPRECATED
+		[ "$v" = "gtkpreview" ] && continue # DEPRECATED
+		[ "$v" = "gtktext" ] && continue # DEPRECATED
+		[ "$v" = "gtkoldeditable" ] && continue # DEPRECATED
+		[ "$v" = "gtkfileselection" ] && continue # disliked
+		[ "$v" = "gtklist" ] && continue # DEPRECATED
+		[ "$v" = "gtklistitem" ] && continue # DEPRECATED
+		[ "$v" = "gtkpixmap" ] && continue # DEPRECATED
+		[ "$v" = "gtktipsquery" ] && continue # DEPRECATED
+		[ "$v" = "atkstateset" ] && continue # not required
+		
+		#[ "$v" != "gtkentry" ] && continue # testing
+		#echo "$v"
+		
+		[ "$v" = "windows" -a "$t" = "gdk" ] && v="gdkwindow"
+		[ "$v" = "regions" -a "$t" = "gdk" ] && v="gdkregion"
+		[ "$v" = "drawing" -a "$t" = "gdk" ] && v="gdkdrawable"
+		[ "$v" = "pixmaps" -a "$t" = "gdk" ] && v="gdkpixmap"
+		[ "$v" = "input_devices" -a "$t" = "gdk" ] && v="gdkdevice"
+		[ "$v" = "images" -a "$t" = "gdk" ] && v="gdkimage"
+		[ "$v" = "colors" -a "$t" = "gdk" ] && v="gdkcolormap"
+		[ "$v" = "visuals" -a "$t" = "gdk" ] && v="gdkvisual"
+		[ "$v" = "gdk-pixbuf" -a "$t" = "gdk-pixbuf" ] && v="gdkpixbuf"
+		[ "$v" = "gcs" -a "$t" = "gdk" ] && v="gdkgc"
+		[ "$v" = "animation" -a "$t" = "gdk-pixbuf" ] && v="gdkpixbufanimation"
+		[ "$v" = "dnd" -a "$t" = "gdk" ] && v="gdkdragcontext"
+
+		[ "$v" = "gdkregion" ] && continue # did that manually, static
+		
+		classname="$(cat "$u" |grep -v "^<?xml" |grep -v '^<!DOCTYPE' |grep -v '"http.*dtd">' |head -n 1 |sed 's;^.*id="\([^"]*\)".*$;\1;')"
+		[ "${classname}" = "GtkItemFactory" ] && continue # deprecated
+		
+		[ "${classname}" = "gtk-gtkfilefilter" ] && classname="GtkFileFilter"
+		[ "${classname}" = "gtk-Keyboard-Accelerators" ] && classname="GtkAccelGroup"
+		[ "${classname}" = "gtk-Clipboards" ] && classname="GtkClipboard"
+		[ "${classname}" = "gtk-Resource-Files" ] && classname="GtkRcStyle"
+		[ "${classname}" = "gdk-Drag-and-Drop" ] && classname="GdkDragContext"
+		[ "${classname}" = "libegg-EggTrayIcon" ] && classname="EggTrayIcon"
+		[ "${classname}" = "libegg-EggTrayManager" ] && classname="EggTrayManager"
+		[ "${classname}" = "gtk-GtkAboutDialog" ] && classname="GtkAboutDialog"
+		[ "${classname}" = "gtk-GtkCellRendererCombo" ] && classname="GtkCellRendererCombo"
+		[ "${classname}" = "gtk-GtkFileChooserButton" ] && classname="GtkFileChooserButton"
+
+		#[ "${classname}" != "GtkCellRendererCombo" ] && continue # debug
+		
+		#[ "${classname}" = "diacanvas2-DiaShape" ] && classname="DiaShape"
+
+		if [ -z "${classname%libxfcegui4-Netk*}" ]
+		then
+			classname="${classname/libxfcegui4-/}"
+		fi
+		
+		# diacanvas2-DiaExpression: a small data structure (non-gobject)
+		# diacanvas2-DiaGeometry ?
+		# diacanvas2-DiaShape
+		# diacanvas2-DiaStrength just an enum
+		
+		if [ "$v" = "gdkpixbufanimation" -a "$t" = "gdk-pixbuf" ]
+		then
+			classname="GdkPixbufAnimation"
+		elif [ "$v" = "gdkgc" -a "$t" = "gdk" ]
+		then
+			classname="GdkGC"
+		elif [ "$v" = "gdkregion" -a "$t" = "gdk" ]
+		then
+			classname="GdkRegion"
+		elif [ "$v" = "gdkpixbuf" -a "$t" = "gdk-pixbuf" ]
+		then
+			classname="GdkPixbuf"
+		elif [ "$v" = "gdkvisual" -a "$t" = "gdk" ]
+		then
+			classname="GdkVisual"
+		elif [ "$v" = "gdkcolormap" -a "$t" = "gdk" ]
+		then
+			classname="GdkColormap"
+		elif [ "$v" = "gdkdevice" -a "$t" = "gdk" ]
+		then
+			classname="GdkDevice"
+		elif [ "$v" = "gdkimage" -a "$t" = "gdk" ]
+		then
+			classname="GdkImage"
+		elif [ "$v" = "gdkwindow" -a "$t" = "gdk" ]
+		then
+			classname="GdkWindow"
+		elif [ "$v" = "gdkdrawable" -a "$t" = "gdk" ] 
+		then
+			classname="GdkDrawable"
+		elif [ "$v" = "gdkpixmap" -a "$t" = "gdk" ]
+		then
+			classname="GdkPixmap"
+		else
+			if [ "${classname#*-}" != "${classname}" ]
+			then # contains "-"
+				continue
+			fi
+		fi
+		
+		#cat "$u" |sed 's;<[^>]*>;;g' | "$(dirname "$0")/gen1.py" "$v" "${classname}" "${dirname}"
+		#cat "$u" | 
+		"$(dirname "$0")/gen1.py" "$v" "${classname}" "${dirname}" "$u"
+		#exit 0
+		if [ "$?" -ne "0" ]
+		then
+			echo "error while processing $u">&2
+			exit 1
+		fi
+	done		
+done
+
+if [ -d "${gtkpascalgen_indir}/h/gtk-2.0" ]
+then
+	app/scanclasses.py
+else
+	for s in "${gtkpascalgen_indir}/h/"*
+	do
+		[ ! -d "$s" ] && continue
+		
+		t="${s##*/}"
+		[ "$t" = ".svn" ] && continue
+		
+		break
+	done
+	app/scanclasses.py "$t"
+fi
+

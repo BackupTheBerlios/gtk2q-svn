@@ -1,0 +1,31 @@
+#
+# Makefile.fpc
+
+[package]
+name=eggtreemodelunionq
+version=0.0.1
+
+[target]
+programs=pas
+dirs=static output/eggtreemodelunion
+
+[install]
+fpcpackage=y
+
+[default]
+fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q
+#nortl=y
+
+[prerules]
+ifndef CC
+CC = gcc
+endif
+
+[rules]
+eggtreemodelunion.o: eggtreemodelunion.c  eggtreemodelunion.h
+	$(CC) -o eggtreemodelunion.o eggtreemodelunion.c
+

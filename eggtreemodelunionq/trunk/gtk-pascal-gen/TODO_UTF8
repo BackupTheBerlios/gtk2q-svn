@@ -1,0 +1,34 @@
+utf8:
+	g_utf8_normalize
+	g_utf8_collate
+	g_utf8_collate_key
+	g_utf8_strchr
+	...
+
+
+use UTF8String
+
+  function UTF8Length(const s: string): integer;
+  var
+    i, n: integer;
+    c: byte;
+  begin
+    Result := 0;
+    n := Length(s);
+    i := 1;
+    while i <= n do begin
+      inc(Result);
+      c := byte(s[i]);
+      if (c and $80) = 0 then        inc(i)
+      else if (c and $E0) = $C0 then inc(i, 2)
+      else if (c and $F0) = $E0 then inc(i, 3)
+      else if (c and $F8) = $F0 then inc(i, 4)
+      else if (c and $FC) = $F8 then inc(i, 5)
+      else if (c and $FE) = $FC then inc(i, 6)
+      else
+        raise Exception.Create('No es una cadena UTF-8!');
+    end;
+    if i > n + 1 then
+      raise Exception.Create('No es una cadena UTF-8!');
+  end;
+

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+export gtkpascalgen_outdir=".."
+export gtkpascalgen_indir=".."
+
+x="$(pwd)"
+x="${x/\/trunk\/gtk-pascal-gen/}"
+x="${x##*/}"
+# x = /home/dannym/src/pascal/gtk2q
+x="${x%q}"
+# x = gtk2
+
+mod="${x}"
+[ "${x}" = "gnomecanvas" ] && mod="gnome-canvas"
+[ "${x}" = "gtk2" ] && mod=""
+
+export mod
+
+grep -R "is deprecated" ../input/* |grep "^.*<literal>\([^<]*\)</literal>.*$" |sed 's;^.*<literal>\([^<]*\)</literal>.*$;\1;' |grep -v "^NULL$" |sort |uniq >deprecated.txt
+
+app/gen ${mod}
+X="$?"
+if [ "$X" -ne "0" ]
+then
+	exit "$X"
+fi
+
+app/scanenum.py "../output" ${mod}
+X="$?"
+if [ "$X" -ne "0" ]
+then
+	exit "$X"
+fi
+exit 0
