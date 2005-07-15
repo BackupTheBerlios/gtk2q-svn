@@ -17,6 +17,7 @@ from readcfg import *
 #cat gtktearoffmenuitem.h | awk ' /^struct.*_G.*Class/ { ok=1;} /}/ { ok=0; print $_} { if (ok) print $_ }' |sed 's@};@@'
 
 gtkpascalgen_indir = os.environ["gtkpascalgen_indir"]
+gtkpascalgen_outdir = os.environ["gtkpascalgen_outdir"]
 
 if len(sys.argv) > 1:
 	topdir = gtkpascalgen_indir + "/h" # "/" + sys.argv[1]
@@ -80,7 +81,7 @@ for xsubdir in subdirs:
 
 	items = [os.path.join(subdir, x) for x in os.listdir(subdir)]
 	
-	e = "../overrides/" + xsubdir
+	e = gtkpascalgen_outdir + "/overrides/" + xsubdir
 	if os.path.exists(e):
 		items = items + [os.path.join(e, x) for x in os.listdir(e)]
 		#print "added subdir"
@@ -223,7 +224,7 @@ for xsubdir in subdirs:
 		#funcs[fn["name"]] = [fn, s, reto]
 		
 		try:
-			nf = os.path.join("..", "output", os.path.basename(xsubdir), pfilename)
+			nf = os.path.join(gtkpascalgen_outdir, "output", os.path.basename(xsubdir), pfilename)
 			
 			f = codecs.open(nf, "w", "UTF-8")
 			
