@@ -5,7 +5,7 @@ uses iupointermediator;
 
 type // sigh. dont use if not really really *really* needed
   TPointerMediatorFreeFunc = procedure(obj: Pointer); cdecl;
-  DPointerMediator = class(TInterfacedObject)
+  TPointerMediator = class(TInterfacedObject)
   protected
     FPtr: Pointer;
     FFreeFunc: TPointerMediatorFreeFunc;
@@ -18,19 +18,19 @@ type // sigh. dont use if not really really *really* needed
 
 implementation
 
-constructor DPointerMediator.Create(ptr: Pointer; freefunc: TPointerMediatorFreeFunc);
+constructor TPointerMediator.Create(ptr: Pointer; freefunc: TPointerMediatorFreeFunc);
 begin
   inherited Create;
   FPtr := ptr;
   FFreeFunc := freefunc;
 end;
 
-function DPointerMediator.GetUnderlying: Pointer;
+function TPointerMediator.GetUnderlying: Pointer;
 begin
   Result := FPtr;
 end;
 
-destructor DPointerMediator.Destroy;
+destructor TPointerMediator.Destroy;
 begin
   if Assigned(FPtr) then begin
     if Assigned(FFreeFunc) then

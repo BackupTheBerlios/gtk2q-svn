@@ -4,7 +4,7 @@ interface
 uses iupointermediator, upointermediator, iugtktextattributes, iug;
 
 type
-  TGtkTextAttributes = class(DPointerMediator, IGtkTextAttributes, IPointerMediator, IInvokable, IInterface)
+  TGtkTextAttributes = class(TPointerMediator, IGtkTextAttributes, IPointerMediator, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
     //Clone FIXME

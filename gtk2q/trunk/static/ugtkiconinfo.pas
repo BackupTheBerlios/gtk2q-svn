@@ -4,7 +4,7 @@ interface
 uses iupointermediator, upointermediator, iugtkiconinfo, iugdk, ugdktypes, iug;
 
 type
-  TGtkIconInfo = class(DPointerMediator, IGtkIconInfo, IPointerMediator, ICloneable, IInvokable, IInterface)
+  TGtkIconInfo = class(TPointerMediator, IGtkIconInfo, IPointerMediator, ICloneable, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
     function GetDisplayName: string;

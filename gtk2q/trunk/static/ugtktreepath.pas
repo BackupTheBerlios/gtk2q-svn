@@ -8,7 +8,7 @@ uses iupointermediator, upointermediator, iugtktreepath, iug, ugtypes;
 (* TODO copy on write first *)
 
 type
-  TGtkTreePath = class(DPointerMediator, IGtkTreePath, IPointerMediator, ICloneable, IInvokable, IInterface)
+  TGtkTreePath = class(TPointerMediator, IGtkTreePath, IPointerMediator, ICloneable, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
     (* TODO that class functions too ? *)

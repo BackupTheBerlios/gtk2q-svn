@@ -9,7 +9,7 @@ uses sysutils,ugtypes,uvarrectools
 
 
 type
-  TGdkRegion = class(DPointerMediator,IGdkRegion,IPointerMediator,ICloneable,IInvokable,IInterface)
+  TGdkRegion = class(TPointerMediator,IGdkRegion,IPointerMediator,ICloneable,IInvokable,IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
 

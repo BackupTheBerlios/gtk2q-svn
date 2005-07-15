@@ -4,7 +4,7 @@ interface
 uses iupointermediator, upointermediator, iupango, upangotypes, iug;
 
 type
-  TPangoFontDescription = class(DPointerMediator, IPangoFontDescription, IPointerMediator, ICloneable, IInterface)
+  TPangoFontDescription = class(TPointerMediator, IPangoFontDescription, IPointerMediator, ICloneable, IInterface)
   protected
     procedure SetFamily(value: string);
     function GetFamily: string;

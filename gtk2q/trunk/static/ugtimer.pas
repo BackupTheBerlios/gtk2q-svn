@@ -7,7 +7,7 @@ interface
 uses iugtimer, upointermediator, iupointermediator;
 
 type
-  DGTimer = class(DPointerMediator, IGTimer, IPointerMediator, IInterface)
+  DGTimer = class(TPointerMediator, IGTimer, IPointerMediator, IInterface)
   public
     constructor Create; reintroduce;
     constructor CreateWrapped(ptr: Pointer);

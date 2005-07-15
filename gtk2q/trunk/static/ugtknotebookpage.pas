@@ -12,7 +12,7 @@ interface
 uses iupointermediator, upointermediator, iugtknotebookpage;
 
 type
-  TGtkNotebookPage = class(DPointerMediator, IGtkNotebookPage, IPointerMediator, IInvokable, IInterface)
+  TGtkNotebookPage = class(TPointerMediator, IGtkNotebookPage, IPointerMediator, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
   end;

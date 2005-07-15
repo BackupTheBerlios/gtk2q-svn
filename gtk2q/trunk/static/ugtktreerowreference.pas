@@ -4,7 +4,7 @@ interface
 uses upointermediator, iupointermediator, iugtktreerowreference, iugtktreepath, iug;
 
 type
-  TGtkTreeRowReference = class(DPointerMediator, IGtkTreeRowReference, IPointerMediator, ICloneable, IInvokable, IInterface)
+  TGtkTreeRowReference = class(TPointerMediator, IGtkTreeRowReference, IPointerMediator, ICloneable, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
     function GetPath: IGtkTreePath;

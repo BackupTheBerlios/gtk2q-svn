@@ -4,7 +4,7 @@ interface
 uses iupointermediator, upointermediator, iugtktreepath, iugtkselectiondata;
 
 type
-  TGtkSelectionData = class(DPointerMediator, IGtkSelectionData, IPointerMediator, IInvokable, IInterface)
+  TGtkSelectionData = class(TPointerMediator, IGtkSelectionData, IPointerMediator, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
   end;
