@@ -1,0 +1,24 @@
+{$ifdef define_types}
+type
+{$endif define_types}
+{$INCLUDE static/iugststructure.inc}
+{$INCLUDE output/gst/iugstbin.inc}
+{$INCLUDE output/gst/iugstclock.inc}
+{$INCLUDE output/gst/iugstelementfactory.inc}
+{$INCLUDE output/gst/iugstelement.inc}
+{$INCLUDE output/gst/iugstghostpad.inc}
+{$INCLUDE output/gst/iugstimplementsinterface.inc}
+{$INCLUDE output/gst/iugstindexfactory.inc}
+{$INCLUDE output/gst/iugstindex.inc}
+{$INCLUDE output/gst/iugstobject.inc}
+{$INCLUDE output/gst/iugstpad.inc}
+{$INCLUDE output/gst/iugstpadtemplate.inc}
+{$INCLUDE output/gst/iugstpipeline.inc}
+{$INCLUDE output/gst/iugstpluginfeature.inc}
+{$INCLUDE output/gst/iugstqueue.inc}
+{$INCLUDE output/gst/iugstregistry.inc}
+{$INCLUDE output/gst/iugstschedulerfactory.inc}
+{$INCLUDE output/gst/iugstscheduler.inc}
+{$INCLUDE output/gst/iugsttagsetter.inc}
+{$INCLUDE output/gst/iugsttypefindfactory.inc}
+{$INCLUDE output/gst/iugstxml.inc}
