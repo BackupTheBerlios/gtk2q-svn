@@ -1,0 +1,3033 @@
+GNU gdb Red Hat Linux (6.0post-0.20040223.19rh)
+Copyright 2004 Free Software Foundation, Inc.
+GDB is free software, covered by the GNU General Public License, and you are
+welcome to change it and/or distribute copies of it under certain conditions.
+Type "show copying" to see the conditions.
+There is absolutely no warranty for GDB.  Type "show warranty" for details.
+This GDB was configured as "i386-redhat-linux-gnu"...Using host libthread_db library "/lib/libthread_db.so.1".
+
+gdb> continue
+gdb> run -dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone -Mdelphi -Fu../../varrec -Fusta tic -Fi. -Fistatic -Fioutput/gdk -Fioutput/gtk -Fioutput/gdk-pixbuf -Fuoutput/gd k-pixbuf -Fuoutput/gdk -Fuoutput/gtk -g -XX -OG3 -vewni -l -Fu/usr/lib/fpc/2.1.1 /units/i386-linux/rtl -FE. -FUunits/i386-linux -di386 buildgtk2q.pas
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+Cannot remove breakpoints because program is no longer writable.
+It might be running in another process.
+Further execution is probably impossible.
+$b7f28990 in ?? ()
+gdb> coni[K[K[K[Kcontinue
+Free Pascal Compiler version 2.1.1 [2005/07/17] for i386
+Copyright (c) 1993-2005 by Florian Klaempfl
+Target OS: Linux for i386
+Compiling buildgtk2q.pas
+Compiling ./static/drefcounter.pas
+Compiling ./static/uincdec.pas
+Compiling ./static/uimporttools.pas
+Compiling ./static/ugtypes.pas
+Compiling ./static/uginit.pas
+Compiling ./static/uwrapgnames.pas
+Compiling ./static/iugobject.pas
+Compiling ./static/ugvalue.pas
+Compiling ./static/iuatk.pas
+Compiling ./static/iugdk.pas
+Compiling ./static/ugdktypes.pas
+Compiling ./static/iupango.pas
+Compiling ./static/upangotypes.pas
+Compiling ./static/iupointermediator.pas
+Compiling ./static/ugdkpixbuftypes.pas
+Compiling ./static/upointermediator.pas
+Compiling ./static/iugsignal.pas
+Compiling ./static/ugsignal.pas
+Compiling ./static/ugobject.pas
+Compiling ./static/iug.pas
+ugobject.pas(91,1) Warning: cdecl'ared functions have no high parameter
+ugobject.pas(93,1) Warning: cdecl'ared functions have no high parameter
+Compiling ./static/utyperegistry.pas
+Compiling ./static/uapplication.pas
+Compiling ./static/uwrapgdknames.pas
+Compiling ./static/uwrapgtknames.pas
+Compiling ./static/ugtktypes.pas
+gtkcallback.inc(28,3) Warning: cdecl'ared functions have no high parameter
+Compiling ./static/uargv.pas
+Compiling ./static/uglog.pas
+uglog.pas(51,3) Note: Local variable "i" not used
+Compiling ./static/iutyperegistry.pas
+Compiling ./static/unicegvalue.pas
+Compiling ./static/ugsignal.pas
+
+Program received signal SIGSEGV, Segmentation fault.
+Cannot remove breakpoints because program is no longer writable.
+It might be running in another process.
+Further execution is probably impossible.
+$0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	in htypechk.pas
+gdb> bt full
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
+#0  $0810d6c7 in TCALLCANDIDATES__CREATE (SYM=$8b9a0cc, ST=$8aaf994, PPN=$b7cae7a4, ISPROP=$0, IGNOREVIS=$0, vmt=$81b4f74, this=$8bf508c) at htypechk.pas:1459
+	J = $d
+	PD = (^TPROCDEF) $8bb38dc
+	HP = (PCANDIDATE) $bf835cc4
+	FOUND = $c8
+	HAS_OVERLOAD_DIRECTIVE = $e4
+	TOPCLASSH = (^TOBJECTDEF) $89ea87c
+	SRSYMTABLE = (^TSYMTABLE) $bf835cbc
+	SRPROCSYM = (^TPROCSYM) $b7ceb8dc
+	PT = (^TCALLPARANODE) $0
+#1  $080ed062 in TCALLNODE__DET_RESULTTYPE (this=$b7d15e34) at ncal.pas:1627
+	result = (^TNODE) $0
+	CANDIDATES = (^TCALLCANDIDATES) $0
+	OLDCALLNODE = (^TCALLNODE) $0
+	HPT = (^TNODE) $b7cf4b9c
+	PT = (^TCALLPARANODE) $0
+	LASTPARA = $89e3665
+	PARAIDX = $89dff64
+	CAND_CNT = $89e74bc
+	I = $0
+	IS_CONST = $f3
+	DET_RESULTTYPE = (^TNODE) $0
+	RESULT = (^TNODE) $0
+#2  $08096ce8 in RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:75
+	OLDCODEGENERROR = $0
+	OLDLOCALSWITCHES = [CS_CHECK_IO, CS_GENERATE_RTTI, CS_TYPED_CONST_WRITABLE, CS_ANSISTRINGS]
+	OLDPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	HP = (^TNODE) $bf835d30
+#3  $08096db1 in DO_RESULTTYPEPASS (P=$b7d15e34) at pass_1.pas:108
+	result = $40
+	DO_RESULTTYPEPASS = $40
+	RESULT = $40
+#4  $081026bc in POSTFIXOPERATORS (P1=$b7d15e34, AGAIN=$1, parentfp=$bf836214) at pexpr.pas:1653
+	STORE_STATIC = $6
+	PROTSYM = (^TPROPERTYSYM) $8050ba7
+	P2 = (^TNODE) $8b9a0cc
+	P3 = (^TNODE) $0
+	HSYM = (^TSYM) $8aaf994
+	CLASSH = (^TOBJECTDEF) $bf835e78
+#5  $08101a3f in FACTOR (GETADDR=$0) at pexpr.pas:1974
+	result = (^TNODE) $805c321
+	L = $bf8361f0
+	IC = $85
+	QC = $7
+	CARD = $b
+	OLDP1 = (^TNODE) $b7d15e34
+	P1 = (^TNODE) $b7d15e34
+	CODE = $bf8361d8
+	AGAIN = $1
+	SYM = (^TSYM) $b7efe440
+	PD = (^TPROCDEF) $b7efda60
+	CLASSH = (^TOBJECTDEF) $89dff64
+	D = <invalid float value>
+	HS = 'â'#10#8'äõ'#127#8#0'ÿ'#157#8#132'^'#158#8'iString),d'#131'¿üc'#131'¿,è'#16#8'lñ'#127#8'°°'#28#8#132'Í'#159#8'dÿ'#157#8'lñ'#127#8'°°'#28#8'oper'#0'y(AnsiS'#0#0#0#0'g):L,è'#16#8'lñ'#127#8'°°'#28#8#144#4'¾'#8#132'Í'#159#8'lñ'#127#8'`Úï·'#17#157'ä·td'#131'¿'#28#0#0#0'Ô@Ï·'#0'äï·'#156'¿'#15#8'lñ'#127#8' '#0#0#0'`Úï·'#17#157'ä·tc'#131'¿'#0#157'ä·½'#15#0#0#6'©'#4#8'Ed'#131'¿'#4'''{'#8#4'''{'#8'ta'#131'¿'#140'^'#11#8'da'#131'¿`a'#131'¿'#0#0#0#0#0'õ'#127#8#1...
+	HSORG = #21'¾'#8'¬'
+	HTYPE = {DEF = $81026bc, SYM = $89fcd84, DEREF = {DATAIDX = $89dff64}}
+	FILEPOS = {LINE = $87, COLUMN = $21, FILEINDEX = $1}
+	FACTOR = (^TNODE) $805c321
+	RESULT = (^TNODE) $805c321
+#6  $08103ee9 in SUB_EXPR (PRED_LEVEL=OPPOWER, ACCEPT_EQUAL=$1) at pexpr.pas:2412
+	result = (^TNODE) $810e82c
+	P1 = (^TNODE) $80d0b21
+	P2 = (^TNODE) $bf836228
+	OLDT = _CSTRING
+	FILEPOS = {LINE = $bf836200, COLUMN = $6281, FILEINDEX = $806}
+	SUB_EXPR = (^TNODE) $810e82c
+	RESULT = (^TNODE) $810e82c
+#7  $08103efa in SUB_EXPR (PRED_LEVEL=OPMULTIPLY, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $80d222d
+	P1 = (^TNODE) $80dadd0
+	P2 = (^TNODE) $bf83633c
+	OLDT = _UNIT
+	FILEPOS = {LINE = $818e610, COLUMN = $b0b0, FILEINDEX = $81c}
+	SUB_EXPR = (^TNODE) $80d222d
+	RESULT = (^TNODE) $80d222d
+#8  $08103efa in SUB_EXPR (PRED_LEVEL=OPADDITION, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $1c6df96a
+	P1 = (^TNODE) $89fcd84
+	P2 = (^TNODE) $0
+	OLDT = NOTOKEN
+	FILEPOS = {LINE = $808dae6, COLUMN = $c36c, FILEINDEX = $805}
+	SUB_EXPR = (^TNODE) $1c6df96a
+	RESULT = (^TNODE) $1c6df96a
+#9  $08103efa in SUB_EXPR (PRED_LEVEL=OPCOMPARE, ACCEPT_EQUAL=$1) at pexpr.pas:2414
+	result = (^TNODE) $89fcb44
+	P1 = (^TNODE) $8be049c
+	P2 = (^TNODE) $808eee2
+	OLDT = _PLATFORM
+	FILEPOS = {LINE = $8be049c, COLUMN = $8434, FILEINDEX = $b7cf}
+	SUB_EXPR = (^TNODE) $89fcb44
+	RESULT = (^TNODE) $89fcb44
+#10 $08104396 in EXPR () at pexpr.pas:2515
+	result = (^TNODE) $b7efe440
+	P1 = (^TNODE) $b7efda60
+	P2 = (^TNODE) $10
+	OLDAFTERASSIGNMENT = $0
+	OLDP1 = (^TNODE) $8be14e8
+	FILEPOS = {LINE = $20, COLUMN = $28, FILEINDEX = $0}
+	EXPR = (^TNODE) $b7efe440
+	RESULT = (^TNODE) $b7efe440
+#11 $081238a4 in STATEMENT () at pstatmnt.pas:993
+	result = (^TNODE) $8be14f4
+	P = (^TNODE) $81cb0b0
+	CODE = (^TNODE) $89fcb44
+	FILEPOS = {LINE = $87, COLUMN = $5, FILEINDEX = $1}
+	SRSYM = (^TSYM) $809e4fe
+	SRSYMTABLE = (^TSYMTABLE) $bf836434
+	S = 'äï·'#11#0#0#0#8#0#0#0#156#4'¾'#8'DË'#159#8'°°'#28#8#8'c'#131'¿!Ã'#5#8#11#0#0#0#156#4'¾'#8'ô'#20'¾'#8#7#0#0#0'@c'#131'¿U^'#5#8'lh²'#8'(c'#131'¿ÿ'
+	STATEMENT = (^TNODE) $8be14f4
+	RESULT = (^TNODE) $8be14f4
+#12 $08122ede in TRY_STATEMENT () at pstatmnt.pas:673
+	result = (^TNODE) $bf836ad0
+	P_TRY_BLOCK = (^TNODE) $bf8364f4
+	P_FINALLY_BLOCK = (^TNODE) $8050ba7
+	FIRST = (^TNODE) $0
+	LAST = (^TNODE) $bf836520
+	P_DEFAULT = (^TNODE) $0
+	P_SPECIFIC = (^TNODE) $0
+	HP = (^TNODE) $810e82c
+	OT = {DEF = $8050baf, SYM = $0, DEREF = {DATAIDX = $b7efe440}}
+	SYM = (^TLOCALVARSYM) $bf836520
+	OLD_BLOCK_TYPE = 44
+	EXCEPTSYMTABLE = (^TSYMTABLE) $bf83650c
+	OBJNAME = ''
+	OBJREALNAME = ''
+	SRSYM = (^TSYM) $8050baf
+	SRSYMTABLE = (^TSYMTABLE) $bf836488
+	OLDAKTEXCEPTBLOCK = $0
+	TRY_STATEMENT = (^TNODE) $bf836ad0
+	RESULT = (^TNODE) $bf836ad0
+#13 $08123826 in STATEMENT () at pstatmnt.pas:971
+	result = (^TNODE) $bf836584
+	P = (^TNODE) $81b8921
+	CODE = (^TNODE) $8c23200
+	FILEPOS = {LINE = $86, COLUMN = $3, FILEINDEX = $1}
+	SRSYM = (^TSYM) $8c232bc
+	SRSYMTABLE = (^TSYMTABLE) $bf836580
+	S = 'e'#131'¿cÑ'#11#8',è'#16#8'¼2Â'#8#0#0#0#0',e'#131'¿Le'#131'¿RÙ'#11#8'¼2Â'#8#0#0#0#0','#13#5#8'de'#131'¿µÜ'#11#8'\ßÀ'#8'¼'
+	STATEMENT = (^TNODE) $bf836584
+	RESULT = (^TNODE) $bf836584
+#14 $08123a9e in STATEMENT_BLOCK (STARTTOKEN=_BEGIN) at pstatmnt.pas:1088
+	result = (^TNODE) $80e359b
+	FIRST = (^TNODE) $8c232bc
+	LAST = (^TNODE) $8c232bc
+	FILEPOS = {LINE = $84, COLUMN = $1, FILEINDEX = $1}
+	STATEMENT_BLOCK = (^TNODE) $80e359b
+	RESULT = (^TNODE) $80e359b
+#15 $080e1207 in BLOCK (ISLIBRARY=$0) at psub.pas:227
+	result = (^TNODE) $89ea87c
+	BLOCK = (^TNODE) $89ea87c
+	RESULT = (^TNODE) $89ea87c
+#16 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8c0fa5c) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8c0fa5c
+	OLDBLOCK_TYPE = BT_BODY
+#17 $080e31e8 in READ_PROC () at psub.pas:1251
+	OLD_CURRENT_PROCINFO = (^TPROCINFO) $8bb63f4
+	OLDCONSTSYMTABLE = (^TSYMTABLE) $89dff64
+	OLDFAILTOKENMODE = 44
+	PDFLAGS = [PD_BODY..PD_IMPLEMEN]
+	PD = (^TPROCDEF) $89fcbec
+	ISNESTEDPROC = $0
+	S = ':Ñ·'#20
+#18 $080e35a9 in READ_DECLARATIONS (ISLIBRARY=$0) at psub.pas:1374
+No locals.
+#19 $080e10da in BLOCK (ISLIBRARY=$0) at psub.pas:161
+	result = (^TNODE) $81cb0b0
+	BLOCK = (^TNODE) $81cb0b0
+	RESULT = (^TNODE) $81cb0b0
+#20 $080e2c2a in TCGPROCINFO__PARSE_BODY (this=$8bb63f4) at psub.pas:1016
+	OLDPROCINFO = (^TPROCINFO) $8bb63f4
+	OLDBLOCK_TYPE = BT_GENERAL
+#21 $080e01a6 in PROC_UNIT () at pmodules.pas:1163
+	MAIN_FILE = (^TINPUTFILE) $87ff16c
+	ST = (^TSYMTABLE) $89dff64
+	UNITST = (^TGLOBALSYMTABLE) $8803aec
+	STORE_INTERFACE_CRC = $bf836ab8
+	S1 = (PSHORTSTRING) $880cfac '<'#128#8#0 <repeats 120 times>
+	S2 = (PSHORTSTRING) $880b66c 'Ã'#24#8#12'%D'#8'l'#16#130#8'Ün'#128#8'A'#0#0#0'4'#0#0#0'3/usr/lib/fpc/2.1.1/units/i386-linux/rtl/classes.ppu'#0#0#0#0'9'#0#0#0')'#0#0#0'(/usr/lib/fpc/2.1.1/u'
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $8bc72c4
+	UNITNAME8 = 'UGOBJECT'
+	HAS_IMPL = $1
+#22 $0808c8a0 in COMPILE (FILENAME='./static/ugobject.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $88047dc
+#23 $080d6c7d in TPPUMODULE__LOADPPU (this=$8428384) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $8429634
+#24 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SYSUTILS'
+	SORG = 'sysutils'
+	FN = ''
+	PU = (^TUSED_UNIT) $880f614
+	HP2 = (^TMODULE) $85d136c
+	HP3 = (^TSYMTABLE) $bf836e64
+	UNITSYM = (^TUNITSYM) $87d1044
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $87f3954
+#25 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $880cdf4
+	ST = (^TSYMTABLE) $87ebca4
+	UNITST = (^TGLOBALSYMTABLE) $87ebca4
+	STORE_INTERFACE_CRC = $bf837160
+	S1 = (PSHORTSTRING) $880e124 '¾Á'#8'Ô~Â'#8#0 <repeats 196 times>
+	S2 = (PSHORTSTRING) $880d184 'NÀ'#8'4'#158'½'#8#0 <repeats 132 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837104
+	UNITNAME8 = 'UGSIGNAL'
+	HAS_IMPL = $73
+#26 $0808c8a0 in COMPILE (FILENAME='./static/ugsignal.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $880d3a4
+#27 $080d6c7d in TPPUMODULE__LOADPPU (this=$8429634) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $840176c
+#28 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'IUG'
+	SORG = 'iug'
+	FN = ''
+	PU = (^TUSED_UNIT) $879714c
+	HP2 = (^TMODULE) $8406214
+	HP3 = (^TSYMTABLE) $bf83750c
+	UNITSYM = (^TUNITSYM) $87c37cc
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $874589c
+#29 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $878bd4c
+	ST = (^TSYMTABLE) $87b93b4
+	UNITST = (^TGLOBALSYMTABLE) $87b93b4
+	STORE_INTERFACE_CRC = $bf837808
+	S1 = (PSHORTSTRING) $87c5ed4 #2'|'#8#132'!|'#8'loy'#8't'#136'{'#8','#141'{'#8'Ü'#149'{'#8'tH|'#8#4'Ax'#8'DÓ{'#8'¤'
+	S2 = (PSHORTSTRING) $878678c 'þ{'#8#0 <repeats 208 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf8377ac
+	UNITNAME8 = 'IUGDK'
+	HAS_IMPL = $73
+#30 $0808c8a0 in COMPILE (FILENAME='./static/iugdk.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $85cb42c
+#31 $080d6c7d in TPPUMODULE__LOADPPU (this=$840176c) at fppu.pas:1509
+	DO_LOAD = $1
+	SECOND_TIME = $0
+	OLD_CURRENT_MODULE = (^TMODULE) $81d9714
+#32 $080def82 in LOADUNITS () at pmodules.pas:570
+	S = 'SGTKMENUTOOLBUTTON'
+	SORG = 'sgtkmenutoolbutton'
+	FN = ''
+	PU = (^TUSED_UNIT) $84029a4
+	HP2 = (^TMODULE) $85c0f5c
+	HP3 = (^TSYMTABLE) $81daa34
+	UNITSYM = (^TUNITSYM) $85c2164
+	TOP_OF_MACROSYMTABLE = (^TSYMTABLE) $81e2c3c
+#33 $080dfebe in PROC_UNIT () at pmodules.pas:1043
+	MAIN_FILE = (^TINPUTFILE) $81daa34
+	ST = (^TSYMTABLE) $81e2fec
+	UNITST = (^TGLOBALSYMTABLE) $81e2fec
+	STORE_INTERFACE_CRC = $bf837eb0
+	S1 = (PSHORTSTRING) $81e2f5c '1'#25#8#1#0 <repeats 15 times>, #7#151#8#1#0#0#0#0'¼/'#30#8'<,'#30#8#16#0#0#0'Ô/'#30#8#9#0#0#0#1#0#1#0#2#0 <repeats 24 times>, #1#0#0#0#0#0#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0#25#0#0#0#11#0#0#0#10'FPC_DELPHI'#0#0#0#0#0'I'#0#0#0'<'
+	S2 = (PSHORTSTRING) $81e3094 '/'#30#8#0 <repeats 88 times>
+	FORCE_INIT_FINAL = $6a
+	PD = (^TPROCDEF) $bf837e54
+	UNITNAME8 = 'BUILDGTK'
+	HAS_IMPL = $73
+#34 $0808c8a0 in COMPILE (FILENAME='buildgtk2q.pas') at parser.pas:523
+	OLDDATA = (POLDDATA) $81d942c
+#35 $08060c45 in COMPILE (CMD='') at compiler.pas:385
+	result = $1372
+	STARTTIME = 85412.009999999995
+	COMPILE = $1372
+	RESULT = $1372
+#36 $08048550 in main () at pp.pas:208
+No locals.
+gdb> 
