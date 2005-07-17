@@ -1,0 +1,85 @@
+#
+# Makefile.fpc
+
+[package]
+name=gstq
+version=0.1.0
+
+[target]
+#programs=pas
+units=buildgstq
+
+implicitunits=static/ugstcaps \
+static/ugststructure \
+static/ugsttypes \
+static/uwrapgstnames \
+static/iugst \
+output/gst/sgstbin \
+output/gst/sgstclock \
+output/gst/sgstelementfactory \
+output/gst/sgstelement \
+output/gst/sgstghostpad \
+output/gst/sgstimplementsinterface \
+output/gst/sgstindexfactory \
+output/gst/sgstindex \
+output/gst/sgstobject \
+output/gst/sgstpad \
+output/gst/sgstpadtemplate \
+output/gst/sgstpipeline \
+output/gst/sgstpluginfeature \
+output/gst/sgstqueue \
+output/gst/sgstregistry \
+output/gst/sgstschedulerfactory \
+output/gst/sgstscheduler \
+output/gst/sgsttagsetter \
+output/gst/sgsttypefindfactory \
+output/gst/sgstxml \
+output/gst/ugstbin \
+output/gst/ugstclock \
+output/gst/ugstelementfactory \
+output/gst/ugstelement \
+output/gst/ugstghostpad \
+output/gst/ugstimplementsinterface \
+output/gst/ugstindexfactory \
+output/gst/ugstindex \
+output/gst/ugstobject \
+output/gst/ugstpad \
+output/gst/ugstpadtemplate \
+output/gst/ugstpipeline \
+output/gst/ugstpluginfeature \
+output/gst/ugstqueue \
+output/gst/ugstregistry \
+output/gst/ugstschedulerfactory \
+output/gst/ugstscheduler \
+output/gst/ugsttagsetter \
+output/gst/ugsttypefindfactory \
+output/gst/ugstxml
+
+#rsts=$(CLASSES10) eventlog
+#exampledirs=tests
+
+[compiler]
+options=-dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone \
+	-Mdelphi \
+	-Fustatic -Fi. -Fistatic \
+	-Fioutput/gst \
+	-Fuoutput/gst \
+	-g -XX -OG3 -vewni -l
+
+#includedir=$(OS_TARGET) inc
+#sourcedir=$(OS_TARGET) inc
+
+[libs]
+libname=gstq
+
+[install]
+buildunit=buildgstq
+fpcpackage=y
+
+[default]
+#fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q
+#nortl=y
