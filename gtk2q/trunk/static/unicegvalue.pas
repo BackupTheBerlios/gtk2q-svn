@@ -159,6 +159,7 @@ begin
   Result := g_value_get_int(@gvalue);
 end;
 
+(*
 procedure gValueGetValue(const gvalue: WGValue; out value: AnsiString); overload;
 var
   s: PGChar;
@@ -168,6 +169,7 @@ begin
   value := PChar(s);
   //g_free(s); not allowed
 end;
+*)
 
 procedure gValueGetValue(const gvalue: WGValue; out value: UTF8String); overload;
 var
