@@ -2,3 +2,4 @@
 paned:
   add child properties (shrink, resize: Boolean) per child widget
 
+gtk child watch add (callback), def callback(status)
