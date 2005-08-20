@@ -78,6 +78,19 @@ procedure dbus_g_proxy_disconnect_signal     (DBusGProxy        *proxy,
                                                       GCallback          handler,
                                                       void              *data); cdecl; external dbusglib;
 
+(*
+ * dbus_g_proxy_call:
+ *
+ * All of the input arguments are
+ * specified first, followed by G_TYPE_INVALID, followed by all of the
+ * output values, followed by G_TYPE_INVALID.
+ *
+ * @param proxy a proxy for a remote interface
+ * @param method method to invoke
+ * @param error return location for an error
+ * @param first_arg_type type of first "in" argument
+ * @returns #FALSE if an error is set, TRUE otherwise
+*)						      
 function dbus_g_proxy_call                  (DBusGProxy        *proxy,
 						      const char        *method,
 						      GError           **error,
@@ -157,7 +170,7 @@ end;
 
 procedure TDBusGProxy.AddSignal(signalName: UTF8String; types: array of const); (* ????? FIXME *)
 begin
-  dbus_g_proxy_add_signal(fObject, FIXME);
+  dbus_g_proxy_add_signal(fObject, types + [G_TYPE_INVALID]);
 end;
     
 procedure TDBusGProxy.ConnectSignal(signalName: UTF8String; handler: TMethod); (*userdata, freee*)
@@ -173,6 +186,7 @@ end;
 function TDBusGProxy.Call(methodName: UTF8String; args: array of const): Boolean; (* raises exception *)
 begin
   Result := dbus_g_proxy_call(fObject, FIXME);
+  TODO exception ?
 end;
 
 procedure TDBusGProxy.CallNoReply(methodName: UTF8String; args: array of const);
@@ -183,11 +197,13 @@ end;
 function TDBusGProxy.BeginCall(methodName: UTF8String; notify: data: destroy; args: array of const): IDBusGProxyCall;
 begin
   Result := dbus_g_proxy_begin_call(fObject, PChar(methodName), FIXME);
+  TODO exception ?
 end;
 
 function TDBusGProxy.EndCall(const call: IDBusGProxyCall; args: array of const{???}): Boolean; (* raises exception *)
 begin
   Result := dbus_g_proxy_end_call(fObject, call.GetUnderlying, FIXME);
+  TODO exception ?
 end;
 
 procedure TDBusGProxy.CancelCall(const call: IDBusGProxyCall);
