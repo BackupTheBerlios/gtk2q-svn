@@ -620,8 +620,9 @@ paddfuncs = {
 			  p: PChar;
 			  l: Integer;
 			  itemraw: PWGdkPixbuf;
-			  error: WGError;
+			  error: PWGError;
 			begin
+			  error := nil;
 			  p := PChar(data);
 			  l := StrLen(p);
 			  
@@ -675,9 +676,10 @@ paddfuncs = {
 			var
 			  optionkeys: PPChar;
 			  optionvalues: PPChar;
-			  error: WGError;
+			  error: PWGError;
 			  i: Integer;
 			begin
+			  error := nil;
 			  HelperTGdkPixbufOptions(options, optionkeys, optionvalues);
 			  			  
 			  if (not gdk_pixbuf_save_to_callbackv(GetUnderlying, 
@@ -708,9 +710,10 @@ paddfuncs = {
 			var
 			  optionkeys: PPChar;
 			  optionvalues: PPChar;
-			  error: WGError;
+			  error: PWGError;
 			  i: Integer;
 			begin
+			  error := nil;
 			  HelperTGdkPixbufOptions(options, optionkeys, optionvalues);
 			  			  
 			  if (not gdk_pixbuf_savev(GetUnderlying, 
@@ -739,9 +742,10 @@ paddfuncs = {
 		"CreateFromFile": """
 		public constructor CreateFromFile(filename: string);
 		var
-		  error: WGError;
+		  error: PWGError;
 		  canimation: PWGdkPixbufAnimation;
 		begin
+		  error := nil;
 		  canimation := gdk_pixbuf_animation_new_from_file(PChar(filename), @error);
 		  if not Assigned(canimation) then
 		    HandleAndFreeGError(error, EGdkPixbufError);
