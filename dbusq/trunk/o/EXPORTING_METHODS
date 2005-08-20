@@ -1,0 +1,28 @@
+Exporting Methods Over The Bus
+
+Let's make this object do something and export a method over the bus.
+
+import gobject
+import dbus
+import dbus.service
+if getattr(dbus, 'version', (0,0,0)) >= (0,41,0):
+    import dbus.glib
+
+class HelloWorldObject(dbus.service.Object):
+    def __init__(self, bus_name,
+object_path='/org/freedesktop/HelloWorldObject'):
+        dbus.service.Object.__init__(self, bus_name, object_path)
+
+    @dbus.service.method('org.freedesktop.HelloWorldIFace')
+    def hello(self):
+        return 'Hello from the HelloWorldObject'
+      
+session_bus = dbus.SessionBus()
+bus_name = dbus.service.BusName('org.freedesktop.HelloWorld',
+bus=session_bus)
+object = HelloWorldObject(bus_name)
+
+mainloop = gobject.MainLoop()
+mainloop.run()
+
+

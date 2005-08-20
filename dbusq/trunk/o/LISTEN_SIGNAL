@@ -1,0 +1,53 @@
+import gobject 
+import dbus
+if getattr(dbus, 'version', (0,0,0)) >= (0,41,0):
+    import dbus.glib
+
+def device_added_callback(udi):
+    print 'Device with udi %s was added' % (udi)
+
+def device_removed_callback(udi):
+    print 'Device with udi %s was added' % (udi)
+
+def device_capability_callback(udi, capability):
+    print 'Device with udi %s added capability %s' % (udi, capability)
+
+bus = dbus.SystemBus()
+hal_manager_obj = bus.get_object('org.freedesktop.Hal', 
+                                 '/org/freedesktop/Hal/Manager')
+hal_manager = dbus.Interface(hal_manager_obj,
+                             'org.freedesktop.Hal.Manager')
+^--- weird. better:
+hal_manager = hal_manager_obj.interfaces["org.freedesktop.Hal.Manager"]
+
+hal_manager.connect_to_signal('DeviceAdded', device_added_callback)
+hal_manager.connect_to_signal('DeviceRemoved', device_removed_callback)
+hal_manager.connect_to_signal('NewCapability', device_capability_callback)
+
+mainloop = gobject.MainLoop()
+mainloop.run()
+
+ The drawback of using this method is that the service that you are
+connecting to has to be around when you register your signal handler. While
+HAL is guaranteed to be around on systems that use it this is not always the
+case for every service on the bus. Say our program started up before HAL, we
+could connect to the signal by adding a signal receiver directly to the bus.
+
+bus.add_signal_receiver(device_added_callback,
+                        'DeviceAdded',
+                        'org.freedesktop.Hal.Manager',
+                        'org.freedesktop.Hal',
+                        '/org/freedesktop/Hal/Manager')
+
+bus.add_signal_receiver(device_removed_callback,
+                        'DeviceRemoved',
+                        'org.freedesktop.Hal.Manager',
+                        'org.freedesktop.Hal',
+                        '/org/freedesktop/Hal/Manager')
+
+bus.add_signal_receiver(device_capability_callback,
+                        'DeviceAdded',
+                        'org.freedesktop.Hal.Manager',
+                        'org.freedesktop.Hal',
+                        '/org/freedesktop/Hal/Manager')
+

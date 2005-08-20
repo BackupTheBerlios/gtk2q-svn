@@ -1,0 +1,66 @@
+
+objects (names, like path)
+bus names
+message => call method, return error, result
+event
+
+app: unique connection name: unique name ":"*
+
+ask for additional well-known names "com.mycompany.TextEditor"
+
+Your definition could specify that to own this name, an application should
+have an object at the path /com/mycompany/TextFileManager supporting the
+interface org.freedesktop.FileHandler.
+
+You could think of the unique names as IP addresses, and the well-known
+names as domain names. So com.mycompany.TextEditor might map to something
+like :34-907 just as mycompany.com maps to something like 192.168.0.5.
+
+Names have a second important use, other than routing messages. They are
+used to track lifecycle. When an application exits (or crashes), its
+connection to the message bus will be closed by the operating system kernel.
+The message bus then sends out notification messages telling remaining
+applications that the application's names have lost their owner. By tracking
+these notifications, your application can reliably monitor the lifetime of
+other applications.
+
+addresses
+
+ A D-BUS address specifies where a server will listen, and where a client
+will connect. For example, the address unix:path=/tmp/abcdef specifies that
+the server will listen on a UNIX domain socket at the path /tmp/abcdef and
+the client will connect to that socket. An address can also specify TCP/IP
+sockets, or any other transport defined in future iterations of the D-BUS
+specification.
+
+ When using D-BUS with a message bus, the bus daemon is a server and all
+other applications are clients of the bus daemon. libdbus automatically
+discovers the address of the per-session bus daemon by reading an
+environment variable. It discovers the systemwide bus daemon by checking a
+well-known UNIX domain socket path (though you can override this address
+with an environment variable).
+
+If you're using D-BUS without a bus daemon, it's up to you to define which
+application will be the server and which will be the client, and specify a
+mechanism for them to agree on the server's address. 
+
+Big Conceptual Picture
+
+Pulling all these concepts together, to specify a particular method call on
+a particular object instance, a number of nested components have to be
+named:
+
+          Address -> [Bus Name] -> Path -> Interface -> Method
+        
+
+The bus name is in brackets to indicate that it's optional -- you only
+provide a name to route the method call to the right application when using
+the bus daemon. If you have a direct connection to another application, bus
+names aren't used; there's no bus daemon.
+
+The interface is also optional, primarily for historical reasons; DCOP does
+not require specifying the interface, instead simply forbidding duplicate
+method names on the same object instance. D-BUS will thus let you omit the
+interface, but if your method name is ambiguous it is undefined which method
+will be invoked. 
+

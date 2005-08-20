@@ -1,0 +1,31 @@
+Inheriting From dbus.service.Object
+
+In order to export a Python object over the bus one must first get a bus
+name and then create a Python object that inherits from dbus.service.Object.
+The following is the start of an example HelloWorld object that we want to
+export over the session bus.
+
+import gobject 
+import dbus
+import dbus.service
+if getattr(dbus, 'version', (0,0,0)) >= (0,41,0):
+    import dbus.glib
+
+class HelloWorldObject(dbus.service.Object):
+    def __init__(self, bus_name,
+object_path='/org/freedesktop/HelloWorldObject'):
+        dbus.service.Object.__init__(self, bus_name, object_path)
+
+session_bus = dbus.SessionBus()
+bus_name = dbus.service.BusName('org.freedesktop.HelloWorld',
+bus=session_bus)
+object = HelloWorldObject(bus_name)
+
+mainloop = gobject.MainLoop()
+mainloop.run()
+
+Here we got the session bus, then created a BusName object which requests a
+name on the bus. We pass that bus name to the HelloWorldObject object which
+inherits from dbus.service.Object. We now have an object on the bus but it
+is pretty useless.
+

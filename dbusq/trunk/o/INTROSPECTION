@@ -1,0 +1,13 @@
+proxy_obj.ListNames(dbus_interface = 'org.freedesktop.DBus')
+
+async:
+
+dbus_iface.ListNames(reply_handler=print_list_names_reply,
+error_handler=print_error)
+
+def print_list_names_reply(list):
+    print str(list) 
+
+def print_error(e):
+    print str(e)
+

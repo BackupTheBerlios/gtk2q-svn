@@ -1,0 +1,6 @@
+dbus_g_type_get_collection
+dbus_g_type_get_map
+GType        dbus_g_object_path_get_g_type         (void) G_GNUC_CONST;
+
+#define DBUS_TYPE_G_OBJECT_PATH (dbus_g_object_path_get_g_type ())
+

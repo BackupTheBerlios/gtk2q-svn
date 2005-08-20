@@ -1,0 +1,17 @@
+Signal matching on arguments
+
+Starting with D-Bus 0.36 and the (0, 43, 0) version of the python bindings
+you can now add a match on arguments being sent in a signal. This is useful
+for instance for only getting NameOwnerChanged signals for your service.
+Lets say we create a name on the bus called 'org.foo.MyName' we could also
+add a match to just get NameOwnerChanges for that name as such:
+
+bus.add_signal_receiver(myname_changed,
+                        'NameOwnerChanged',
+                        'org.freedesktop.DBus',
+                        'org.freedesktop.DBus',
+                        '/org/freedesktop/DBus',
+                        arg0='org.foo.MyName')
+
+It is as simple as that. To match the second arg you would use arg1=, the
+third arg2=, etc. 

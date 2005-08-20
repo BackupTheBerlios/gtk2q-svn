@@ -1,0 +1,59 @@
+#
+# Makefile.fpc
+
+[package]
+name=dbusq
+version=0.1.0
+
+[target]
+#programs=pas
+#dirs=static
+units=builddbusq 
+
+implicitunits= \
+static/iudbus \
+static/udbusbusname \
+static/udbusgconnection \
+static/udbusgproxy \
+static/udbusserviceobject \
+static/uwrapdbusnames
+
+[clean]
+units=builddbusq \
+static/iudbus \
+static/udbusbusname \
+static/udbusgconnection \
+static/udbusgproxy \
+static/udbusserviceobject \
+static/uwrapdbusnames
+# TODO add the other units
+
+[compiler]
+options=-dgtk2q_standalone -ddbusq_standalone \
+        -Mdelphi \
+        -Fu../../varrec \
+        -Fustatic -Fi. -Fistatic \
+        -g -XX -OG3 -vewni -l   
+
+#includedir=$(OS_TARGET) inc
+#sourcedir=$(OS_TARGET) inc
+
+[libs]
+libname=dbusq
+
+[install]
+buildunit=builddbusq
+fpcpackage=y
+
+[default]
+#fpcdir=.
+#rule=help
+
+[require]
+packages=rtl gtk2q
+
+#needs gtk2q 0.7.1
+# contnrs ?
+
+#nortl=y
+

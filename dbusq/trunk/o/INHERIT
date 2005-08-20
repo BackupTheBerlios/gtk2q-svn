@@ -1,0 +1,5 @@
+ One of the cool things you can do in Python is inherit from another D-BUS
+object. We use this trick in the bindings to provide a default
+implementation for the org.freedesktop.DBus.Introspectable interface. Let's
+inherit from the HelloWorldObject example above and overide the hello method
+to say goodbye.

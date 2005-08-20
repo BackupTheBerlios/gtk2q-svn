@@ -1,0 +1,9 @@
+#define DBUS_INTERFACE_DBUS           "org.freedesktop.DBus"
+#define DBUS_INTERFACE_INTROSPECTABLE "org.freedesktop.DBus.Introspectable"
+#define DBUS_INTERFACE_PROPERTIES     "org.freedesktop.DBus.Properties"
+#define DBUS_INTERFACE_PEER           "org.freedesktop.DBus.Peer"
+/* This is a special interface whose methods can only be invoked
+ * by the local implementation (messages from remote apps aren't
+ * allowed to specify this interface).
+ */
+#define DBUS_INTERFACE_LOCAL "org.freedesktop.DBus.Local"

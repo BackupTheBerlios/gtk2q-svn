@@ -1,0 +1,136 @@
+typedef struct _DBusGProxyCall DBusGProxyCall;
+typedef void (* DBusGProxyCallNotify) (DBusGProxy       *proxy,
+                                       DBusGProxyCall   *call_id,
+                                       void             *user_data);
+
+
+typedef struct _DBusGProxy       DBusGProxy;
+typedef struct _DBusGProxyClass  DBusGProxyClass;
+
+GType             dbus_g_proxy_get_type              (void) G_GNUC_CONST;
+DBusGProxy*       dbus_g_proxy_new_for_name          (DBusGConnection
+*connection,
+                                                      const char
+*name,
+                                                      const char
+*path,
+                                                      const char
+*interface);
+DBusGProxy*       dbus_g_proxy_new_for_name_owner    (DBusGConnection
+*connection,
+                                                      const char
+*name,
+                                                      const char
+*path,
+                                                      const char
+*interface,
+                                                      GError
+**error);
+DBusGProxy*       dbus_g_proxy_new_from_proxy        (DBusGProxy
+*proxy,
+                                                      const char
+*interface,
+                                                      const char
+*path_name);
+DBusGProxy*       dbus_g_proxy_new_for_peer          (DBusGConnection
+*connection,
+                                                      const char
+*path_name,
+                                                      const char
+*interface_name);
+
+void              dbus_g_proxy_set_interface         (DBusGProxy
+*proxy,
+                                                      const char
+*interface_name);
+void              dbus_g_proxy_add_signal            (DBusGProxy
+*proxy,
+                                                      const char
+*signal_name,
+                                                      GType
+first_type, 
+                                                      ...);
+
+void              dbus_g_proxy_connect_signal        (DBusGProxy
+*proxy,
+                                                      const char
+*signal_name,
+                                                      GCallback
+handler,
+                                                      void
+*data,   
+                                                      GClosureNotify
+free_data_func);
+void              dbus_g_proxy_disconnect_signal     (DBusGProxy
+*proxy,
+                                                      const char
+*signal_name,
+                                                      GCallback
+handler,
+                                                      void
+*data);  
+
+gboolean          dbus_g_proxy_call                  (DBusGProxy
+*proxy,
+                                                      const char
+*method,
+                                                      GError
+**error, 
+                                                      GType
+first_arg_type,
+                                                      ...);
+
+void              dbus_g_proxy_call_no_reply         (DBusGProxy
+*proxy,
+                                                      const char
+*method,
+                                                      GType
+first_arg_type,
+                                                      ...);
+
+DBusGProxyCall *  dbus_g_proxy_begin_call            (DBusGProxy
+*proxy,
+                                                      const char
+*method,
+                                                      DBusGProxyCallNotify
+notify,
+                                                      gpointer
+data,
+                                                      GDestroyNotify
+destroy,
+                                                      GType
+first_arg_type,
+                                                      ...);
+gboolean          dbus_g_proxy_end_call              (DBusGProxy
+*proxy,
+                                                      DBusGProxyCall
+*call, 
+                                                      GError
+**error,
+void              dbus_g_proxy_cancel_call           (DBusGProxy
+*proxy,
+                                                      DBusGProxyCall
+*call);
+
+const char*       dbus_g_proxy_get_path              (DBusGProxy
+*proxy);
+
+const char*       dbus_g_proxy_get_bus_name          (DBusGProxy
+*proxy);
+
+const char*       dbus_g_proxy_get_interface         (DBusGProxy
+*proxy);
+
+typedef struct _DBusGMethodInvocation DBusGMethodInvocation;
+
+void              dbus_g_method_return               (DBusGMethodInvocation
+*context, ...)
+
+void              dbus_g_method_return_error         (DBusGMethodInvocation
+*context, GError* error);
+
+/* Probably possible to replace this with a closure */
+typedef struct {
+  GCallback cb;
+  gpointer userdata;
+} DBusGAsyncData;

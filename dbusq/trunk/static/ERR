@@ -1,0 +1,32 @@
+{$ASSERTIONS ON}
+
+constructor EDBusGError.Create(gerror: Pointer);
+var
+  error: PWGError;
+begin
+  inherited Create(gerror);
+  error := PWGError(gerror);
+  EDBusErrorName := dbus_g_error_get_name(gobjectthatisalreadyfreed){const};
+  EDBusErrorText := Emessage;
+end;
+
+function EDBusGError.GetCode: TDBusErrorCode;
+begin
+  assert(Domain = dbus_g_error_quark);
+  Result := TDBusErrorCode(fCode);
+end;
+
+function EDBusGError.GetErrorName: UTF8String; (* dbus specific *)
+begin
+  assert(Domain = dbus_g_error_quark);
+  assert(Code = DBUS_GERROR_REMOTE_EXCEPTION);
+  Result := EDBusErrorName;
+end;
+
+function EDBusGError.GetErrorText: UTF8String; (* dbus specific *)
+begin
+  assert(Domain = dbus_g_error_quark);
+  assert(Code = DBUS_GERROR_REMOTE_EXCEPTION);
+  Result := EDBusErrorText;
+end;
+        

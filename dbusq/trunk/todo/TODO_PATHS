@@ -1,0 +1,4 @@
+/* Paths */
+#define DBUS_PATH_DBUS  "/org/freedesktop/DBus"
+#define DBUS_PATH_LOCAL "/org/freedesktop/DBus/Local"
+
