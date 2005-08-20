@@ -4,12 +4,12 @@ interface
 uses iugobject;
 
 type
-  DGConvertErrorCode = (ecNoConversion, ecIllegalSequence, ecFailed, ecPartialInput, ecBadURI, ecNotAbsolutePath);
+  TGConvertErrorCode = (ecNoConversion, ecIllegalSequence, ecFailed, ecPartialInput, ecBadURI, ecNotAbsolutePath);
   EGConvertError = class(EGError)
   public
-    function GetCode: DGConvertErrorCode; reintroduce;
+    function GetCode: TGConvertErrorCode; reintroduce;
   public
-    property Code: DGConvertErrorCode read GetCode; 
+    property Code: TGConvertErrorCode read GetCode; 
   end;
 
 (* TODO Stream Proxy that converts any/locale <-> UTF8 *)
@@ -222,9 +222,9 @@ end;
 
 { EGConvertError }
 
-function EGConvertError.GetCode: DGConvertErrorCode;
+function EGConvertError.GetCode: TGConvertErrorCode;
 begin
-  Result := DGConvertErrorCode(inherited GetCode);
+  Result := TGConvertErrorCode(inherited GetCode);
 end;
 
 end.
