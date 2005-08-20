@@ -28,7 +28,7 @@ type
     function Call(methodName: UTF8String; args: array of const): Boolean; (* raises exception *)
     procedure CallNoReply(methodName: UTF8String; args: array of const);
     
-    function BeginCall(methodName: UTF8String; notify: data: destroy; args: array of const): IDBusGProxyCall;
+    function BeginCall(methodName: UTF8String; notify: TDBusGProxyCallNotify; (* data, destroy *) args: array of const): IDBusGProxyCall;
     function EndCall(const call: IDBusGProxyCall; args: array of const{???}): Boolean; (* raises exception *)
     procedure CancelCall(const call: IDBusGProxyCall);
     
@@ -231,11 +231,11 @@ begin
   dbus_g_proxy_call_no_reply(fObject, FIXME);
 end;
     
-function TDBusGProxy.BeginCall(methodName: UTF8String; notify: data: destroy; args: array of const): IDBusGProxyCall;
+function TDBusGProxy.BeginCall(methodName: UTF8String; notify: TDBusGProxyCallNotify; args: array of const): IDBusGProxyCall;
 var
   cptr: Pointer;
 begin
-  cptr := dbus_g_proxy_begin_call(fObject, PChar(methodName), FIXME);
+  cptr := dbus_g_proxy_begin_call(fObject, PChar(methodName), cnotify, ?, FIXME);
   if Assigned(cptr) then begin
     Result := TDBusGProxyCall.CreateWrapped(Self, cptr);
   end else begin

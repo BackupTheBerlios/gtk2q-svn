@@ -25,7 +25,7 @@
     function Call(methodName: UTF8String; args: array of const): Boolean; (* raises exception *)
     procedure CallNoReply(methodName: UTF8String; args: array of const);
     
-    function BeginCall(methodName: UTF8String; notify: data: destroy; args: array of const): IDBusGProxyCall;
+    function BeginCall(methodName: UTF8String; notify: TDBusGProxyCallNotify; {data;} args: array of const): IDBusGProxyCall;
     function EndCall(const call: IDBusGProxyCall; args: array of const{???}): Boolean; (* raises exception *)
     procedure CancelCall(const call: IDBusGProxyCall);
     
