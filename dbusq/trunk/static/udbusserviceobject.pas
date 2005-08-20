@@ -4,7 +4,7 @@ interface
 uses iudbus;
 
 type
-  TDBusServiceObject = class(?, IDBusServiceObject, IGObject?, IInterface)
+  TDBusServiceObject = class(TGInterfacedObject, IDBusServiceObject, IGObject?, IInterface)
     constructor Create(const busname: IDBusBusname; path: UTF8String);
   end;
   

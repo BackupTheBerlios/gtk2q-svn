@@ -161,7 +161,9 @@ type
     TODO
   end;
   
-  WDBusGProxyCallNotify = function(?): ?;
+  PWDBusGProxy = PWGObject;
+  PWDBusGProxyCall = Pointer; // ??!
+  WDBusGProxyCallNotify = procedure(proxy: PWDBusGProxy; callId: PWDBusGProxyCall; userdata: Pointer); cdecl;
   
  
 implementation
