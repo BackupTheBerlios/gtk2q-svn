@@ -230,7 +230,7 @@ UNITSDIR:=$(wildcard $(FPCDIR)/units/$(OS_TARGET))
 endif
 PACKAGESDIR:=$(wildcard $(FPCDIR) $(FPCDIR)/packages/base $(FPCDIR)/packages/extra)
 override PACKAGE_NAME=gtk2q
-override PACKAGE_VERSION=0.6.0
+override PACKAGE_VERSION=0.7.1
 ifeq ($(FULL_TARGET),i386-linux)
 override TARGET_UNITS+=buildgtk2q
 endif

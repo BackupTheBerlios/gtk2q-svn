@@ -440,7 +440,7 @@ procedure g_strfreev(strarray: PPGChar); cdecl; external glib;
 //  PWGClosure = Pointer;
   // PWGValue -> ugvalue
 
-procedure HandleAndFreeGError(var error: WGError; eclass: EGErrorClass); (* raises exception. be careful. *)
+procedure HandleAndFreeGError(var error: PWGError; eclass: EGErrorClass); (* raises exception. be careful. *)
 
 implementation
 uses ugvalue;
@@ -510,18 +510,19 @@ begin
 end;
 
 
-procedure HandleAndFreeGError(var error: WGError; eclass: EGErrorClass); (* raises exception. be careful. *)
+procedure HandleAndFreeGError(var error: PWGError; eclass: EGErrorClass); (* raises exception. be careful. *)
 var
   msg: UTF8String;
   code: Integer;
   domain: Cardinal;
 begin
-  msg := PChar(error.message);
-  domain := error.domain;
-  code := error.code;
-  g_error_free(@error);
-  error.message := nil;
-  raise eclass.Create(domain, code, msg);
+  try
+    (*error.message := nil;*)
+    raise eclass.Create(Pointer(error));
+  finally
+    g_error_free(error);
+    error := nil;
+  end;
 end;
 
 procedure AssertGInstanceStructSize(ithinksize: Cardinal; gtype: TGType);

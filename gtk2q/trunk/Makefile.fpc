@@ -3,7 +3,7 @@
 
 [package]
 name=gtk2q
-version=0.6.0
+version=0.7.1
 
 [target]
 #programs=pas

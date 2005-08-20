@@ -32,6 +32,7 @@ type
     property Code: Integer read GetCode;
     property Message: UTF8String read Emessage;
     constructor Create(domain: Cardinal; code: Integer; message: UTF8String); overload; (* actually pgchar *)
+    constructor Create(gerror: Pointer); overload;
   end;
   EGErrorClass = class of EGError;
 
@@ -92,14 +93,28 @@ type
 (*no ENDIF need_igclosure*)
 
 implementation
+uses uwrapgnames;
 
 { EGError }
+
+constructor EGError.Create(gerror: Pointer);
+var
+  error: PWGError;
+begin
+  error := PWGError(gerror);
+  
+  Emessage := PChar(error.message);
+  Edomain := error.domain;
+  Ecode := error.code;
+  
+  inherited Create(Emessage);
+end;
 
 constructor EGError.Create(domain: Cardinal; code: Integer;
   message: UTF8String);
 begin
-  inherited Create(Emessage);
   Emessage := message;
+  inherited Create(Emessage);
   Edomain := domain;
   Ecode := code;
 end;

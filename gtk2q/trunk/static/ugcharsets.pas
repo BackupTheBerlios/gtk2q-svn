@@ -98,9 +98,10 @@ function g_get_charset ({constreturn} charset: PPGChar): gboolean; cdecl; extern
 
 function FilenameToUTF8(const filename: string): UTF8String; (* exception *)
 var
-  error: WGError;
+  error: PWGError;
   aglist: PGChar;
 begin
+  error := nil;
   aglist := g_filename_to_utf8(PGChar(PChar(filename)), -1, nil, nil, @error);
   if not Assigned(aglist) then
     HandleAndFreeGError(error, EGConvertError); (* raises *)
@@ -111,9 +112,10 @@ end;
 
 function UTF8ToFilename(const s: UTF8String): string; (* exception *)
 var
-  error: WGError;
+  error: PWGError;
   aglist: PGChar;
 begin
+  error := nil;
   aglist := g_filename_from_utf8(PGChar(PChar(s)), -1, nil, nil, @error);
   if not Assigned(aglist) then
     HandleAndFreeGError(error, EGConvertError); (* raises *)
@@ -124,9 +126,10 @@ end;
 
 function FilenameToURI(const filename: string; const hostname: string): string;  (* exception *)
 var
-  error: WGError;
+  error: PWGError;
   aglist: PGChar;
 begin
+  error := nil;
   (* TODO NULL for no hostname *)
   aglist := g_filename_to_uri(PGChar(PChar(filename)), PGChar(PChar(hostname)), @error);
   if not Assigned(aglist) then
@@ -138,10 +141,11 @@ end;
 
 function URIToFilename(const uri: string; out hostname: string): string; (* exception *)
 var
-  error: WGError;
+  error: PWGError;
   chostname: PGChar;
   aglist: PGChar;
 begin
+  error := nil;
   aglist := g_filename_from_uri(PGChar(PChar(uri)), @chostname, @error);
   if not Assigned(aglist) then
     HandleAndFreeGError(error, EGConvertError); (* raises *)
@@ -156,9 +160,10 @@ end;
 
 function LocaleToUTF8(const s: string): UTF8String; (* exception *)
 var
-  error: WGError;
+  error: PWGError;
   aglist: PGChar;
 begin
+  error := nil;
   aglist := g_locale_to_utf8(PGChar(PChar(s)), -1, nil, nil, @error);
   if not Assigned(aglist) then
     HandleAndFreeGError(error, EGConvertError); (* raises *)
@@ -169,9 +174,11 @@ end;
 
 function UTF8ToLocale(const s: UTF8String): string; (* exception *)
 var
-  error: WGError;
+  error: PWGError;
   aglist: PGChar;
 begin
+  error := nil;
+
   aglist := g_locale_from_utf8(PGChar(PChar(s)), -1, nil, nil, @error);
   if not Assigned(aglist) then
     HandleAndFreeGError(error, EGConvertError); (* raises *)
