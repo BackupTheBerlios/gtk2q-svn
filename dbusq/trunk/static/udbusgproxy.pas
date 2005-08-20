@@ -3,7 +3,18 @@ unit udbusgproxy;
 interface
 uses iudbus, iug;
 
-type
+type  
+  TDBusGProxyCall = class(TGInterfacedObject, IDBusGProxyCall, IPointerMediator, IInterface)
+  protected
+    fOwner: IDBusProxy;
+    function GetOwner: IDBusProxy;
+  public
+    constructor Create(const owner: IDBusProxy; lowlevel: Pointer);
+    destructor Destroy; override;
+  published
+    property Owner: IDBusProxy read GetOwner;
+  end;
+  
   TDBusGProxy = class(TGInterfacedObject, IDBusGProxy, IGObject, IInterface)
     constructor CreateForName(const connection: IDBusGConnection; name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
     constructor CreateForNameOwner(const connection: IDBusGConnection; name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
@@ -133,6 +144,28 @@ procedure dbus_g_method_return_error         (DBusGMethodInvocation *context, GE
 
 {$ENDIF gtk2q_standalone}
 
+
+constructor TDBusGProxyCall.Create(const owner: IDBusProxy; lowlevel: Pointer);
+begin
+  fOwner := owner;
+  inherited Create(lowlevel);
+end;
+
+destructor TDBusGProxyCall.Destroy;
+begin
+  if Assigned(fOwner) then begin
+    fOwner.CancelCall(Self);
+    fOwner := nil;
+  end;
+  
+  inherited Destroy;
+end;
+
+function TDBusGProxy.GetOwner: IDBusProxy;
+begin
+  Result := fOwner;
+end;
+
 constructor TDBusGProxy.CreateForName(const connection: IDBusGConnection; name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
 begin
   inherited Create;
@@ -183,10 +216,14 @@ begin
   dbus_g_proxy_disconnect_signal(fObject, FIXME);
 end;
     
-function TDBusGProxy.Call(methodName: UTF8String; args: array of const): Boolean; (* raises exception *)
+procedure TDBusGProxy.Call(methodName: UTF8String; args: array of const); (* raises exception *)
+var
+  error: PWGError;
 begin
-  Result := dbus_g_proxy_call(fObject, FIXME);
-  TODO exception ?
+  error := nil;
+  if not dbus_g_proxy_call(fObject, PChar(methodName), @error, FIXME) then begin
+    HandleAndFreeGError(error, EDBusGError);
+  end;
 end;
 
 procedure TDBusGProxy.CallNoReply(methodName: UTF8String; args: array of const);
@@ -195,15 +232,25 @@ begin
 end;
     
 function TDBusGProxy.BeginCall(methodName: UTF8String; notify: data: destroy; args: array of const): IDBusGProxyCall;
+var
+  cptr: Pointer;
 begin
-  Result := dbus_g_proxy_begin_call(fObject, PChar(methodName), FIXME);
-  TODO exception ?
+  cptr := dbus_g_proxy_begin_call(fObject, PChar(methodName), FIXME);
+  if Assigned(cptr) then begin
+    Result := TDBusGProxyCall.CreateWrapped(Self, cptr);
+  end else begin
+    HandleAndFreeGError(error, EDBusGError); (* raises exception *)
+  end;
 end;
 
-function TDBusGProxy.EndCall(const call: IDBusGProxyCall; args: array of const{???}): Boolean; (* raises exception *)
+procedure TDBusGProxy.EndCall(const call: IDBusGProxyCall; args: array of const{???}): Boolean; (* raises exception *)
+var
+  error: PWGError;
 begin
-  Result := dbus_g_proxy_end_call(fObject, call.GetUnderlying, FIXME);
-  TODO exception ?
+  error := nil;
+  if not dbus_g_proxy_end_call(fObject, call.GetUnderlying, @error, FIXME) then begin
+    HandleAndFreeGError(error, EDBusGError); (* raises exception *)
+  end;
 end;
 
 procedure TDBusGProxy.CancelCall(const call: IDBusGProxyCall);

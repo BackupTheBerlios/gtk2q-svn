@@ -3,9 +3,11 @@
 (*$ENDIF define_consts*)
 
 (*$IFDEF define_types*)
-  IDBusGProxyCall = interface
+  IDBusGProxyCall = interface(IPointerMediator)
     ['{DB3214BC-1184-11DA-8739-00055DDDEA00}']
-    // TODO
+    function GetOwner: IDBusGProxy;
+    property Owner: IDBusGProxy read GetOwner;
+    // strong owner ref
   end;
   
   IDBusGProxy = interface(IGObject)
