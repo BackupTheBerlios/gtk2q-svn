@@ -1,0 +1,10 @@
+
+This is an pascal binding generator for Freepascal and Delphi.
+
+Its written in python 2.4, however.
+
+Homepage is http://developer.berlios.de/projects/gtk2q/
+
+Author is Danny Milosavljevic <danny_milo@yahoo.com>
+
+License is LGPL
