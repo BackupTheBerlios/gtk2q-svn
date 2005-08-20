@@ -4,9 +4,9 @@
 
 (*$IFDEF define_types*)
 
-  IDBusServiceObject = interface(?)
+  IDBusServiceObject = interface(IGObject)
     ['{4F3D5DE0-117F-11DA-8E19-00055DDDEA00}']
-    
+    // TODO
   end;
 (*$ENDIF define_types*)
 

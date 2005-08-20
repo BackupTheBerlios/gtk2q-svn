@@ -5,7 +5,7 @@ uses iudbus;
 
 type
   TDBusBusname = class(TGInterfacedObject, IDBusBusname, IGObject, IInterface)
-    TODO
+    // TODO
   end;
 
 implementation

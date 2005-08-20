@@ -5,7 +5,7 @@
 (*$IFDEF define_types*)
   IDBusGProxyCall = interface
     ['{DB3214BC-1184-11DA-8739-00055DDDEA00}']
-    TODO
+    // TODO
   end;
   
   IDBusGProxy = interface(IGObject)
