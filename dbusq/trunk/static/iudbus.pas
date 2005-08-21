@@ -1,12 +1,13 @@
 unit iudbus;
 
 interface
+uses iug, iugobject;
 
 const
   DBUS_DUMMY = 7;
 
 {$DEFINE define_consts}
-{$INCLUDE static/dbusincludes.inc}
+{$INCLUDE dbusincludes.inc}
 {$UNDEF define_consts}
 
 type
@@ -29,7 +30,7 @@ type
 
   
 {$DEFINE define_types}
-{$INCLUDE static/dbusincludes.inc}
+{$INCLUDE dbusincludes.inc}
 {$UNDEF define_types}
 
 type
@@ -38,7 +39,7 @@ type
 implementation
 
 {$DEFINE define_implementation}  
-{not $INCLUDE static/dbusincludes.inc}
+{not $INCLUDE dbusincludes.inc}
 {$UNDEF define_implementation}
 
 {$ASSERTIONS ON}
