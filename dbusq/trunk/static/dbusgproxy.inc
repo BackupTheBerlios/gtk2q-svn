@@ -12,10 +12,11 @@
   
   IDBusGProxy = interface(IGObject)
     ['{9FA28720-1183-11DA-8783-00055DDDEA00}']
-    constructor CreateForName(connection: IDBusGConnection; name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
-    constructor CreateForNameOwner(name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
-    constructor CreateFromProxy(const proxy: IDBusGProxy; pathName: UTF8String; interfaceName: UTF8String);
-    constructor CreateForPeer(pathName: UTF8String; interfaceName: UTF8String);
+    //constructor CreateForName(connection: IDBusGConnection; name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
+    //constructor CreateForNameOwner(name: UTF8String; pathName: UTF8String; interfaceName: UTF8String);
+    //constructor CreateFromProxy(const proxy: IDBusGProxy; pathName: UTF8String; interfaceName: UTF8String);
+    //constructor CreateForPeer(pathName: UTF8String; interfaceName: UTF8String);
+    
     procedure SetInterface(interfaceName: UTF8String); (* ????? FIXME *)
     procedure AddSignal(signalName: UTF8String; types: array of const); (* ????? FIXME *)
     

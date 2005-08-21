@@ -1,7 +1,7 @@
 unit iudbus;
 
 interface
-uses iug, iugobject;
+uses iug, iugobject, iupointermediator, udbustypes;
 
 const
   DBUS_DUMMY = 7;
