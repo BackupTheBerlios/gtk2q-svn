@@ -28,13 +28,10 @@ type
     property OldMessage: UTF8String read Emessage;
   end;
 
-  
 {$DEFINE define_types}
 {$INCLUDE dbusincludes.inc}
 {$UNDEF define_types}
 
-type
-  {$INCLUDE objdbuscallback.inc}
 
 implementation
 

@@ -38,7 +38,7 @@
     
     property Path: UTF8String read GetPath;
     property Busname: UTF8String read GetBusname;
-    property Interface: UTF8String read GetInterface write SetInterface; (* ugh. *)
+    property Interface1: UTF8String read GetInterface write SetInterface; (* ugh. *)
     
   end;
 (*$ENDIF define_types*)
