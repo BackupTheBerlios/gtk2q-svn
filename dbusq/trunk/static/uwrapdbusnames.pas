@@ -23,12 +23,16 @@ type
 (*  WDBusBusType = (bSession, bSystem, bStarter); *)
   
 
+(*
 DBUS_SERVICE_DBUS
 DBUS_PATH_DBUS
 DBUS_INTERFACE_DBUS
+*)
 
+(*
 DBUS_GERROR == gerror domain
 DBUS_GERROR_REMOTE_EXCEPTION == gerror code
+*)
                                              
 function dbus_g_bus_get(which: WDBusBusType; 
                         outerror: PPWGError
