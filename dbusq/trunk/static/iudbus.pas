@@ -34,6 +34,7 @@ type
 
 
 implementation
+uses uwrapdbusnames, uwrapgnames;
 
 {$DEFINE define_implementation}  
 {not $INCLUDE dbusincludes.inc}
@@ -60,14 +61,14 @@ end;
 function EDBusGError.GetErrorName: UTF8String; (* dbus specific *)
 begin
   assert(Domain = dbus_g_error_quark);
-  assert(Code = DBUS_GERROR_REMOTE_EXCEPTION);
+  assert(Code = ecRemoteException);
   Result := EDBusErrorName;
 end;
 
 function EDBusGError.GetErrorText: UTF8String; (* dbus specific *)
 begin
   assert(Domain = dbus_g_error_quark);
-  assert(Code = DBUS_GERROR_REMOTE_EXCEPTION);
+  assert(Code = ecRemoteException);
   Result := EDBusErrorText;
 end;
         

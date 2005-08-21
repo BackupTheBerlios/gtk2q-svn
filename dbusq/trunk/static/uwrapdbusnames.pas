@@ -29,13 +29,7 @@ DBUS_INTERFACE_DBUS
 
 DBUS_GERROR == gerror domain
 DBUS_GERROR_REMOTE_EXCEPTION == gerror code
-  gboolean         dbus_g_error_has_name    (GError      *error,
-                                             const char  *name);
                                              
-  dbus_g_error_get_name(gerror)
-  gerror->message
-  
-
 function dbus_g_bus_get(which: WDBusBusType; 
                         outerror: PPWGError
 ): PWDBusGConnection; cdecl;
@@ -73,10 +67,38 @@ function dbus_g_error_quark; TGQuark; cdecl;
                           G_TYPE_VALUE, &val, G_TYPE_INVALID))
 *)
 
-dbus_g_proxy_begin_call  ;cdecl;
-dbus_g_proxy_connect_signal ;cdecl;
-dbus_g_proxy_add_signal ;cdecl;
-dbus_g_object_register_marshaller ; cdecl;
+function dbus_g_proxy_begin_call(proxy: PWDBusGProxy;
+                                 method1: {const} PChar;
+                                 notify1: WDBusGProxyCallNotify;
+                                 destroy1: WGDestroyNotify;
+                                 firstArg: TGType;
+                                 args: array of const
+): PWDBusGProxyCall; cdecl;
+
+function dbus_g_proxy_end_call(proxy: PWDBusGProxy;
+                               call1: WDBusGProxyCall;
+                               outerror: PPWGError;
+                               firstArg: TGType;
+                               args: array of const
+): gboolean; cdecl;
+
+procedure dbus_g_proxy_connect_signal(proxy: PWDBusGProxy;
+                                      signalName: {const} PChar;
+                                      callback1: WGCallback;
+                                      data: Pointer;
+                                      freeData: WGClosureNotify
+); cdecl;
+
+procedure dbus_g_proxy_add_signal(proxy: PWDBusGProxy;
+                                  signalName: {const} PChar;
+                                  firstArg: TGType;
+                                  args: array of const
+); cdecl;
+
+procedure dbus_g_object_register_marshaller(proxy: PWDBusGProxy;
+                                            marshaller1: WGClosureMarshal
+); cdecl;
+
 function dbus_g_error_has_name(error: PWGError; name: PChar): gboolean; cdecl;
 function dbus_g_error_has_name(error: PWGError; name: PChar): PChar(*const*); cdecl;
 
@@ -165,7 +187,115 @@ type
   PWDBusGProxyCall = Pointer; // ??!
   WDBusGProxyCallNotify = procedure(proxy: PWDBusGProxy; callId: PWDBusGProxyCall; userdata: Pointer); cdecl;
   
- 
+const
+(*$IFDEF WIN32*)
+  dbusglib = 'libdbus-glib-1-0.dll'; (* not available *)
+  dbuslib = 'libdbus-1-0.dll';
+(*$ELSE*)
+  dbusglib = 'libdbus-glib-1.so.1'; 
+  dbuslib = 'libdbus-1.so.1';
+(*$ENDIF WIN32*)
+
 implementation
+
+function dbus_g_bus_get(which: WDBusBusType; 
+                        outerror: PPWGError
+): PWDBusGConnection; cdecl; external dbusglib;
+
+function dbus_g_proxy_new_for_name(
+  connection: PWDBusGConnection; 
+  serviceName: UTF8String; 
+  objectPath: UTF8String;
+  interface1Name: UTF8String): PWDBusGProxy; cdecl; external dbusglib;
+
+function dbus_g_proxy_call(proxy: PWDBusGProxy;
+                           name: PG?Char;
+                           outerror: PWGError;
+                           send: array of const (* terminated by G_TYPE_INVALID *),
+                           receive: array of const (* terminated by G_TYPE_INVALID *),
+): gboolean; cdecl;external dbusglib;
+
+function dbus_g_error_quark; TGQuark; cdecl;external dbusglib;
+
+(* ex.
+ if (!dbus_g_proxy_call (proxy, "Foobar", &error,
+                          G_TYPE_INT, 42, G_TYPE_STRING, "hello",
+			  G_TYPE_INVALID,
+			  DBUS_TYPE_G_UCHAR_ARRAY, &arr, G_TYPE_INVALID))
+    {
+*)
+(* DBUS_TYPE_G_UCHAR_ARRAY -> & GArray* *)
+(* DBUS_TYPE_G_STRING_STRING_HASH -> GHashTable *)
+(* G_TYPE_STRV -> null terminated array of char* *)
+(* variant:
+
+ GValue val = {0, };
+
+ if (!dbus_g_proxy_call (proxy, "GetVariant", &error, G_TYPE_INVALID,
+                          G_TYPE_VALUE, &val, G_TYPE_INVALID))
+*)
+
+function dbus_g_proxy_begin_call(proxy: PWDBusGProxy;
+                                 method1: {const} PChar;
+                                 notify1: WDBusGProxyCallNotify;
+                                 destroy1: WGDestroyNotify;
+                                 firstArg: TGType;
+                                 args: array of const
+): PWDBusGProxyCall; cdecl;external dbusglib;
+
+function dbus_g_proxy_end_call(proxy: PWDBusGProxy;
+                               call1: WDBusGProxyCall;
+                               outerror: PPWGError;
+                               firstArg: TGType;
+                               args: array of const
+): gboolean; cdecl;external dbusglib;
+
+procedure dbus_g_proxy_connect_signal(proxy: PWDBusGProxy;
+                                      signalName: {const} PChar;
+                                      callback1: WGCallback;
+                                      data: Pointer;
+                                      freeData: WGClosureNotify
+); cdecl;external dbusglib;
+
+procedure dbus_g_proxy_add_signal(proxy: PWDBusGProxy;
+                                  signalName: {const} PChar;
+                                  firstArg: TGType;
+                                  args: array of const
+); cdecl;external dbusglib;
+
+procedure dbus_g_object_register_marshaller(proxy: PWDBusGProxy;
+                                            marshaller1: WGClosureMarshal
+); cdecl;external dbusglib;
+
+function dbus_g_error_has_name(error: PWGError; 
+name: PChar): gboolean; cdecl;external dbusglib;
+
+function dbus_g_error_has_name(error: PWGError; 
+name: PChar): PChar(*const*); cdecl;external dbusglib;
+
+procedure dbus_g_error_domain_register(domain: TGQuark;
+                                       {const} defaultInterface: PChar;
+                                      codeEnum: TGType
+); cdecl;external dbusglib;
+
+procedure dbus_g_connection_register_g_object(connection: PWDBusGConnection;
+                                              {const} atPath: PChar;
+                                              object1: PWGObject
+); cdecl;external dbusglib;
+
+function dbus_g_connection_lookup_g_object(connection; PWDBusGConnection;
+                                           {const} atPath: PChar
+): PWGObject; cdecl;external dbusglib;
+
+procedure dbus_g_object_register_marshaller(marshaller: WGClosureMarshal;
+                                            rettype: TGType;
+                                            args: array of const
+); cdecl;external dbusglib;
+
+procedure dbus_g_object_register_marshaller_array(marshaller: WGClosureMarshal;
+                                                  rettype: TGType;
+                                                  ntypes: guint;
+                                                  const types: PGType{array}
+); cdecl;external dbusglib;
 
 end.
