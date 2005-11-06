@@ -17,8 +17,8 @@ type
     {paddmembervars}
   protected
     #signal#
-    FSignal{signalname}: {signalclass};
-    FCreateLockSignal{signalname}: Integer;
+    fSignal{signalname}: {signalclass};
+    fCreateLockSignal{signalname}: Integer;
     #/signal#
 #constructable#
     procedure constructWrapped; override;
@@ -39,8 +39,8 @@ type
   protected
     #propertyread#
   protected
-    FSignal{pprop}Changed: DPropertyChangedSignal;
-    FCreateLockSignal{pprop}Changed: Integer;
+    fSignal{pprop}Changed: DPropertyChangedSignal;
+    fCreateLockSignal{pprop}Changed: Integer;
 
     function Get{pprop}Property: {pproptype};
     function Get{pprop}ChangedSignal: DPropertyChangedSignal;
@@ -89,7 +89,7 @@ type
 implementation
 uses utyperegistry, uincdec{pimpuses};
 
-(*$INCLUDE static/clinksettings.inc*)
+(*$INCLUDE ../../static/clinksettings.inc*)
 
 {pexternfuncs}
 
@@ -116,11 +116,11 @@ function {pclass}.Get{pprop}ChangedSignal: DPropertyChangedSignal;
 begin
   if not Assigned(FSignal{pprop}Changed) then begin
     if InterlockedIncrement(FCreateLockSignal{pprop}Changed) = 1 then
-      FSignal{pprop}Changed := DPropertyChangedSignal.Create(Self, 'notify::{gprop}');
+      fSignal{pprop}Changed := DPropertyChangedSignal.Create(Self, 'notify::{gprop}');
 
     InterlockedDecrement(FCreateLockSignal{pprop}Changed);
   end;
-  Result := FSignal{pprop}Changed;
+  Result := fSignal{pprop}Changed;
 end;
 
 function {pclass}.Get{pprop}Property: {pproptype};
@@ -381,11 +381,11 @@ function {pclass}.Get{signalname}Signal: {signalclass};
 begin
   if not Assigned(FSignal{signalname}) then begin
     if InterlockedIncrement(FCreateLockSignal{signalname}) = 1 then
-      FSignal{signalname} := {signalclass}.Create(Self, '{gsignalname}');
+      fSignal{signalname} := {signalclass}.Create(Self, '{gsignalname}');
 
     InterlockedDecrement(FCreateLockSignal{signalname});
   end;
-  Result := FSignal{signalname};
+  Result := fSignal{signalname};
 end;	
 #/signal#
 
