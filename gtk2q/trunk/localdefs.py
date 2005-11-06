@@ -83,10 +83,13 @@ cskipsignals = [
 
 # properties that are to be skipped and not be wrapped (f.e. deprecated properties)
 cskipprops = [
+  "GtkFileFilter.name", # that is a stupid name for the property. renaming to "Caption"
 ]
 
 # externals to force
 forceexternals = [
+  "gtk_file_filter_get_name",
+  "gtk_file_filter_set_name",
 ]
 
 paddmembervars = {
@@ -94,10 +97,34 @@ paddmembervars = {
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
 paddfuncs = {
+  "GtkFileFilter": {
+    "GetCaption": """
+      protected function GetCaption: UTF8String;
+      var
+        cname: PGChar;
+      begin
+        cname := gtk_file_filter_get_name(fObject);
+        if Assigned(cname) then begin
+          Result := PChar(cname);
+          // not g_free
+        end else 
+          Result := '';
+      end;
+    """,
+    "SetCaption": """
+      protected procedure SetCaption(const value: UTF8String);
+      begin 
+        gtk_file_filter_set_name(fObject, PGChar(PChar(value)));
+      end;
+    """,
+  }
 }
 
 # properties to add (C class: {pascal property name:  pascal property line})
 paddprops = {
+  "GtkFileFilter": {
+    "Caption": "public property Caption: UTF8String read GetCaption write SetCaption;",
+  }
 }
 
 # functions to be skipped and not be wrapped
