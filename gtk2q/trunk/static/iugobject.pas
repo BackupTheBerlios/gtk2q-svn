@@ -5,7 +5,7 @@ uses sysutils, ugtypes;
 
 {$M+} // RTTI type info
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 type
   EUserDataNotFound = class(Exception)
@@ -85,10 +85,10 @@ type
 
 (*no IFDEF need_igclosure*)
 {$DEFINE define_consts}
-{$INCLUDE static/iugclosure.inc}
+{$INCLUDE iugclosure.inc}
 {$UNDEF define_consts}
 {$DEFINE define_types}
-{$INCLUDE static/iugclosure.inc}
+{$INCLUDE iugclosure.inc}
 {$UNDEF define_types}
 (*no ENDIF need_igclosure*)
 

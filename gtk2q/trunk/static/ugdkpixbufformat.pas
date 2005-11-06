@@ -33,7 +33,7 @@ type
 implementation
 uses uwrapgnames, uwrapgdknames, uwrapgdkpixbufnames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 function gdk_pixbuf_format_get_description(fmt: PWGdkPixbufFormat): PGChar; cdecl; external gdkpixbuflib; // not const

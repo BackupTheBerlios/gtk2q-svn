@@ -6,7 +6,7 @@ unit uwrapgdknames;
 interface
 uses ugdktypes, ugtypes, uwrapgnames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 const
 (*$IFDEF WIN32*)
@@ -377,7 +377,7 @@ procedure gdk_keyboard_ungrab(time: guint32); cdecl;
 
 implementation
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 function gdk_colormap_get_type: TGType; cdecl; // hack
 begin

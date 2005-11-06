@@ -14,7 +14,7 @@ type
 implementation
 uses uwrapgnames, uwrapgtknames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 

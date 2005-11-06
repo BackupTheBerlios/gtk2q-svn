@@ -3,7 +3,7 @@ unit uwrapgladenames;
 interface
 uses uwrapgnames, ugtypes, uwrapgdknames, uwrapgtknames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 const 
 (*$IFDEF WIN32*)

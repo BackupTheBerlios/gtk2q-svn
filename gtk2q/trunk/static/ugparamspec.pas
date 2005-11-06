@@ -294,7 +294,7 @@ function ParamSpecCreateWrapped(pspec: PGParamSpec): IGParamSpec; // tries to ch
 implementation
 uses uwrapgnames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 

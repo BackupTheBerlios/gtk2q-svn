@@ -10,7 +10,7 @@ function ErrorQuarkToClass(domain: TGQuark): TGObjectClass;
 implementation
 uses ugdkpixbuf, ugtkfilechooser, ugtkicontheme, ugtkfilesystem;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 function gdk_pixbuf_error_quark(): TGQuark; cdecl; external gdkpixbuflib;

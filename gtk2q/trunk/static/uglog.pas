@@ -24,7 +24,7 @@ procedure InstallLogHandler;
 implementation
 uses uwrapgnames, ugtypes;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 type
   TGLogLevelFlags = gint;

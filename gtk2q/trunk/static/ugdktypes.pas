@@ -3,7 +3,7 @@ unit ugdktypes;
 interface
 uses ugtypes;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 type
   TGdkAtom = GULong;
@@ -123,7 +123,7 @@ type
          *)
         mtRelease = 30
   );
-{$INCLUDE output/gdk/gdkenums.inc}
+{$INCLUDE ../output/gdk/gdkenums.inc}
   TGdkFilterFunc = function(gdkxevent: Pointer; gdkevent: Pointer; data: Pointer): TGdkFilterReturn; stdcall;
   TGdkSpanFunc = procedure(span: Pointer; userdata: Pointer);
   TGdkSubwindowMode = (smClip, smInferiors);
@@ -161,7 +161,7 @@ const
   // TGdkEventMask
   emMask = $3FFFFE;
 
-{$INCLUDE static/ugdkevents.inc}
+{$INCLUDE ugdkevents.inc}
 
 
 implementation

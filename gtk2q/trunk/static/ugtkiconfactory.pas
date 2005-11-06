@@ -28,7 +28,7 @@ type
 implementation
 uses uwrapgnames, uwrapgtknames, ugtypes, ugtkiconset, utyperegistry;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 

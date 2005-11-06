@@ -3,7 +3,7 @@ unit ugtkstock;
 interface
 uses ugdktypes, ugtypes, sysutils, iugtkstock;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef unittest}
 type

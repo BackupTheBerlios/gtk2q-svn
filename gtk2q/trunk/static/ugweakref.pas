@@ -49,7 +49,7 @@ type
 implementation
 uses uwrapgnames, uincdec, utyperegistry, sysutils;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 procedure g_object_weak_ref(obj: PWGObject; notify: WGWeakNotify; data: Pointer); cdecl; external gobjectlib;

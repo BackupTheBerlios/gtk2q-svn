@@ -3,7 +3,7 @@ unit ugdkpixbuftypes;
 interface
 uses ugtypes, uwrapgnames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 type
   TGdkPixbufModulePattern = record

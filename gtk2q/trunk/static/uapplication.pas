@@ -43,7 +43,7 @@ implementation
 uses uwrapgnames, uwrapgdknames, uwrapgtknames, uargv, uginit, uglog, 
 sysutils{$IFDEF DELPHI}, windows{$ENDIF DELPHI};
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 type

@@ -59,7 +59,7 @@ uses utyperegistry
 (*$ENDIF FPCOOLD*)
 ;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 function g_value_init(value: PWGValue; g_type: TGType): PWGValue; cdecl; external gobjectlib;
@@ -284,7 +284,7 @@ end;
 
 function gValueToVariant(const gvalue: WGValue): Variant;
 var
-  vint: Integer;
+  vint: gint; (*Integer;*)
   vuint: guint;
   vbool: Boolean;
   vstring: UTF8String;

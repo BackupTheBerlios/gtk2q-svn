@@ -54,7 +54,7 @@ function TGtkFileChooserDialogCreateWrapped(ptr: PGObject): IGtkFileChooserDialo
 implementation
 uses ugtypes, uwrapgnames, uwrapgtknames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 function gtk_file_chooser_get_action(chooser: PGtkFileChooser); cdecl; external gtklib;

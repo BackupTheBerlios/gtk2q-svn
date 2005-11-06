@@ -1,1 +1,0 @@
-valgrind -v --db-attach=yes --tool=memcheck /usr/bin/ppc386 -dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone -Mdelphi -Fu../../varrec -Fustatic -Fi. -Fistatic -Fioutput/gdk -Fioutput/gtk -Fioutput/gdk-pixbuf -Fuoutput/gdk-pixbuf -Fuoutput/gdk -Fuoutput/gtk -g -XX -OG3 -vewni -l -Fu/usr/lib/fpc/2.1.1/units/i386-linux/rtl -FE. -FUunits/i386-linux -di386 buildgtk2q.pas

@@ -31,7 +31,7 @@ type
 implementation
 uses utyperegistry,uwrapgnames,uwrapgdknames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 (* some here were "const" *)

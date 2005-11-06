@@ -35,7 +35,7 @@ type
 implementation
 uses uwrapgladenames, uwrapgnames, uwrapgtknames, utyperegistry;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 type

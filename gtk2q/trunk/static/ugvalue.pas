@@ -5,7 +5,7 @@ unit ugvalue;
 interface
 uses ugtypes;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 type
    PWGValue = ^WGValue;

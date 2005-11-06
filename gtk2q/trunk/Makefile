@@ -243,7 +243,7 @@ endif
 override INSTALL_BUILDUNIT=buildgtk2q
 override INSTALL_FPCPACKAGE=y
 ifeq ($(FULL_TARGET),i386-linux)
-override COMPILER_OPTIONS+=-dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone -Mdelphi -Fu../../varrec -Fustatic -Fi. -Fistatic -Fioutput/gdk -Fioutput/gtk -Fioutput/gdk-pixbuf -Fuoutput/gdk-pixbuf -Fuoutput/gdk -Fuoutput/gtk -g -XX -OG3 -vewni -l
+override COMPILER_OPTIONS+=-dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone -Mdelphi -Fu../../varrec -Fustatic -Fi. -Fuoutput/gdk-pixbuf -Fuoutput/gdk -Fuoutput/gtk -g -XX -OG3 -vewni -l
 endif
 ifdef REQUIRE_UNITSDIR
 override UNITSDIR+=$(REQUIRE_UNITSDIR)

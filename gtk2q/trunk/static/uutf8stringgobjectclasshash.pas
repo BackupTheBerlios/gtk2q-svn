@@ -9,7 +9,7 @@ type
   _ACHASH_KEY_ARRAY_ = TUTF8StringArray;
 
 {$DEFINE define_types}
-{$INCLUDE static/anyachash.inc}
+{$INCLUDE anyachash.inc}
 {$UNDEF define_types}
   
   TUTF8StringGObjectClassHash = _ACHASH_;
@@ -18,7 +18,7 @@ implementation
 uses variants;
 
 {$DEFINE define_implementation}
-{$INCLUDE static/anyachash.inc}
+{$INCLUDE anyachash.inc}
 {$UNDEF define_implementation}
 
 end.

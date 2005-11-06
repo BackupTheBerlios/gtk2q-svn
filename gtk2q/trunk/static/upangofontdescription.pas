@@ -46,7 +46,7 @@ type
 implementation
 uses uwrappangonames, ugtypes, uwrapgnames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 {$ifdef gtk2q_standalone}
 // TODO? wrap
 function pango_font_description_equal(a,b: PWPangoFontDescription): gboolean; cdecl; external pangolib;

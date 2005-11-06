@@ -14,7 +14,7 @@ find . -name "svn-commit.tmp*" -exec rm "{}" ';'
 find . -name "*.ppu" -exec rm "{}" ';'
 find . -name "*.o" -exec rm "{}" ';'
 
-archivever="0.8.$1"
+archivever="0.9.$1"
 archive="gtk-pascal-gen-${archivever}.tar.gz"
 
 tar zcvf "${archive}" trunk/ -X nonsvn 

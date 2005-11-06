@@ -1,2 +1,2 @@
-{$INCLUDE static/iuatkobject.inc}
-{$INCLUDE static/iuatkimplementoriface.inc}
+{$INCLUDE iuatkobject.inc}
+{$INCLUDE iuatkimplementoriface.inc}

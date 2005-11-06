@@ -36,8 +36,7 @@ type
    PGBoxed = Pointer;
    PGParamSpec = Pointer;
   DGDestroyNotify = procedure(object1: Pointer); stdcall;
-
-
+  
 // this is mine:
 
 type

@@ -32,7 +32,7 @@ type
 implementation
 uses uwrapgnames, uwrapgtknames, sysutils, uvarrectools;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 type

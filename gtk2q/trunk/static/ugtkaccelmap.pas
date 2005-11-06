@@ -39,7 +39,7 @@ type
 implementation
 uses uwrapgnames, uwrapgtknames, uwrapgdknames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 procedure gtk_accel_map_load(filename: PGChar); cdecl; external gtklib;

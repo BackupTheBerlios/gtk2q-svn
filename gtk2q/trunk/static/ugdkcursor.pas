@@ -3,7 +3,7 @@ unit ugdkcursor;
 interface
 uses iugdk;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 (* TODO use drefcounter *)
 

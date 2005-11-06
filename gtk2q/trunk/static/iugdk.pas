@@ -8,24 +8,24 @@ sgdkpixbufanimation, sgdkpixbuf, iugdkpixbufformat, iug;
 const
   GDK_DUMMY = 7;
 {$DEFINE define_consts}
-{$INCLUDE static/iugdkcursor.inc}
-{$INCLUDE output/gdk/iugdkgc.inc}
-{$INCLUDE output/gdk/iugdkdrawable.inc}
-{$INCLUDE output/gdk/iugdkdragcontext.inc}
-{$INCLUDE output/gdk/iugdkpixmap.inc}
-{$INCLUDE output/gdk/iugdkwindow.inc}
-{$INCLUDE output/gdk/iugdkscreen.inc}
-{$INCLUDE output/gdk/iugdkcolormap.inc}
-{$INCLUDE output/gdk/iugdkdevice.inc}
-{$INCLUDE output/gdk/iugdkdisplay.inc}
-{$INCLUDE output/gdk/iugdkdisplaymanager.inc}
-{$INCLUDE output/gdk/iugdkimage.inc}
-{$INCLUDE output/gdk/iugdkvisual.inc}
+{$INCLUDE iugdkcursor.inc}
+{$INCLUDE ../output/gdk/iugdkgc.inc}
+{$INCLUDE ../output/gdk/iugdkdrawable.inc}
+{$INCLUDE ../output/gdk/iugdkdragcontext.inc}
+{$INCLUDE ../output/gdk/iugdkpixmap.inc}
+{$INCLUDE ../output/gdk/iugdkwindow.inc}
+{$INCLUDE ../output/gdk/iugdkscreen.inc}
+{$INCLUDE ../output/gdk/iugdkcolormap.inc}
+{$INCLUDE ../output/gdk/iugdkdevice.inc}
+{$INCLUDE ../output/gdk/iugdkdisplay.inc}
+{$INCLUDE ../output/gdk/iugdkdisplaymanager.inc}
+{$INCLUDE ../output/gdk/iugdkimage.inc}
+{$INCLUDE ../output/gdk/iugdkvisual.inc}
 
-{$INCLUDE output/gdk-pixbuf/iugdkpixbuf.inc}
-{$INCLUDE static/iugdkpixbufanimationiter.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbufanimation.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbufloader.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbuf.inc}
+{$INCLUDE iugdkpixbufanimationiter.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbufanimation.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbufloader.inc}
 {$UNDEF define_consts}
 
 type
@@ -74,20 +74,20 @@ type
   IGdkPixbufAnimation = interface;
 {$ENDIF GTK_VERSIONED}
 
-{$INCLUDE static/iugdkcursor.inc}
-{$INCLUDE output/gdk/iugdkgc.inc}
-{$INCLUDE output/gdk/iugdkdrawable.inc}
-{$INCLUDE output/gdk/iugdkdragcontext.inc}
-{$INCLUDE output/gdk/iugdkpixmap.inc}
-{$INCLUDE output/gdk/iugdkwindow.inc}
-{$INCLUDE output/gdk/iugdkscreen.inc}
-{$INCLUDE output/gdk/iugdkcolormap.inc}
-{$INCLUDE output/gdk/iugdkdevice.inc}
-{$INCLUDE output/gdk/iugdkdisplay.inc}
-{$INCLUDE output/gdk/iugdkdisplaymanager.inc}
-{$INCLUDE static/iugdkregion.inc}
-{$INCLUDE output/gdk/iugdkimage.inc}
-{$INCLUDE output/gdk/iugdkvisual.inc}
+{$INCLUDE iugdkcursor.inc}
+{$INCLUDE ../output/gdk/iugdkgc.inc}
+{$INCLUDE ../output/gdk/iugdkdrawable.inc}
+{$INCLUDE ../output/gdk/iugdkdragcontext.inc}
+{$INCLUDE ../output/gdk/iugdkpixmap.inc}
+{$INCLUDE ../output/gdk/iugdkwindow.inc}
+{$INCLUDE ../output/gdk/iugdkscreen.inc}
+{$INCLUDE ../output/gdk/iugdkcolormap.inc}
+{$INCLUDE ../output/gdk/iugdkdevice.inc}
+{$INCLUDE ../output/gdk/iugdkdisplay.inc}
+{$INCLUDE ../output/gdk/iugdkdisplaymanager.inc}
+{$INCLUDE iugdkregion.inc}
+{$INCLUDE ../output/gdk/iugdkimage.inc}
+{$INCLUDE ../output/gdk/iugdkvisual.inc}
 {$IFDEF GTK_VERSIONED}
   IGdkBitmap26 = interface(IGdkPixmap26)
     ['{C99DC179-59CA-4B2F-8A59-2BA31E9D3198}']
@@ -98,34 +98,34 @@ type
   end;
 {$ENDIF GTK_VERSIONED}
 
-{$INCLUDE output/gdk-pixbuf/iugdkpixbuf.inc}
-{$INCLUDE static/iugdkpixbufanimationiter.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbufanimation.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbufloader.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbuf.inc}
+{$INCLUDE iugdkpixbufanimationiter.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbufanimation.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbufloader.inc}
 
 {$UNDEF define_types}
 
 implementation
 
 {$DEFINE define_implementation}
-{$INCLUDE static/iugdkcursor.inc}
-{$INCLUDE output/gdk/iugdkgc.inc}
-{$INCLUDE output/gdk/iugdkdrawable.inc}
-{$INCLUDE output/gdk/iugdkdragcontext.inc}
-{$INCLUDE output/gdk/iugdkpixmap.inc}
-{$INCLUDE output/gdk/iugdkwindow.inc}
-{$INCLUDE output/gdk/iugdkscreen.inc}
-{$INCLUDE output/gdk/iugdkcolormap.inc}
-{$INCLUDE output/gdk/iugdkdevice.inc}
-{$INCLUDE output/gdk/iugdkdisplay.inc}
-{$INCLUDE output/gdk/iugdkdisplaymanager.inc}
-{$INCLUDE static/iugdkregion.inc}
-{$INCLUDE output/gdk/iugdkimage.inc}
-{$INCLUDE output/gdk/iugdkvisual.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbuf.inc}
-{$INCLUDE static/iugdkpixbufanimationiter.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbufanimation.inc}
-{$INCLUDE output/gdk-pixbuf/iugdkpixbufloader.inc}
+{$INCLUDE iugdkcursor.inc}
+{$INCLUDE ../output/gdk/iugdkgc.inc}
+{$INCLUDE ../output/gdk/iugdkdrawable.inc}
+{$INCLUDE ../output/gdk/iugdkdragcontext.inc}
+{$INCLUDE ../output/gdk/iugdkpixmap.inc}
+{$INCLUDE ../output/gdk/iugdkwindow.inc}
+{$INCLUDE ../output/gdk/iugdkscreen.inc}
+{$INCLUDE ../output/gdk/iugdkcolormap.inc}
+{$INCLUDE ../output/gdk/iugdkdevice.inc}
+{$INCLUDE ../output/gdk/iugdkdisplay.inc}
+{$INCLUDE ../output/gdk/iugdkdisplaymanager.inc}
+{$INCLUDE iugdkregion.inc}
+{$INCLUDE ../output/gdk/iugdkimage.inc}
+{$INCLUDE ../output/gdk/iugdkvisual.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbuf.inc}
+{$INCLUDE iugdkpixbufanimationiter.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbufanimation.inc}
+{$INCLUDE ../output/gdk-pixbuf/iugdkpixbufloader.inc}
 
 {$UNDEF define_implementation}
 

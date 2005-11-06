@@ -3,7 +3,7 @@ unit ugtktypes;
 interface
 uses ugtypes, ugdktypes, sysutils;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 const
   // GtkAccelFlags:
@@ -22,7 +22,7 @@ const
   reHelp = -11;
 
 type
-{$INCLUDE static/gtkcallback.inc}
+{$INCLUDE gtkcallback.inc}
   TGtkResizeMode = (rmParent, rmQueue, rmImmediate);
   TGtkPackType = (paStart, paEnd);
   TGtkButtonBoxStyle = (bsDefault, bsSpread, bsEdge, bsStart, bsEnd);
@@ -217,7 +217,7 @@ type
 
   ENotFoundError = class(Exception)
   end;
-{$INCLUDE output/gtk/gtkenums.inc}
+{$INCLUDE ../output/gtk/gtkenums.inc}
 
 function TGtkAccelGroupEntryFromPointer(ptr: Pointer): TGtkAccelGroupEntry; // raise ENotFoundError
 function TGtkAccelKeyFromPointer(ptr: Pointer): TGtkAccelKey; // raise ENotFoundError

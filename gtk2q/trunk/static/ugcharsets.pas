@@ -36,7 +36,7 @@ function LocaleCharset: string;
 implementation
 uses uwrapgnames, ugtypes;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 

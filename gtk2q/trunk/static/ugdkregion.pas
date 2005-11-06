@@ -44,7 +44,7 @@ type
 implementation
 uses uwrapgnames, uwrapgdknames;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 function gdk_region_new:PWGdkRegion; cdecl; external gdklib;

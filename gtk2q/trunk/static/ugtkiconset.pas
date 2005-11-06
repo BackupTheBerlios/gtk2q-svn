@@ -25,7 +25,7 @@ type
 implementation
 uses uwrapgnames, uwrapgtknames, uwrapgdkpixbufnames, ugdkpixbuf;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 
