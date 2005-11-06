@@ -1239,11 +1239,11 @@ def prop_cb(varname, prop):
 		if isEnum(ptype):
 			return ")"
 		if prop["datatype"] == "GStrv":
-			return ")"
+			return ""
 		return ""
 	elif varname == "ppropinterfacecaststart":
 		if prop["datatype"] == "GStrv":
-			return "UTF8StringArrayFromStrv("
+			return "" # "UTF8StringArrayFromStrv("
 		else:
 			ptype = c2ptype(prop["datatype"])
 			if isEnum(ptype):
@@ -1255,7 +1255,7 @@ def prop_cb(varname, prop):
 	elif varname == "pproputype":
 		return "Pointer"
 	elif varname == "propertyvisibility":
-		if isBoxed(prop) == True: # fpc
+		if isBoxed(prop) == True or prop["datatype"] == "GStrv": # fpc
 			return "public"
 			
 		return "published"
@@ -1273,7 +1273,7 @@ def prop_cb(varname, prop):
 			return "Pointer"
 			
 		if prop["datatype"] == "GStrv":
-			return "StrvFromUTF8StringArray"
+			return "" 
 		                
 		try:
 			pt1 = ptype1[pt1]

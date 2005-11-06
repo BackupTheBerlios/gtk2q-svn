@@ -6,7 +6,7 @@ unit uwrapgnames;
 interface
 uses ugtypes, iugobject;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 const
 (*$IFDEF WIN32*)
@@ -50,6 +50,8 @@ type
   PGChar = ^GChar;
   GChar = Char;
   PWGchar = PGchar;
+
+  PGStrv = PPGChar; // stringlist, array of pointers to pchar-string, nil-terminated
   
   PWchar = PChar; (* filechooser sometimes uses that. maybe make that a type by itself ? *)
   
@@ -404,8 +406,11 @@ procedure g_error_free(error:PWGError);cdecl;external glib name 'g_error_free';
 
 function g_new0(sz: Cardinal; nstructs: Cardinal): Pointer; (*cdecl;*)
 
+
 procedure g_free(memory: pointer); cdecl; external glib;
 function g_strdup(orig: PGChar): PGChar; cdecl; external glib;
+
+function g_strv_length(list: PGStrv): guint; cdecl; external glib;
 
 function g_type_check_instance_is_a(instance: PWGTypeInstance; iface: TGType): gboolean; cdecl; external glib;
 (*$ENDIF gtk2q_standalone*)
@@ -414,6 +419,10 @@ function G_TYPE_FROM_INSTANCE(instance: pointer): TGType;
 function G_TYPE_CHECK_INSTANCE_TYPE(instance: pointer; compareto: TGType): Boolean;
 function SignalHandlerNextParam(param: PWGValue): PWGValue;
 procedure AssertGInstanceStructSize(ithinksize: Cardinal; gtype: TGType);
+
+function UTF8StringArrayFromStrv(value: PGStrv): TUTF8StringArray;
+function UTF8StringArrayFromStrvAndDispose(value: PGStrv): TUTF8StringArray;
+function StrvFromUTF8StringArray(value: TUTF8StringArray): PGStrv;
 
 const
   G_TYPE_FUNDAMENTAL_SHIFT = 2;
@@ -535,6 +544,54 @@ begin
   assert(ithinksize = typeinfo.instanceSize);
 end;
 
+function UTF8StringArrayFromStrv(value: PGStrv): TUTF8StringArray;
+var
+  item: PPChar;
+  count: Cardinal;
+  i: Cardinal;
+begin
+  if not Assigned(value) then begin
+    SetLength(Result, 0);
+    Exit;
+  end;
+  
+  count := g_strv_length(value);
+  SetLength(Result, count);
+  
+  i := 0;
+  item := PPChar(value);
+  while Assigned(item) do begin
+    Result[i] := (item^);
+    Inc(i);
+    
+    Inc(item);
+  end;
+end;
+
+function UTF8StringArrayFromStrvAndDispose(value: PGStrv): TUTF8StringArray;
+begin
+  Result := UTF8StringArrayFromStrv(value);
+  g_strfreev(value);
+end;
+
+function StrvFromUTF8StringArray(value: TUTF8StringArray): PGStrv;
+var
+  i: Integer;
+  count: Integer;
+  cstrv: PPChar;
+begin
+  count := Length(value);
+  cstrv := g_malloc0(sizeof(PChar) * (count + 1));
+  Result := cstrv;
+  
+  if count > 0 then begin
+    for i := 0 to count - 1 do begin
+      cstrv^ := g_strdup(PGChar(PChar(value[i])));
+      Inc(cstrv);
+    end;
+  end;
+  cstrv^ := nil;
+end;
 
 (* GObjectClass *)
 (* wrapper functions that call the objects methods. DO NOT ASSIGN EVERY FUNCTION *)

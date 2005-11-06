@@ -40,6 +40,8 @@ type
     procedure ObjectSetFloatProperty(name: string; const value: Single);
     function ObjectGetDoubleProperty(name: string): Double;
     procedure ObjectSetDoubleProperty(name: string; const value: Double);
+    function ObjectGetGStrvProperty(name: string): TUTF8StringArray;
+    procedure ObjectSetGStrvProperty(name: string; const value: TUTF8StringArray);
 
   public
     (* registers a signal to be freed again later on. this does not mean every signal is in there. 
@@ -94,7 +96,7 @@ implementation
 uses uwrapgnames, sysutils, utyperegistry, unicegvalue, uapplication, ugsignal,
 variants;
 
-{$INCLUDE static/clinksettings.inc}
+{$INCLUDE clinksettings.inc}
 
 {$ifdef gtk2q_standalone}
 procedure g_object_unref(anobject: Pointer); cdecl; external gobjectlib;
@@ -150,6 +152,24 @@ begin
     gValueUnset(gval);
   end;
 end;
+
+function TGObject.ObjectGetGStrvProperty(name: string): TUTF8StringArray;
+var
+  cstrv: PGStrv;
+begin
+  g_object_get(fObject, PChar(name), [@cstrv, nil]);
+  Result := UTF8StringArrayFromStrv(cstrv);
+end;
+
+procedure TGObject.ObjectSetGStrvProperty(name: string; const value: TUTF8StringArray);
+var
+  cstrv: PGStrv;
+begin
+  cstrv := StrvFromUTF8StringArray(value);
+  g_object_set(fObject, PChar(name), [cstrv, nil]);
+  g_strfreev(cstrv);
+end;
+
 
 {function TGObject.Connect(signal: string; slot: TSlot): Integer;
 begin

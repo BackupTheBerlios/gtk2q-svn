@@ -129,6 +129,8 @@ paddprops = {
 
 # functions to be skipped and not be wrapped
 cskipfuncs = [
+  "gtk_file_filter_get_name",
+  "gtk_file_filter_set_name",
 ]
 
 # callback function types in the wrapper (these will be superceded soon)
