@@ -473,7 +473,7 @@ def varreplace(varname, callback, data):
 		if classname in underivable:
 			return ""
 			
-		return "{$INCLUDE output/" + path1 + "/c" + classname.lower() + ".inc}"
+		return "{$INCLUDE ../../output/" + path1 + "/c" + classname.lower() + ".inc}"
 	if varname == "signalimpl":
 		return signalimpl % { "psignalunit": signalUnit(), "path1": path1 } #  fixme INCLUDE
 		#\n".join(signalimpl.values())
@@ -1190,6 +1190,9 @@ def proptype1(prop):
 	
 	if prop["datatype"] in c2penumcopied:
 		return "UInt" # FIXME
+		
+	if prop["datatype"] == "GStrv":
+		return "GStrv"
 			
 	pty = c2ptype(prop["datatype"])
 
@@ -1235,11 +1238,16 @@ def prop_cb(varname, prop):
 			return " as %s" % ptype
 		if isEnum(ptype):
 			return ")"
+		if prop["datatype"] == "GStrv":
+			return ")"
 		return ""
 	elif varname == "ppropinterfacecaststart":
-		ptype = c2ptype(prop["datatype"])
-		if isEnum(ptype):
-			return "%s(" % ptype
+		if prop["datatype"] == "GStrv":
+			return "UTF8StringArrayFromStrv("
+		else:
+			ptype = c2ptype(prop["datatype"])
+			if isEnum(ptype):
+				return "%s(" % ptype
 
 		return ""
 	elif varname == "pprop":
@@ -1263,6 +1271,9 @@ def prop_cb(varname, prop):
 		pt1 = proptype1(prop)
 		if prop["name"] == "pixels":
 			return "Pointer"
+			
+		if prop["datatype"] == "GStrv":
+			return "StrvFromUTF8StringArray"
 		                
 		try:
 			pt1 = ptype1[pt1]
@@ -1276,6 +1287,9 @@ def prop_cb(varname, prop):
 			
 		if prop["name"] == "pixels":
 			return "Pointer"
+			
+		if prop["datatype"] == "GStrv":
+			return "TUTF8StringArray"
 			
 		ptype = c2ptype(prop["datatype"])
 		return ptype

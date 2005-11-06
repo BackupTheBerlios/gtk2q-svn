@@ -245,7 +245,7 @@ for xsubdir in subdirs:
 					if inclow.startswith("gnomecanvas"):
 						isubdir = "gnome-canvas"
 					
-				incf = os.path.join("output", isubdir, "c" + inclow + ".inc")
+				incf = os.path.join("..", "..", "output", isubdir, "c" + inclow + ".inc")
 				f.write("{$INCLUDE %s}\n" % incf)
 			
 			f.write("type\n")
