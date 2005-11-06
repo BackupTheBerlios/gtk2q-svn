@@ -3,3 +3,31 @@ paned:
   add child properties (shrink, resize: Boolean) per child widget
 
 gtk child watch add (callback), def callback(status)
+
+pangolayout.runs ?
+
+implement calling semi-blocking external programs:
+  sub run_convert {
+        my @cmd = @_;
+  
+        my $main_loop = Glib::MainLoop->new;
+  
+        my $pid = open my $child, '-|', @cmd
+            or die "can't fork convert: $!";
+  
+        Glib::IO->add_watch (fileno $child, ['hup'], sub {
+            $main_loop->quit;
+            FALSE;
+        });
+  
+        $main_loop->run;
+  
+        close $child or warn "convert died with exit status ".($? >>
+8)."\n";
+    }
+
+http://mail.gnome.org/archives/gtk-devel-list/2005-April/msg00095.html
+(toggle references)
+
+add wait cursor (global / local wait) helpers
+
