@@ -4,14 +4,14 @@ interface
 uses ugobject, ugtypes, iugobject, sysutils;
 
 function DGTypeKnown(const agtype: TGType): Boolean;
-procedure DTypeRegister(const name, namespace: string; const someclass: TGObjectClass; const agtype: TGType; const iface: TGuid);
-function WrapGObject(const nativeobject: Pointer; const atleastordesc: TGObjectClass = nil): IGObject; (* will use existing if possible *)
-function GObjectGetExistingWrapper(const nativeobject: Pointer): TGObject;
+procedure DTypeRegister(name, namespace: string; someclass: TGObjectClass; agtype: TGType; const iface: TGuid);
+function WrapGObject(nativeobject: Pointer; atleastordesc: TGObjectClass = nil): IGObject; (* will use existing if possible *)
+function GObjectGetExistingWrapper(nativeobject: Pointer): TGObject;
 
-function DCreateInstance(const name, namespace: string): IGObject; overload;
+function DCreateInstance(name, namespace: string): IGObject; overload;
 function DCreateInstance(const iface: TGUID): IGObject; overload;
 
-function DNewTypeInfo(const classSize: Cardinal): Pointer{PWGTypeInfo}; overload;
+function DNewTypeInfo(classSize: Cardinal): Pointer{PWGTypeInfo}; overload;
 
 procedure DGlobalTypeRegisterLock;
 procedure DGlobalTypeRegisterUnlock;
@@ -172,8 +172,8 @@ end;}
 { DTypeRegistry }
 
 (* special are classes that are specialized here and have no direct gtype association *)
-procedure DTypeRegistry.AddSpecial(const name, namespace: string; 
-  const someclass: TGObjectClass; const agtype: TGType; 
+procedure DTypeRegistry.AddSpecial(name, namespace: string; 
+  someclass: TGObjectClass; agtype: TGType; 
   const iface: TGuid); 
 begin
   assert(agtype <> 0);
@@ -190,7 +190,7 @@ begin
   
 end;
 
-function DTypeRegistry.FindSpecial(const name, namespace: string): TGObjectClass;
+function DTypeRegistry.FindSpecial(name, namespace: string): TGObjectClass;
 var
   i: Integer;
 begin
@@ -203,8 +203,8 @@ begin
   end;
 end;
 
-procedure DTypeRegistry.Add(const name, namespace: string;
-  const someclass: TGObjectClass; const agtype: TGType; 
+procedure DTypeRegistry.Add(name, namespace: string;
+  someclass: TGObjectClass; agtype: TGType; 
   const iface: TGuid);
 begin
   if Assigned(Find(name,namespace)) then Exit;
@@ -247,7 +247,7 @@ begin
   end;
 end;
 
-function DTypeRegistry.Find(const name, namespace: string): TGObjectClass;
+function DTypeRegistry.Find(name, namespace: string): TGObjectClass;
 var
   i: Integer;
 begin
@@ -261,7 +261,7 @@ begin
     end;
 end;
 
-function DTypeRegistry.FindGType(const agtype: TGType): TGObjectClass;
+function DTypeRegistry.FindGType(agtype: TGType): TGObjectClass;
 var
   i: Integer;
 begin
@@ -302,7 +302,7 @@ begin
     raise EGTypeNotFound.Create('gtype for interface not found');
 end;
 
-function DTypeRegistry.CreateInstance(const name, namespace: string): IGObject;
+function DTypeRegistry.CreateInstance(name, namespace: string): IGObject;
 var
   someclass: TGObjectClass;
 begin
@@ -317,13 +317,13 @@ begin
     raise EGTypeNotFound.Create(Format('class %s.%s gtype not found', [namespace, name]));
 end;
 
-function DGTypeKnown(const agtype: TGType): Boolean;
+function DGTypeKnown(agtype: TGType): Boolean;
 begin
   EnsureAvailable;
   Result := FTypeRegistry.HasGType(agtype);
 end;
 
-function DTypeRegistry.HasGType(const agtype: TGType): Boolean;
+function DTypeRegistry.HasGType(agtype: TGType): Boolean;
 var
   i: Integer;
 begin
