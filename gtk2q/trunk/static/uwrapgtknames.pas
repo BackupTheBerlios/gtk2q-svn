@@ -543,11 +543,12 @@ begin
   Result := PPcharToUTF8StringArray(aglist);
 end;
 
+(*$ENDIF USE_GTK26*)
+
 function gtkAccelGroupEntryFromPointer(const group: PWGtkAccelGroupEntry): TGtkAccelGroupEntry;
 begin
   Result := TGtkAccelGroupEntry(group^);
 end;
 
-(*$ENDIF USE_GTK26*)
 
 end.
