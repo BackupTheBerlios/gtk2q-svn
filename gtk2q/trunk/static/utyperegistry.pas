@@ -3,7 +3,7 @@ unit utyperegistry;
 interface
 uses ugobject, ugtypes, iugobject, sysutils;
 
-function DGTypeKnown(const agtype: TGType): Boolean;
+function DGTypeKnown(agtype: TGType): Boolean;
 procedure DTypeRegister(name, namespace: string; someclass: TGObjectClass; agtype: TGType; const iface: TGuid);
 function WrapGObject(nativeobject: Pointer; atleastordesc: TGObjectClass = nil): IGObject; (* will use existing if possible *)
 function GObjectGetExistingWrapper(nativeobject: Pointer): TGObject;
