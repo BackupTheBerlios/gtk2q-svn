@@ -272,6 +272,7 @@ contains
   sgtkeventbox in 'output\gtk\sgtkeventbox.pas',
   sgtkexpander in 'output\gtk\sgtkexpander.pas',
   sgtkfilechooser in 'output\gtk\sgtkfilechooser.pas',
+  sgtkfilechooserbutton in 'output\gtk\sgtkfilechooserbutton.pas',
   sgtkfilechooserdialog in 'output\gtk\sgtkfilechooserdialog.pas',
   sgtkfilechooserwidget in 'output\gtk\sgtkfilechooserwidget.pas',
   sgtkfilefilter in 'output\gtk\sgtkfilefilter.pas',
