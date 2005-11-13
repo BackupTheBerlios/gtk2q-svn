@@ -249,6 +249,7 @@ contains
   sgtkcelleditable in 'output\gtk\sgtkcelleditable.pas',
   sgtkcelllayout in 'output\gtk\sgtkcelllayout.pas',
   sgtkcellrenderer in 'output\gtk\sgtkcellrenderer.pas',
+  sgtkcellrenderercombo in 'output\gtk\sgtkcellrenderercombo.pas',
   sgtkcellrendererpixbuf in 'output\gtk\sgtkcellrendererpixbuf.pas',
   sgtkcellrendererprogress in 'output\gtk\sgtkcellrendererprogress.pas',
   sgtkcellrenderertext in 'output\gtk\sgtkcellrenderertext.pas',
