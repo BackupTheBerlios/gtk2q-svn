@@ -42,20 +42,20 @@ type
     //class function Create: IInterface;
   public
     (* special are classes that are specialized here and have no direct gtype association *)
-    procedure AddSpecial(name, namespace: string; someclass: TGObjectClass; agtype: TGType; iface: TGUID);
+    procedure AddSpecial(name, namespace: string; someclass: TGObjectClass; agtype: TGType; const iface: TGUID);
     function FindSpecial(name, namespace: string): TGObjectClass;
 
-    procedure Add(name, namespace: string; someclass: TGObjectClass; agtype: TGType; iface: TGuid);
+    procedure Add(name, namespace: string; someclass: TGObjectClass; agtype: TGType; const iface: TGuid);
     function Find(name, namespace: string): TGObjectClass;
     function HasNamespace(name: string): Boolean;
     function FindGType(agtype: TGType): TGObjectClass;
 
 
-    function FindSpecialInterface(iface: TGUID): TGObjectClass;
-    function FindInterface(iface: TGUID): TGObjectClass;
+    function FindSpecialInterface(const iface: TGUID): TGObjectClass;
+    function FindInterface(const iface: TGUID): TGObjectClass;
 
     function CreateInstance(name, namespace: string): IGObject; overload;
-    function CreateInstance(iface: TGUID): IGObject; overload;
+    function CreateInstance(const iface: TGUID): IGObject; overload;
 
     function HasGType(agtype: TGType): Boolean;
 
@@ -115,7 +115,7 @@ begin
     Result := oc.CreateWrapped(nativeobject);
 end;
 
-procedure DTypeRegister(name, namespace: string; someclass: TGObjectClass; agtype: TGType; iface: TGuid);
+procedure DTypeRegister(name, namespace: string; someclass: TGObjectClass; agtype: TGType; const iface: TGuid);
 var
   ogtype: TGType;
   xname, xnamespace: string;
@@ -152,7 +152,7 @@ begin
     FTypeRegistry.Add(xname, xnamespace, someclass, ogtype, iface);
 end;
 
-function DCreateInstance(iface: TGUID): IGObject;
+function DCreateInstance(const iface: TGUID): IGObject;
 begin
   EnsureAvailable;
   Result := FTypeRegistry.CreateInstance(iface);
