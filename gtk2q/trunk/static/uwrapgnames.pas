@@ -582,11 +582,11 @@ var
 begin
   count := Length(value);
   cstrv := g_malloc0(sizeof(PChar) * (count + 1));
-  Result := cstrv;
+  Result := PGStrv(cstrv); { cast: delphi compat }
   
   if count > 0 then begin
     for i := 0 to count - 1 do begin
-      cstrv^ := g_strdup(PGChar(PChar(value[i])));
+      cstrv^ := PChar(g_strdup(PGChar(PChar(value[i])))); { cast: delphi compat }
       Inc(cstrv);
     end;
   end;
