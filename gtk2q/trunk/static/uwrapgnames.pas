@@ -506,7 +506,7 @@ end;
 function SignalHandlerNextParam(param: PWGValue): PWGValue;
 asm
   mov edx, param
-  add edx, DWORD PTR sizeof(TGValue)
+  add edx, DWORD PTR sizeof(WGValue)
   mov Result, edx
 end;
 (*$ENDIF*)
