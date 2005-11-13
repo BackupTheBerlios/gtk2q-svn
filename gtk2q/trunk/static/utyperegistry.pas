@@ -275,7 +275,7 @@ end;
 
 
 
-function DTypeRegistry.HasNamespace(const name: string): Boolean;
+function DTypeRegistry.HasNamespace(name: string): Boolean;
 var
   i: Integer;
 begin
