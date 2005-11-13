@@ -405,6 +405,7 @@ contains
   uincdec in 'static\uincdec.pas',
   uutf8stringigtkwidgethash in 'static\uutf8stringigtkwidgethash.pas',
   ugdkrgb in 'static\ugdkrgb.pas',
-  udialogs in 'static\udialogs.pas';
+  udialogs in 'static\udialogs.pas',
+  uimporttools in 'static\uimporttools.pas';
 
 end.
