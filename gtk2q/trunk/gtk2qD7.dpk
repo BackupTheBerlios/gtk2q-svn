@@ -306,6 +306,7 @@ contains
   sgtkmenubar in 'output\gtk\sgtkmenubar.pas',
   sgtkmenuitem in 'output\gtk\sgtkmenuitem.pas',
   sgtkmenushell in 'output\gtk\sgtkmenushell.pas',
+  sgtkmenutoolbutton in 'output\gtk\sgtkmenutoolbutton.pas',
   sgtkmessagedialog in 'output\gtk\sgtkmessagedialog.pas',
   sgtkmisc in 'output\gtk\sgtkmisc.pas',
   sgtknotebook in 'output\gtk\sgtknotebook.pas',
