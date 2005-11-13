@@ -292,6 +292,7 @@ contains
   sgtkhscrollbar in 'output\gtk\sgtkhscrollbar.pas',
   sgtkhseparator in 'output\gtk\sgtkhseparator.pas',
   sgtkicontheme in 'output\gtk\sgtkicontheme.pas',
+  sgtkiconview in 'output\gtk\sgtkiconview.pas',
   sgtkimage in 'output\gtk\sgtkimage.pas',
   sgtkimagemenuitem in 'output\gtk\sgtkimagemenuitem.pas',
   sgtkimcontext in 'output\gtk\sgtkimcontext.pas',
