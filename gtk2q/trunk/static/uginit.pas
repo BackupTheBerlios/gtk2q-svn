@@ -16,7 +16,7 @@ var
 
 procedure InstallQuarks;
 begin
-  PasWrapperQuark := g_quark_from_static_string(PChar(PasWrapperQuarkString)); // sigh
+  PasWrapperQuark := g_quark_from_static_string(PGChar(PChar(PasWrapperQuarkString))); // sigh
 end;
 
 initialization
