@@ -220,6 +220,7 @@ contains
   ugvalue in 'static\ugvalue.pas',
   uwrapgtknames in 'static\uwrapgtknames.pas',
   uwrapgdknames in 'static\uwrapgdknames.pas',
+  sgtkaboutdialog in 'output\gtk\sgtkaboutdialog.pas',
   sgdkwindow in 'output\gdk\sgdkwindow.pas',
   sgdkdevice in 'output\gdk\sgdkdevice.pas',
   sgdkdisplay in 'output\gdk\sgdkdisplay.pas',
