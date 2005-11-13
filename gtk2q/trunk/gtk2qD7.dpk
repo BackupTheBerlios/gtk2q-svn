@@ -28,6 +28,7 @@ package gtk2qD7;
 {$DEFINE need_icloneable}
 {$DEFINE need_iweakref}
 {$DEFINE need_igclosure}
+{$DEFINE USE_GTK26}
 
 requires
   rtl;
@@ -50,6 +51,7 @@ contains
   iupointermediator in 'static\iupointermediator.pas',
   uatkobject in 'static\uatkobject.pas',
   utyperegistry in 'static\utyperegistry.pas',
+  iutyperegistry in 'static\iutyperegistry.pas',
   ugdkcursor in 'static\ugdkcursor.pas',
   ugdkpixbuftypes in 'static\ugdkpixbuftypes.pas',
   ugdktypes in 'static\ugdktypes.pas',
