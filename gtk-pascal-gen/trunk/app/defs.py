@@ -1252,7 +1252,7 @@ paddfuncs = {
 			end;
 		""",
 		"SetCellValue": """
-			published procedure SetCellValue(const row, column: Integer; const value: Variant);
+			published procedure SetCellValue(row, column: Integer; value: Variant);
 			var
 			  iter: TGtkTreeIter;
 			begin
