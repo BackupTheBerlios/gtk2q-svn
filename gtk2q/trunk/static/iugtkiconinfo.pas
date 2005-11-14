@@ -12,7 +12,7 @@ type
     function GetBuiltinPixbuf: IGdkPixbuf;
     function LoadIcon: IGdkPixbuf;
     function GetFilename: String;
-    function GetEmbeddedRect(var rectangle: TGdkRectangle): Boolean;
+    function GetEmbeddedRect(out rectangle: TGdkRectangle): Boolean;
     function GetBaseSize: Integer;
 
     property BaseSize: Integer read GetBaseSize;
