@@ -372,12 +372,12 @@ type
   
 type
 (*$IFDEF DELPHI*)
-  WCastSetType = Byte;
+  WCastSetType = gint; (* C set *)
 (*$ELSE*)
 (*$IFDEF FPC*)
-  WCastSetType = Integer;
+  WCastSetType = gint; (* C set *)
 (*$ELSE*)
-  WCastSetType = Integer; (* be careful *)
+  WCastSetType = Integer; (* C set.. be careful *)
 (*$ENDIF FPC*)
 (*$ENDIF DELPHI*)
 
