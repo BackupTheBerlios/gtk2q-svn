@@ -31,3 +31,4 @@ http://mail.gnome.org/archives/gtk-devel-list/2005-April/msg00095.html
 
 add wait cursor (global / local wait) helpers
 
+ * glib/gslice.[hc]: new slice allocator implementation. ?
