@@ -25,10 +25,11 @@ function URIToFilename(const uri: string; out hostname: string): string; (* exce
 function LocaleToUTF8(const s: string): UTF8String; (* exception *)
 function UTF8ToLocale(const s: UTF8String): string; (* exception *)
 
-(* 2.6
+{$IFDEF USE_GTK26}
 function FilenameToDisplayName(const filename: string): UTF8String;
 function FilenameToDisplayBasename(const filename: string): UTF8String; // need full absolute path
-*)
+
+{$ENDIF USE_GTK26}
 
 function IsLocaleCharsetUTF8: Boolean;
 function LocaleCharset: string; 
@@ -187,7 +188,8 @@ begin
   g_free(aglist);
 end;
 
-(* 2.6
+{$IFDEF USE_GTK26}
+
 function FilenameToDisplayName(const filename: string): UTF8String;
 var
   aglist: PGChar;
@@ -207,7 +209,7 @@ begin
   g_free(aglist);
 end;
 
-*)
+{$ENDIF USE_GTK26}
 
 function IsLocaleCharsetUTF8: Boolean;
 var
