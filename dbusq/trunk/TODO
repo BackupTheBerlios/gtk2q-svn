@@ -1,1 +1,6 @@
 DBusGProxyCall -> undefined type (probably just used as a pointer id)
+
+die on disconnect (hal callout style):
+dbus_connection_setup_with_g_main(c, NULL);
+dbus_connection_set_exit_on_disconnect(c, TRUE);
+
