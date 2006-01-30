@@ -8,7 +8,9 @@ paned:
 
 gtk child watch add (callback), def callback(status)
 
-pangolayout.runs ?
+pangolayout.runs ? (PangoLayoutRun -> pango_layout_get_item_properties (run->item,
+&properties);), run->item->offset, run->item->length, typedef PangoGlyphItem PangoLayoutRun;
+
 
 implement calling semi-blocking external programs:
   sub run_convert {
