@@ -7,7 +7,7 @@ interface
 uses iugtimer, upointermediator, iupointermediator;
 
 type
-  DGTimer = class(TPointerMediator, IGTimer, IPointerMediator, IInterface)
+  TGTimer = class(TPointerMediator, IGTimer, IPointerMediator, IInterface)
   public
     constructor Create; reintroduce;
     constructor CreateWrapped(ptr: Pointer);
@@ -36,32 +36,32 @@ procedure g_timer_reset(timer: PGTimer); cdecl; external glib;
 procedure g_timer_destroy(timer: PGTimer); cdecl; external glib;
 (*$ENDIF gtk2q_standalone*)
 
-constructor DGTimer.Create;
+constructor TGTimer.Create;
 begin
   inherited Create(g_timer_new, g_timer_destroy);
 end;
 
-procedure DGTimer.Start;
+procedure TGTimer.Start;
 begin
   g_timer_start(GetUnderlying);
 end;
     
-procedure DGTimer.Stop;
+procedure TGTimer.Stop;
 begin
   g_timer_stop(GetUnderlying);
 end;
 
-procedure DGTimer.Continue;
+procedure TGTimer.Continue;
 begin
   g_timer_continue(GetUnderlying);
 end;
      
-function DGTimer.GetElapsed: Double;
+function TGTimer.GetElapsed: Double;
 begin
   Result := g_timer_elapsed(GetUnderlying, nil);
 end;
 
-function DGTimer.GetElapsedMicroseconds: Cardinal;
+function TGTimer.GetElapsedMicroseconds: Cardinal;
 var
   u: gulong;
 begin
@@ -72,12 +72,12 @@ begin
   Result := u;
 end;
     
-procedure DGTimer.Reset;
+procedure TGTimer.Reset;
 begin
   g_timer_reset(GetUnderlying);
 end;
 
-constructor DGTimer.CreateWrapped(ptr: Pointer);
+constructor TGTimer.CreateWrapped(ptr: Pointer);
 begin
   inherited Create(ptr, g_timer_destroy);
 end;
