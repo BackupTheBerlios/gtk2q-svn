@@ -9,7 +9,7 @@ uses ugtypes, ugobject;
 
 type
   TObjectIdleFunc = function(UserData: TObject): Boolean of object;
-  DApplication = class
+  TApplication = class
   public
     constructor Create;
 
@@ -35,7 +35,7 @@ type
   end;
 
 var
-  Application: DApplication = nil;
+  Application: TApplication = nil;
 
 procedure GtkApplicationInit;
 
@@ -81,32 +81,32 @@ function g_get_application_name(): PGChar; cdecl; external glib; // const
 var
  appinitok : Integer = 0;
 
-procedure DApplication.CriticalSectionEnter;
+procedure TApplication.CriticalSectionEnter;
 begin
   gdk_threads_enter();
 end;
 
-procedure DApplication.CriticalSectionLeave;
+procedure TApplication.CriticalSectionLeave;
 begin
   gdk_threads_leave();
 end;
 
-function DApplication.ExeName: string;
+function TApplication.ExeName: string;
 begin
   Result := ParamStr(0);
 end;
 
-procedure DApplication.Flush;
+procedure TApplication.Flush;
 begin
   gdk_flush;
 end;
 
-function DApplication.GetCurrentEventTime: guint32;
+function TApplication.GetCurrentEventTime: guint32;
 begin
   Result := gtk_get_current_event_time();
 end;
 
-function DApplication.GetProgramClass: string;
+function TApplication.GetProgramClass: string;
 begin
   Result := gdk_get_program_class();
 end;
@@ -135,7 +135,7 @@ begin
   DIdleData(d).Free;
 end;
 
-procedure DApplication.IdleAdd(idlefunc: TObjectIdleFunc; userdata: TObject = nil);
+procedure TApplication.IdleAdd(idlefunc: TObjectIdleFunc; userdata: TObject = nil);
 var
   d: DIdleData;
 begin
@@ -145,13 +145,13 @@ begin
   g_idle_add_full(50, @MyIdleHandler, d, @DIdleDataFree);
 end;
 
-constructor DApplication.Create;
+constructor TApplication.Create;
 begin
   inherited Create;
   Init;
 end;
 
-procedure DApplication.Init;
+procedure TApplication.Init;
 var
   argc: Integer;
   argv: PPChar;
@@ -175,27 +175,27 @@ begin
     InterlockedDecrement(appinitok);
 end;
 
-procedure DApplication.NotifyStartupComplete;
+procedure TApplication.NotifyStartupComplete;
 begin
   gdk_notify_startup_complete;
 end;
 
-procedure DApplication.Quit;
+procedure TApplication.Quit;
 begin
   gtk_main_quit;
 end;
 
-procedure DApplication.QuitHandler(Sender: TGObject);
+procedure TApplication.QuitHandler(Sender: TGObject);
 begin
   Quit;
 end;
 
-procedure DApplication.Run;
+procedure TApplication.Run;
 begin
   gtk_main;
 end;
 
-procedure DApplication.SetProgramClass(s: string);
+procedure TApplication.SetProgramClass(s: string);
 begin
   gdk_set_program_class(PChar(s));
 end;
@@ -208,7 +208,7 @@ procedure GtkApplicationInit;
 begin
   if InterlockedIncrement(ailock) = 1 then begin
     if not Assigned(Application) then begin
-      Application := DApplication.Create;
+      Application := TApplication.Create;
     end;
   end else (* do once *)
     InterlockedDecrement(ailock);
