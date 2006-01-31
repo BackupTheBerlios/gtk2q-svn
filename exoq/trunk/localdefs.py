@@ -42,7 +42,7 @@ preturntransformers = {
 
 # list of classes that are not gobject (usually pointermediators) but are wrappers
 nongobjectclasses = [
-  "ExoBinding",
+  "ExoBinding", # TODO
 ]
 
 # maps from interface name to interface unit name for special cases
@@ -78,7 +78,7 @@ cclassconstructparams = {
   "ExoIconBar": "",
   "ExoIconView": "",
   "ExoObject": None, # abstract
-  # "ExoToolbarsEditorDialog": "", ???
+  # "ExoToolbarsEditorDialog": "", # uimanager
   # "ExoToolbarsEditor": "", # uimanager
   # "ExoToolbarsView": "", # uimanager
   "ExoWrapTable": "FALSE",
