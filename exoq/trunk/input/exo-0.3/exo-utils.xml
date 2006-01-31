@@ -1,0 +1,193 @@
+<refentry id="exo-Miscellaneous-Utility-Functions">
+<refmeta>
+<refentrytitle>Miscellaneous Utility Functions</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Miscellaneous Utility Functions</refname><refpurpose>miscellaneous utility functions.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+<link linkend="void">void</link>        <link linkend="exo-noop">exo_noop</link>                        (void);
+<link linkend="gint">gint</link>        <link linkend="exo-noop-one">exo_noop_one</link>                    (void);
+<link linkend="gint">gint</link>        <link linkend="exo-noop-zero">exo_noop_zero</link>                   (void);
+<link linkend="gpointer">gpointer</link>    <link linkend="exo-noop-null">exo_noop_null</link>                   (void);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-noop-true">exo_noop_true</link>                   (void);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-noop-false">exo_noop_false</link>                  (void);
+<link linkend="void">void</link>        <link linkend="exo-atomic-inc">exo_atomic_inc</link>                  (<link linkend="gint">gint</link> *value);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-atomic-dec">exo_atomic_dec</link>                  (<link linkend="gint">gint</link> *value);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-noop"/>exo_noop ()</title>
+<indexterm role="0.3.1"><primary>exo_noop</primary></indexterm><programlisting><link linkend="void">void</link>        exo_noop                        (void);</programlisting>
+<para>
+This function has no effect. It does nothing but
+returning instantly. It is mostly useful in
+situations that require a function to be called,
+but that function does not need to do anything
+useful.</para>
+<para>
+
+</para><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-noop-one"/>exo_noop_one ()</title>
+<indexterm role="0.3.1"><primary>exo_noop_one</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_noop_one                    (void);</programlisting>
+<para>
+This function has no effect but simply returns
+the integer value <literal>1</literal>. It is mostly useful in
+situations where you just need a function that
+returns <literal>1</literal>, but don't want to perform any other
+actions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the integer value <literal>1</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-noop-zero"/>exo_noop_zero ()</title>
+<indexterm role="0.3.1"><primary>exo_noop_zero</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_noop_zero                   (void);</programlisting>
+<para>
+This function has no effect but simply returns
+the integer value <literal>0</literal>. It is mostly useful in
+situations where you just need a function that
+returns <literal>0</literal>, but don't want to perform any other
+actions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the integer value <literal>0</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-noop-null"/>exo_noop_null ()</title>
+<indexterm role="0.3.1"><primary>exo_noop_null</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    exo_noop_null                   (void);</programlisting>
+<para>
+This function has no effect but simply returns
+a <literal>NULL</literal> pointer. It is mostly useful in
+situations where you just need a function that
+returns <literal>NULL</literal>, but don't want to perform any
+other actions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a <literal>NULL</literal> pointer.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-noop-true"/>exo_noop_true ()</title>
+<indexterm role="0.3.1"><primary>exo_noop_true</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_noop_true                   (void);</programlisting>
+<para>
+This function has no effect, but simply returns
+the boolean value <literal>TRUE</literal>. It is mostly useful in
+situations where you just need a function that
+returns <literal>TRUE</literal>, but don't want to perform any
+other actions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the boolean value <literal>TRUE</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-noop-false"/>exo_noop_false ()</title>
+<indexterm role="0.3.1"><primary>exo_noop_false</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_noop_false                  (void);</programlisting>
+<para>
+This function has no effect, but simply returns
+the boolean value <literal>FALSE</literal>. It is mostly useful in
+situations where you just need a function that
+returns <literal>FALSE</literal>, but don't want to perform any
+other actions.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the boolean value <literal>FALSE</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-atomic-inc"/>exo_atomic_inc ()</title>
+<indexterm role="0.3.1"><primary>exo_atomic_inc</primary></indexterm><programlisting><link linkend="void">void</link>        exo_atomic_inc                  (<link linkend="gint">gint</link> *value);</programlisting>
+<para>
+  Increments the integer at <parameter>value</parameter> by one in an
+  atomic fashion.  The advantage over using
+  <link linkend="g-atomic-int-inc"><function>g_atomic_int_inc()</function></link> is that calls to this
+  function can be inlined.
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>a pointer to the integer value to increment.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.3.1
+
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-atomic-dec"/>exo_atomic_dec ()</title>
+<indexterm role="0.3.1"><primary>exo_atomic_dec</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_atomic_dec                  (<link linkend="gint">gint</link> *value);</programlisting>
+<para>
+  Decrements the integer at <parameter>value</parameter> by one in an atomic
+  fashion and returns <literal>TRUE</literal> if the <parameter>value</parameter> dropped to
+  zero by this operation, else <literal>FALSE</literal>. The advantage
+  over using <link linkend="g-atomic-int-dec"><function>g_atomic_int_dec()</function></link> is that calls to this
+  function can be inlined.
+</para><variablelist role="params">
+<varlistentry><term><parameter>value</parameter>&nbsp;:</term>
+<listitem><simpara>a pointer to the integer value to decrement.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara><literal>TRUE</literal> if <parameter>value</parameter> dropped to zero, else <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.3.1
+
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<ulink type="http" url="http://developer.gnome.org/doc/API/2.0/glib/glib-Atomic-Operations.html">GLib
+Atomic Operations</ulink>
+</para>
+</refsect1>
+
+</refentry>

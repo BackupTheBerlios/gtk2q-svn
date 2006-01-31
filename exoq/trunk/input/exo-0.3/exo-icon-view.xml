@@ -1,0 +1,813 @@
+<refentry id="ExoIconView">
+<refmeta>
+<refentrytitle>ExoIconView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoIconView</refname><refpurpose>A widget which displays a list of icons in a grid</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoIconView-struct">ExoIconView</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-icon-view-new">exo_icon_view_new</link>               (void);
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-icon-view-new-with-model">exo_icon_view_new_with_model</link>    (<link linkend="GtkTreeModel">GtkTreeModel</link> *model);
+<link linkend="GtkTreeModel">GtkTreeModel</link>* <link linkend="exo-icon-view-get-model">exo_icon_view_get_model</link>       (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-set-model">exo_icon_view_set_model</link>         (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreeModel">GtkTreeModel</link> *model);
+<link linkend="gint">gint</link>        <link linkend="exo-icon-view-get-text-column">exo_icon_view_get_text_column</link>   (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-set-text-column">exo_icon_view_set_text_column</link>   (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> column);
+<link linkend="gint">gint</link>        <link linkend="exo-icon-view-get-markup-column">exo_icon_view_get_markup_column</link> (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-set-markup-column">exo_icon_view_set_markup_column</link> (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> column);
+<link linkend="gint">gint</link>        <link linkend="exo-icon-view-get-pixbuf-column">exo_icon_view_get_pixbuf_column</link> (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-set-pixbuf-column">exo_icon_view_set_pixbuf_column</link> (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> column);
+<link linkend="GtkOrientation">GtkOrientation</link> <link linkend="exo-icon-view-get-orientation">exo_icon_view_get_orientation</link>
+                                            (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-set-orientation">exo_icon_view_set_orientation</link>   (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkOrientation">GtkOrientation</link> orientation);
+<link linkend="GtkSelectionMode">GtkSelectionMode</link> <link linkend="exo-icon-view-get-selection-mode">exo_icon_view_get_selection_mode</link>
+                                            (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-set-selection-mode">exo_icon_view_set_selection_mode</link>
+                                            (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkSelectionMode">GtkSelectionMode</link> mode);
+<link linkend="GtkTreePath">GtkTreePath</link>* <link linkend="exo-icon-view-get-path-at-pos">exo_icon_view_get_path_at_pos</link>  (const <link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> x,
+                                             <link linkend="gint">gint</link> y);
+<link linkend="void">void</link>        (<link linkend="ExoIconViewForeachFunc">*ExoIconViewForeachFunc</link>)       (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-selected-foreach">exo_icon_view_selected_foreach</link>  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="ExoIconViewForeachFunc">ExoIconViewForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-select-path">exo_icon_view_select_path</link>       (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-unselect-path">exo_icon_view_unselect_path</link>     (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-icon-view-path-is-selected">exo_icon_view_path_is_selected</link>  (const <link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);
+<link linkend="GList">GList</link>*      <link linkend="exo-icon-view-get-selected-items">exo_icon_view_get_selected_items</link>
+                                            (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-select-all">exo_icon_view_select_all</link>        (<link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-unselect-all">exo_icon_view_unselect_all</link>      (<link linkend="ExoIconView">ExoIconView</link> *icon_view);
+<link linkend="void">void</link>        <link linkend="exo-icon-view-item-activated">exo_icon_view_item_activated</link>    (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkContainer">GtkContainer</link>
+                     +----ExoIconView
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+ExoIconView implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link> and  <link linkend="GtkCellLayout">GtkCellLayout</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoIconView--column-spacing">column-spacing</link>&quot;       <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--columns">columns</link>&quot;              <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--item-width">item-width</link>&quot;           <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--margin">margin</link>&quot;               <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--markup-column">markup-column</link>&quot;        <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--model">model</link>&quot;                <link linkend="GtkTreeModel">GtkTreeModel</link>          : Read / Write
+  &quot;<link linkend="ExoIconView--orientation">orientation</link>&quot;          <link linkend="GtkOrientation">GtkOrientation</link>        : Read / Write
+  &quot;<link linkend="ExoIconView--pixbuf-column">pixbuf-column</link>&quot;        <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--reorderable">reorderable</link>&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ExoIconView--row-spacing">row-spacing</link>&quot;          <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--selection-mode">selection-mode</link>&quot;       <link linkend="GtkSelectionMode">GtkSelectionMode</link>      : Read / Write
+  &quot;<link linkend="ExoIconView--spacing">spacing</link>&quot;              <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconView--text-column">text-column</link>&quot;          <link linkend="gint">gint</link>                  : Read / Write
+</synopsis>
+</refsect1>
+<refsect1>
+<title>Style Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoIconView--selection-box-alpha">selection-box-alpha</link>&quot;  <link linkend="guchar">guchar</link>                : Read
+  &quot;<link linkend="ExoIconView--selection-box-color">selection-box-color</link>&quot;  <link linkend="GdkColor">GdkColor</link>              : Read
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="ExoIconView-activate-cursor-item">activate-cursor-item</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-item-activated">item-activated</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="GtkTreePath">GtkTreePath</link> *path,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-move-cursor">move-cursor</link>&quot;
+            <link linkend="gboolean">gboolean</link>    user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="GtkMovementStep">GtkMovementStep</link> step,
+                                            <link linkend="gint">gint</link> count,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-select-all">select-all</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-select-cursor-item">select-cursor-item</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-selection-changed">selection-changed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-set-scroll-adjustments">set-scroll-adjustments</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *hadjustment,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *vadjustment,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-toggle-cursor-item">toggle-cursor-item</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconView-unselect-all">unselect-all</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+  <link linkend="ExoIconView"><type>ExoIconView</type></link> provides an alternative view on a list model.
+  It displays the model as a grid of icons with labels. Like
+  <link linkend="GtkTreeView"><type>GtkTreeView</type></link>, it allows to select one or multiple items 
+  (depending on the selection mode, see <link linkend="exo-icon-view-set-selection-mode"><function>exo_icon_view_set_selection_mode()</function></link>).
+  In addition to selection with the arrow keys, <link linkend="ExoIconView"><type>ExoIconView</type></link> supports
+  rubberband selection, which is controlled by dragging the pointer.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoIconView-struct"/>ExoIconView</title>
+<indexterm><primary>ExoIconView</primary></indexterm><programlisting>typedef struct _ExoIconView ExoIconView;</programlisting>
+<para>
+  The <structname>ExoIconView</structname> struct contains only
+  private fields and should not be directly accessed.
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-new"/>exo_icon_view_new ()</title>
+<indexterm><primary>exo_icon_view_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_icon_view_new               (void);</programlisting>
+<para>
+Creates a new <link linkend="ExoIconView"><type>ExoIconView</type></link> widget</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly created <link linkend="ExoIconView"><type>ExoIconView</type></link> widget
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-new-with-model"/>exo_icon_view_new_with_model ()</title>
+<indexterm><primary>exo_icon_view_new_with_model</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_icon_view_new_with_model    (<link linkend="GtkTreeModel">GtkTreeModel</link> *model);</programlisting>
+<para>
+Creates a new <link linkend="ExoIconView"><type>ExoIconView</type></link> widget with the model <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The model.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly created <link linkend="ExoIconView"><type>ExoIconView</type></link> widget.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-model"/>exo_icon_view_get_model ()</title>
+<indexterm><primary>exo_icon_view_get_model</primary></indexterm><programlisting><link linkend="GtkTreeModel">GtkTreeModel</link>* exo_icon_view_get_model       (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Returns the model the <link linkend="ExoIconView"><type>ExoIconView</type></link> is based on. Returns <literal>NULL</literal> if the
+model is unset.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link>, or <literal>NULL</literal> if none is currently being used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-set-model"/>exo_icon_view_set_model ()</title>
+<indexterm><primary>exo_icon_view_set_model</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_set_model         (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreeModel">GtkTreeModel</link> *model);</programlisting>
+<para>
+Sets the model for a <link linkend="ExoIconView"><type>ExoIconView</type></link>.  
+If the <parameter>icon_view</parameter> already has a model set, it will remove 
+it before setting the new model.  If <parameter>model</parameter> is <literal>NULL</literal>, then
+it will unset the old model.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The model.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-text-column"/>exo_icon_view_get_text_column ()</title>
+<indexterm><primary>exo_icon_view_get_text_column</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_icon_view_get_text_column   (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Returns the column with text for <parameter>icon_view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the text column, or -1 if it's unset.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-set-text-column"/>exo_icon_view_set_text_column ()</title>
+<indexterm><primary>exo_icon_view_set_text_column</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_set_text_column   (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> column);</programlisting>
+<para>
+Sets the column with text for <parameter>icon_view</parameter> to be <parameter>column</parameter>. The text
+column must be of type <link linkend="G-TYPE-STRING:CAPS"><type>G_TYPE_STRING</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>column</parameter>&nbsp;:</term>
+<listitem><simpara> A column in the currently used model.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-markup-column"/>exo_icon_view_get_markup_column ()</title>
+<indexterm><primary>exo_icon_view_get_markup_column</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_icon_view_get_markup_column (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Returns the column with markup text for <parameter>icon_view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the markup column, or -1 if it's unset.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-set-markup-column"/>exo_icon_view_set_markup_column ()</title>
+<indexterm><primary>exo_icon_view_set_markup_column</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_set_markup_column (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> column);</programlisting>
+<para>
+Sets the column with markup information for <parameter>icon_view</parameter> to be
+<parameter>column</parameter>. The markup column must be of type <link linkend="G-TYPE-STRING:CAPS"><type>G_TYPE_STRING</type></link>.
+If the markup column is set to something, it overrides
+the text column set by <link linkend="exo-icon-view-set-text-column"><function>exo_icon_view_set_text_column()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>column</parameter>&nbsp;:</term>
+<listitem><simpara> A column in the currently used model.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-pixbuf-column"/>exo_icon_view_get_pixbuf_column ()</title>
+<indexterm><primary>exo_icon_view_get_pixbuf_column</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_icon_view_get_pixbuf_column (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Returns the column with pixbufs for <parameter>icon_view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the pixbuf column, or -1 if it's unset.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-set-pixbuf-column"/>exo_icon_view_set_pixbuf_column ()</title>
+<indexterm><primary>exo_icon_view_set_pixbuf_column</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_set_pixbuf_column (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> column);</programlisting>
+<para>
+Sets the column with pixbufs for <parameter>icon_view</parameter> to be <parameter>column</parameter>. The pixbuf
+column must be of type <link linkend="GDK-TYPE-PIXBUF:CAPS"><type>GDK_TYPE_PIXBUF</type></link></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>column</parameter>&nbsp;:</term>
+<listitem><simpara> A column in the currently used model.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-orientation"/>exo_icon_view_get_orientation ()</title>
+<indexterm role="0.3.1"><primary>exo_icon_view_get_orientation</primary></indexterm><programlisting><link linkend="GtkOrientation">GtkOrientation</link> exo_icon_view_get_orientation
+                                            (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Returns the value of the ::orientation property which determines 
+whether the labels are drawn beside the icons instead of below.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the relative position of texts and icons 
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-set-orientation"/>exo_icon_view_set_orientation ()</title>
+<indexterm role="0.3.1"><primary>exo_icon_view_set_orientation</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_set_orientation   (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkOrientation">GtkOrientation</link> orientation);</programlisting>
+<para>
+Sets the ::orientation property which determines whether the labels 
+are drawn beside the icons instead of below.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>orientation</parameter>&nbsp;:</term>
+<listitem><simpara> the relative position of texts and icons 
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-selection-mode"/>exo_icon_view_get_selection_mode ()</title>
+<indexterm><primary>exo_icon_view_get_selection_mode</primary></indexterm><programlisting><link linkend="GtkSelectionMode">GtkSelectionMode</link> exo_icon_view_get_selection_mode
+                                            (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Gets the selection mode of the <parameter>icon_view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the current selection mode
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-set-selection-mode"/>exo_icon_view_set_selection_mode ()</title>
+<indexterm><primary>exo_icon_view_set_selection_mode</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_set_selection_mode
+                                            (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkSelectionMode">GtkSelectionMode</link> mode);</programlisting>
+<para>
+Sets the selection mode of the <parameter>icon_view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> The selection mode
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-path-at-pos"/>exo_icon_view_get_path_at_pos ()</title>
+<indexterm><primary>exo_icon_view_get_path_at_pos</primary></indexterm><programlisting><link linkend="GtkTreePath">GtkTreePath</link>* exo_icon_view_get_path_at_pos  (const <link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="gint">gint</link> x,
+                                             <link linkend="gint">gint</link> y);</programlisting>
+<para>
+Finds the path at the point (<parameter>x</parameter>, <parameter>y</parameter>), relative to widget coordinates.
+See <link linkend="exo-icon-view-get-item-at-pos"><function>exo_icon_view_get_item_at_pos()</function></link>, if you are also interested in
+the cell at the specified position.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>x</parameter>&nbsp;:</term>
+<listitem><simpara> The x position to be identified
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>y</parameter>&nbsp;:</term>
+<listitem><simpara> The y position to be identified
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The <link linkend="GtkTreePath"><type>GtkTreePath</type></link> corresponding to the icon or <literal>NULL</literal>
+              if no icon exists at that position.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="ExoIconViewForeachFunc"/>ExoIconViewForeachFunc ()</title>
+<indexterm><primary>ExoIconViewForeachFunc</primary></indexterm><programlisting><link linkend="void">void</link>        (*ExoIconViewForeachFunc)       (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-selected-foreach"/>exo_icon_view_selected_foreach ()</title>
+<indexterm><primary>exo_icon_view_selected_foreach</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_selected_foreach  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="ExoIconViewForeachFunc">ExoIconViewForeachFunc</link> func,
+                                             <link linkend="gpointer">gpointer</link> data);</programlisting>
+<para>
+Calls a function for each selected icon. Note that the model or
+selection cannot be modified from within this function.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>func</parameter>&nbsp;:</term>
+<listitem><simpara> The funcion to call for each selected icon.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>data</parameter>&nbsp;:</term>
+<listitem><simpara> User data to pass to the function.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-select-path"/>exo_icon_view_select_path ()</title>
+<indexterm><primary>exo_icon_view_select_path</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_select_path       (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);</programlisting>
+<para>
+Selects the row at <parameter>path</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="GtkTreePath"><type>GtkTreePath</type></link> to be selected.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-unselect-path"/>exo_icon_view_unselect_path ()</title>
+<indexterm><primary>exo_icon_view_unselect_path</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_unselect_path     (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);</programlisting>
+<para>
+Unselects the row at <parameter>path</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="GtkTreePath"><type>GtkTreePath</type></link> to be unselected.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-path-is-selected"/>exo_icon_view_path_is_selected ()</title>
+<indexterm><primary>exo_icon_view_path_is_selected</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_icon_view_path_is_selected  (const <link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);</programlisting>
+<para>
+Returns <literal>TRUE</literal> if the icon pointed to by <parameter>path</parameter> is currently
+selected. If <parameter>icon</parameter> does not point to a valid location, <literal>FALSE</literal> is returned.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkTreePath"><type>GtkTreePath</type></link> to check selection on.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if <parameter>path</parameter> is selected.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-get-selected-items"/>exo_icon_view_get_selected_items ()</title>
+<indexterm><primary>exo_icon_view_get_selected_items</primary></indexterm><programlisting><link linkend="GList">GList</link>*      exo_icon_view_get_selected_items
+                                            (const <link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Creates a list of paths of all selected items. Additionally, if you are
+planning on modifying the model after calling this function, you may
+want to convert the returned list into a list of <link linkend="GtkTreeRowReference"><type>GtkTreeRowReference</type></link><!-- -->s.
+To do this, you can use <link linkend="gtk-tree-row-reference-new"><function>gtk_tree_row_reference_new()</function></link>.
+</para>
+<para>
+To free the return value, use:
+<informalexample><programlisting>
+g_list_foreach (list, gtk_tree_path_free, NULL);
+g_list_free (list);
+</programlisting></informalexample></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A <link linkend="GList"><type>GList</type></link> containing a <link linkend="GtkTreePath"><type>GtkTreePath</type></link> for each selected row.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-select-all"/>exo_icon_view_select_all ()</title>
+<indexterm><primary>exo_icon_view_select_all</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_select_all        (<link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Selects all the icons. <parameter>icon_view</parameter> must has its selection mode set
+to <link linkend="GTK-SELECTION-MULTIPLE:CAPS"><type>GTK_SELECTION_MULTIPLE</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-unselect-all"/>exo_icon_view_unselect_all ()</title>
+<indexterm><primary>exo_icon_view_unselect_all</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_unselect_all      (<link linkend="ExoIconView">ExoIconView</link> *icon_view);</programlisting>
+<para>
+Unselects all the icons.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-view-item-activated"/>exo_icon_view_item_activated ()</title>
+<indexterm><primary>exo_icon_view_item_activated</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_view_item_activated    (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                             <link linkend="GtkTreePath">GtkTreePath</link> *path);</programlisting>
+<para>
+Activates the item determined by <parameter>path</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GtkTreePath"><type>GtkTreePath</type></link> to be activated
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<refsect2><title><anchor id="ExoIconView--column-spacing"/>The &quot;<literal>column-spacing</literal>&quot; property</title>
+<programlisting>  &quot;column-spacing&quot;       <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Space which is inserted between grid column.</para><para>Allowed values: &gt;= 0</para>
+<para>Default value: 6</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--columns"/>The &quot;<literal>columns</literal>&quot; property</title>
+<programlisting>  &quot;columns&quot;              <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Number of columns to display.</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--item-width"/>The &quot;<literal>item-width</literal>&quot; property</title>
+<programlisting>  &quot;item-width&quot;           <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>The width used for each item.</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--margin"/>The &quot;<literal>margin</literal>&quot; property</title>
+<programlisting>  &quot;margin&quot;               <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Space which is inserted at the edges of the icon view.</para><para>Allowed values: &gt;= 0</para>
+<para>Default value: 6</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--markup-column"/>The &quot;<literal>markup-column</literal>&quot; property</title>
+<programlisting>  &quot;markup-column&quot;        <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Model column used to retrieve the text if using Pango markup.</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--model"/>The &quot;<literal>model</literal>&quot; property</title>
+<programlisting>  &quot;model&quot;                <link linkend="GtkTreeModel">GtkTreeModel</link>          : Read / Write</programlisting>
+<para>The model for the icon view.</para></refsect2>
+<refsect2><title><anchor id="ExoIconView--orientation"/>The &quot;<literal>orientation</literal>&quot; property</title>
+<programlisting>  &quot;orientation&quot;          <link linkend="GtkOrientation">GtkOrientation</link>        : Read / Write</programlisting>
+<para>How the text and icon of each item are positioned relative to each other.</para><para>Default value: GTK_ORIENTATION_VERTICAL</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--pixbuf-column"/>The &quot;<literal>pixbuf-column</literal>&quot; property</title>
+<programlisting>  &quot;pixbuf-column&quot;        <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Model column used to retrieve the icon pixbuf from.</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--reorderable"/>The &quot;<literal>reorderable</literal>&quot; property</title>
+<programlisting>  &quot;reorderable&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>View is reorderable.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--row-spacing"/>The &quot;<literal>row-spacing</literal>&quot; property</title>
+<programlisting>  &quot;row-spacing&quot;          <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Space which is inserted between grid rows.</para><para>Allowed values: &gt;= 0</para>
+<para>Default value: 6</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--selection-mode"/>The &quot;<literal>selection-mode</literal>&quot; property</title>
+<programlisting>  &quot;selection-mode&quot;       <link linkend="GtkSelectionMode">GtkSelectionMode</link>      : Read / Write</programlisting>
+<para>The selection mode.</para><para>Default value: GTK_SELECTION_SINGLE</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--spacing"/>The &quot;<literal>spacing</literal>&quot; property</title>
+<programlisting>  &quot;spacing&quot;              <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Space which is inserted between cells of an item.</para><para>Allowed values: &gt;= 0</para>
+<para>Default value: 0</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--text-column"/>The &quot;<literal>text-column</literal>&quot; property</title>
+<programlisting>  &quot;text-column&quot;          <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>Model column used to retrieve the text from.</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+
+</refsect1>
+<refsect1>
+<title>Style Properties</title>
+<refsect2><title><anchor id="ExoIconView--selection-box-alpha"/>The &quot;<literal>selection-box-alpha</literal>&quot; style property</title>
+<programlisting>  &quot;selection-box-alpha&quot;  <link linkend="guchar">guchar</link>                : Read</programlisting>
+<para>Opacity of the selection box.</para><para>Default value: 64</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconView--selection-box-color"/>The &quot;<literal>selection-box-color</literal>&quot; style property</title>
+<programlisting>  &quot;selection-box-color&quot;  <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Color of the selection box.</para></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="ExoIconView-activate-cursor-item"/>The &quot;activate-cursor-item&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-item-activated"/>The &quot;item-activated&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="GtkTreePath">GtkTreePath</link> *path,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>path</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-move-cursor"/>The &quot;move-cursor&quot; signal</title>
+<programlisting><link linkend="gboolean">gboolean</link>    user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="GtkMovementStep">GtkMovementStep</link> step,
+                                            <link linkend="gint">gint</link> count,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>step</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>count</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-select-all"/>The &quot;select-all&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-select-cursor-item"/>The &quot;select-cursor-item&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-selection-changed"/>The &quot;selection-changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-set-scroll-adjustments"/>The &quot;set-scroll-adjustments&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *hadjustment,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *vadjustment,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>hadjustment</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vadjustment</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-toggle-cursor-item"/>The &quot;toggle-cursor-item&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconView-unselect-all"/>The &quot;unselect-all&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconView">ExoIconView</link> *icon_view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="ExoIconView"><type>ExoIconView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

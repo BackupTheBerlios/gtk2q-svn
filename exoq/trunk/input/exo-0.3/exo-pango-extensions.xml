@@ -1,0 +1,109 @@
+<refentry id="exo-Extensions-to-Pango">
+<refmeta>
+<refentrytitle>Extensions to Pango</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Extensions to Pango</refname><refpurpose>Miscelleanous extensions to the Pango library.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+enum        <link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link>;
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-pango-layout-set-text-ellipsized">exo_pango_layout_set_text_ellipsized</link>
+                                            (<link linkend="PangoLayout">PangoLayout</link> *layout,
+                                             const <link linkend="char">char</link> *string,
+                                             <link linkend="int">int</link> width,
+                                             <link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link> mode);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This facility provides ellipsizing support functions for
+Pango 1.4 and below. If its build against Pango 1.6 or
+above, it uses the ellipsizing functionality provided
+by Pango, else its emulated in libexo.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoPangoEllipsizeMode"/>enum ExoPangoEllipsizeMode</title>
+<indexterm><primary>ExoPangoEllipsizeMode</primary></indexterm><programlisting>typedef enum /*&lt; enum,prefix=EXO_PANGO_ELLIPSIZE_MODE &gt;*/
+{
+  EXO_PANGO_ELLIPSIZE_NONE,
+  EXO_PANGO_ELLIPSIZE_START,
+  EXO_PANGO_ELLIPSIZE_MIDDLE,
+  EXO_PANGO_ELLIPSIZE_END,
+} ExoPangoEllipsizeMode;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-pango-layout-set-text-ellipsized"/>exo_pango_layout_set_text_ellipsized ()</title>
+<indexterm><primary>exo_pango_layout_set_text_ellipsized</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_pango_layout_set_text_ellipsized
+                                            (<link linkend="PangoLayout">PangoLayout</link> *layout,
+                                             const <link linkend="char">char</link> *string,
+                                             <link linkend="int">int</link> width,
+                                             <link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link> mode);</programlisting>
+<para>
+Truncates a string if required to fit in <parameter>width</parameter> and sets it on the
+layout. Truncation involves removing characters from the start, middle or end
+respectively and replacing them with "...". Algorithm is a bit
+fuzzy, won't work 100%.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>layout</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="PangoLayout"><type>PangoLayout</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> The string to ellipsize.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara> The maximal width for the <parameter>layout</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>mode</parameter>&nbsp;:</term>
+<listitem><simpara> The ellipsize mode.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if <parameter>string</parameter> had to be ellipsized to fit into <parameter>width</parameter>, else
+              <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<ulink url="http://developer.gnome.org/doc/API/2.0/pango/"
+type="http">Pango Reference Manual</ulink>, <link
+linkend="ExoEllipsizedLabel">ExoEllipsizedLabel</link>,
+<link linkend="ExoCellRendererEllipsizedText">ExoCellRendererEllipsizedText</link>
+</para>
+</refsect1>
+
+</refentry>

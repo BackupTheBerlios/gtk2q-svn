@@ -1,0 +1,236 @@
+<refentry id="ExoWrapTable">
+<refmeta>
+<refentrytitle>ExoWrapTable</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoWrapTable</refname><refpurpose>A container widget with automatic child layouting</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoWrapTable-struct">ExoWrapTable</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-wrap-table-new">exo_wrap_table_new</link>              (<link linkend="gboolean">gboolean</link> homogeneous);
+<link linkend="guint">guint</link>       <link linkend="exo-wrap-table-get-col-spacing">exo_wrap_table_get_col_spacing</link>  (const <link linkend="ExoWrapTable">ExoWrapTable</link> *table);
+<link linkend="void">void</link>        <link linkend="exo-wrap-table-set-col-spacing">exo_wrap_table_set_col_spacing</link>  (<link linkend="ExoWrapTable">ExoWrapTable</link> *table,
+                                             <link linkend="guint">guint</link> col_spacing);
+<link linkend="guint">guint</link>       <link linkend="exo-wrap-table-get-row-spacing">exo_wrap_table_get_row_spacing</link>  (const <link linkend="ExoWrapTable">ExoWrapTable</link> *table);
+<link linkend="void">void</link>        <link linkend="exo-wrap-table-set-row-spacing">exo_wrap_table_set_row_spacing</link>  (<link linkend="ExoWrapTable">ExoWrapTable</link> *table,
+                                             <link linkend="guint">guint</link> row_spacing);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-wrap-table-get-homogeneous">exo_wrap_table_get_homogeneous</link>  (const <link linkend="ExoWrapTable">ExoWrapTable</link> *table);
+<link linkend="void">void</link>        <link linkend="exo-wrap-table-set-homogeneous">exo_wrap_table_set_homogeneous</link>  (<link linkend="ExoWrapTable">ExoWrapTable</link> *table,
+                                             <link linkend="gboolean">gboolean</link> homogeneous);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkContainer">GtkContainer</link>
+                     +----ExoWrapTable
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+ExoWrapTable implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoWrapTable--col-spacing">col-spacing</link>&quot;          <link linkend="guint">guint</link>                 : Read / Write
+  &quot;<link linkend="ExoWrapTable--homogeneous">homogeneous</link>&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ExoWrapTable--row-spacing">row-spacing</link>&quot;          <link linkend="guint">guint</link>                 : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+  The <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link> class layouts its children automatically
+  according to the available width allocated to the container
+  class.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoWrapTable-struct"/>ExoWrapTable</title>
+<indexterm role="0.3.1"><primary>ExoWrapTable</primary></indexterm><programlisting>typedef struct _ExoWrapTable ExoWrapTable;</programlisting>
+<para>
+  The <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link> struct contains only private fields
+  and should not be directly accessed.
+</para><para>Since 0.3.1
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-new"/>exo_wrap_table_new ()</title>
+<indexterm><primary>exo_wrap_table_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_wrap_table_new              (<link linkend="gboolean">gboolean</link> homogeneous);</programlisting>
+<para>
+Allocates a new <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>homogeneous</parameter>&nbsp;:</term>
+<listitem><simpara> <literal>TRUE</literal> if all children are to be given equal space allotments.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the newly allocated <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-get-col-spacing"/>exo_wrap_table_get_col_spacing ()</title>
+<indexterm role="0.3.1"><primary>exo_wrap_table_get_col_spacing</primary></indexterm><programlisting><link linkend="guint">guint</link>       exo_wrap_table_get_col_spacing  (const <link linkend="ExoWrapTable">ExoWrapTable</link> *table);</programlisting>
+<para>
+Returns the amount of space between consecutive
+columns in <parameter>table</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the amount of space between
+              consecutive columns.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-set-col-spacing"/>exo_wrap_table_set_col_spacing ()</title>
+<indexterm role="0.3.1"><primary>exo_wrap_table_set_col_spacing</primary></indexterm><programlisting><link linkend="void">void</link>        exo_wrap_table_set_col_spacing  (<link linkend="ExoWrapTable">ExoWrapTable</link> *table,
+                                             <link linkend="guint">guint</link> col_spacing);</programlisting>
+<para>
+Sets the amount of space between consecutive
+columns in <parameter>table</parameter> to <parameter>col_spacing</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>col_spacing</parameter>&nbsp;:</term>
+<listitem><simpara> the new column spacing.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-get-row-spacing"/>exo_wrap_table_get_row_spacing ()</title>
+<indexterm role="0.3.1"><primary>exo_wrap_table_get_row_spacing</primary></indexterm><programlisting><link linkend="guint">guint</link>       exo_wrap_table_get_row_spacing  (const <link linkend="ExoWrapTable">ExoWrapTable</link> *table);</programlisting>
+<para>
+Returns the amount of space between consecutive
+rows in <parameter>table</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the amount of space between
+              consecutive rows in <parameter>table</parameter>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-set-row-spacing"/>exo_wrap_table_set_row_spacing ()</title>
+<indexterm role="0.3.1"><primary>exo_wrap_table_set_row_spacing</primary></indexterm><programlisting><link linkend="void">void</link>        exo_wrap_table_set_row_spacing  (<link linkend="ExoWrapTable">ExoWrapTable</link> *table,
+                                             <link linkend="guint">guint</link> row_spacing);</programlisting>
+<para>
+Sets the amount of spacing between consecutive
+rows in <parameter>table</parameter> to <parameter>row_spacing</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>row_spacing</parameter>&nbsp;:</term>
+<listitem><simpara> the new row spacing.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-get-homogeneous"/>exo_wrap_table_get_homogeneous ()</title>
+<indexterm role="0.3.1"><primary>exo_wrap_table_get_homogeneous</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_wrap_table_get_homogeneous  (const <link linkend="ExoWrapTable">ExoWrapTable</link> *table);</programlisting>
+<para>
+Returns whether the table cells are all constrained
+to the same width and height.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if the cells are all constrained
+              to the same size.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-wrap-table-set-homogeneous"/>exo_wrap_table_set_homogeneous ()</title>
+<indexterm role="0.3.1"><primary>exo_wrap_table_set_homogeneous</primary></indexterm><programlisting><link linkend="void">void</link>        exo_wrap_table_set_homogeneous  (<link linkend="ExoWrapTable">ExoWrapTable</link> *table,
+                                             <link linkend="gboolean">gboolean</link> homogeneous);</programlisting>
+<para>
+Changes the homogenous property of <parameter>table</parameter> cells, ie. whether all cells
+are an equal size or not.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>table</parameter>&nbsp;:</term>
+<listitem><simpara> an <link linkend="ExoWrapTable"><type>ExoWrapTable</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>homogeneous</parameter>&nbsp;:</term>
+<listitem><simpara> Set to <literal>TRUE</literal> to ensure all <parameter>table</parameter> cells are the same size.
+               Set to <literal>FALSE</literal> if this is not your desired behaviour.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<refsect2><title><anchor id="ExoWrapTable--col-spacing"/>The &quot;<literal>col-spacing</literal>&quot; property</title>
+<programlisting>  &quot;col-spacing&quot;          <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>The amount of space between two consecutive columns.</para><para>Default value: 0</para>
+</refsect2>
+<refsect2><title><anchor id="ExoWrapTable--homogeneous"/>The &quot;<literal>homogeneous</literal>&quot; property</title>
+<programlisting>  &quot;homogeneous&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether the children should be all the same size.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="ExoWrapTable--row-spacing"/>The &quot;<literal>row-spacing</literal>&quot; property</title>
+<programlisting>  &quot;row-spacing&quot;          <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>The amount of space between two consecutive rows.</para><para>Default value: 0</para>
+</refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

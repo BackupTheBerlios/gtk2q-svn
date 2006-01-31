@@ -1,0 +1,207 @@
+<refentry id="exo-String-Utility-Functions">
+<refmeta>
+<refentrytitle>String Utility Functions</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>String Utility Functions</refname><refpurpose>Various string-related functions.</refpurpose>
+</refnamediv>
+<refsect1>
+<title>Stability Level</title>
+Stable, unless otherwise indicated
+</refsect1>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+<link linkend="gchar">gchar</link>*      <link linkend="exo-str-elide-underscores">exo_str_elide_underscores</link>       (const <link linkend="gchar">gchar</link> *text);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-str-is-equal">exo_str_is_equal</link>                (const <link linkend="gchar">gchar</link> *a,
+                                             const <link linkend="gchar">gchar</link> *b);
+<link linkend="gchar">gchar</link>*      <link linkend="exo-str-replace">exo_str_replace</link>                 (const <link linkend="gchar">gchar</link> *str,
+                                             const <link linkend="gchar">gchar</link> *pattern,
+                                             const <link linkend="gchar">gchar</link> *replacement);
+<link linkend="gchar">gchar</link>**     <link linkend="exo-strndupv">exo_strndupv</link>                    (<link linkend="gchar">gchar</link> **strv,
+                                             <link linkend="gint">gint</link> num);
+const <link linkend="gchar">gchar</link>* <link linkend="exo-intern-string">exo_intern_string</link>              (const <link linkend="gchar">gchar</link> *string);
+const <link linkend="gchar">gchar</link>* <link linkend="exo-intern-static-string">exo_intern_static_string</link>       (const <link linkend="gchar">gchar</link> *string);
+#define     <link linkend="I-:CAPS">I_</link>                              (string)
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This section describes a number of utility functions for manipulating
+strings.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-str-elide-underscores"/>exo_str_elide_underscores ()</title>
+<indexterm><primary>exo_str_elide_underscores</primary></indexterm><programlisting><link linkend="gchar">gchar</link>*      exo_str_elide_underscores       (const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+Returns a copy of <parameter>text</parameter> with all mnemonic underscores
+stripped off.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>text</parameter>&nbsp;:</term>
+<listitem><simpara> A zero terminated string.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A copy of <parameter>text</parameter> without underscores. The
+              returned string must be freed when no
+              longer required.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-str-is-equal"/>exo_str_is_equal ()</title>
+<indexterm><primary>exo_str_is_equal</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_str_is_equal                (const <link linkend="gchar">gchar</link> *a,
+                                             const <link linkend="gchar">gchar</link> *b);</programlisting>
+<para>
+<literal>NULL</literal>-safe string comparison. Returns <literal>TRUE</literal> if both <parameter>a</parameter> and <parameter>b</parameter> are
+<literal>NULL</literal> or if <parameter>a</parameter> and <parameter>b</parameter> refer to valid strings which are equal.
+</para>
+<para>
+You should always prefer this function over <link linkend="strcmp"><function>strcmp()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>a</parameter>&nbsp;:</term>
+<listitem><simpara> A pointer to first string or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>b</parameter>&nbsp;:</term>
+<listitem><simpara> A pointer to second string or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if <parameter>a</parameter> equals <parameter>b</parameter>, else <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-str-replace"/>exo_str_replace ()</title>
+<indexterm role="0.3.1.1"><primary>exo_str_replace</primary></indexterm><programlisting><link linkend="gchar">gchar</link>*      exo_str_replace                 (const <link linkend="gchar">gchar</link> *str,
+                                             const <link linkend="gchar">gchar</link> *pattern,
+                                             const <link linkend="gchar">gchar</link> *replacement);</programlisting>
+<para>
+Searches <parameter>str</parameter> for occurances of <parameter>pattern</parameter> and replaces each
+such occurance with <parameter>replacement</parameter>. Returns a newly allocated
+copy of <parameter>str</parameter> on which the given replacement were performed.
+The caller is responsible to free the returned string using
+<link linkend="g-free"><function>g_free()</function></link> when no longer needed.
+</para>
+<para>
+Note that <parameter>pattern</parameter> and <parameter>replacement</parameter> don't need to be of the
+same size.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>str</parameter>&nbsp;:</term>
+<listitem><simpara> the input string.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pattern</parameter>&nbsp;:</term>
+<listitem><simpara> a search pattern in <parameter>str</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>replacement</parameter>&nbsp;:</term>
+<listitem><simpara> replacement string for <parameter>pattern</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated copy of <parameter>str</parameter> where all
+              occurances of <parameter>pattern</parameter> are replaced with
+              <parameter>replacement</parameter>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-strndupv"/>exo_strndupv ()</title>
+<indexterm><primary>exo_strndupv</primary></indexterm><programlisting><link linkend="gchar">gchar</link>**     exo_strndupv                    (<link linkend="gchar">gchar</link> **strv,
+                                             <link linkend="gint">gint</link> num);</programlisting>
+<para>
+Creates a new string vector containing the
+first <parameter>n</parameter> elements of <parameter>strv</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>strv</parameter>&nbsp;:</term>
+<listitem><simpara> String vector to duplicate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>num</parameter>&nbsp;:</term>
+<listitem><simpara> Number of strings in <parameter>strv</parameter> to
+         duplicate.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The new string vector. Should be
+              freed using <link linkend="g-strfreev"><function>g_strfreev()</function></link> when no
+              longer needed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-intern-string"/>exo_intern_string ()</title>
+<indexterm role="0.3.1.1"><primary>exo_intern_string</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>* exo_intern_string              (const <link linkend="gchar">gchar</link> *string);</programlisting>
+<para>
+Returns a canonical representation for <parameter>string</parameter>. Interned strings can
+be compared for equality by comparing the pointers, instead of using <link linkend="strcmp"><function>strcmp()</function></link>
+or <link linkend="exo-str-is-equal"><function>exo_str_is_equal()</function></link>. <link linkend="exo-intern-string"><function>exo_intern_string()</function></link> takes a copy of the <parameter>string</parameter> for its
+internal usage, so <parameter>string</parameter> does not need to be static.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> a string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a canonical representation for the string
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-intern-static-string"/>exo_intern_static_string ()</title>
+<indexterm role="0.3.1.1"><primary>exo_intern_static_string</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>* exo_intern_static_string       (const <link linkend="gchar">gchar</link> *string);</programlisting>
+<para>
+Returns a canonical representation for <parameter>string</parameter>. Interned strings can
+be compared for equality by comparing the pointers, instead of using <link linkend="strcmp"><function>strcmp()</function></link>
+or <link linkend="exo-str-is-equal"><function>exo_str_is_equal()</function></link>. <link linkend="exo-intern-static-string"><function>exo_intern_static_string()</function></link> does not copy the string,
+therefore <parameter>string</parameter> must not be freed or modified.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara> a static string
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a canonical representation for the string
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="I-:CAPS"/>I_()</title>
+<indexterm role="0.3.1.1"><primary>I_</primary></indexterm><programlisting>#define     I_(string)</programlisting>
+<para>
+  Shortcut for <link linkend="exo-intern-static-string"><function>exo_intern_static_string()</function></link>.
+</para><variablelist role="params">
+<varlistentry><term><parameter>string</parameter>&nbsp;:</term>
+<listitem><simpara>a static string.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since 0.3.1.1
+
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

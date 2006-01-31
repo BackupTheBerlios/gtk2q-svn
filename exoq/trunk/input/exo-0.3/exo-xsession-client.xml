@@ -1,0 +1,330 @@
+<refentry id="ExoXsessionClient">
+<refmeta>
+<refentrytitle>ExoXsessionClient</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoXsessionClient</refname><refpurpose>Lightweight session management support</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoXsessionClient-struct">ExoXsessionClient</link>;
+<link linkend="ExoXsessionClient">ExoXsessionClient</link>* <link linkend="exo-xsession-client-new-with-group">exo_xsession_client_new_with_group</link>
+                                            (<link linkend="GdkWindow">GdkWindow</link> *leader);
+<link linkend="GdkWindow">GdkWindow</link>*  <link linkend="exo-xsession-client-get-group">exo_xsession_client_get_group</link>   (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client);
+<link linkend="void">void</link>        <link linkend="exo-xsession-client-set-group">exo_xsession_client_set_group</link>   (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                             <link linkend="GdkWindow">GdkWindow</link> *leader);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-xsession-client-get-restart-command">exo_xsession_client_get_restart_command</link>
+                                            (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                             <link linkend="gchar">gchar</link> ***argv,
+                                             <link linkend="gint">gint</link> *argc);
+<link linkend="void">void</link>        <link linkend="exo-xsession-client-set-restart-command">exo_xsession_client_set_restart_command</link>
+                                            (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gint">gint</link> argc);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----ExoXsessionClient
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoXsessionClient--group">group</link>&quot;                <link linkend="GdkWindow">GdkWindow</link>             : Read / Write
+  &quot;<link linkend="ExoXsessionClient--restart-command">restart-command</link>&quot;      <link linkend="GStrv">GStrv</link>                 : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="ExoXsessionClient-save-yourself">save-yourself</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This module provides application developers with lightweight
+session management functions, based on the X11R5 session management
+protocol. The X11R5 session management protocol is very limited in
+its functionality and flexibility compared to the newer X11R6
+session management protocol (XSMP), but - on the other hand - offers several
+advantages for applications that do not need the complicated features
+of the XSMP. Most importantly, the setup is much easier and
+faster than with XSMP, because no special actions must be taken.
+</para>
+<para>
+So, in case your application is simple in its session management
+requirements, e.g. it only needs to tell the session manager
+its restart command, you may want to use the <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>
+instead of a full featured XSMP client.
+</para>
+<para>
+Lets say, for example, you are developing a text editor, which
+should provide basic session management support, limited to
+proper restarting all editor windows that where left open
+when you logged off the X session. In case the user was editing
+a file when logging off, the same file should be opened in the
+window on next startup.
+</para>
+<example>
+<title>Texteditor with <structname>ExoXsessionClient</structname></title>
+<programlisting>
+static gchar *open_file_name = NULL;
+
+static void
+save_yourself (ExoXsessionClient *client)
+{
+  gchar *argv[2];
+
+  if (open_file_name != NULL)
+    {
+      argv[0] = "myeditor";
+      argv[1] = open_file_name;
+
+      exo_xsession_client_set_restart_command (client, argv, 2);
+    }
+  else
+    {
+      argv[0] = "myeditor";
+
+      exo_xsession_client_set_restart_command (client, argv, 1);
+    }
+}
+
+/* ... */
+
+int
+main (int argc, char **argv)
+{
+  ExoXsessionClient *client;
+  GdkDisplay        *display;
+  GdkWindow         *leader;
+  GtkWidget         *window;
+
+  gtk_init (&amp;argc, &amp;argv);
+
+  if (argc > 1)
+    open_file_name = argv[1];
+
+  /* create the main window */
+  window = <link linkend="create-window"><function>create_window()</function></link>;
+
+  /* setup the session client */
+  display = gtk_widget_get_display (window);
+  leader = gdk_display_get_default_group (display);
+  client = exo_xsession_client_new_with_group (leader);
+  g_signal_connect (G_OBJECT (client), "save-yourself",
+                    G_CALLBACK (save_yourself), NULL);
+
+  /* ... */
+}
+</programlisting>
+</example>
+<para>
+This example demonstrates the basic handling of <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>. It is
+oversimplified, but we hope you get the point. The rule of thumb is, use
+<link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link> if you can store all session data in the restart command,
+else use a full-featured XSMP client.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoXsessionClient-struct"/>ExoXsessionClient</title>
+<indexterm><primary>ExoXsessionClient</primary></indexterm><programlisting>typedef struct _ExoXsessionClient ExoXsessionClient;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-xsession-client-new-with-group"/>exo_xsession_client_new_with_group ()</title>
+<indexterm><primary>exo_xsession_client_new_with_group</primary></indexterm><programlisting><link linkend="ExoXsessionClient">ExoXsessionClient</link>* exo_xsession_client_new_with_group
+                                            (<link linkend="GdkWindow">GdkWindow</link> *leader);</programlisting>
+<para>
+Creates a new <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link> and associates it
+with the group, which is lead by <parameter>leader</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>leader</parameter>&nbsp;:</term>
+<listitem><simpara> The client leader window of the group.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly allocated <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-xsession-client-get-group"/>exo_xsession_client_get_group ()</title>
+<indexterm><primary>exo_xsession_client_get_group</primary></indexterm><programlisting><link linkend="GdkWindow">GdkWindow</link>*  exo_xsession_client_get_group   (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>client</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The client leader window of the group
+              with which <parameter>client</parameter> is associated or
+              <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-xsession-client-set-group"/>exo_xsession_client_set_group ()</title>
+<indexterm><primary>exo_xsession_client_set_group</primary></indexterm><programlisting><link linkend="void">void</link>        exo_xsession_client_set_group   (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                             <link linkend="GdkWindow">GdkWindow</link> *leader);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>client</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>leader</parameter>&nbsp;:</term>
+<listitem><simpara> The client leader window of a group or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-xsession-client-get-restart-command"/>exo_xsession_client_get_restart_command ()</title>
+<indexterm><primary>exo_xsession_client_get_restart_command</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_xsession_client_get_restart_command
+                                            (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                             <link linkend="gchar">gchar</link> ***argv,
+                                             <link linkend="gint">gint</link> *argc);</programlisting>
+<para>
+Retrieves the restart command previously set on <parameter>client</parameter>. The
+result is stored in <parameter>argv</parameter> and should be freed using 
+<link linkend="g-strfreev"><function>g_strfreev()</function></link> when no longer needed.
+</para>
+<para>
+See <link linkend="exo-xsession-client-set-restart-command"><function>exo_xsession_client_set_restart_command()</function></link> for further
+explanation.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>client</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> Pointer to the location where the
+           pointer to the argument vector should
+           be stored to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> Pointer to the location where the
+           number of arguments should be stored
+           to or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, else <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-xsession-client-set-restart-command"/>exo_xsession_client_set_restart_command ()</title>
+<indexterm><primary>exo_xsession_client_set_restart_command</primary></indexterm><programlisting><link linkend="void">void</link>        exo_xsession_client_set_restart_command
+                                            (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                             <link linkend="gchar">gchar</link> **argv,
+                                             <link linkend="gint">gint</link> argc);</programlisting>
+<para>
+Sets the <literal>WM_COMMAND</literal> property on the client leader window,
+which instructs the session manager (or session-enabled window
+manager) how to restart the application on next login.
+</para>
+<para>
+This function can only be used if <parameter>client</parameter> is associated with
+a client leader window.
+</para>
+<para>
+If <parameter>argc</parameter> is specify as -1, the argument vector <parameter>argv</parameter> is expected
+to be <literal>NULL</literal><!-- -->-terminated and <parameter>argc</parameter> will be automatically
+calculated from <parameter>argv</parameter>.
+</para>
+<para>
+Please take note, that <link linkend="gtk-init"><function>gtk_init()</function></link> automatically sets the
+<literal>WM_COMMAND</literal> property on all client leader windows that are
+implicitly created by Gtk+. So, you may only need to call
+this function in response to the ::save-yourself signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>client</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argv</parameter>&nbsp;:</term>
+<listitem><simpara> The argument vector.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>argc</parameter>&nbsp;:</term>
+<listitem><simpara> The number of arguments in <parameter>argv</parameter> or -1.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<refsect2><title><anchor id="ExoXsessionClient--group"/>The &quot;<literal>group</literal>&quot; property</title>
+<programlisting>  &quot;group&quot;                <link linkend="GdkWindow">GdkWindow</link>             : Read / Write</programlisting>
+<para>
+</para>
+<para>
+
+</para></refsect2>
+<refsect2><title><anchor id="ExoXsessionClient--restart-command"/>The &quot;<literal>restart-command</literal>&quot; property</title>
+<programlisting>  &quot;restart-command&quot;      <link linkend="GStrv">GStrv</link>                 : Read / Write</programlisting>
+<para>
+</para>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="ExoXsessionClient-save-yourself"/>The &quot;save-yourself&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoXsessionClient">ExoXsessionClient</link> *client,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted when <parameter>client</parameter> receives a <literal>WM_SAVE_YOURSELF</literal>
+message from the session manager or the window manager on the 
+specified client leader window.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>client</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoXsessionClient"><type>ExoXsessionClient</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

@@ -1,0 +1,523 @@
+<refentry id="ExoIconBar">
+<refmeta>
+<refentrytitle>ExoIconBar</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoIconBar</refname><refpurpose>A widget for displaying icon bars</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoIconBar-struct">ExoIconBar</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-icon-bar-new">exo_icon_bar_new</link>                (void);
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-icon-bar-new-with-model">exo_icon_bar_new_with_model</link>     (<link linkend="GtkTreeModel">GtkTreeModel</link> *model);
+<link linkend="GtkTreeModel">GtkTreeModel</link>* <link linkend="exo-icon-bar-get-model">exo_icon_bar_get_model</link>        (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);
+<link linkend="void">void</link>        <link linkend="exo-icon-bar-set-model">exo_icon_bar_set_model</link>          (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkTreeModel">GtkTreeModel</link> *model);
+<link linkend="gint">gint</link>        <link linkend="exo-icon-bar-get-pixbuf-column">exo_icon_bar_get_pixbuf_column</link>  (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);
+<link linkend="void">void</link>        <link linkend="exo-icon-bar-set-pixbuf-column">exo_icon_bar_set_pixbuf_column</link>  (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="gint">gint</link> column);
+<link linkend="gint">gint</link>        <link linkend="exo-icon-bar-get-text-column">exo_icon_bar_get_text_column</link>    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);
+<link linkend="void">void</link>        <link linkend="exo-icon-bar-set-text-column">exo_icon_bar_set_text_column</link>    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="gint">gint</link> column);
+<link linkend="GtkOrientation">GtkOrientation</link> <link linkend="exo-icon-bar-get-orientation">exo_icon_bar_get_orientation</link> (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);
+<link linkend="void">void</link>        <link linkend="exo-icon-bar-set-orientation">exo_icon_bar_set_orientation</link>    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkOrientation">GtkOrientation</link> orientation);
+<link linkend="gint">gint</link>        <link linkend="exo-icon-bar-get-active">exo_icon_bar_get_active</link>         (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);
+<link linkend="void">void</link>        <link linkend="exo-icon-bar-set-active">exo_icon_bar_set_active</link>         (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="gint">gint</link> index);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-icon-bar-get-active-iter">exo_icon_bar_get_active_iter</link>    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkTreeIter">GtkTreeIter</link> *iter);
+<link linkend="void">void</link>        <link linkend="exo-icon-bar-set-active-iter">exo_icon_bar_set_active_iter</link>    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkTreeIter">GtkTreeIter</link> *iter);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkContainer">GtkContainer</link>
+                     +----ExoIconBar
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+ExoIconBar implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoIconBar--active">active</link>&quot;               <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconBar--model">model</link>&quot;                <link linkend="GtkTreeModel">GtkTreeModel</link>          : Read / Write
+  &quot;<link linkend="ExoIconBar--orientation">orientation</link>&quot;          <link linkend="GtkOrientation">GtkOrientation</link>        : Read / Write
+  &quot;<link linkend="ExoIconBar--pixbuf-column">pixbuf-column</link>&quot;        <link linkend="gint">gint</link>                  : Read / Write
+  &quot;<link linkend="ExoIconBar--text-column">text-column</link>&quot;          <link linkend="gint">gint</link>                  : Read / Write
+</synopsis>
+</refsect1>
+<refsect1>
+<title>Style Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoIconBar--active-item-border-color">active-item-border-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="ExoIconBar--active-item-fill-color">active-item-fill-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="ExoIconBar--active-item-text-color">active-item-text-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="ExoIconBar--cursor-item-border-color">cursor-item-border-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="ExoIconBar--cursor-item-fill-color">cursor-item-fill-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="ExoIconBar--cursor-item-text-color">cursor-item-text-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="ExoIconBar-selection-changed">selection-changed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoIconBar-set-scroll-adjustments">set-scroll-adjustments</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *hadjustment,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *vadjustment,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A widget that displays any object that implements the <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> interface
+in an icon bar.
+</para>
+
+<example>
+<title>
+  Creating a new <structname>ExoIconBar</structname> with a <structname>GtkListStore</structname>
+</title>
+<programlisting>
+enum
+{
+  PIXBUF_COLUMN,
+  STRING_COLUMN,
+  N_COLUMNS,
+};
+
+{
+  GtkListStore *store;
+  GtkWidget    *bar;
+
+  /* make a new list store */
+  store = gtk_list_store_new (N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING);
+
+  /* fill the store with data */
+  fill_store (store);
+
+  /* create the icon bar */
+  bar = exo_icon_bar_new_with_model (GTK_TREE_MODEL (store));
+  exo_icon_bar_set_pixbuf_column (EXO_ICON_BAR (bar), PIXBUF_COLUMN);
+  exo_icon_bar_set_text_column (EXO_ICON_BAR (bar), TEXT_COLUMN);
+  gtk_widget_show (bar);
+
+  /* the icon bar keeps a reference on the store now */
+  g_object_unref (G_OBJECT (store));
+
+  /* add the bar to your GUI now... */
+}
+</programlisting>
+</example>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoIconBar-struct"/>ExoIconBar</title>
+<indexterm><primary>ExoIconBar</primary></indexterm><programlisting>typedef struct _ExoIconBar ExoIconBar;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-new"/>exo_icon_bar_new ()</title>
+<indexterm><primary>exo_icon_bar_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_icon_bar_new                (void);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-new-with-model"/>exo_icon_bar_new_with_model ()</title>
+<indexterm><primary>exo_icon_bar_new_with_model</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_icon_bar_new_with_model     (<link linkend="GtkTreeModel">GtkTreeModel</link> *model);</programlisting>
+<para>
+Creates a new <link linkend="ExoIconBar"><type>ExoIconBar</type></link> and associates it with
+<parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a newly allocated <link linkend="ExoIconBar"><type>ExoIconBar</type></link>, which
+              is associated with <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-get-model"/>exo_icon_bar_get_model ()</title>
+<indexterm><primary>exo_icon_bar_get_model</primary></indexterm><programlisting><link linkend="GtkTreeModel">GtkTreeModel</link>* exo_icon_bar_get_model        (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);</programlisting>
+<para>
+Returns the model the <link linkend="ExoIconBar"><type>ExoIconBar</type></link> is based on. Returns <literal>NULL</literal> if
+the model is unset.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link>, or <literal>NULL</literal> if none is currently being used.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-set-model"/>exo_icon_bar_set_model ()</title>
+<indexterm><primary>exo_icon_bar_set_model</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_bar_set_model          (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkTreeModel">GtkTreeModel</link> *model);</programlisting>
+<para>
+Sets the model for a <link linkend="ExoIconBar"><type>ExoIconBar</type></link>. If the <parameter>icon_bar</parameter> already has a model
+set, it will remove it before settings the new model. If <parameter>model</parameter> is <literal>NULL</literal>,
+then it will unset the old model.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-get-pixbuf-column"/>exo_icon_bar_get_pixbuf_column ()</title>
+<indexterm><primary>exo_icon_bar_get_pixbuf_column</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_icon_bar_get_pixbuf_column  (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);</programlisting>
+<para>
+Returns the column with pixbufs for <parameter>icon_bar</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the pixbuf column, or -1 if it's unset.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-set-pixbuf-column"/>exo_icon_bar_set_pixbuf_column ()</title>
+<indexterm><primary>exo_icon_bar_set_pixbuf_column</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_bar_set_pixbuf_column  (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="gint">gint</link> column);</programlisting>
+<para>
+Sets the column with pixbufs for <parameter>icon_bar</parameter> to be <parameter>column</parameter>. The pixbuf
+column must be of type <link linkend="GDK-TYPE-PIXBUF:CAPS"><type>GDK_TYPE_PIXBUF</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>column</parameter>&nbsp;:</term>
+<listitem><simpara> A column in the currently used model.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-get-text-column"/>exo_icon_bar_get_text_column ()</title>
+<indexterm><primary>exo_icon_bar_get_text_column</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_icon_bar_get_text_column    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);</programlisting>
+<para>
+Returns the column with text for <parameter>icon_bar</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the text column, or -1 if it's unset.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-set-text-column"/>exo_icon_bar_set_text_column ()</title>
+<indexterm><primary>exo_icon_bar_set_text_column</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_bar_set_text_column    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="gint">gint</link> column);</programlisting>
+<para>
+Sets the column with text for <parameter>icon_bar</parameter> to be <parameter>column</parameter>. The
+text column must be of type <link linkend="G-TYPE-STRING:CAPS"><type>G_TYPE_STRING</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>column</parameter>&nbsp;:</term>
+<listitem><simpara> A column in the currently used model or -1 to
+             use no text in <parameter>icon_bar</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-get-orientation"/>exo_icon_bar_get_orientation ()</title>
+<indexterm><primary>exo_icon_bar_get_orientation</primary></indexterm><programlisting><link linkend="GtkOrientation">GtkOrientation</link> exo_icon_bar_get_orientation (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);</programlisting>
+<para>
+Retrieves the current orientation of the toolbar. See
+<link linkend="exo-icon-bar-set-orientation"><function>exo_icon_bar_set_orientation()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The orientation of <parameter>icon_bar</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-set-orientation"/>exo_icon_bar_set_orientation ()</title>
+<indexterm><primary>exo_icon_bar_set_orientation</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_bar_set_orientation    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkOrientation">GtkOrientation</link> orientation);</programlisting>
+<para>
+Sets whether the <parameter>icon_bar</parameter> should appear horizontally
+or vertically.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>orientation</parameter>&nbsp;:</term>
+<listitem><simpara> A new <link linkend="GtkOrientation"><type>GtkOrientation</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-get-active"/>exo_icon_bar_get_active ()</title>
+<indexterm><primary>exo_icon_bar_get_active</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_icon_bar_get_active         (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar);</programlisting>
+<para>
+Returns the index of the currently active item, or -1 if there's no
+active item.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> An integer which is the index of the currently active item,
+              or -1 if there's no active item.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-set-active"/>exo_icon_bar_set_active ()</title>
+<indexterm><primary>exo_icon_bar_set_active</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_bar_set_active         (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="gint">gint</link> index);</programlisting>
+<para>
+Sets the active item of <parameter>icon_bar</parameter> to be the item at <parameter>index</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>index</parameter>&nbsp;:</term>
+<listitem><simpara> An index in the model passed during construction,
+             or -1 to have no active item.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-get-active-iter"/>exo_icon_bar_get_active_iter ()</title>
+<indexterm><primary>exo_icon_bar_get_active_iter</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_icon_bar_get_active_iter    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkTreeIter">GtkTreeIter</link> *iter);</programlisting>
+<para>
+Sets <parameter>iter</parameter> to point to the current active item, if it exists.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> An uninitialized <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if <parameter>iter</parameter> was set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-icon-bar-set-active-iter"/>exo_icon_bar_set_active_iter ()</title>
+<indexterm><primary>exo_icon_bar_set_active_iter</primary></indexterm><programlisting><link linkend="void">void</link>        exo_icon_bar_set_active_iter    (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                             <link linkend="GtkTreeIter">GtkTreeIter</link> *iter);</programlisting>
+<para>
+Sets the current active item to be the one referenced by <parameter>iter</parameter>. <parameter>iter</parameter>
+must correspond to a path of depth one.
+</para>
+<para>
+This can only be called if <parameter>icon_bar</parameter> is associated with <link linkend="GtkTreeModel"><type>GtkTreeModel</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>iter</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="GtkTreeIter"><type>GtkTreeIter</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<refsect2><title><anchor id="ExoIconBar--active"/>The &quot;<literal>active</literal>&quot; property</title>
+<programlisting>  &quot;active&quot;               <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The item which is currently active.
+</para>
+<para>
+Allowed values: &gt;= -1
+</para>
+<para>
+Default value: -1</para>
+<para>
+
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconBar--model"/>The &quot;<literal>model</literal>&quot; property</title>
+<programlisting>  &quot;model&quot;                <link linkend="GtkTreeModel">GtkTreeModel</link>          : Read / Write</programlisting>
+<para>
+The model for the icon bar.</para>
+<para>
+
+</para></refsect2>
+<refsect2><title><anchor id="ExoIconBar--orientation"/>The &quot;<literal>orientation</literal>&quot; property</title>
+<programlisting>  &quot;orientation&quot;          <link linkend="GtkOrientation">GtkOrientation</link>        : Read / Write</programlisting>
+<para>
+The orientation of the icon bar.
+</para>
+<para>
+Default value: <literal>GTK_ORIENTATION_VERTICAL</literal></para>
+<para>
+
+</para><para>Default value: GTK_ORIENTATION_VERTICAL</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconBar--pixbuf-column"/>The &quot;<literal>pixbuf-column</literal>&quot; property</title>
+<programlisting>  &quot;pixbuf-column&quot;        <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The ::pixbuf-column property contains the number of the model column
+containing the pixbufs which are displyed. The pixbuf column must be
+of type <link linkend="GDK-TYPE-PIXBUF:CAPS"><type>GDK_TYPE_PIXBUF</type></link>. Setting this property to -1 turns off the
+display of pixbufs.</para>
+<para>
+
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+<refsect2><title><anchor id="ExoIconBar--text-column"/>The &quot;<literal>text-column</literal>&quot; property</title>
+<programlisting>  &quot;text-column&quot;          <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<para>
+The ::text-column property contains the number of the model column
+containing the texts which are displayed. The text column must be
+of type <link linkend="G-TYPE-STRING:CAPS"><type>G_TYPE_STRING</type></link>. If this property is set to -1, no texts
+are displayed.</para>
+<para>
+
+</para><para>Allowed values: &gt;= -1</para>
+<para>Default value: -1</para>
+</refsect2>
+
+</refsect1>
+<refsect1>
+<title>Style Properties</title>
+<refsect2><title><anchor id="ExoIconBar--active-item-border-color"/>The &quot;<literal>active-item-border-color</literal>&quot; style property</title>
+<programlisting>  &quot;active-item-border-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Active item border color.</para></refsect2>
+<refsect2><title><anchor id="ExoIconBar--active-item-fill-color"/>The &quot;<literal>active-item-fill-color</literal>&quot; style property</title>
+<programlisting>  &quot;active-item-fill-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Active item fill color.</para></refsect2>
+<refsect2><title><anchor id="ExoIconBar--active-item-text-color"/>The &quot;<literal>active-item-text-color</literal>&quot; style property</title>
+<programlisting>  &quot;active-item-text-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Active item text color.</para></refsect2>
+<refsect2><title><anchor id="ExoIconBar--cursor-item-border-color"/>The &quot;<literal>cursor-item-border-color</literal>&quot; style property</title>
+<programlisting>  &quot;cursor-item-border-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Cursor item border color.</para></refsect2>
+<refsect2><title><anchor id="ExoIconBar--cursor-item-fill-color"/>The &quot;<literal>cursor-item-fill-color</literal>&quot; style property</title>
+<programlisting>  &quot;cursor-item-fill-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Cursor item fill color.</para></refsect2>
+<refsect2><title><anchor id="ExoIconBar--cursor-item-text-color"/>The &quot;<literal>cursor-item-text-color</literal>&quot; style property</title>
+<programlisting>  &quot;cursor-item-text-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>Cursor item text color.</para></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="ExoIconBar-selection-changed"/>The &quot;selection-changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted whenever the currently selected icon
+changes.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoIconBar-set-scroll-adjustments"/>The &quot;set-scroll-adjustments&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoIconBar">ExoIconBar</link> *icon_bar,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *hadjustment,
+                                            <link linkend="GtkAdjustment">GtkAdjustment</link> *vadjustment,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Used internally to make the <link linkend="ExoIconBar"><type>ExoIconBar</type></link> scrollable.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>icon_bar</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoIconBar"><type>ExoIconBar</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>hadjustment</parameter>&nbsp;:</term>
+<listitem><simpara> The horizontal adjustment.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>vadjustment</parameter>&nbsp;:</term>
+<listitem><simpara> The vertical adjustment.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<ulink url="http://developer.gnome.org/doc/API/2.0/gtk/GtkTreeModel.html">GtkTreeModel</ulink>,
+<ulink url="http://developer.gnome.org/doc/API/2.0/gtk/TreeWidget.html">Tree and List Widget Overview</ulink>
+</para>
+</refsect1>
+
+</refentry>

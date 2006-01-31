@@ -1,0 +1,316 @@
+<refentry id="ExoToolbarsView">
+<refmeta>
+<refentrytitle>ExoToolbarsView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoToolbarsView</refname><refpurpose>A widget for displaying toolbars.</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoToolbarsView-struct">ExoToolbarsView</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-toolbars-view-new">exo_toolbars_view_new</link>           (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-toolbars-view-new-with-model">exo_toolbars_view_new_with_model</link>
+                                            (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-toolbars-view-get-editing">exo_toolbars_view_get_editing</link>   (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-view-set-editing">exo_toolbars_view_set_editing</link>   (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> editing);
+<link linkend="ExoToolbarsModel">ExoToolbarsModel</link>* <link linkend="exo-toolbars-view-get-model">exo_toolbars_view_get_model</link>
+                                            (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-view-set-model">exo_toolbars_view_set_model</link>     (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);
+<link linkend="GtkUIManager">GtkUIManager</link>* <link linkend="exo-toolbars-view-get-ui-manager">exo_toolbars_view_get_ui_manager</link>
+                                            (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-view-set-ui-manager">exo_toolbars_view_set_ui_manager</link>
+                                            (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                             <link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkContainer">GtkContainer</link>
+                     +----<link linkend="GtkBox">GtkBox</link>
+                           +----<link linkend="GtkVBox">GtkVBox</link>
+                                 +----ExoToolbarsView
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+ExoToolbarsView implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoToolbarsView--editing">editing</link>&quot;              <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="ExoToolbarsView--model">model</link>&quot;                <link linkend="ExoToolbarsModel">ExoToolbarsModel</link>      : Read / Write
+  &quot;<link linkend="ExoToolbarsView--ui-manager">ui-manager</link>&quot;           <link linkend="GtkUIManager">GtkUIManager</link>          : Read / Write
+</synopsis>
+</refsect1>
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="ExoToolbarsView-action-request">action-request</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                            <link linkend="gchar">gchar</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsView-customize">customize</link>&quot; <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+A widget that displays toolbars as described in a
+<link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> object.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoToolbarsView-struct"/>ExoToolbarsView</title>
+<indexterm><primary>ExoToolbarsView</primary></indexterm><programlisting>typedef struct _ExoToolbarsView ExoToolbarsView;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-new"/>exo_toolbars_view_new ()</title>
+<indexterm><primary>exo_toolbars_view_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_toolbars_view_new           (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);</programlisting>
+<para>
+Creates a new <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>ui_manager</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly created <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-new-with-model"/>exo_toolbars_view_new_with_model ()</title>
+<indexterm><primary>exo_toolbars_view_new_with_model</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_toolbars_view_new_with_model
+                                            (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);</programlisting>
+<para>
+Creates a new <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link> and associates it with
+<parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>ui_manager</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly created <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-get-editing"/>exo_toolbars_view_get_editing ()</title>
+<indexterm><primary>exo_toolbars_view_get_editing</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_toolbars_view_get_editing   (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if <parameter>view</parameter> is currently being edited, else <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-set-editing"/>exo_toolbars_view_set_editing ()</title>
+<indexterm><primary>exo_toolbars_view_set_editing</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_view_set_editing   (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> editing);</programlisting>
+<para>
+Sets wether <parameter>view</parameter> is currently being edited.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>editing</parameter>&nbsp;:</term>
+<listitem><simpara> New editing mode.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-get-model"/>exo_toolbars_view_get_model ()</title>
+<indexterm><primary>exo_toolbars_view_get_model</primary></indexterm><programlisting><link linkend="ExoToolbarsModel">ExoToolbarsModel</link>* exo_toolbars_view_get_model
+                                            (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view);</programlisting>
+<para>
+Returns the <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> currently associated with
+<parameter>view</parameter> or <literal>NULL</literal> if <parameter>view</parameter> has no model.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> associated with <parameter>view</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-set-model"/>exo_toolbars_view_set_model ()</title>
+<indexterm><primary>exo_toolbars_view_set_model</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_view_set_model     (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-get-ui-manager"/>exo_toolbars_view_get_ui_manager ()</title>
+<indexterm><primary>exo_toolbars_view_get_ui_manager</primary></indexterm><programlisting><link linkend="GtkUIManager">GtkUIManager</link>* exo_toolbars_view_get_ui_manager
+                                            (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The <link linkend="GtkUIManager"><type>GtkUIManager</type></link> associated with <parameter>view</parameter> or
+              <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-view-set-ui-manager"/>exo_toolbars_view_set_ui_manager ()</title>
+<indexterm><primary>exo_toolbars_view_set_ui_manager</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_view_set_ui_manager
+                                            (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                             <link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ui_manager</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<refsect2><title><anchor id="ExoToolbarsView--editing"/>The &quot;<literal>editing</literal>&quot; property</title>
+<programlisting>  &quot;editing&quot;              <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>
+This property tells if the toolbars contained with this
+<link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link> are currently being edited by the user.
+If the user edits a view, the view will act as proxy
+and make the requested changes to the model.</para>
+<para>
+
+</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="ExoToolbarsView--model"/>The &quot;<literal>model</literal>&quot; property</title>
+<programlisting>  &quot;model&quot;                <link linkend="ExoToolbarsModel">ExoToolbarsModel</link>      : Read / Write</programlisting>
+<para>
+The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> associated with this <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>
+or <literal>NULL</literal> if there is no model currently associated with this
+view. The view is build up from the model, which says, that
+it will display the toolbars as described in the model.</para>
+<para>
+
+</para></refsect2>
+<refsect2><title><anchor id="ExoToolbarsView--ui-manager"/>The &quot;<literal>ui-manager</literal>&quot; property</title>
+<programlisting>  &quot;ui-manager&quot;           <link linkend="GtkUIManager">GtkUIManager</link>          : Read / Write</programlisting>
+<para>
+The <link linkend="GtkUIManager"><type>GtkUIManager</type></link> currently associated with this <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>
+or <literal>NULL</literal>. The <link linkend="GtkUIManager"><type>GtkUIManager</type></link> object is used to translate action
+names as used by the <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> into <link linkend="GtkAction"><type>GtkAction</type></link> objects,
+which are then used to create and maintain the items in the
+toolbars.</para>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="ExoToolbarsView-action-request"/>The &quot;action-request&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                            <link linkend="gchar">gchar</link> *arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsView-customize"/>The &quot;customize&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsView">ExoToolbarsView</link> *view,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted if the users chooses the
+<emphasis>Customize Toolbars...</emphasis> option
+from the right-click menu.
+</para>
+<para>
+Please take note, that the option will only be
+present in the right-click menu, if you had previously
+connected a handler to this signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>

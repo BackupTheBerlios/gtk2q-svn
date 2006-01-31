@@ -1,0 +1,255 @@
+<refentry id="ExoToolbarsEditor">
+<refmeta>
+<refentrytitle>ExoToolbarsEditor</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoToolbarsEditor</refname><refpurpose>Widget to edit toolbars</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoToolbarsEditor-struct">ExoToolbarsEditor</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-toolbars-editor-new">exo_toolbars_editor_new</link>         (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-toolbars-editor-new-with-model">exo_toolbars_editor_new_with_model</link>
+                                            (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);
+<link linkend="ExoToolbarsModel">ExoToolbarsModel</link>* <link linkend="exo-toolbars-editor-get-model">exo_toolbars_editor_get_model</link>
+                                            (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-editor-set-model">exo_toolbars_editor_set_model</link>   (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);
+<link linkend="GtkUIManager">GtkUIManager</link>* <link linkend="exo-toolbars-editor-get-ui-manager">exo_toolbars_editor_get_ui_manager</link>
+                                            (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-editor-set-ui-manager">exo_toolbars_editor_set_ui_manager</link>
+                                            (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor,
+                                             <link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkContainer">GtkContainer</link>
+                     +----<link linkend="GtkBox">GtkBox</link>
+                           +----<link linkend="GtkVBox">GtkVBox</link>
+                                 +----ExoToolbarsEditor
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+ExoToolbarsEditor implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+<refsect1>
+<title>Properties</title>
+<synopsis>
+
+  &quot;<link linkend="ExoToolbarsEditor--model">model</link>&quot;                <link linkend="ExoToolbarsModel">ExoToolbarsModel</link>      : Read / Write
+  &quot;<link linkend="ExoToolbarsEditor--ui-manager">ui-manager</link>&quot;           <link linkend="GtkUIManager">GtkUIManager</link>          : Read / Write
+</synopsis>
+</refsect1>
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+	<link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link> is a widget that allows the user to edit toolbars
+	used within your application by simply dragging and dropping toolbar
+	items between the editor widget and the toolbar widgets.
+</para>
+
+<para>
+	Most applications should simply use the <link linkend="ExoToolbarsEditorDialog"><type>ExoToolbarsEditorDialog</type></link>
+	class, which includes an <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link> as main widget.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoToolbarsEditor-struct"/>ExoToolbarsEditor</title>
+<indexterm><primary>ExoToolbarsEditor</primary></indexterm><programlisting>typedef struct _ExoToolbarsEditor ExoToolbarsEditor;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-editor-new"/>exo_toolbars_editor_new ()</title>
+<indexterm><primary>exo_toolbars_editor_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_toolbars_editor_new         (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);</programlisting>
+<para>
+Creates a new <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link> that will
+be associated with <parameter>ui_manager</parameter>. <parameter>ui_manager</parameter> must
+be a valid <link linkend="GtkUIManager"><type>GtkUIManager</type></link>, <literal>NULL</literal> is not allowed
+at this point.
+</para>
+<para>
+The newly created <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link> will not
+be usable until you associate an <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>
+with it, using the function <link linkend="exo-toolbars-editor-set-model"><function>exo_toolbars_editor_set_model()</function></link>.
+You should probably use <link linkend="exo-toolbars-editor-new-with-model"><function>exo_toolbars_editor_new_with_model()</function></link>
+instead.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>ui_manager</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A new <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-editor-new-with-model"/>exo_toolbars_editor_new_with_model ()</title>
+<indexterm><primary>exo_toolbars_editor_new_with_model</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_toolbars_editor_new_with_model
+                                            (<link linkend="GtkUIManager">GtkUIManager</link> *ui_manager,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);</programlisting>
+<para>
+Creates a new <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link> that will be
+associated with <parameter>model</parameter> and <parameter>ui_manager</parameter>. You
+must supply a valid <link linkend="GtkUIManager"><type>GtkUIManager</type></link> and a valid
+<link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> here or the function will
+fail.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>ui_manager</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A new <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-editor-get-model"/>exo_toolbars_editor_get_model ()</title>
+<indexterm><primary>exo_toolbars_editor_get_model</primary></indexterm><programlisting><link linkend="ExoToolbarsModel">ExoToolbarsModel</link>* exo_toolbars_editor_get_model
+                                            (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor);</programlisting>
+<para>
+Returns the <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> currently associated
+with <parameter>editor</parameter> or <literal>NULL</literal> if no <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> is
+currently associated with <parameter>editor</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editor</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-editor-set-model"/>exo_toolbars_editor_set_model ()</title>
+<indexterm><primary>exo_toolbars_editor_set_model</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_editor_set_model   (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor,
+                                             <link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);</programlisting>
+<para>
+Sets the model to edit by this <parameter>editor</parameter>. If you specify
+<literal>NULL</literal> for <parameter>model</parameter>, the editor widget will be disabled.
+Else the editor widget will load the toolbars from
+<parameter>model</parameter> and reinitialize its user interface according
+to <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editor</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-editor-get-ui-manager"/>exo_toolbars_editor_get_ui_manager ()</title>
+<indexterm><primary>exo_toolbars_editor_get_ui_manager</primary></indexterm><programlisting><link linkend="GtkUIManager">GtkUIManager</link>* exo_toolbars_editor_get_ui_manager
+                                            (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor);</programlisting>
+<para>
+Returns the <link linkend="GtkUIManager"><type>GtkUIManager</type></link> associated with
+<parameter>editor</parameter> or <literal>NULL</literal> if no user interface
+manager is associated with <parameter>editor</parameter> currently.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editor</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-editor-set-ui-manager"/>exo_toolbars_editor_set_ui_manager ()</title>
+<indexterm><primary>exo_toolbars_editor_set_ui_manager</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_editor_set_ui_manager
+                                            (<link linkend="ExoToolbarsEditor">ExoToolbarsEditor</link> *editor,
+                                             <link linkend="GtkUIManager">GtkUIManager</link> *ui_manager);</programlisting>
+<para>
+Sets the <link linkend="GtkUIManager"><type>GtkUIManager</type></link> to use by this <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>. If you
+specify <literal>NULL</literal> for <parameter>ui_manager</parameter>, the editor widget will be disabled.
+Else the editor will load the available actions from <parameter>ui_manager</parameter>
+and reinitialize the user interface.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>editor</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ui_manager</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkUIManager"><type>GtkUIManager</type></link> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1>
+<title>Properties</title>
+<refsect2><title><anchor id="ExoToolbarsEditor--model"/>The &quot;<literal>model</literal>&quot; property</title>
+<programlisting>  &quot;model&quot;                <link linkend="ExoToolbarsModel">ExoToolbarsModel</link>      : Read / Write</programlisting>
+<para>
+The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> that should be edited from within this
+toolbars editor. If you set this property to <literal>NULL</literal>, the editor
+widget will be disabled, else the editor widget will load the
+toolbars from the given <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> and initialize its
+user interface according to the model.</para>
+<para>
+
+</para></refsect2>
+<refsect2><title><anchor id="ExoToolbarsEditor--ui-manager"/>The &quot;<literal>ui-manager</literal>&quot; property</title>
+<programlisting>  &quot;ui-manager&quot;           <link linkend="GtkUIManager">GtkUIManager</link>          : Read / Write</programlisting>
+<para>
+The <link linkend="GtkUIManager"><type>GtkUIManager</type></link> used by this editor. If this property is
+<literal>NULL</literal>, the editor widget will be disabled, else if you specify
+a valid <link linkend="GtkUIManager"><type>GtkUIManager</type></link>, the editor widget will load the available
+actions from the given user interface manager and initialize
+its user interface according to the specified <link linkend="GtkUIManager"><type>GtkUIManager</type></link>.
+</para>
+<para>
+The given <parameter>ui</parameter>-manager needs to support all actions that were
+specified for the model, used by the editor, with the
+<link linkend="exo-toolbars-model-set-actions"><function>exo_toolbars_model_set_actions()</function></link> method.</para>
+<para>
+
+</para></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

@@ -1,0 +1,111 @@
+<refentry id="exo-Extensions-to-gdk-pixbuf">
+<refmeta>
+<refentrytitle>Extensions to gdk-pixbuf</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Extensions to gdk-pixbuf</refname><refpurpose>Miscelleanous extensions to the gdk-pixbuf library</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+<link linkend="GdkPixbuf">GdkPixbuf</link>*  <link linkend="exo-gdk-pixbuf-scale-down">exo_gdk_pixbuf_scale_down</link>       (<link linkend="GdkPixbuf">GdkPixbuf</link> *source,
+                                             <link linkend="gboolean">gboolean</link> aspect_ratio,
+                                             <link linkend="gint">gint</link> dest_width,
+                                             <link linkend="gint">gint</link> dest_height);
+<link linkend="GdkPixbuf">GdkPixbuf</link>*  <link linkend="exo-gdk-pixbuf-scale-ratio">exo_gdk_pixbuf_scale_ratio</link>      (<link linkend="GdkPixbuf">GdkPixbuf</link> *source,
+                                             <link linkend="gint">gint</link> dest_size);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This facility includes several functions to extend the basic functionality
+provided by the gdk-pixbuf library.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-gdk-pixbuf-scale-down"/>exo_gdk_pixbuf_scale_down ()</title>
+<indexterm role="0.3.1.1"><primary>exo_gdk_pixbuf_scale_down</primary></indexterm><programlisting><link linkend="GdkPixbuf">GdkPixbuf</link>*  exo_gdk_pixbuf_scale_down       (<link linkend="GdkPixbuf">GdkPixbuf</link> *source,
+                                             <link linkend="gboolean">gboolean</link> aspect_ratio,
+                                             <link linkend="gint">gint</link> dest_width,
+                                             <link linkend="gint">gint</link> dest_height);</programlisting>
+<para>
+Scales down the <parameter>source</parameter> to fit into the given <parameter>width</parameter> and
+<parameter>height</parameter>. If <parameter>aspect_ratio</parameter> is <literal>TRUE</literal> then the aspect ratio
+of <parameter>source</parameter> will be preserved.
+</para>
+<para>
+If <parameter>width</parameter> is larger than the width of <parameter>source</parameter> and <parameter>height</parameter>
+is larger than the height of <parameter>source</parameter>, a reference to
+<parameter>source</parameter> will be returned, as it's unneccesary then to
+scale down.
+</para>
+<para>
+The caller is responsible to free the returned <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>
+using <link linkend="g-object-unref"><function>g_object_unref()</function></link> when no longer needed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&nbsp;:</term>
+<listitem><simpara> the source <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>aspect_ratio</parameter>&nbsp;:</term>
+<listitem><simpara> <literal>TRUE</literal> to preserve aspect ratio.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest_width</parameter>&nbsp;:</term>
+<listitem><simpara> the max width for the result.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest_height</parameter>&nbsp;:</term>
+<listitem><simpara> the max height for the result.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the resulting <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-gdk-pixbuf-scale-ratio"/>exo_gdk_pixbuf_scale_ratio ()</title>
+<indexterm><primary>exo_gdk_pixbuf_scale_ratio</primary></indexterm><programlisting><link linkend="GdkPixbuf">GdkPixbuf</link>*  exo_gdk_pixbuf_scale_ratio      (<link linkend="GdkPixbuf">GdkPixbuf</link> *source,
+                                             <link linkend="gint">gint</link> dest_size);</programlisting>
+<para>
+Scales <parameter>source</parameter> to <parameter>dest_size</parameter> while preserving the aspect ratio of
+<parameter>source</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>source</parameter>&nbsp;:</term>
+<listitem><simpara> The source <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dest_size</parameter>&nbsp;:</term>
+<listitem><simpara> The target size in pixel.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly created <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

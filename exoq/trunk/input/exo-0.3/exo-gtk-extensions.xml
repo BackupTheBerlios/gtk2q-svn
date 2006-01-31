@@ -1,0 +1,111 @@
+<refentry id="exo-Extensions-to-Gtk">
+<refmeta>
+<refentrytitle>Extensions to Gtk</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Extensions to Gtk</refname><refpurpose>Miscelleanous extensions to the Gtk+ library.</refpurpose>
+</refnamediv>
+<refsect1>
+<title>Stability Level</title>
+Stable, unless otherwise indicated
+</refsect1>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+<link linkend="gpointer">gpointer</link>    <link linkend="exo-gtk-object-ref-sink">exo_gtk_object_ref_sink</link>         (<link linkend="GtkObject">GtkObject</link> *object);
+<link linkend="void">void</link>        <link linkend="exo-gtk-radio-action-set-current-value">exo_gtk_radio_action_set_current_value</link>
+                                            (<link linkend="GtkRadioAction">GtkRadioAction</link> *action,
+                                             <link linkend="gint">gint</link> current_value);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-gtk-object-ref-sink"/>exo_gtk_object_ref_sink ()</title>
+<indexterm><primary>exo_gtk_object_ref_sink</primary></indexterm><programlisting><link linkend="gpointer">gpointer</link>    exo_gtk_object_ref_sink         (<link linkend="GtkObject">GtkObject</link> *object);</programlisting>
+<para>
+Helper function used to take a reference on
+<parameter>object</parameter> and droppping the floating reference
+to <parameter>object</parameter> (if any) atomically.
+</para>
+<para>
+If libexo is compiled against Gtk+ 2.9.0 or
+newer, this function will use <link linkend="g-object-ref-sink"><function>g_object_ref_sink()</function></link>,
+since with newer Gtk+/GObject versions, the floating
+reference handling was moved to GObject. Else, this
+function will expand to
+</para>
+<para>
+<informalexample><programlisting>
+g_object_ref (G_OBJECT (object));
+gtk_object_sink (GTK_OBJECT (object));
+</programlisting></informalexample>
+</para>
+<para>
+The caller is responsible to release the reference
+on <parameter>object</parameter> acquire by this function call using
+<link linkend="g-object-unref"><function>g_object_unref()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkObject"><type>GtkObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a reference to <parameter>object</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-gtk-radio-action-set-current-value"/>exo_gtk_radio_action_set_current_value ()</title>
+<indexterm><primary>exo_gtk_radio_action_set_current_value</primary></indexterm><programlisting><link linkend="void">void</link>        exo_gtk_radio_action_set_current_value
+                                            (<link linkend="GtkRadioAction">GtkRadioAction</link> *action,
+                                             <link linkend="gint">gint</link> current_value);</programlisting>
+<para>
+Looks for all actions in the group to which <parameter>action</parameter> belongs and if
+any of the actions matches the <parameter>current_value</parameter>, it will become the
+new active action.
+</para>
+<para>
+Else if none of the actions in <parameter>action</parameter><!---->'s radio group match
+the specified <parameter>current_value</parameter>, all actions will be deactivated and
+the radio group will have no active action afterwards.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>action</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkRadioAction"><type>GtkRadioAction</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>current_value</parameter>&nbsp;:</term>
+<listitem><simpara> the value of the <link linkend="GtkRadioAction"><type>GtkRadioAction</type></link> to activate.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

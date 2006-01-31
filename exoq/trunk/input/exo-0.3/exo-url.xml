@@ -1,0 +1,204 @@
+<refentry id="exo-Opening-URLs">
+<refmeta>
+<refentrytitle>Opening URLs</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Opening URLs</refname><refpurpose>Display URLs using appropriate viewers.</refpurpose>
+</refnamediv>
+<refsect1>
+<title>Stability Level</title>
+Stable, unless otherwise indicated
+</refsect1>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+enum        <link linkend="ExoUrlError">ExoUrlError</link>;
+#define     <link linkend="EXO-URL-ERROR:CAPS">EXO_URL_ERROR</link>
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-url-show">exo_url_show</link>                    (const <link linkend="gchar">gchar</link> *url,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-url-show-on-screen">exo_url_show_on_screen</link>          (const <link linkend="gchar">gchar</link> *url,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="void">void</link>        <link linkend="exo-url-about-dialog-hook">exo_url_about_dialog_hook</link>       (<link linkend="GtkAboutDialog">GtkAboutDialog</link> *about_dialog,
+                                             const <link linkend="gchar">gchar</link> *link,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+  Xfce users can configure which applications they wish to use for certain task,
+  for example they can select their preferred web browser and mail reader from
+  the <guilabel>Preferred Applications</guilabel> dialog. This module provides a
+  means for applications to display an URL without having to worry about which
+  viewer is going to ultimately handle the job.
+</para>
+<para>
+  One of the most popular use cases for this module is to provide the ability to
+  open links from a <link linkend="GtkAboutDialog">GtkAboutDialog</link>. Therefore
+  a convenience hook is provided for this use case, see the documentation of
+  <link linkend="exo-url-about-dialog-hook"><function>exo_url_about_dialog_hook()</function></link> for details.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoUrlError"/>enum ExoUrlError</title>
+<indexterm><primary>ExoUrlError</primary></indexterm><programlisting>typedef enum /*&lt; skip &gt;*/
+{
+  EXO_URL_ERROR_NOT_SUPPORTED,
+} ExoUrlError;
+</programlisting>
+<para>
+The errors that can be returned due to bad parameters being
+passed to <link linkend="exo-url-show"><function>exo_url_show()</function></link> or <link linkend="exo-url-show-on-screen"><function>exo_url_show_on_screen()</function></link>.</para>
+<para>
+
+</para><variablelist role="enum">
+<varlistentry>
+<term><literal>EXO_URL_ERROR_NOT_SUPPORTED</literal></term>
+<listitem><simpara> a given URL is not supported.
+</simpara></listitem>
+</varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="EXO-URL-ERROR:CAPS"/>EXO_URL_ERROR</title>
+<indexterm><primary>EXO_URL_ERROR</primary></indexterm><programlisting>#define EXO_URL_ERROR (exo_url_error_quark ())
+</programlisting>
+<para>
+  The domain of errors raised by this module.
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-url-show"/>exo_url_show ()</title>
+<indexterm role="0.3.1.3"><primary>exo_url_show</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_url_show                    (const <link linkend="gchar">gchar</link> *url,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Convenience wrapper to <link linkend="exo-url-show-on-screen"><function>exo_url_show_on_screen()</function></link>, which
+shows the <parameter>url</parameter> on the default <link linkend="GdkScreen"><type>GdkScreen</type></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>url</parameter>&nbsp;:</term>
+<listitem><simpara> the URL that should be shown.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>envp</parameter>&nbsp;:</term>
+<listitem><simpara> child environment for the url handler or
+         <literal>NULL</literal> to inherit parent's environment.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> return location for errors or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, <literal>FALSE</literal> on error.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-url-show-on-screen"/>exo_url_show_on_screen ()</title>
+<indexterm role="0.3.1.3"><primary>exo_url_show_on_screen</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_url_show_on_screen          (const <link linkend="gchar">gchar</link> *url,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Tries to find a suitable handler for <parameter>url</parameter> in the list of
+preferred application categories and runs that handler 
+with <parameter>url</parameter> on <parameter>screen</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>url</parameter>&nbsp;:</term>
+<listitem><simpara> the URL that should be shown.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>envp</parameter>&nbsp;:</term>
+<listitem><simpara> child environment for the url handler or
+          <literal>NULL</literal> to inherit parent's environment.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GdkScreen"><type>GdkScreen</type></link> on which to open the
+          URL handler for <parameter>url</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> return location for errors or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, <literal>FALSE</literal> on error.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-url-about-dialog-hook"/>exo_url_about_dialog_hook ()</title>
+<indexterm role="0.3.1.3"><primary>exo_url_about_dialog_hook</primary></indexterm><programlisting><link linkend="void">void</link>        exo_url_about_dialog_hook       (<link linkend="GtkAboutDialog">GtkAboutDialog</link> *about_dialog,
+                                             const <link linkend="gchar">gchar</link> *link,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This is a convenience function, which can be registered with <link linkend="GtkAboutDialog"><type>GtkAboutDialog</type></link>,
+to have the <link linkend="exo-Opening-URLs">exo-url</link> module open links
+clicked by the user in <link linkend="GtkAboutDialog"><type>GtkAboutDialog</type></link><!---->s.
+</para>
+<para>
+All you need to do is to register this hook with <link linkend="gtk-about-dialog-set-url-hook"><function>gtk_about_dialog_set_url_hook()</function></link>
+and <link linkend="gtk-about-dialog-set-email-hook"><function>gtk_about_dialog_set_email_hook()</function></link>. This can be done prior to calling
+<link linkend="gtk-show-about-dialog"><function>gtk_show_about_dialog()</function></link>, for example:
+</para>
+<para>
+<informalexample><programlisting>
+static void show_about_dialog (void)
+{
+  gtk_about_dialog_set_email_hook (exo_url_about_dialog_hook, NULL, NULL);
+  gtk_about_dialog_set_url_hook (exo_url_about_dialog_hook, NULL, NULL);
+  gtk_show_about_dialog (.....);
+}
+</programlisting></informalexample></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>about_dialog</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GtkAboutDialog"><type>GtkAboutDialog</type></link> in which the user activated a link.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>link</parameter>&nbsp;:</term>
+<listitem><simpara> the link, mail or web address, to open.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> user data that was passed when the function was
+                registered with <link linkend="gtk-about-dialog-set-email-hook"><function>gtk_about_dialog_set_email_hook()</function></link>
+                or <link linkend="gtk-about-dialog-set-url-hook"><function>gtk_about_dialog_set_url_hook()</function></link>. This is currently
+                unused within the context of this function, so you
+                can safely pass <literal>NULL</literal> when registering this hook
+                with <link linkend="GtkAboutDialog"><type>GtkAboutDialog</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+  <link linkend="exo-Executing-Applications">Executing Applications</link>
+</para>
+</refsect1>
+
+</refentry>

@@ -1,0 +1,429 @@
+<refentry id="exo-Binding-Properties-Functions">
+<refmeta>
+<refentrytitle>Binding Properties Functions</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Binding Properties Functions</refname><refpurpose>Functions used to bind two object properties together</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoBinding">ExoBinding</link>;
+            <link linkend="ExoMutualBinding">ExoMutualBinding</link>;
+<link linkend="gboolean">gboolean</link>    (<link linkend="ExoBindingTransform">*ExoBindingTransform</link>)          (const <link linkend="GValue">GValue</link> *src_value,
+                                             <link linkend="GValue">GValue</link> *dst_value,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="ExoBinding">ExoBinding</link>* <link linkend="exo-binding-new">exo_binding_new</link>                 (<link linkend="GObject">GObject</link> *src_object,
+                                             const <link linkend="gchar">gchar</link> *src_property,
+                                             <link linkend="GObject">GObject</link> *dst_object,
+                                             const <link linkend="gchar">gchar</link> *dst_property);
+<link linkend="ExoBinding">ExoBinding</link>* <link linkend="exo-binding-new-full">exo_binding_new_full</link>            (<link linkend="GObject">GObject</link> *src_object,
+                                             const <link linkend="gchar">gchar</link> *src_property,
+                                             <link linkend="GObject">GObject</link> *dst_object,
+                                             const <link linkend="gchar">gchar</link> *dst_property,
+                                             <link linkend="ExoBindingTransform">ExoBindingTransform</link> transform,
+                                             <link linkend="GDestroyNotify">GDestroyNotify</link> destroy_notify,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="ExoBinding">ExoBinding</link>* <link linkend="exo-binding-new-with-negation">exo_binding_new_with_negation</link>   (<link linkend="GObject">GObject</link> *src_object,
+                                             const <link linkend="gchar">gchar</link> *src_property,
+                                             <link linkend="GObject">GObject</link> *dst_object,
+                                             const <link linkend="gchar">gchar</link> *dst_property);
+<link linkend="void">void</link>        <link linkend="exo-binding-unbind">exo_binding_unbind</link>              (<link linkend="ExoBinding">ExoBinding</link> *binding);
+<link linkend="ExoMutualBinding">ExoMutualBinding</link>* <link linkend="exo-mutual-binding-new">exo_mutual_binding_new</link>    (<link linkend="GObject">GObject</link> *object1,
+                                             const <link linkend="gchar">gchar</link> *property1,
+                                             <link linkend="GObject">GObject</link> *object2,
+                                             const <link linkend="gchar">gchar</link> *property2);
+<link linkend="ExoMutualBinding">ExoMutualBinding</link>* <link linkend="exo-mutual-binding-new-full">exo_mutual_binding_new_full</link>
+                                            (<link linkend="GObject">GObject</link> *object1,
+                                             const <link linkend="gchar">gchar</link> *property1,
+                                             <link linkend="GObject">GObject</link> *object2,
+                                             const <link linkend="gchar">gchar</link> *property2,
+                                             <link linkend="ExoBindingTransform">ExoBindingTransform</link> transform,
+                                             <link linkend="ExoBindingTransform">ExoBindingTransform</link> reverse_transform,
+                                             <link linkend="GDestroyNotify">GDestroyNotify</link> destroy_notify,
+                                             <link linkend="gpointer">gpointer</link> user_data);
+<link linkend="ExoMutualBinding">ExoMutualBinding</link>* <link linkend="exo-mutual-binding-new-with-negation">exo_mutual_binding_new_with_negation</link>
+                                            (<link linkend="GObject">GObject</link> *object1,
+                                             const <link linkend="gchar">gchar</link> *property1,
+                                             <link linkend="GObject">GObject</link> *object2,
+                                             const <link linkend="gchar">gchar</link> *property2);
+<link linkend="void">void</link>        <link linkend="exo-mutual-binding-unbind">exo_mutual_binding_unbind</link>       (<link linkend="ExoMutualBinding">ExoMutualBinding</link> *binding);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Binding properties is synchronizing values of several properties,
+so that when one of the bound properties changes, the other
+bound properties are automatically changed to the new value as
+well. These functions eliminate the need to write property
+change notification callbacks manually. It also increases the
+reliability of your project as you don't need to repeat similar
+code (and errors) manually.
+</para>
+<para>
+Both uni-directional and mutual
+bindings are supported and you can specify functions to perform
+explicit transformation of values if required. Multiple properties
+can be bound together in a complex way and infinite loops are
+eliminated automatically.
+</para>
+<para>
+For example, lets say, your program has a <link linkend="GtkEntry"><type>GtkEntry</type></link> widget that allows
+the user to enter some text for the program, but this entry widget should
+only be sensitive if a <link linkend="GtkCheckButton"><type>GtkCheckButton</type></link> is active.
+</para>
+<example>
+<title>Connecting a <structname>GtkCheckButton</structname> and a
+<structname>GtkEntry</structname></title>
+<programlisting>
+{
+  GtkWidget *button;
+  GtkWidget *entry;
+
+  button = gtk_check_button_new_with_label ("Activate me");
+  entry = <link linkend="gtk-entry-new"><function>gtk_entry_new()</function></link>;
+
+  exo_binding_new (G_OBJECT (button), "active",
+                   G_OBJECT (entry), "sensitive");
+  
+  /* add button and entry to the gui... */
+}
+</programlisting>
+</example>
+<para>
+As you can see, all you need to do is to call one function to connect
+the sensitivity of the entry widget with the state of the check
+button. No need to write signal handlers for this purpose any more.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoBinding"/>ExoBinding</title>
+<indexterm><primary>ExoBinding</primary></indexterm><programlisting>typedef struct {
+} ExoBinding;
+</programlisting>
+<para>
+Opaque structure representing a one-way binding between two properties. It
+is automatically removed if one of the bound objects is finalized.
+</para></refsect2>
+<refsect2>
+<title><anchor id="ExoMutualBinding"/>ExoMutualBinding</title>
+<indexterm><primary>ExoMutualBinding</primary></indexterm><programlisting>typedef struct {
+} ExoMutualBinding;
+</programlisting>
+<para>
+Opaque structure representing a mutual binding between two properties.
+It is automatically freed if one of the bound objects is finalized.
+</para></refsect2>
+<refsect2>
+<title><anchor id="ExoBindingTransform"/>ExoBindingTransform ()</title>
+<indexterm><primary>ExoBindingTransform</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    (*ExoBindingTransform)          (const <link linkend="GValue">GValue</link> *src_value,
+                                             <link linkend="GValue">GValue</link> *dst_value,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Function type used for binding transformation functions.
+</para>
+<para>
+Accomplished transformation from <parameter>src_value</parameter> to <parameter>dst_value</parameter>.
+<parameter>src_value</parameter> and <parameter>dst_value</parameter> are already initialized before
+this function gets called.
+</para><variablelist role="params">
+<varlistentry><term><parameter>src_value</parameter>&nbsp;:</term>
+<listitem><simpara>Value to transform.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_value</parameter>&nbsp;:</term>
+<listitem><simpara>Value to store the result of the transformation into.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>User data supplied at binding creation.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara><literal>FALSE</literal> if transformation failed, else <literal>TRUE</literal>.
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-binding-new"/>exo_binding_new ()</title>
+<indexterm><primary>exo_binding_new</primary></indexterm><programlisting><link linkend="ExoBinding">ExoBinding</link>* exo_binding_new                 (<link linkend="GObject">GObject</link> *src_object,
+                                             const <link linkend="gchar">gchar</link> *src_property,
+                                             <link linkend="GObject">GObject</link> *dst_object,
+                                             const <link linkend="gchar">gchar</link> *dst_property);</programlisting>
+<para>
+One-way binds <parameter>src_property</parameter> in <parameter>src_object</parameter> to <parameter>dst_property</parameter>
+in <parameter>dst_object</parameter>.
+</para>
+<para>
+Before binding the value of <parameter>dst_property</parameter> is set to the
+value of <parameter>src_property</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src_object</parameter>&nbsp;:</term>
+<listitem><simpara> The source <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src_property</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the property to bind from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_object</parameter>&nbsp;:</term>
+<listitem><simpara> The destination <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_property</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the property to bind to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The descriptor of the binding. It is automatically
+              removed if one of the objects is finalized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-binding-new-full"/>exo_binding_new_full ()</title>
+<indexterm><primary>exo_binding_new_full</primary></indexterm><programlisting><link linkend="ExoBinding">ExoBinding</link>* exo_binding_new_full            (<link linkend="GObject">GObject</link> *src_object,
+                                             const <link linkend="gchar">gchar</link> *src_property,
+                                             <link linkend="GObject">GObject</link> *dst_object,
+                                             const <link linkend="gchar">gchar</link> *dst_property,
+                                             <link linkend="ExoBindingTransform">ExoBindingTransform</link> transform,
+                                             <link linkend="GDestroyNotify">GDestroyNotify</link> destroy_notify,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+One-way binds <parameter>src_property</parameter> in <parameter>src_object</parameter> to <parameter>dst_property</parameter>
+in <parameter>dst_object</parameter>.
+</para>
+<para>
+Before binding the value of <parameter>dst_property</parameter> is set to the
+value of <parameter>src_property</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src_object</parameter>&nbsp;:</term>
+<listitem><simpara> The source <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src_property</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the property to bind from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_object</parameter>&nbsp;:</term>
+<listitem><simpara> The destination <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_property</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the property to bind to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>transform</parameter>&nbsp;:</term>
+<listitem><simpara> Transformation function or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy_notify</parameter>&nbsp;:</term>
+<listitem><simpara> Callback function that is called on
+                   disconnection with <parameter>user_data</parameter> or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> User data associated with the binding.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The descriptor of the binding. It is automatically
+              removed if one of the objects is finalized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-binding-new-with-negation"/>exo_binding_new_with_negation ()</title>
+<indexterm><primary>exo_binding_new_with_negation</primary></indexterm><programlisting><link linkend="ExoBinding">ExoBinding</link>* exo_binding_new_with_negation   (<link linkend="GObject">GObject</link> *src_object,
+                                             const <link linkend="gchar">gchar</link> *src_property,
+                                             <link linkend="GObject">GObject</link> *dst_object,
+                                             const <link linkend="gchar">gchar</link> *dst_property);</programlisting>
+<para>
+Convenience function for binding with boolean negation of value.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src_object</parameter>&nbsp;:</term>
+<listitem><simpara> The source <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>src_property</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the property to bind from.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_object</parameter>&nbsp;:</term>
+<listitem><simpara> The destination <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_property</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the property to bind to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The descriptor of the binding. It is automatically
+              removed if one of the objects is finalized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-binding-unbind"/>exo_binding_unbind ()</title>
+<indexterm><primary>exo_binding_unbind</primary></indexterm><programlisting><link linkend="void">void</link>        exo_binding_unbind              (<link linkend="ExoBinding">ExoBinding</link> *binding);</programlisting>
+<para>
+Disconnects the binding between two properties. Should be
+rarely used by applications.
+</para>
+<para>
+This functions also calls the <parameter>destroy_notify</parameter> function that
+was specified when <parameter>binding</parameter> was created.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>binding</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoBinding"><type>ExoBinding</type></link> to unbind.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-mutual-binding-new"/>exo_mutual_binding_new ()</title>
+<indexterm><primary>exo_mutual_binding_new</primary></indexterm><programlisting><link linkend="ExoMutualBinding">ExoMutualBinding</link>* exo_mutual_binding_new    (<link linkend="GObject">GObject</link> *object1,
+                                             const <link linkend="gchar">gchar</link> *property1,
+                                             <link linkend="GObject">GObject</link> *object2,
+                                             const <link linkend="gchar">gchar</link> *property2);</programlisting>
+<para>
+Mutually binds values of two properties.
+</para>
+<para>
+Before binding the value of <parameter>property2</parameter> is set to the value
+of <parameter>property1</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object1</parameter>&nbsp;:</term>
+<listitem><simpara> The first <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property1</parameter>&nbsp;:</term>
+<listitem><simpara> The first property to bind.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object2</parameter>&nbsp;:</term>
+<listitem><simpara> The second <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property2</parameter>&nbsp;:</term>
+<listitem><simpara> The second property to bind.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The descriptor of the binding. It is automatically
+              removed if one of the objects is finalized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-mutual-binding-new-full"/>exo_mutual_binding_new_full ()</title>
+<indexterm><primary>exo_mutual_binding_new_full</primary></indexterm><programlisting><link linkend="ExoMutualBinding">ExoMutualBinding</link>* exo_mutual_binding_new_full
+                                            (<link linkend="GObject">GObject</link> *object1,
+                                             const <link linkend="gchar">gchar</link> *property1,
+                                             <link linkend="GObject">GObject</link> *object2,
+                                             const <link linkend="gchar">gchar</link> *property2,
+                                             <link linkend="ExoBindingTransform">ExoBindingTransform</link> transform,
+                                             <link linkend="ExoBindingTransform">ExoBindingTransform</link> reverse_transform,
+                                             <link linkend="GDestroyNotify">GDestroyNotify</link> destroy_notify,
+                                             <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+Mutually binds values of two properties.
+</para>
+<para>
+Before binding the value of <parameter>property2</parameter> is set to the value of
+<parameter>property1</parameter>.
+</para>
+<para>
+Both <parameter>transform</parameter> and <parameter>reverse_transform</parameter> should simultaneously be
+<literal>NULL</literal> or non-<literal>NULL</literal>. If they are non-<literal>NULL</literal>, they should be reverse
+in each other.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object1</parameter>&nbsp;:</term>
+<listitem><simpara> The first <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property1</parameter>&nbsp;:</term>
+<listitem><simpara> The first property to bind.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object2</parameter>&nbsp;:</term>
+<listitem><simpara> The second <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property2</parameter>&nbsp;:</term>
+<listitem><simpara> The second property to bind.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>transform</parameter>&nbsp;:</term>
+<listitem><simpara> Transformation function or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>reverse_transform</parameter>&nbsp;:</term>
+<listitem><simpara> The inverse transformation function or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>destroy_notify</parameter>&nbsp;:</term>
+<listitem><simpara> Callback function called on disconnection with
+                     <parameter>user_data</parameter> as argument or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara> User data associated with the binding.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The descriptor of the binding. It is automatically
+              removed if one of the objects is finalized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-mutual-binding-new-with-negation"/>exo_mutual_binding_new_with_negation ()</title>
+<indexterm><primary>exo_mutual_binding_new_with_negation</primary></indexterm><programlisting><link linkend="ExoMutualBinding">ExoMutualBinding</link>* exo_mutual_binding_new_with_negation
+                                            (<link linkend="GObject">GObject</link> *object1,
+                                             const <link linkend="gchar">gchar</link> *property1,
+                                             <link linkend="GObject">GObject</link> *object2,
+                                             const <link linkend="gchar">gchar</link> *property2);</programlisting>
+<para>
+Convenience function for binding with boolean negation of value.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>object1</parameter>&nbsp;:</term>
+<listitem><simpara> The first <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property1</parameter>&nbsp;:</term>
+<listitem><simpara> The first property to bind.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>object2</parameter>&nbsp;:</term>
+<listitem><simpara> The second <link linkend="GObject"><type>GObject</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>property2</parameter>&nbsp;:</term>
+<listitem><simpara> The second property to bind.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The descriptor of the binding. It is automatically removed
+              if one of the objects if finalized.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-mutual-binding-unbind"/>exo_mutual_binding_unbind ()</title>
+<indexterm><primary>exo_mutual_binding_unbind</primary></indexterm><programlisting><link linkend="void">void</link>        exo_mutual_binding_unbind       (<link linkend="ExoMutualBinding">ExoMutualBinding</link> *binding);</programlisting>
+<para>
+Disconnects the binding between two properties. Should be
+rarely used by applications.
+</para>
+<para>
+This functions also calls the <parameter>destroy_notify</parameter> function that
+was specified when <parameter>binding</parameter> was created.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>binding</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoMutualBinding"><type>ExoMutualBinding</type></link> to unbind.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<ulink url="http://developer.gnome.org/doc/API/2.0/gobject/">GObject Reference
+Manual</ulink>, <link linkend="exo-Extensions-to-GObject">Extensions to GObject</link>
+</para>
+</refsect1>
+
+</refentry>

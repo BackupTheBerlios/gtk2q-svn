@@ -1,0 +1,859 @@
+<refentry id="ExoToolbarsModel">
+<refmeta>
+<refentrytitle>ExoToolbarsModel</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoToolbarsModel</refname><refpurpose>The toolbars backend used by <link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link></refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoToolbarsModel-struct">ExoToolbarsModel</link>;
+enum        <link linkend="ExoToolbarsModelFlags">ExoToolbarsModelFlags</link>;
+#define     <link linkend="EXO-TOOLBARS-ITEM-TYPE:CAPS">EXO_TOOLBARS_ITEM_TYPE</link>
+<link linkend="ExoToolbarsModel">ExoToolbarsModel</link>* <link linkend="exo-toolbars-model-new">exo_toolbars_model_new</link>    (void);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-set-actions">exo_toolbars_model_set_actions</link>  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gchar">gchar</link> **actions,
+                                             <link linkend="guint">guint</link> n_actions);
+<link linkend="gchar">gchar</link>**     <link linkend="exo-toolbars-model-get-actions">exo_toolbars_model_get_actions</link>  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-toolbars-model-load-from-file">exo_toolbars_model_load_from_file</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-toolbars-model-save-to-file">exo_toolbars_model_save_to_file</link> (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="ExoToolbarsModelFlags">ExoToolbarsModelFlags</link> <link linkend="exo-toolbars-model-get-flags">exo_toolbars_model_get_flags</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-set-flags">exo_toolbars_model_set_flags</link>    (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="ExoToolbarsModelFlags">ExoToolbarsModelFlags</link> flags,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="GtkToolbarStyle">GtkToolbarStyle</link> <link linkend="exo-toolbars-model-get-style">exo_toolbars_model_get_style</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-set-style">exo_toolbars_model_set_style</link>    (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="GtkToolbarStyle">GtkToolbarStyle</link> style,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-unset-style">exo_toolbars_model_unset_style</link>  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="gchar">gchar</link>*      <link linkend="exo-toolbars-model-get-item-type">exo_toolbars_model_get_item_type</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="GdkAtom">GdkAtom</link> dnd_type);
+<link linkend="gchar">gchar</link>*      <link linkend="exo-toolbars-model-get-item-id">exo_toolbars_model_get_item_id</link>  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *type,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="gchar">gchar</link>*      <link linkend="exo-toolbars-model-get-item-data">exo_toolbars_model_get_item_data</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *type,
+                                             const <link linkend="gchar">gchar</link> *id);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-toolbars-model-add-item">exo_toolbars_model_add_item</link>     (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position,
+                                             const <link linkend="gchar">gchar</link> *id,
+                                             const <link linkend="gchar">gchar</link> *type);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-add-separator">exo_toolbars_model_add_separator</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position);
+<link linkend="gint">gint</link>        <link linkend="exo-toolbars-model-add-toolbar">exo_toolbars_model_add_toolbar</link>  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             const <link linkend="gchar">gchar</link> *name);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-move-item">exo_toolbars_model_move_item</link>    (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position,
+                                             <link linkend="gint">gint</link> new_toolbar_position,
+                                             <link linkend="gint">gint</link> new_item_position);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-remove-item">exo_toolbars_model_remove_item</link>  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-remove-toolbar">exo_toolbars_model_remove_toolbar</link>
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="gint">gint</link>        <link linkend="exo-toolbars-model-n-items">exo_toolbars_model_n_items</link>      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);
+<link linkend="void">void</link>        <link linkend="exo-toolbars-model-item-nth">exo_toolbars_model_item_nth</link>     (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position,
+                                             <link linkend="gboolean">gboolean</link> *is_separator,
+                                             const <link linkend="gchar">gchar</link> **id,
+                                             const <link linkend="gchar">gchar</link> **type);
+<link linkend="gint">gint</link>        <link linkend="exo-toolbars-model-n-toolbars">exo_toolbars_model_n_toolbars</link>   (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);
+const <link linkend="gchar">gchar</link>* <link linkend="exo-toolbars-model-toolbar-nth">exo_toolbars_model_toolbar_nth</link> (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----ExoToolbarsModel
+</synopsis>
+
+</refsect1>
+
+
+
+
+
+
+<refsect1>
+<title>Signal Prototypes</title>
+<synopsis>
+
+&quot;<link linkend="ExoToolbarsModel-get-item-data">get-item-data</link>&quot;
+            <link linkend="gchar">gchar</link>*      user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *arg0,
+                                            <link linkend="gchar">gchar</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-get-item-id">get-item-id</link>&quot;
+            <link linkend="gchar">gchar</link>*      user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *arg0,
+                                            <link linkend="gchar">gchar</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-get-item-type">get-item-type</link>&quot;
+            <link linkend="gchar">gchar</link>*      user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *arg0,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-item-added">item-added</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gint">gint</link> item_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-item-removed">item-removed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gint">gint</link> item_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-toolbar-added">toolbar-added</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-toolbar-changed">toolbar-changed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+&quot;<link linkend="ExoToolbarsModel-toolbar-removed">toolbar-removed</link>&quot;
+            <link linkend="void">void</link>        user_function      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);
+</synopsis>
+</refsect1>
+
+
+<refsect1>
+<title>Description</title>
+<para>
+The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> class includes the basic functionality
+to manage editable toolbars.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoToolbarsModel-struct"/>ExoToolbarsModel</title>
+<indexterm><primary>ExoToolbarsModel</primary></indexterm><programlisting>typedef struct _ExoToolbarsModel ExoToolbarsModel;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="ExoToolbarsModelFlags"/>enum ExoToolbarsModelFlags</title>
+<indexterm><primary>ExoToolbarsModelFlags</primary></indexterm><programlisting>typedef enum
+{
+  EXO_TOOLBARS_MODEL_NOT_REMOVABLE      = 1 &lt;&lt; 0,
+  EXO_TOOLBARS_MODEL_ACCEPT_ITEMS_ONLY  = 1 &lt;&lt; 1,
+  EXO_TOOLBARS_MODEL_OVERRIDE_STYLE     = 1 &lt;&lt; 2,
+} ExoToolbarsModelFlags;
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="EXO-TOOLBARS-ITEM-TYPE:CAPS"/>EXO_TOOLBARS_ITEM_TYPE</title>
+<indexterm><primary>EXO_TOOLBARS_ITEM_TYPE</primary></indexterm><programlisting>#define EXO_TOOLBARS_ITEM_TYPE "application/x-exo-toolbars-item"
+</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-new"/>exo_toolbars_model_new ()</title>
+<indexterm><primary>exo_toolbars_model_new</primary></indexterm><programlisting><link linkend="ExoToolbarsModel">ExoToolbarsModel</link>* exo_toolbars_model_new    (void);</programlisting>
+<para>
+Creates a new <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> with a reference count
+of one.
+</para>
+<para>
+You need to call <link linkend="exo-toolbars-model-set-actions"><function>exo_toolbars_model_set_actions()</function></link> first, after
+you created an <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> to set the list of actions,
+that should be available from the toolbars.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> A newly created <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-set-actions"/>exo_toolbars_model_set_actions ()</title>
+<indexterm><primary>exo_toolbars_model_set_actions</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_set_actions  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gchar">gchar</link> **actions,
+                                             <link linkend="guint">guint</link> n_actions);</programlisting>
+<para>
+Specifies the list of valid actions for <parameter>model</parameter>. <parameter>model</parameter> will only
+manage actions that are specified in this list. This function
+should be called right after you created <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>actions</parameter>&nbsp;:</term>
+<listitem><simpara> A string array with action names.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>n_actions</parameter>&nbsp;:</term>
+<listitem><simpara> The number of strings in <parameter>actions</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-get-actions"/>exo_toolbars_model_get_actions ()</title>
+<indexterm><primary>exo_toolbars_model_get_actions</primary></indexterm><programlisting><link linkend="gchar">gchar</link>**     exo_toolbars_model_get_actions  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);</programlisting>
+<para>
+Returns the list of valid actions for <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The list of valid actions for <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-load-from-file"/>exo_toolbars_model_load_from_file ()</title>
+<indexterm><primary>exo_toolbars_model_load_from_file</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_toolbars_model_load_from_file
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Parses a file containing a toolbars UI definition and merges it with
+the current contents of <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the file to parse.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> Return location for an error or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if the data was successfully loaded from the file
+              specified by <parameter>filename</parameter>, else <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-save-to-file"/>exo_toolbars_model_save_to_file ()</title>
+<indexterm><primary>exo_toolbars_model_save_to_file</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_toolbars_model_save_to_file (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *filename,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Stores the UI definition of the contents of <parameter>model</parameter> to the file
+specified by <parameter>filename</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>filename</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the file to save to.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> The return location for an error or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if saving was successfully, else <literal>FALSE</literal> is
+              returned.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-get-flags"/>exo_toolbars_model_get_flags ()</title>
+<indexterm><primary>exo_toolbars_model_get_flags</primary></indexterm><programlisting><link linkend="ExoToolbarsModelFlags">ExoToolbarsModelFlags</link> exo_toolbars_model_get_flags
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Returns the <link linkend="ExoToolbarsModelFlags"><type>ExoToolbarsModelFlags</type></link> associated with the 
+toolbar at <parameter>toolbar_position</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The <link linkend="ExoToolbarsModelFlags"><type>ExoToolbarsModelFlags</type></link> associated
+              with <parameter>toolbar_position</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-set-flags"/>exo_toolbars_model_set_flags ()</title>
+<indexterm><primary>exo_toolbars_model_set_flags</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_set_flags    (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="ExoToolbarsModelFlags">ExoToolbarsModelFlags</link> flags,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Changes the <link linkend="ExoToolbarsModelFlags"><type>ExoToolbarsModelFlags</type></link> associated with the
+toolbar at <parameter>toolbar_position</parameter> to the value of <parameter>flags</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>flags</parameter>&nbsp;:</term>
+<listitem><simpara> The new flags for <parameter>toolbar_position</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-get-style"/>exo_toolbars_model_get_style ()</title>
+<indexterm><primary>exo_toolbars_model_get_style</primary></indexterm><programlisting><link linkend="GtkToolbarStyle">GtkToolbarStyle</link> exo_toolbars_model_get_style
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Returns the overridden <link linkend="GtkToolbarStyle"><type>GtkToolbarStyle</type></link> for the toolbar
+at <parameter>toolbar_position</parameter>. Should only be used if
+<literal>EXO_TOOLBARS_MODEL_OVERRIDE_STYLE</literal> is set for the
+toolbar.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The <link linkend="GtkToolbarStyle"><type>GtkToolbarStyle</type></link> associated with
+              <parameter>toolbar_position</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-set-style"/>exo_toolbars_model_set_style ()</title>
+<indexterm><primary>exo_toolbars_model_set_style</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_set_style    (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="GtkToolbarStyle">GtkToolbarStyle</link> style,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Sets the style to use for a particular toolbar in <parameter>model</parameter>. You can
+undo the effect of this function by calling
+<link linkend="exo-toolbars-model-unset-style"><function>exo_toolbars_model_unset_style()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>style</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="GtkToolbarStyle"><type>GtkToolbarStyle</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-unset-style"/>exo_toolbars_model_unset_style ()</title>
+<indexterm><primary>exo_toolbars_model_unset_style</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_unset_style  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Undoes the effect of <link linkend="exo-toolbars-model-unset-style"><function>exo_toolbars_model_unset_style()</function></link> and resets
+the style of the specified toolbar to the system default.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-get-item-type"/>exo_toolbars_model_get_item_type ()</title>
+<indexterm><primary>exo_toolbars_model_get_item_type</primary></indexterm><programlisting><link linkend="gchar">gchar</link>*      exo_toolbars_model_get_item_type
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="GdkAtom">GdkAtom</link> dnd_type);</programlisting>
+<para>
+Return value :</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dnd_type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-get-item-id"/>exo_toolbars_model_get_item_id ()</title>
+<indexterm><primary>exo_toolbars_model_get_item_id</primary></indexterm><programlisting><link linkend="gchar">gchar</link>*      exo_toolbars_model_get_item_id  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *type,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Return value :</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-get-item-data"/>exo_toolbars_model_get_item_data ()</title>
+<indexterm><primary>exo_toolbars_model_get_item_data</primary></indexterm><programlisting><link linkend="gchar">gchar</link>*      exo_toolbars_model_get_item_data
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             const <link linkend="gchar">gchar</link> *type,
+                                             const <link linkend="gchar">gchar</link> *id);</programlisting>
+<para>
+Return value :</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&nbsp;:</term>
+<listitem><simpara>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara>
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-add-item"/>exo_toolbars_model_add_item ()</title>
+<indexterm><primary>exo_toolbars_model_add_item</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_toolbars_model_add_item     (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position,
+                                             const <link linkend="gchar">gchar</link> *id,
+                                             const <link linkend="gchar">gchar</link> *type);</programlisting>
+<para>
+Adds a new toolbar item with the specified <parameter>type</parameter> and <parameter>id</parameter> to <parameter>model</parameter>,
+where <parameter>id</parameter> has to be a valid action name for <parameter>model</parameter>, that was previously
+set with <link linkend="exo-toolbars-model-set-actions"><function>exo_toolbars_model_set_actions()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> The position in the specified toolbar or -1.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&nbsp;:</term>
+<listitem><simpara> The identifier of the new item.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> The type of the new item.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> if the item was added successfully, else <literal>FALSE</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-add-separator"/>exo_toolbars_model_add_separator ()</title>
+<indexterm><primary>exo_toolbars_model_add_separator</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_add_separator
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position);</programlisting>
+<para>
+Adds a new separator item to the specified toolbar in <parameter>model</parameter>. If
+you specify -1 for <parameter>item_position</parameter>, the separator will be appended
+to the toolbar, else it will be inserted at the specified <parameter>item_position</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> The position in the specified toolbar or -1.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-add-toolbar"/>exo_toolbars_model_add_toolbar ()</title>
+<indexterm><primary>exo_toolbars_model_add_toolbar</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_toolbars_model_add_toolbar  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             const <link linkend="gchar">gchar</link> *name);</programlisting>
+<para>
+Adds a new toolbar to <parameter>model</parameter>. If you specify -1 for <parameter>toolbar_position</parameter>,
+the toolbar will be appended to <parameter>model</parameter>; else the toolbar will be
+inserted at the specified position. Emits the ::toolbar-added
+signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> Where to insert the new toolbar in <parameter>model</parameter>
+                     or -1 to append the toolbar.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>name</parameter>&nbsp;:</term>
+<listitem><simpara> The name of the new toolbar.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The real position of the new toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-move-item"/>exo_toolbars_model_move_item ()</title>
+<indexterm><primary>exo_toolbars_model_move_item</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_move_item    (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position,
+                                             <link linkend="gint">gint</link> new_toolbar_position,
+                                             <link linkend="gint">gint</link> new_item_position);</programlisting>
+<para>
+Moves an item to another position. The move operation
+is done by first removing the specified item and afterwards
+readding the item at the new position. Therefore, this
+functions emits the ::item-removed and ::item-added
+signals.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> Old toolbar index.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> Old item index.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> New toolbar index.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>new_item_position</parameter>&nbsp;:</term>
+<listitem><simpara> New item index.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-remove-item"/>exo_toolbars_model_remove_item ()</title>
+<indexterm><primary>exo_toolbars_model_remove_item</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_remove_item  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position);</programlisting>
+<para>
+Removes the toolbar item at <parameter>item_position</parameter> from the toolbar
+<parameter>toolbar_position</parameter> in <parameter>model</parameter> and emits the ::item-removed
+signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> A toolbar index.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the item to remove.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-remove-toolbar"/>exo_toolbars_model_remove_toolbar ()</title>
+<indexterm><primary>exo_toolbars_model_remove_toolbar</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_remove_toolbar
+                                            (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Removes the specified toolbar from <parameter>model</parameter> and emits
+the ::toolbar-removed signal.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> A <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-n-items"/>exo_toolbars_model_n_items ()</title>
+<indexterm><primary>exo_toolbars_model_n_items</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_toolbars_model_n_items      (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Returns the number of items in the specified toolbar.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The number of items in the specified toolbar.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-item-nth"/>exo_toolbars_model_item_nth ()</title>
+<indexterm><primary>exo_toolbars_model_item_nth</primary></indexterm><programlisting><link linkend="void">void</link>        exo_toolbars_model_item_nth     (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position,
+                                             <link linkend="gint">gint</link> item_position,
+                                             <link linkend="gboolean">gboolean</link> *is_separator,
+                                             const <link linkend="gchar">gchar</link> **id,
+                                             const <link linkend="gchar">gchar</link> **type);</programlisting>
+<para>
+Queries the properites of the toolbar item at <parameter>item_position</parameter> in toolbar
+<parameter>toolbar_position</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of an item in the specified toolbar.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>is_separator</parameter>&nbsp;:</term>
+<listitem><simpara> Return location for the separator setting or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>id</parameter>&nbsp;:</term>
+<listitem><simpara> Return location for the item id or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>type</parameter>&nbsp;:</term>
+<listitem><simpara> Return location for the item type or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-n-toolbars"/>exo_toolbars_model_n_toolbars ()</title>
+<indexterm><primary>exo_toolbars_model_n_toolbars</primary></indexterm><programlisting><link linkend="gint">gint</link>        exo_toolbars_model_n_toolbars   (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model);</programlisting>
+<para>
+Returns the number of toolbars currently
+managed by <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The number of toolbars in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-toolbars-model-toolbar-nth"/>exo_toolbars_model_toolbar_nth ()</title>
+<indexterm><primary>exo_toolbars_model_toolbar_nth</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>* exo_toolbars_model_toolbar_nth (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                             <link linkend="gint">gint</link> toolbar_position);</programlisting>
+<para>
+Returns the name of the toolbar at <parameter>toolbar_position</parameter> in
+<parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of a toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The name of the toolbar at <parameter>toolbar_position</parameter>
+              in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+<refsect1>
+<title>Signals</title>
+<refsect2><title><anchor id="ExoToolbarsModel-get-item-data"/>The &quot;get-item-data&quot; signal</title>
+<programlisting><link linkend="gchar">gchar</link>*      user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *arg0,
+                                            <link linkend="gchar">gchar</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-get-item-id"/>The &quot;get-item-id&quot; signal</title>
+<programlisting><link linkend="gchar">gchar</link>*      user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *arg0,
+                                            <link linkend="gchar">gchar</link> *arg1,
+                                            <link linkend="gchar">gchar</link> *arg2,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-get-item-type"/>The &quot;get-item-type&quot; signal</title>
+<programlisting><link linkend="gchar">gchar</link>*      user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *arg0,
+                                            <link linkend="gpointer">gpointer</link> arg1,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-item-added"/>The &quot;item-added&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gint">gint</link> item_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted whenever a new item is added to a toolbar
+managed by <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> to which an item was added.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the toolbar in <parameter>model</parameter> to which the item
+                     was added.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the new item in the specified toolbar.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-item-removed"/>The &quot;item-removed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gint">gint</link> item_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted whenever an item is removed from a toolbar
+managed by <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> from which an item was removed.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the toolbar in <parameter>model</parameter> from which
+                     the item was removed.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>item_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the item in the specified toolbar.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-toolbar-added"/>The &quot;toolbar-added&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted whenever a new toolbar is added to <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> to which a new toolbar was
+                     added.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the new toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-toolbar-changed"/>The &quot;toolbar-changed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted whenever the flags or the style of a toolbar
+change, which is managed by <parameter>model</parameter>. All views connected to <parameter>model</parameter>
+should then update their internal state of the specified toolbar.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link> that manages the changed
+                     toolbar.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the changed toolbar in <parameter>model</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="ExoToolbarsModel-toolbar-removed"/>The &quot;toolbar-removed&quot; signal</title>
+<programlisting><link linkend="void">void</link>        user_function                  (<link linkend="ExoToolbarsModel">ExoToolbarsModel</link> *model,
+                                            <link linkend="gint">gint</link> toolbar_position,
+                                            <link linkend="gpointer">gpointer</link> user_data);</programlisting>
+<para>
+This signal is emitted whenever a toolbar is removed from <parameter>model</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>model</parameter>&nbsp;:</term>
+<listitem><simpara> The <link linkend="ExoToolbarsModel"><type>ExoToolbarsModel</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>toolbar_position</parameter>&nbsp;:</term>
+<listitem><simpara> The index of the toolbar in <parameter>model</parameter> that was
+                     removed.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<link linkend="ExoToolbarsView"><type>ExoToolbarsView</type></link>, <link linkend="ExoToolbarsEditor"><type>ExoToolbarsEditor</type></link>, <link linkend="ExoToolbarsEditorDialog"><type>ExoToolbarsEditorDialog</type></link>
+</para>
+</refsect1>
+
+</refentry>

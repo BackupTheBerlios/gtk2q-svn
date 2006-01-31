@@ -1,0 +1,146 @@
+<refentry id="ExoEllipsizedLabel">
+<refmeta>
+<refentrytitle>ExoEllipsizedLabel</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>ExoEllipsizedLabel</refname><refpurpose>A widget that automatically ellipsizes text</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+            <link linkend="ExoEllipsizedLabel-struct">ExoEllipsizedLabel</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="exo-ellipsized-label-new">exo_ellipsized_label_new</link>        (const <link linkend="gchar">gchar</link> *text);
+<link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link> <link linkend="exo-ellipsized-label-get-ellipsize">exo_ellipsized_label_get_ellipsize</link>
+                                            (<link linkend="ExoEllipsizedLabel">ExoEllipsizedLabel</link> *label);
+<link linkend="void">void</link>        <link linkend="exo-ellipsized-label-set-ellipsize">exo_ellipsized_label_set_ellipsize</link>
+                                            (<link linkend="ExoEllipsizedLabel">ExoEllipsizedLabel</link> *label,
+                                             <link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link> ellipsize);
+
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1>
+<title>Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GtkObject">GtkObject</link>
+         +----<link linkend="GtkWidget">GtkWidget</link>
+               +----<link linkend="GtkMisc">GtkMisc</link>
+                     +----<link linkend="GtkLabel">GtkLabel</link>
+                           +----ExoEllipsizedLabel
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>Implemented Interfaces</title>
+<para>
+ExoEllipsizedLabel implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+<link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link> extends the standard <link linkend="GtkLabel"><type>GtkLabel</type></link> class present in
+Gtk+ 2.4 with the ability to automatically ellipsize text with
+"...".
+</para>
+<para>
+<link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link> automatically detects if its running with Gtk+
+2.5 or above and uses the native ellipsizing support of Gtk+ 2.5
+or above in that case. So its safe to use <link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link>
+with every Gtk+ version above 2.4.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="ExoEllipsizedLabel-struct"/>ExoEllipsizedLabel</title>
+<indexterm><primary>ExoEllipsizedLabel</primary></indexterm><programlisting>typedef struct _ExoEllipsizedLabel ExoEllipsizedLabel;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-ellipsized-label-new"/>exo_ellipsized_label_new ()</title>
+<indexterm><primary>exo_ellipsized_label_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  exo_ellipsized_label_new        (const <link linkend="gchar">gchar</link> *text);</programlisting>
+<para>
+Creates a new <link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link> with the given
+text inside it. You can pass <literal>NULL</literal> to get an
+empty label widget.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>text</parameter>&nbsp;:</term>
+<listitem><simpara> The text of the label.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> The new <link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-ellipsized-label-get-ellipsize"/>exo_ellipsized_label_get_ellipsize ()</title>
+<indexterm><primary>exo_ellipsized_label_get_ellipsize</primary></indexterm><programlisting><link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link> exo_ellipsized_label_get_ellipsize
+                                            (<link linkend="ExoEllipsizedLabel">ExoEllipsizedLabel</link> *label);</programlisting>
+<para>
+Returns the ellipsizing position of the <parameter>label</parameter>.
+See <link linkend="exo-ellipsized-label-set-ellipsize"><function>exo_ellipsized_label_set_ellipsize()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>label</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> An <link linkend="ExoPangoEllipsizeMode"><type>ExoPangoEllipsizeMode</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="exo-ellipsized-label-set-ellipsize"/>exo_ellipsized_label_set_ellipsize ()</title>
+<indexterm><primary>exo_ellipsized_label_set_ellipsize</primary></indexterm><programlisting><link linkend="void">void</link>        exo_ellipsized_label_set_ellipsize
+                                            (<link linkend="ExoEllipsizedLabel">ExoEllipsizedLabel</link> *label,
+                                             <link linkend="ExoPangoEllipsizeMode">ExoPangoEllipsizeMode</link> ellipsize);</programlisting>
+<para>
+Sets the mode used to ellipsize (add an ellipsis: "...") to the
+text if there is not enough space to render the entire string.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>label</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoEllipsizedLabel"><type>ExoEllipsizedLabel</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>ellipsize</parameter>&nbsp;:</term>
+<listitem><simpara> An <link linkend="ExoPangoEllipsizeMode"><type>ExoPangoEllipsizeMode</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<ulink url="http://developer.gnome.org/doc/API/2.0/gtk/GtkLabel.html"
+type="http">GtkLabel</ulink>, <link linkend="exo-Extensions-to-Pango">Exo
+Pango Extensions</link>
+</para>
+</refsect1>
+
+</refentry>

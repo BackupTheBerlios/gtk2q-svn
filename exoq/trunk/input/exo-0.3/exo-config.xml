@@ -1,0 +1,197 @@
+<refentry id="exo-Version-Information">
+<refmeta>
+<refentrytitle>Version Information</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Version Information</refname><refpurpose>Variables and macros to check the exo version</refpurpose>
+</refnamediv>
+<refsect1>
+<title>Stability Level</title>
+Stable, unless otherwise indicated
+</refsect1>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+extern      const guint <link linkend="exo-major-version">exo_major_version</link>;
+extern      const guint <link linkend="exo-minor-version">exo_minor_version</link>;
+extern      const guint <link linkend="exo-micro-version">exo_micro_version</link>;
+const <link linkend="gchar">gchar</link>* <link linkend="exo-check-version">exo_check_version</link>              (<link linkend="guint">guint</link> required_major,
+                                             <link linkend="guint">guint</link> required_minor,
+                                             <link linkend="guint">guint</link> required_micro);
+
+#define     <link linkend="EXO-MAJOR-VERSION:CAPS">EXO_MAJOR_VERSION</link>
+#define     <link linkend="EXO-MINOR-VERSION:CAPS">EXO_MINOR_VERSION</link>
+#define     <link linkend="EXO-MICRO-VERSION:CAPS">EXO_MICRO_VERSION</link>
+#define     <link linkend="EXO-CHECK-VERSION:CAPS">EXO_CHECK_VERSION</link>               (major,minor,micro)
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+Exo provides version information, primarily useful in configure for
+builds that have a configure script. Applications may use it to
+check if a certain feature is available in the version of libexo
+they are being built against or being linked with.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-major-version"/>exo_major_version</title>
+<indexterm><primary>exo_major_version</primary></indexterm><programlisting>extern const guint exo_major_version;
+</programlisting>
+<para>
+The major version number of the exo library (e.g. in libexo 0.1.3
+this is 0).
+</para>
+<para>
+This variable is in the library, and therefore represents the exo
+library you have linked against. Contrast with the <link linkend="EXO-MAJOR-VERSION:CAPS"><type>EXO_MAJOR_VERSION</type></link>
+macro, which represents the major version of the libexo headers
+you have included.
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-minor-version"/>exo_minor_version</title>
+<indexterm><primary>exo_minor_version</primary></indexterm><programlisting>extern const guint exo_minor_version;
+</programlisting>
+<para>
+The minor version number of the exo library (e.g. in libexo 0.1.3
+this is 1).
+</para>
+<para>
+This variable is in the library, and therefore represents the exo
+library you have linked against. Contrast with the <link linkend="EXO-MINOR-VERSION:CAPS"><type>EXO_MINOR_VERSION</type></link>
+macro, which represents the minor version of the libexo headers
+you have included.
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-micro-version"/>exo_micro_version</title>
+<indexterm><primary>exo_micro_version</primary></indexterm><programlisting>extern const guint exo_micro_version;
+</programlisting>
+<para>
+The micro version number of the exo library (e.g. in libexo 0.1.3
+this is 3).
+</para>
+<para>
+This variable is in the library, and therefore represents the exo
+library you have linked against. Contrast with the <link linkend="EXO-MICRO-VERSION:CAPS"><type>EXO_MICRO_VERSION</type></link>
+macro, which represents the micro version of the libexo headers
+you have included.
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-check-version"/>exo_check_version ()</title>
+<indexterm role="0.3.1"><primary>exo_check_version</primary></indexterm><programlisting>const <link linkend="gchar">gchar</link>* exo_check_version              (<link linkend="guint">guint</link> required_major,
+                                             <link linkend="guint">guint</link> required_minor,
+                                             <link linkend="guint">guint</link> required_micro);</programlisting>
+<para>
+Checks that the <systemitem class="library">exo</systemitem> library
+in use is compatible with the given version. Generally you would pass in
+the constants <link linkend="EXO-MAJOR-VERSION:CAPS"><type>EXO_MAJOR_VERSION</type></link>, <link linkend="EXO-MINOR-VERSION:CAPS"><type>EXO_MINOR_VERSION</type></link> and <link linkend="EXO-MICRO-VERSION:CAPS"><type>EXO_MICRO_VERSION</type></link>
+as the three arguments to this function; that produces
+a check that the library in use is compatible with the version of
+<systemitem class="library">exo</systemitem> the application was
+compiled against.
+</para>
+<para>
+<example>
+<title>Checking the runtime version of the exo library</title>
+<programlisting>
+const gchar *mismatch;
+mismatch = exo_check_version (EXO_VERSION_MAJOR,
+                              EXO_VERSION_MINOR,
+                              EXO_VERSION_MICRO);
+if (G_UNLIKELY (mismatch != NULL))
+  g_error ("Version mismatch: %<!---->s", mismatch);
+</programlisting>
+</example></para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>required_major</parameter>&nbsp;:</term>
+<listitem><simpara> the required major version.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>required_minor</parameter>&nbsp;:</term>
+<listitem><simpara> the required minor version.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>required_micro</parameter>&nbsp;:</term>
+<listitem><simpara> the required micro version.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>NULL</literal> if the library is compatible with the given version,
+              or a string describing the version mismatch. The returned
+              string is owned by the library and must not be freed or
+              modified by the caller.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1
+</para></refsect2>
+<refsect2>
+<title><anchor id="EXO-MAJOR-VERSION:CAPS"/>EXO_MAJOR_VERSION</title>
+<indexterm><primary>EXO_MAJOR_VERSION</primary></indexterm><programlisting>#define EXO_MAJOR_VERSION 0
+</programlisting>
+<para>
+Like <link linkend="exo-major-version"><type>exo_major_version</type></link>, but from the headers used at application
+compile time, rather than from the library linked against at
+application run time.
+</para></refsect2>
+<refsect2>
+<title><anchor id="EXO-MINOR-VERSION:CAPS"/>EXO_MINOR_VERSION</title>
+<indexterm><primary>EXO_MINOR_VERSION</primary></indexterm><programlisting>#define EXO_MINOR_VERSION 3
+</programlisting>
+<para>
+Like <link linkend="exo-minor-version"><type>exo_minor_version</type></link>, but from the headers used at application
+compile time, rather than from the library linked against at
+application run time.
+</para></refsect2>
+<refsect2>
+<title><anchor id="EXO-MICRO-VERSION:CAPS"/>EXO_MICRO_VERSION</title>
+<indexterm><primary>EXO_MICRO_VERSION</primary></indexterm><programlisting>#define EXO_MICRO_VERSION 1
+</programlisting>
+<para>
+Like <link linkend="exo-micro-version"><type>exo_micro_version</type></link>, but from the headers used at application
+compile time, rather than from the library linked against at
+application run time.
+</para></refsect2>
+<refsect2>
+<title><anchor id="EXO-CHECK-VERSION:CAPS"/>EXO_CHECK_VERSION()</title>
+<indexterm><primary>EXO_CHECK_VERSION</primary></indexterm><programlisting>#define     EXO_CHECK_VERSION(major,minor,micro)</programlisting>
+<para>
+Returns <literal>TRUE</literal> if the version of the libexo header files is 
+equal or better than the passed-in version.
+</para><variablelist role="params">
+<varlistentry><term><parameter>major</parameter>&nbsp;:</term>
+<listitem><simpara>major version (e.g. 0 for version 0.1.3)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>minor</parameter>&nbsp;:</term>
+<listitem><simpara>minor version (e.g. 1 for version 0.1.3)
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>micro</parameter>&nbsp;:</term>
+<listitem><simpara>micro version (e.g. 3 for version 0.1.3)
+
+
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+
+</refentry>

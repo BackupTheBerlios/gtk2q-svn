@@ -1,0 +1,275 @@
+<refentry id="exo-Executing-Applications">
+<refmeta>
+<refentrytitle>Executing Applications</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Executing Applications</refname><refpurpose>Execute preferred applications.</refpurpose>
+</refnamediv>
+<refsect1>
+<title>Stability Level</title>
+Stable, unless otherwise indicated
+</refsect1>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-execute-preferred-application">exo_execute_preferred_application</link>
+                                            (const <link linkend="gchar">gchar</link> *category,
+                                             const <link linkend="gchar">gchar</link> *parameter,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-execute-preferred-application-on-screen">exo_execute_preferred_application_on_screen</link>
+                                            (const <link linkend="gchar">gchar</link> *category,
+                                             const <link linkend="gchar">gchar</link> *parameter,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-execute-terminal-shell">exo_execute_terminal_shell</link>      (const <link linkend="gchar">gchar</link> *command_line,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GError">GError</link> **error);
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-execute-terminal-shell-on-screen">exo_execute_terminal_shell_on_screen</link>
+                                            (const <link linkend="gchar">gchar</link> *command_line,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             <link linkend="GError">GError</link> **error);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+  This module provides functions to execute certain kinds of applications,
+  for which users can select their preferred ones. For example, whenever
+  you need to run a command in a terminal emulator from within your
+  application you should use <link linkend="exo-execute-terminal-shell"><function>exo_execute_terminal_shell()</function></link> or
+  <link linkend="exo-execute-terminal-shell-on-screen"><function>exo_execute_terminal_shell_on_screen()</function></link> to make sure you run the user's
+  preferred terminal emulator.
+</para>
+<para>
+  On the other hand if you need to display an URL (i.e. you want to point
+  the user to the website of your application), you should use <link linkend="exo-url-show"><function>exo_url_show()</function></link>
+  or <link linkend="exo-url-show-on-screen"><function>exo_url_show_on_screen()</function></link> from the <link
+  linkend="exo-Opening-URLs">exo-url</link> module instead, as they will
+  try to automatically determine the appropriate viewer for a given URL.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-execute-preferred-application"/>exo_execute_preferred_application ()</title>
+<indexterm role="0.3.1.3"><primary>exo_execute_preferred_application</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_execute_preferred_application
+                                            (const <link linkend="gchar">gchar</link> *category,
+                                             const <link linkend="gchar">gchar</link> *parameter,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Convenience wrapper to <link linkend="exo-execute-preferred-application-on-screen"><function>exo_execute_preferred_application_on_screen()</function></link>, which
+runs the preferred application for <parameter>category</parameter> on the default <link linkend="GdkScreen"><type>GdkScreen</type></link>.
+</para>
+<para>
+Note that even if this method returns <literal>TRUE</literal> there's no warranty that
+the preferred application for <parameter>category</parameter> was run successfully, because
+of the way the helper framework is implemented. But you can be sure
+that if the execution fails at a later stage, the library will popup
+an error dialog to inform the user that the execution failed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> the category of the preferred application to launch.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parameter</parameter>&nbsp;:</term>
+<listitem><simpara> additional parameter to pass to the preferred application
+                     (i.e. an URL to pass to the preferred browser) or <literal>NULL</literal>
+                     to pass no parameter.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>working_directory</parameter>&nbsp;:</term>
+<listitem><simpara> path to the directory in which to execute the
+                     preferred application for <parameter>category</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>envp</parameter>&nbsp;:</term>
+<listitem><simpara> child's environment, or <literal>NULL</literal> to inherit parent's.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> return location for errors or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, else <literal>FALSE</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-execute-preferred-application-on-screen"/>exo_execute_preferred_application_on_screen ()</title>
+<indexterm role="0.3.1.3"><primary>exo_execute_preferred_application_on_screen</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_execute_preferred_application_on_screen
+                                            (const <link linkend="gchar">gchar</link> *category,
+                                             const <link linkend="gchar">gchar</link> *parameter,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Launches the preferred application for the given <parameter>category</parameter> with the
+<parameter>parameter</parameter> on <parameter>screen</parameter> in the specified <parameter>working_directory</parameter>.
+</para>
+<para>
+libexo currently supports the following categories: %"WebBrowser",
+%"MailReader" and %"TerminalEmulator". If you specify an invalid
+<parameter>category</parameter> here, the execution will fail at a later stage and the
+user will be presented with an error dialog.
+</para>
+<para>
+Note that even if this method returns <literal>TRUE</literal> there's no warranty that
+the preferred application for <parameter>category</parameter> was run successfully, because
+of the way the helper framework is implemented. But you can be sure
+that if the execution fails at a later stage, the library will popup
+an error dialog to inform the user that the execution failed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>category</parameter>&nbsp;:</term>
+<listitem><simpara> the category of the preferred application to launch.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>parameter</parameter>&nbsp;:</term>
+<listitem><simpara> additional parameter to pass to the preferred application
+                     (i.e. an URL to pass to the preferred browser) or <literal>NULL</literal>
+                     to pass no parameter.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>working_directory</parameter>&nbsp;:</term>
+<listitem><simpara> path to the directory in which to execute the
+                     preferred application for <parameter>category</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>envp</parameter>&nbsp;:</term>
+<listitem><simpara> child's environment, or <literal>NULL</literal> to inherit parent's.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GdkScreen"><type>GdkScreen</type></link> on which to run the preferred
+                     application for <parameter>category</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> return location for errors or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, else <literal>FALSE</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-execute-terminal-shell"/>exo_execute_terminal_shell ()</title>
+<indexterm role="0.3.1.3"><primary>exo_execute_terminal_shell</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_execute_terminal_shell      (const <link linkend="gchar">gchar</link> *command_line,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Convenience wrapper to <link linkend="exo-execute-terminal-shell-on-screen"><function>exo_execute_terminal_shell_on_screen()</function></link>, which
+executes the <parameter>command_line</parameter> on the default <link linkend="GdkScreen"><type>GdkScreen</type></link>.
+</para>
+<para>
+Note that even if this method returns <literal>TRUE</literal> there's no warranty that
+the <parameter>command_line</parameter> was run successfully, because of the way the helper
+framework is implemented. But you can be sure that if the execution
+fails at a later stage, the library will popup an error dialog to
+inform the user that the execution failed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>command_line</parameter>&nbsp;:</term>
+<listitem><simpara> shell command line to execute.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>working_directory</parameter>&nbsp;:</term>
+<listitem><simpara> path to the directory in which to execute <parameter>command_line</parameter>
+                     or <literal>NULL</literal> to use the current working directory.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>envp</parameter>&nbsp;:</term>
+<listitem><simpara> child's environment, or <literal>NULL</literal> to inherit parent's.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> return location for errors or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, else <literal>FALSE</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+<refsect2>
+<title><anchor id="exo-execute-terminal-shell-on-screen"/>exo_execute_terminal_shell_on_screen ()</title>
+<indexterm role="0.3.1.3"><primary>exo_execute_terminal_shell_on_screen</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_execute_terminal_shell_on_screen
+                                            (const <link linkend="gchar">gchar</link> *command_line,
+                                             const <link linkend="gchar">gchar</link> *working_directory,
+                                             <link linkend="gchar">gchar</link> **envp,
+                                             <link linkend="GdkScreen">GdkScreen</link> *screen,
+                                             <link linkend="GError">GError</link> **error);</programlisting>
+<para>
+Executes <parameter>command_line</parameter> in the default terminal emulator on the specified
+<parameter>screen</parameter>.
+</para>
+<para>
+If no preferred terminal emulator was chosen by the user so far and
+no sane fallback could be located, the user will be presented with
+the preferred application chooser dialog, which prompts to choose
+a default terminal emulator, and the <parameter>command_line</parameter> will be run
+afterwards using the new default.
+</para>
+<para>
+Note that even if this method returns <literal>TRUE</literal> there's no warranty that
+the <parameter>command_line</parameter> was run successfully, because of the way the helper
+framework is implemented. But you can be sure that if the execution
+fails at a later stage, the library will popup an error dialog to
+inform the user that the execution failed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>command_line</parameter>&nbsp;:</term>
+<listitem><simpara> shell command line to execute.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>working_directory</parameter>&nbsp;:</term>
+<listitem><simpara> path to the directory in which to execute <parameter>command_line</parameter>
+                     or <literal>NULL</literal> to use the current working directory.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>envp</parameter>&nbsp;:</term>
+<listitem><simpara> child's environment, or <literal>NULL</literal> to inherit parent's.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>screen</parameter>&nbsp;:</term>
+<listitem><simpara> the <link linkend="GdkScreen"><type>GdkScreen</type></link> on which to run the <parameter>command_line</parameter>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>error</parameter>&nbsp;:</term>
+<listitem><simpara> return location for errors or <literal>NULL</literal>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on success, else <literal>FALSE</literal>.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  0.3.1.3
+</para></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+  <link linkend="exo-Opening-URLs">Opening URLs</link>
+</para>
+</refsect1>
+
+</refentry>

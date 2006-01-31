@@ -1,0 +1,78 @@
+<refentry id="exo-Extensions-to-GObject">
+<refmeta>
+<refentrytitle>Extensions to GObject</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>EXO Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>Extensions to GObject</refname><refpurpose>Miscelleanous extensions to the GObject library</refpurpose>
+</refnamediv>
+
+<refsynopsisdiv><title>Synopsis</title>
+
+<synopsis>
+
+#include &lt;exo/exo.h&gt;
+
+
+<link linkend="gboolean">gboolean</link>    <link linkend="exo-g-value-transform-negate">exo_g_value_transform_negate</link>    (const <link linkend="GValue">GValue</link> *src_value,
+                                             <link linkend="GValue">GValue</link> *dst_value);
+</synopsis>
+</refsynopsisdiv>
+
+
+
+
+
+
+
+
+
+<refsect1>
+<title>Description</title>
+<para>
+This facility includes several functions to extend the basic
+functionality provided by the GObject library.
+</para>
+</refsect1>
+
+<refsect1>
+<title>Details</title>
+<refsect2>
+<title><anchor id="exo-g-value-transform-negate"/>exo_g_value_transform_negate ()</title>
+<indexterm><primary>exo_g_value_transform_negate</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    exo_g_value_transform_negate    (const <link linkend="GValue">GValue</link> *src_value,
+                                             <link linkend="GValue">GValue</link> *dst_value);</programlisting>
+<para>
+Applies boolean negation to <parameter>src_value</parameter> and stores the result
+in <parameter>dst_value</parameter>.
+</para>
+<para>
+This function is mostly useful for binding boolean properties
+with inversing.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>src_value</parameter>&nbsp;:</term>
+<listitem><simpara> A value convertible to <type>gboolean</type>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>dst_value</parameter>&nbsp;:</term>
+<listitem><simpara> A value which can be assigned a <type>gboolean</type>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <literal>TRUE</literal> on successful transformation.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+
+
+
+<refsect1>
+<title>See Also</title>
+<para>
+<ulink url="http://developer.gnome.org/doc/API/2.0/gobject/">GObject
+Reference Manual</ulink>
+</para>
+</refsect1>
+
+</refentry>
