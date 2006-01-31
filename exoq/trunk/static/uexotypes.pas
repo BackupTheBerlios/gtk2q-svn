@@ -14,7 +14,7 @@ const
 type
   TExoIconViewDropPosition = (ivNoDrop, ivDropInto, ivDropLeft, ivDropRight, ivDropAbove, ivDropBelow);
   // TExoPangoEllipsizeMode = (peNone, peStart, peMiddle, peEnd); == TPangoEllipsizeMode
-  TExoToolbarsModelFlag = (tmNotRemovable, tmAcceptItemsOnly, tmOverrideStyle);
+  TExoToolbarsModelFlag = (tmNotRemovable = 0, tmAcceptItemsOnly = 1, tmOverrideStyle = 2);
   TExoToolbarsModelFlags = set of TExoToolbarsModelFlag;
 
 implementation
