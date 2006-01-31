@@ -42,6 +42,7 @@ preturntransformers = {
 
 # list of classes that are not gobject (usually pointermediators) but are wrappers
 nongobjectclasses = [
+  "ExoBinding",
 ]
 
 # maps from interface name to interface unit name for special cases
@@ -51,6 +52,17 @@ interfaceunitoverride = {
 # list of available C 'classes' (that have been wrapped)
 cclasses = [ # only a subset, mostly for properties of that type
   "ExoToolbarsModel",
+  "ExoBinding",
+  "ExoCellRendererEllipsizedText",
+  "ExoEllipsizedLabel",
+  "ExoIconBar",
+  "ExoIconView",
+  "ExoObject", 
+  "ExoToolbarsEditorDialog",
+  "ExoToolbarsEditor",
+  "ExoToolbarsView",
+  "ExoWrapTable",
+  "ExoXsessionClient",
 ]
 
 # list of parameters that are used as 'const ...*' uselessly (from a pascal point of view)
@@ -61,6 +73,16 @@ c2pconstpointerparam = [ # 'const GdkColor*' as parameter
 #   None => not constructable
 cclassconstructparams = {
   "ExoToolbarsModel": "",
+  "ExoCellRendererEllipsizedText": "",
+  "ExoEllipsizedLabel": "''",
+  "ExoIconBar": "",
+  "ExoIconView": "",
+  "ExoObject": None, # abstract
+  # "ExoToolbarsEditorDialog": "", ???
+  # "ExoToolbarsEditor": "", # uimanager
+  # "ExoToolbarsView": "", # uimanager
+  "ExoWrapTable": "FALSE",
+  # "ExoXsessionClient": "", # GdkWindow
 }
 
 # direct type mapping
