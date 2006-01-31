@@ -32,6 +32,7 @@ type
     Size: Integer;
   end;}
   TPangoAlignment = (paLeft, paCenter, paRight);
+  TPangoEllipsizeMode = (elNone, elStart, elMiddle, elEnd);
 
 implementation
 

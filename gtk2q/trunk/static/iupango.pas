@@ -4,7 +4,6 @@ interface
 uses iugobject, upangotypes, iupointermediator;
 
 type
-  TPangoEllipsizeMode = (elNone, elStart, elMiddle, elEnd);
   IPangoLayout = interface(IGObject)
     ['{FFFC31D9-C2CF-4F41-856F-7B41459D28DD}']
     // TODO
