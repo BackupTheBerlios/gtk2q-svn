@@ -50,6 +50,7 @@ interfaceunitoverride = {
 
 # list of available C 'classes' (that have been wrapped)
 cclasses = [ # only a subset, mostly for properties of that type
+  "ExoToolbarsModel",
 ]
 
 # list of parameters that are used as 'const ...*' uselessly (from a pascal point of view)
@@ -59,6 +60,7 @@ c2pconstpointerparam = [ # 'const GdkColor*' as parameter
 # map of C class -> construction parameters
 #   None => not constructable
 cclassconstructparams = {
+  "ExoToolbarsModel": "",
 }
 
 # direct type mapping
@@ -79,6 +81,9 @@ c2pclassfunctions = {
 }
 
 cskipsignals = [
+  "ExoToolbarsModel.get-item-data", # gchar* return, weird
+  "ExoToolbarsModel.get-item-id", # gchar* return, weird
+  "ExoToolbarsModel.get-item-type", # gchar* return, weird
 ]
 
 # properties that are to be skipped and not be wrapped (f.e. deprecated properties)
@@ -102,6 +107,7 @@ paddprops = {
 
 # functions to be skipped and not be wrapped
 cskipfuncs = [
+  "exo_toolbars_model_set_actions", # TODO
 ]
 
 # callback function types in the wrapper (these will be superceded soon)
@@ -112,6 +118,12 @@ c2pcallbackpointers = {
 # for example, return values that have to be memory managed,
 # interfaces to wrapped classes, c arrays, lists
 c2pfuncparamoverride = {
+  "exo_toolbars_model_save_to_file": [
+    [ "errorcode", "FALSE" ], # return value override
+  ],
+  "exo_toolbars_model_load_from_file": [
+    [ "errorcode", "FALSE" ], # return value override
+  ],
 }
 
 
