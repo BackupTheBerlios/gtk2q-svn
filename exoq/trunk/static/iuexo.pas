@@ -43,6 +43,3 @@ implementation
 {$UNDEF define_implementation}
 
 end.
-
-
-
