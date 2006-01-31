@@ -1739,6 +1739,9 @@ def signal_cb(varname, signal):
 			return ""
 
 		if creturn == "gchar*": # WTF! gtkscale format-value
+			if classname != "GtkScale":
+			  print classname, "warning", "unsupported signal return", creturn, "of", signal
+
 			assert(classname == "GtkScale")
 			return ": " + pstringtype
 		elif creturn == pstringtype: # sigh
