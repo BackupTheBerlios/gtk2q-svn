@@ -20,6 +20,10 @@ const
 
 type
   WPangoFontMask = gint;
+  
+  WInt = gint;
+  PWInt = ^WInt;
+  PPWInt = ^PWInt;
 
   (* enums *)
   WPangoStyle = gint;
@@ -31,10 +35,12 @@ type
   WPangoWrapMode = gint;
   WPangoDirection = gint;
   WPangoCoverageLevel = gint;
+  WPangoEllipsizeMode = gint;
   (* end enums *)
 
   PWPangoFontDescription = Pointer;
   PWPangoLanguage = Pointer;
+  PWPangoLayout = Pointer;
 
   PWPangoFontMetrics = ^WPangoFontMetrics;
   WPangoFontMetrics = record (* C *)
@@ -78,6 +84,18 @@ type
   
   PWPangoEngineShape = Pointer;
   
+  PWPangoLogAttr = Pointer;
+  PWPangoGlyphItem = Pointer;
+  PWPangoLayoutRun = PWPangoGlyphItem;
+  PWPangoAttrList = Pointer;
+  
+  PWPangoLayoutIter = Pointer;
+  PWPangoLayoutLine = Pointer;
+
+function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl;
+  
 implementation
+
+function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl; external pangolib;
 
 end.

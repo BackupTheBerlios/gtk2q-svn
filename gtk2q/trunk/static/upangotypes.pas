@@ -64,6 +64,9 @@ type
   end;
 
   TPangoFontSizeArray = array of Integer;
+  TPangoRangeArray = array of Integer;
+  
+  TPangoWrapMode = (wmWord, wmChar, wmWordChar);
 
 implementation
 

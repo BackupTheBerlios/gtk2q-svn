@@ -36,6 +36,9 @@ type
   PWgsize = ^gsize;
   PWgfloat = ^gfloat;
   PWgdouble = ^gdouble;
+  
+  PWgunichar = ^gunichar;
+  
   gssize = Longint; // or int64 but I dont think C supports that
   TGTimeVal = record // C
     tv_sec: glong;

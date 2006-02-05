@@ -17,6 +17,7 @@ ptype1 = {
 #    (interface names are added at the unit interface section)
 #    (implementation class names are added at the unit implementation section)
 pusedclasses = { # from class implementation: list of classes used (implementation 'uses' clause for classes, interface 'uses' clause for interfaces)
+  "TPangoLayout": ["TPangoFontDescription"],
 }
 
 # signal units uses clause, used interfaces for interface section, p name = key
@@ -90,6 +91,12 @@ cskipprops = [
 forceexternals = [
   "gtk_file_filter_get_name",
   "gtk_file_filter_set_name",
+  
+  ## Pango forceexternals
+  "pango_layout_get_font_description",
+  "pango_layout_set_font_description",
+  "pango_layout_set_text",
+  "pango_font_description_copy",
 ]
 
 paddmembervars = {
@@ -117,7 +124,69 @@ paddfuncs = {
         gtk_file_filter_set_name(fObject, PGChar(PChar(value)));
       end;
     """,
-  }
+  },
+  "PangoLayout": {
+    "GetFontDescription": """
+      protected function GetFontDescription: IPangoFontDescription;
+      var
+        clowlevel: PWPangoFontDescription;
+      begin
+        clowlevel := pango_layout_get_font_description(fObject);
+        // ^- don't free
+        
+        clowlevel := pango_font_description_copy(clowlevel);
+        Result := TPangoFontDescription.CreateWrapped(clowlevel);
+      end;
+    """,
+    "SetFontDescription": """
+      protected procedure SetFontDescription(const value: IPangoFontDescription);
+      begin
+        pango_layout_set_font_description(fObject, value.GetUnderlying);
+      end;
+    """,
+    "GetInkExtents": """
+			published function GetInkExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetExtents(InkExtents, LogicalExtents);
+			  Result := InkExtents;
+			end;
+    """,
+    "GetLogicalExtents": """
+			published function GetLogicalExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetExtents(InkExtents, LogicalExtents);
+			  Result := LogicalExtents;
+			end;
+    """,
+    "GetInkPixelExtents": """
+			published function GetInkPixelExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetPixelExtents(InkExtents, LogicalExtents);
+			  Result := LogicalExtents;
+			end;
+    """,
+    "GetLogicalPixelExtents": """
+			published function GetLogicalPixelExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetPixelExtents(InkExtents, LogicalExtents);
+			  Result := LogicalExtents;
+			end;
+    """,
+    "SetText": """
+      published procedure SetText(value: UTF8String);
+      begin
+        pango_layout_set_text(fObject, PChar(value), Length(value));
+      end;
+    """,
+  },
 }
 
 # properties to add (C class: {pascal property name:  pascal property line})
@@ -131,6 +200,39 @@ paddprops = {
 cskipfuncs = [
   "gtk_file_filter_get_name",
   "gtk_file_filter_set_name",
+  "pango_layout_get_log_attrs",
+  "pango_layout_get_lines", # too lazy
+
+  "pango_layout_get_font_description", # manually
+  "pango_layout_set_font_description", # manually
+  "pango_layout_set_text", # manually
+  
+  # moved to their own manual class:
+  "pango_layout_line_get_x_ranges",
+  "pango_layout_line_ref",
+  "pango_layout_line_unref",
+  "pango_layout_line_index_to_x",
+  "pango_layout_line_get_extents",
+  "pango_layout_line_get_pixel_extents",
+  "pango_layout_line_x_to_index",
+
+  # moved to their own manual class:
+  "pango_layout_iter_next_run",
+  "pango_layout_iter_get_line",
+  "pango_layout_iter_next_line",
+  "pango_layout_iter_next_cluster",
+  "pango_layout_iter_get_line_yrange",
+  "pango_layout_iter_get_char_extents",
+  "pango_layout_iter_get_cluster_extents",
+  "pango_layout_iter_at_last_line",
+  "pango_layout_iter_get_baseline",
+  "pango_layout_iter_get_line_extents",
+  "pango_layout_iter_get_run",
+  "pango_layout_iter_free",
+  "pango_layout_iter_get_index",
+  "pango_layout_iter_get_run_extents",
+  "pango_layout_iter_next_char",
+  "pango_layout_iter_get_layout_extents",
 ]
 
 # callback function types in the wrapper (these will be superceded soon)

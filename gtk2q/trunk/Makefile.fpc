@@ -7,7 +7,7 @@ version=0.7.1
 
 [target]
 #programs=pas
-#dirs=static output/atk output/gdk output/gdk-pixbuf output/gtk
+#dirs=static output/atk output/gdk output/gdk-pixbuf output/gtk output/pango
 units=buildgtk2q 
 #tests/testwindowbuttoncallback/testwindowbuttoncallback
 
@@ -79,6 +79,10 @@ static/upangofontmetrics \
 static/upangofont \
 static/upangofontset \
 static/upangotypes \
+output/pango/upangolayout \
+static/upangolayoutiter \
+static/upangolayoutline \
+static/upangoglyphitem \
 static/upointermediator \
 static/iutyperegistry \
 static/utyperegistry \
@@ -496,6 +500,10 @@ upangofontmetrics \
 upangofont \
 upangofontset \
 upangotypes \
+output/pango/upangolayout \
+static/upangolayoutiter \
+static/upangolayoutline \
+static/upangoglyphitem \
 upointermediator \
 iutyperegistry \
 utyperegistry \
@@ -833,6 +841,7 @@ options=-dGTK2_4 -dUSE_GTK26 -dgtk2q_standalone \
         -Fuoutput/gdk-pixbuf \
         -Fuoutput/gdk \
         -Fuoutput/gtk \
+	-Fuoutput/pango \
         -g -XX -OG3 -vewni -l   
 
 #options=

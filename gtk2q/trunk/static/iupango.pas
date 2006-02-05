@@ -1,16 +1,10 @@
 unit iupango;
 
 interface
-uses iugobject, upangotypes, iupointermediator;
+uses iugobject, upangotypes, iupointermediator, ugtypes;
 
 type
   IPangoFontDescription = interface;
-  
-  IPangoLayout = interface(IGObject)
-    ['{FFFC31D9-C2CF-4F41-856F-7B41459D28DD}']
-
-    // TODO
-  end;
   
   IPangoContext = interface;
   
@@ -205,6 +199,20 @@ type
 
 // TODO PangoDirection pango_unichar_direction      (gunichar ch);
 
+const
+  PANGO_DUMMY = 7;
+{$DEFINE define_consts}
+{$INCLUDE pangoincludes.inc}
+{$UNDEF define_consts}
+
+{$DEFINE define_types}
+{$INCLUDE pangoincludes.inc}
+{$UNDEF define_types}
+
 implementation
+
+{$DEFINE define_implementation}
+{ $INCLUDE pangoincludes.inc}
+{$UNDEF define_implementation}
 
 end.

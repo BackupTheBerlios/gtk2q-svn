@@ -51,7 +51,6 @@ uses uwrappangonames, ugtypes, uwrapgnames;
 // TODO? wrap
 function pango_font_description_equal(a,b: PWPangoFontDescription): gboolean; cdecl; external pangolib;
 procedure pango_font_description_free(descr: PWPangoFontDescription); cdecl; external pangolib;
-function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl; external pangolib;
 function pango_font_description_better_match(desc, oldmatch, newmatch: PWPangoFontDescription): gboolean; cdecl; external pangolib;
 procedure pango_font_description_merge(desc, tomerge: PWPangoFontDescription; replaceExistingFields: gboolean); cdecl; external pangolib;
 //pango_font_description_unset_fields(desc: PWPangoFontDescription; tounset: WPangoFontMask); cdecl; external pangolib;
