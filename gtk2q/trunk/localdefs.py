@@ -17,7 +17,7 @@ ptype1 = {
 #    (interface names are added at the unit interface section)
 #    (implementation class names are added at the unit implementation section)
 pusedclasses = { # from class implementation: list of classes used (implementation 'uses' clause for classes, interface 'uses' clause for interfaces)
-  "TPangoLayout": ["TPangoFontDescription", "TPangoLayoutIter"],
+  "TPangoLayout": ["TPangoFontDescription", "TPangoLayoutIter", "TPangoTabArray"],
 }
 
 # signal units uses clause, used interfaces for interface section, p name = key
@@ -97,6 +97,7 @@ forceexternals = [
   "pango_layout_set_font_description",
   "pango_layout_set_text",
   "pango_layout_get_iter",
+  "pango_layout_get_tabs",
   "pango_font_description_copy",
 ]
 
@@ -193,6 +194,19 @@ paddfuncs = {
         Result := TPangoLayoutIter.CreateWrappedPin(pango_layout_get_iter(fObject), Self);
       end;
     """,
+    "GetTabs": """
+      published function GetTabs: IPangoTabArray;
+      var
+        clowlevel: PWPangoTabArray;
+      begin
+        clowlevel := pango_layout_get_tabs(fObject);
+        if Assigned(clowlevel) then begin
+          Result := TPangoTabArray.CreateWrappedPin(clowlevel, Self);
+        end else begin
+          Result := nil;
+        end;
+      end;
+    """,
   },
 }
 
@@ -214,6 +228,7 @@ cskipfuncs = [
   "pango_layout_set_font_description", # manually
   "pango_layout_set_text", # manually
   "pango_layout_get_iter", # manually
+  "pango_layout_get_tabs", # manually
   
   # moved to their own manual class:
   "pango_layout_line_get_x_ranges",
