@@ -106,7 +106,7 @@ def fnsFromFNLines(fnlines):
 				
 			name, attr = parseFN(rest)
 			if name == None and attr == None:
-				print "NO", rest
+				#print "NO", rest
 				rest = ""
 				continue
 				
