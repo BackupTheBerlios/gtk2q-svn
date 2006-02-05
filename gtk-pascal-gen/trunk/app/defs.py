@@ -1601,7 +1601,7 @@ paddprops = {
 		"EllipsizeMode": "public property EllipsizeMode: TPangoEllipsizeMode read GetEllipsize write SetEllipsize;",
 		"InkExtents": "public property InkExtents: TPangoRectangle read GetInkExtents;",
 		"LogicalExtents": "public property LogicalExtents: TPangoRectangle read GetLogicalExtents;",
-		"FontDescription": "public property FontDescription: IPangoFontDescription read GetFontDescription;",
+		"FontDescription": "public property FontDescription: IPangoFontDescription read GetFontDescription write SetFontDescription;",
 		"Indent": "public property Indent: Integer read GetIndent write SetIndent;",
 		"Justify": "public property Justify: Boolean read GetJustify write SetJustify;",
 		"LineCount": "public property LineCount: Integer read GetLineCount;",
