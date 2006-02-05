@@ -10,7 +10,7 @@ type
   protected
     fIter: IPangoLayoutIter; (* pin down the iter *)
   public
-    constructor CreateWrappedPin(ptr: Pointer; iter: IPangoLayoutIter);
+    constructor CreateWrappedPinned(ptr: Pointer; iter: IPangoLayoutIter);
     // TODO
     
     // Split?
@@ -34,7 +34,7 @@ procedure pango_glyph_item_letter_space (glyphItem: PWPangoGlyphItem;
                                                logAttrs: PWPangoLogAttr;
                                                letterSpacing: gint); cdecl; external pangolib;
 
-constructor TPangoGlyphItem.CreateWrappedPin(ptr: Pointer; iter: IPangoLayoutIter);
+constructor TPangoGlyphItem.CreateWrappedPinned(ptr: Pointer; iter: IPangoLayoutIter);
 begin
   fIter := iter;
   inherited Create(ptr, nil); // I dont own it so I dont free it either. @pango_glyph_item_free);

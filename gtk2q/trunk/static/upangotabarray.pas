@@ -13,7 +13,7 @@ type
     fPinnedTo: IInterface;
   public
     constructor CreateWrapped(ptr: Pointer);
-    constructor CreateWrappedPin(ptr: Pointer; pinnedTo: IInterface);
+    constructor CreateWrappedPinned(ptr: Pointer; pinnedTo: IInterface);
     constructor Create(positionsInPixels: Boolean = True); reintroduce; // EEEK!
   protected
     function GetCapacity: Integer;
@@ -54,7 +54,7 @@ begin
   CreateWrapped(pango_tab_array_new(10, positionsInPixels));
 end;
 
-constructor TPangoTabArray.CreateWrappedPin(ptr: Pointer; pinnedTo: IInterface);
+constructor TPangoTabArray.CreateWrappedPinned(ptr: Pointer; pinnedTo: IInterface);
 begin
   assert(Assigned(pinnedTo));
   fPinnedTo := pinnedTo;

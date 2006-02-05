@@ -10,7 +10,7 @@ type
   protected
     fPangoLayout: IPangoLayout; (* pin down the layout *)
   public
-    constructor CreateWrappedPin(ptr: Pointer; pangoLayout: IPangoLayout);
+    constructor CreateWrappedPinned(ptr: Pointer; pangoLayout: IPangoLayout);
   published
     function GotoNextRun: Boolean;
     function GotoNextLine: Boolean;
@@ -71,7 +71,7 @@ procedure pango_layout_iter_get_run_extents(iter: PWPangoLayoutIter;ink_rect: PW
 function pango_layout_iter_next_char(iter: PWPangoLayoutIter): Boolean; cdecl; external pangolib;
 procedure pango_layout_iter_get_layout_extents(iter: PWPangoLayoutIter;ink_rect: PWPangoRectangle;logical_rect: PWPangoRectangle); cdecl; external pangolib;
 
-constructor TPangoLayoutIter.CreateWrappedPin(ptr: Pointer; pangoLayout: IPangoLayout);
+constructor TPangoLayoutIter.CreateWrappedPinned(ptr: Pointer; pangoLayout: IPangoLayout);
 begin
   fPangoLayout := pangoLayout;
   inherited Create(ptr, nil); // I don't own it so I don't free it either: @pango_layout_iter_free);
@@ -164,7 +164,7 @@ begin
   
   clowlevel := pango_layout_iter_get_run(GetUnderlying);
   // FIXME need refcount?
-  Result := TPangoGlyphItem.CreateWrappedPin(clowlevel, Self);
+  Result := TPangoGlyphItem.CreateWrappedPinned(clowlevel, Self);
 end;
   
 function TPangoLayoutIter.GetIndex1: Integer;

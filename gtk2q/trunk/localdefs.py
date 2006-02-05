@@ -191,7 +191,7 @@ paddfuncs = {
     "GetIter": """
       published function GetIter: IPangoLayoutIter;
       begin
-        Result := TPangoLayoutIter.CreateWrappedPin(pango_layout_get_iter(fObject), Self);
+        Result := TPangoLayoutIter.CreateWrappedPinned(pango_layout_get_iter(fObject), Self);
       end;
     """,
     "GetTabs": """
@@ -201,7 +201,7 @@ paddfuncs = {
       begin
         clowlevel := pango_layout_get_tabs(fObject);
         if Assigned(clowlevel) then begin
-          Result := TPangoTabArray.CreateWrappedPin(clowlevel, Self);
+          Result := TPangoTabArray.CreateWrappedPinned(clowlevel, Self);
         end else begin
           Result := nil;
         end;
