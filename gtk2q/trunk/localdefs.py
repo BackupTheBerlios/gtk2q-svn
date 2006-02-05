@@ -17,7 +17,7 @@ ptype1 = {
 #    (interface names are added at the unit interface section)
 #    (implementation class names are added at the unit implementation section)
 pusedclasses = { # from class implementation: list of classes used (implementation 'uses' clause for classes, interface 'uses' clause for interfaces)
-  "TPangoLayout": ["TPangoFontDescription", "TPangoLayoutIter", "TPangoTabArray"],
+  "TPangoLayout": ["TPangoFontDescription", "TPangoLayoutIter", "TPangoTabArray", "TPangoAttrList"],
 }
 
 # signal units uses clause, used interfaces for interface section, p name = key
@@ -99,6 +99,8 @@ forceexternals = [
   "pango_layout_get_iter",
   "pango_layout_get_tabs",
   "pango_layout_set_tabs",
+  "pango_layout_get_attributes",
+  "pango_layout_set_attributes",
   "pango_font_description_copy",
 ]
 
@@ -218,6 +220,30 @@ paddfuncs = {
         end;
       end;
     """,
+    "GetAttributes": """
+      protected function GetAttributes: IPangoAttrList;
+      var
+        clowlevel: PWPangoAttrList;
+      begin
+        clowlevel := pango_layout_get_attributes(fObject);
+        if Assigned(clowlevel) then begin
+          pango_attr_list_ref(clowlevel);
+          Result := TPangoAttrList.CreateWrapped(clowlevel);
+        end else begin
+          Result := nil;
+        end;
+      end;
+    """,
+    "SetAttributes": """
+      protected procedure SetAttributes(attributes: IPangoAttrList);
+      begin
+        if Assigned(attributes) then begin
+          pango_layout_set_attributes(PWPangoLayout(Fobject), attributes.GetUnderlying);
+        end else begin
+          pango_layout_set_attributes(PWPangoLayout(Fobject), nil);
+        end;
+      end;
+    """,
   },
 }
 
@@ -241,6 +267,8 @@ cskipfuncs = [
   "pango_layout_get_iter", # manually
   "pango_layout_get_tabs", # manually
   "pango_layout_set_tabs", # manually
+  "pango_layout_get_attributes", # manually
+  "pango_layout_set_attributes", # manually
   
   # moved to their own manual class:
   "pango_layout_line_get_x_ranges",

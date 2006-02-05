@@ -151,11 +151,6 @@ type
     property Matrix: TPangoMatrix read GetMatrix write SetMatrix;
   end;
 
-
-  IPangoAttrList = interface(IGObject)
-    ['{E446E54B-CD69-421C-843F-5A07DD90FC72}']
-  end;
-
   IPangoFontDescription = interface(IPointerMediator)
     ['{AF9CACF7-CCEC-4CE8-ABA1-526A5EF46208}']
 

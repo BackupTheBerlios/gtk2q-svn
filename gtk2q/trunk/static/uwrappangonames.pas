@@ -96,13 +96,17 @@ type
   PWPangoLayoutLine = Pointer;
   
   PWPangoTabArray = Pointer;
+  
+  PWPangoAttribute = Pointer;
 
 function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl;
 function pango_tab_array_copy(src: PWPangoTabArray): PWPangoTabArray;
+function pango_attr_list_ref(attrlist: PWPangoAttrList): PWPangoAttrList; cdecl;
   
 implementation
 
 function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl; external pangolib;
 function pango_tab_array_copy(src: PWPangoTabArray): PWPangoTabArray; cdecl; external pangolib;
+function pango_attr_list_ref(attrlist: PWPangoAttrList): PWPangoAttrList; cdecl; external pangolib;
 
 end.
