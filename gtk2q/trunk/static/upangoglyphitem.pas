@@ -7,8 +7,10 @@ uses iupointermediator, iupango, upointermediator;
 
 type 
   TPangoGlyphItem = class(TPointerMediator, IPangoGlyphItem, IPointerMediator, IInvokable, IInterface)
+  protected
+    fIter: IPangoLayoutIter; (* pin down the iter *)
   public
-    constructor CreateWrapped(ptr: Pointer);
+    constructor CreateWrappedPin(ptr: Pointer; iter: IPangoLayoutIter);
     // TODO
     
     // Split?
@@ -32,8 +34,9 @@ procedure pango_glyph_item_letter_space (glyphItem: PWPangoGlyphItem;
                                                logAttrs: PWPangoLogAttr;
                                                letterSpacing: gint); cdecl; external pangolib;
 
-constructor TPangoGlyphItem.CreateWrapped(ptr: Pointer);
+constructor TPangoGlyphItem.CreateWrappedPin(ptr: Pointer; iter: IPangoLayoutIter);
 begin
+  fIter := iter;
   inherited Create(ptr, @pango_glyph_item_free);
 end;
 

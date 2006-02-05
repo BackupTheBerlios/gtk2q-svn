@@ -91,6 +91,8 @@ type
   
   PWPangoLayoutIter = Pointer;
   PWPangoLayoutLine = Pointer;
+  
+  PWPangoTabArray = Pointer;
 
 function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl;
   
