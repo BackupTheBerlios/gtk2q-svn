@@ -1490,6 +1490,45 @@ paddfuncs = {
 			end;
 		""",
 	},
+	## pango paddfuncs
+	"PangoLayout": {
+		"GetInkExtents": """
+			published function GetInkExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetExtents(InkExtents, LogicalExtents);
+			  Result := InkExtents;
+			end;
+		""",
+		"GetLogicalExtents": """,
+			published function GetLogicalExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetExtents(InkExtents, LogicalExtents);
+			  Result := LogicalExtents;
+			end;
+		""",
+		"GetInkPixelExtents": """,
+			published function GetInkPixelExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetPixelExtents(InkExtents, LogicalExtents);
+			  Result := LogicalExtents;
+			end;
+		""",
+		"GetLogicalPixelExtents": """
+			published function GetLogicalPixelExtents: TPangoRectangle;
+			var
+			  InkExtents, LogicalExtents: TPangoRectangle;
+			begin
+			  GetPixelExtents(InkExtents, LogicalExtents);
+			  Result := LogicalExtents;
+			end;
+		""",
+	},
 	
 }
 
@@ -1552,6 +1591,29 @@ paddprops = {
 		"Active": "public property Active: Boolean read GetActive write SetActive;",
 	},
 	
+	## Pango paddprops
+	"PangoLayout": {
+		"Alignment": "public property Alignment: TPangoAlignment read GetAlignment write SetAlignment;",
+		"Attributes": "public property Attributes: IPangoAttrList read GetAttributes write SetAttributes;",
+		"AutoDirection": "public property AutoDirection: Boolean read GetAutoDir write SetAutoDir;;",
+		"Context": "public property Context: IPangoContext read GetContext",
+		"EllipsizeMode": "public property EllipsizeMode: TPangoEllipsizeMode read GetEllipsize write SetEllipsize;",
+		"InkExtents": "public property InkExtents: TPangoRectangle read GetInkExtents;",
+		"LogicalExtents": "public property LogicalExtents: TPangoRectangle read GetLogicalExtents;",
+		"FontDescription": "public property FontDescription: IPangoFontDescription read GetFontDescription;",
+		"Indent": "public property Indent: Integer read GetIndent write SetIndent;",
+		"Justify": "public property Justify: Boolean read GetJustify write SetJustify;",
+		"LineCount": "public property LineCount: Integer read GetLineCount;",
+		"Line": "public property Line[Index1: integer] read GetLine;",
+		"InkPixelExtents": "public property InkPixelExtents: TPangoRectangle read GetInkPixelExtents;",
+		"LogicalPixelExtents": "public property LogicalPixelExtents: TPangoRectangle read GetLogicalPixelExtents;",
+		"SingleParagraphMode": "public property SingleParagraphMode: Boolean read GetSingleParagraphMode write SetSingleParagraphMode;",
+		"LineSpacing": "public property LineSpacing: Integer read GetSpacing write SetSpacing;",
+		"Tabs": "public property Tabs: IPangoTabArray read GetTabs write SetTabs;",
+		"Text": "public property Text: UTF8String read GetText write SetText;",
+		"Width": "public property Width: Integer read GetWidth write SetWidth;",
+		"WrapMode": "public property WrapMode: TPangoWrapMode read GetWrap write SetWrap;",
+	},
 }
 
 # functions to be skipped and not be wrapped
