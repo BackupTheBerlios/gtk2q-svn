@@ -2174,14 +2174,14 @@ def func_cb(varname, fn):
 					if ptype.startswith("var "):
 						ptypeover = "const " + ptype[4:]
 					else:
-						print classname, "warning", fn["name"], "parameter is overridden const but was not originally var"
+						print classname, "warning", fn["name"], "parameter is overridden 'const' but was not originally 'var'"
 
 				if c == "out":
 					ptype = c2ptype(argtyp, False, canvar)
 					if ptype.startswith("var "):
 						ptypeover = "out " + ptype[4:]
 					else:
-						print classname, "warning", fn["name"], "parameter is overridden const but was not originally var"
+						print classname, "warning", fn["name"], "parameter is overridden 'out' but was not originally 'var'"
 					
 			if ptypeover != None:
 				ptype = ptypeover
