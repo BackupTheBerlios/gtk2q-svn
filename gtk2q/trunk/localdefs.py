@@ -98,6 +98,7 @@ forceexternals = [
   "pango_layout_set_text",
   "pango_layout_get_iter",
   "pango_layout_get_tabs",
+  "pango_layout_set_tabs",
   "pango_font_description_copy",
 ]
 
@@ -195,7 +196,7 @@ paddfuncs = {
       end;
     """,
     "GetTabs": """
-      published function GetTabs: IPangoTabArray;
+      protected function GetTabs: IPangoTabArray;
       var
         clowlevel: PWPangoTabArray;
       begin
@@ -204,6 +205,16 @@ paddfuncs = {
           Result := TPangoTabArray.CreateWrappedPinned(clowlevel, Self);
         end else begin
           Result := nil;
+        end;
+      end;
+    """,
+    "SetTabs": """
+      protected procedure SetTabs(tabs: IPangoTabArray);
+      begin
+        if Assigned(tabs) then begin
+          pango_layout_set_tabs(PWPangoLayout(Fobject),tabs.GetUnderlying);
+        end else begin
+          pango_layout_set_tabs(PWPangoLayout(Fobject), nil);
         end;
       end;
     """,
@@ -229,6 +240,7 @@ cskipfuncs = [
   "pango_layout_set_text", # manually
   "pango_layout_get_iter", # manually
   "pango_layout_get_tabs", # manually
+  "pango_layout_set_tabs", # manually
   
   # moved to their own manual class:
   "pango_layout_line_get_x_ranges",
