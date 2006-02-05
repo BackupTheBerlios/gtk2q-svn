@@ -33,6 +33,20 @@ type
 
   PWPangoFontDescription = Pointer;
 
+  PWPangoFontMetrics = ^WPangoFontMetrics;
+  WPangoFontMetrics = record (* C *)
+    RefCount: guint;
+    
+    Ascent: gint;
+    Descent: gint;
+    ApproximateCharWidth: gint;
+    ApproximateDigitWidth: gint;
+    UnderlinePosition: gint;
+    UnderlineThickness: gint;
+    StrikethroughPosition: gint;
+    StrikethroughThickness: gint;
+  end;
+  
 implementation
 
 end.

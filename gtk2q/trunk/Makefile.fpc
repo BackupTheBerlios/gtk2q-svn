@@ -69,6 +69,7 @@ static/ugvalue \
 static/ukeyvals \
 static/unicegvalue \
 static/upangofontdescription \
+static/upangofontmetrics \
 static/upangotypes \
 static/upointermediator \
 static/iutyperegistry \
@@ -477,6 +478,7 @@ ugvalue \
 ukeyvals \
 unicegvalue \
 upangofontdescription \
+upangofontmetrics \
 upangotypes \
 upointermediator \
 iutyperegistry \

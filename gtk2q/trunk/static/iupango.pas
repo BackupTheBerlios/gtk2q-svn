@@ -4,13 +4,64 @@ interface
 uses iugobject, upangotypes, iupointermediator;
 
 type
+  IPangoFontDescription = interface;
+  
   IPangoLayout = interface(IGObject)
     ['{FFFC31D9-C2CF-4F41-856F-7B41459D28DD}']
     // TODO
   end;
   
+  IPangoFontMap = interface(IGObject)
+    ['{C0517D5C-95E3-11DA-97ED-00055DDDEA00}']
+    
+    // TODO
+  end;
+  
+  IPangoFontMetrics = interface(IPointerMediator)
+    ['{AE676D80-95E4-11DA-85EB-00055DDDEA00}']
+
+    function GetAscent: Integer;
+    function GetDescent: Integer;
+    function GetApproximateCharWidth: Integer;
+    function GetApproximateDigitWidth: Integer;
+    function GetUnderlinePosition: Integer;
+    function GetUnderlineThickness: Integer;
+    function GetStrikethroughPosition: Integer;
+    function GetStrikethroughThickness: Integer;
+
+    property Ascent: Integer read GetAscent;
+    property Descent: Integer read GetDescent;
+    property ApproximateCharWidth: Integer read GetApproximateCharWidth;
+    property ApproximateDigitWidth: Integer read GetApproximateDigitWidth;
+    property UnderlinePosition: Integer read GetUnderlinePosition;
+    property UnderlineThickness: Integer read GetUnderlineThickness;
+    property StrikethroughPosition: Integer read GetStrikethroughPosition;
+    property StrikethroughThickness: Integer read GetStrikethroughThickness;
+  end;
+  
   IPangoContext = interface(IGObject)
     ['{84FF60D1-6DCC-430A-B7FD-6C8B0908AE6D}']
+
+    function GetMetrics(description: IPangoFontDescription; language: TPangoLanguage = nil): IPangoFontMetrics;
+
+    function GetLanguage: TPangoLanguage;
+    procedure SetLanguage(value: TPangoLanguage);
+    
+    function GetBaseDirection: TPangoDirection;
+    procedure SetBaseDirection(value: TPangoDirection);
+    
+    function GetFontDescription: IPangoFontDescription; // do not modify result!
+    procedure SetFontDescription(value: IPangoFontDescription);
+    
+    function GetMatrix: TPangoMatrix;
+    procedure SetMatrix(value: TPangoMatrix);
+    
+    // internal use ! function GetFontMap: IPangoFontMap;
+    
+    property Language: TPangoLanguage read GetLanguage write SetLanguage;
+    property BaseDirection: TPangoDirection read GetBaseDirection write SetBaseDirection;
+    property FontDescription: IPangoFontDescription read GetFontDescription write SetFontDescription;
+    property Matrix: TPangoMatrix read GetMatrix write SetMatrix;
   end;
 
   IPangoFont = interface(IGObject)
@@ -57,6 +108,12 @@ type
     property Stretch: TPangoStretch read GetStretch write SetStretch;
     property Size: Integer read GetSize write SetSize;
   end;
+
+// TODO pango_language_to_string
+
+// TODO pango_language_from_string
+
+// TODO PangoDirection pango_unichar_direction      (gunichar ch);
 
 implementation
 

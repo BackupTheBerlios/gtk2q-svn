@@ -33,6 +33,22 @@ type
   end;}
   TPangoAlignment = (paLeft, paCenter, paRight);
   TPangoEllipsizeMode = (elNone, elStart, elMiddle, elEnd);
+  
+  TPangoMatrix = record (* C *)
+    xx, xy, yx, yy, x0, y0: gdouble;
+  end;
+  
+  TPangoLanguage = type Pointer; // kind of a handle
+  
+  TPangoDirection = (
+    pdLeftToRight,
+    pdRightToLeft,
+    pdTTBLeftToRight, (* ?? *)
+    pdTTBRightToLeft,
+    pdWeakLeftToRight,
+    pdWeakRightToLeft,
+    pdNE (* ? *)
+  );
 
 implementation
 
