@@ -2972,6 +2972,10 @@ c2pfuncparamoverride = {
 		[ "out" ], # 2nd (C) param override (width)
 		[ "out" ], # 3rd (C) param override (height)
 	],
+	"pango_layout_copy": [
+		["interface", "IPangoLayout", "", "(*new*)"],
+		# ^listtype, itemtype,     howtofree,           actionforeachitem       nextforeachitem freeforeachitem
+	],
 }
 
 c2psignalparamoverride = {
