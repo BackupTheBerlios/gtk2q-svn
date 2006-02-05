@@ -3007,6 +3007,15 @@ c2pfuncparamoverride = {
 		None, # 4th (C) param override (accel_marker)
 		[ "out" ], # 5th (C) param override (accel_char)
 	],
+	"pango_layout_get_attributes": [
+		["interface", "IPangoLayoutAttrList", "", "g_object_ref(itemraw);"], 
+	],
+	"pango_layout_get_context": [
+		["interface", "IPangoLayoutContext", "", "g_object_ref(itemraw);"], 
+	],
+	"pango_layout_get_tabs": [
+		["interface", "IPangoTabArray", "", "g_object_ref(itemraw);"], 
+	],
 }
 
 c2psignalparamoverride = {
