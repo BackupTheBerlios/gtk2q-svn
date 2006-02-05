@@ -64,6 +64,7 @@ uses
   ugvalue, 
   ukeyvals, 
   unicegvalue, 
+  upangoattribute,
   upangoattrlist,
   upangocontext,
   upangocoverage,

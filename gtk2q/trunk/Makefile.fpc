@@ -68,6 +68,7 @@ static/ugtypes \
 static/ugvalue \
 static/ukeyvals \
 static/unicegvalue \
+static/upangoattribute \
 static/upangoattrlist \
 static/upangocontext \
 static/upangocoverage \
@@ -491,6 +492,7 @@ ugtypes \
 ugvalue \
 ukeyvals \
 unicegvalue \
+upangoattribute \
 upangoattrlist \
 upangocontext \
 upangocoverage \
