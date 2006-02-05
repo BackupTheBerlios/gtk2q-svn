@@ -6,9 +6,13 @@ uses upointermediator, iupointermediator, iupango, upangotypes;
 {$M+}
 
 type
-  TPangoAttribute = class(TPointerMediator, IPangoAttribute, IPointerMediator, IInvokable, IInterface)
+  TPangoAttribute = class(TPointerMediator, IPangoAttribute, IPangoAttributeToListHelper, IPointerMediator, IInvokable, IInterface)
   protected
     fAttributeList: IPangoAttrList; // FIXME can one attribute be in multiple lists?
+  protected
+    procedure AddedToList(list: IPangoAttrList);
+    procedure RemovedFromList(list: IPangoAttrList);
+
   public
     constructor CreateWrappedCopy(ptr: Pointer);
     constructor CreateWrappedPinned(ptr: Pointer; attributelist: IPangoAttrList);
@@ -77,9 +81,23 @@ function pango_attr_foreground_new(red: Word;green: Word;blue: Word): PWPangoAtt
 function pango_attr_letter_spacing_new(letter_spacing: gint): PWPangoAttribute; cdecl; external pangolib;
 function pango_attr_weight_new(weight: WPangoWeight): PWPangoAttribute; cdecl; external pangolib;
 
+procedure TPangoAttribute.AddedToList(list: IPangoAttrList);
+begin
+  assert(not Assigned(fAttributeList));
+  fAttributeList := list;
+end;
+
+procedure TPangoAttribute.RemovedFromList(list: IPangoAttrList);
+begin
+  assert(Assigned(fAttributeList));
+  fAttributeList := nil;
+end;
+
 procedure TPangoAttribute.Updated;
 begin
-  // TODO
+  if Assigned(fAttributeList) then begin
+    fAttributeList.Change(Self); // TODO delay? (idle add?)
+  end;
 end;
 
 function TPangoAttribute.GetStartIndex: Cardinal;

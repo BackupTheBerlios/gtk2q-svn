@@ -15,4 +15,11 @@
     property StartIndex: Cardinal read GetStartIndex write SetStartIndex; // in bytes
     property EndIndex: Cardinal read GetEndIndex write SetEndIndex; // in bytes
   end;
+  IPangoAttributeToListHelper = interface
+    ['{96CDABBA-966D-11DA-B7EE-00055DDDEA00}']
+
+    procedure AddedToList(list: IPangoAttrList);
+    procedure RemovedFromList(list: IPangoAttrList);
+  end;
+
 (*$ENDIF define_types*)

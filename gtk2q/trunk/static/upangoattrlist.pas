@@ -43,13 +43,17 @@ end;
 procedure TPangoAttrList.Insert(attribute: IPangoAttribute);
 begin
   assert(Assigned(attribute));
+  
   pango_attr_list_insert(GetUnderlying, attribute.GetUnderlying);
+  (attribute as IPangoAttributeToListHelper).AddedToList(Self);
 end;
   
 procedure TPangoAttrList.InsertBefore(attribute: IPangoAttribute);
 begin
   assert(Assigned(attribute));
+
   pango_attr_list_insert_before(GetUnderlying, attribute.GetUnderlying);
+  (attribute as IPangoAttributeToListHelper).AddedToList(Self);
 end;
 
 procedure TPangoAttrList.Change(attribute: IPangoAttribute);

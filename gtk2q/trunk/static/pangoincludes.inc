@@ -4,6 +4,7 @@ type
   IPangoGlyphItem = interface;
   IPangoLayoutRun = IPangoGlyphItem;
   IPangoLayoutLine = interface;
+  IPangoAttrList = interface;
 {$endif define_types}
 {$INCLUDE iupangotabarray.inc}
 {$INCLUDE iupangoattribute.inc}
