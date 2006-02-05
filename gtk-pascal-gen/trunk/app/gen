@@ -28,6 +28,7 @@ do
 	[ -f "$s/netk-workspace.xml" ] && extra="${extra} $s/netk-workspace.xml"
 	[ -f "$s/netk-class-group.xml" ] && extra="${extra} $s/netk-class-group.xml"
 	[ -f "$s/netk-window.xml" ] && extra="${extra} $s/netk-window.xml"
+	[ "$t" = "pango" -a -f "$s/layout.xml" ] && extra="${extra} $s/layout.xml"
 
 	dirname="$t"
 	[ "$t" = "diacanvas" ] && t="dia"

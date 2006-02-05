@@ -3,6 +3,7 @@
 from readcfg import *
 import re
 import sys
+import exceptions
 
 classname = ""
 #ascendentants = []
@@ -95,6 +96,9 @@ def fnsFromFNLines(fnlines):
 				continue
 			if rest.find("(*Gdk") > -1: # probably a function pointer type (I hope only them)
 				rest = ""
+				continue
+				
+			if rest.startswith("PangoLayoutIter;"): # structure alias in pangolayout O_o
 				continue
 				
 			name, attr = parseFN(rest)
@@ -503,6 +507,9 @@ fncommentR = re.compile(r"^(.*)(/\*[^/]*\*/)(.*)$", re.M)
 closeopenR = re.compile(r"^[a-zA-Z_ *][a-zA-Z_ 0-9*]+\)[ ]*\(")
 # '*_gtk_reserved2) (void);'
 
+class InvalidFunction(exceptions.Exception):
+	pass
+	
 def parseFN(rest, pointertoo = False):
 	global classname
 	global fncommentR
@@ -531,7 +538,8 @@ def parseFN(rest, pointertoo = False):
 	bp = rest.split("(", 1)
 	if len(bp) < 2:
 		print classname, "ERROR, invalid function", rest
-		sys.exit(1)
+		raise InvalidFunction()
+		#sys.exit(1)
 
 	r = bp[1]
 	
