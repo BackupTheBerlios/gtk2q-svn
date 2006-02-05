@@ -83,6 +83,7 @@ do
 		[ "${classname}" = "gtk-GtkAboutDialog" ] && classname="GtkAboutDialog"
 		[ "${classname}" = "gtk-GtkCellRendererCombo" ] && classname="GtkCellRendererCombo"
 		[ "${classname}" = "gtk-GtkFileChooserButton" ] && classname="GtkFileChooserButton"
+		[ "${classname}" = "pango-Layout-Objects" ] && classname="PangoLayout"
 
 		#[ "${classname}" != "GtkCellRendererCombo" ] && continue # debug
 		
