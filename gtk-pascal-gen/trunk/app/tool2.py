@@ -84,6 +84,8 @@ def isInInterfaceMode():
 	global ofimode
 	return ofimode
 
+endofstruct = re.compile(r"[a-zA-Z][a-zA-Z]*;") # "PangoLayoutIter;"
+
 def fnsFromFNLines(fnlines):
 	fns = {}
 	rest = ""
@@ -98,11 +100,14 @@ def fnsFromFNLines(fnlines):
 				rest = ""
 				continue
 				
-			if rest.startswith("PangoLayoutIter;"): # structure alias in pangolayout O_o
+			if endofstruct.match(rest.strip()) != None:
+				rest = ""
 				continue
 				
 			name, attr = parseFN(rest)
 			if name == None and attr == None:
+				print "NO", rest
+				rest = ""
 				continue
 				
 			if name == "GdkFilterReturn": # FIXME fix the underlying bug
@@ -131,8 +136,15 @@ class ClassDefinition:
 	classname = ""
 
 tags = re.compile(r"^(.*)(<[^>]*>)(.*)$")
+indexterm1 = re.compile(r"^(.*)<primary>([^<]*)</primary>(.*)$")
 
 def stripTags(line):
+	while True:
+		match = indexterm1.match(line)
+		if match == None: break
+		
+		line = match.group(1) + match.group(3)
+		
 	while True:
 		match = tags.match(line)
 		if match == None: break
@@ -200,8 +212,8 @@ def parseFile(file, classdef):
 	
 	for line in lines:
 		line = line.strip()
-
-		#print line
+		
+		#print "LINE", line
 		
 		if line == "Synopsis":
 			insynopsis = True
@@ -323,8 +335,7 @@ def parseFile(file, classdef):
 					if item != "" and ascendentantsDone == False:
 						if item not in classdef.ascendentants:
 							classdef.ascendentants = [item] + classdef.ascendentants
-							
-							
+			
 			if insynopsis == True and not line.startswith("#") and line != "" and \
 			not line.startswith("struct ") and not line.startswith("enum ") and \
 			not line.startswith("union ") and not line.startswith("typedef ") and \

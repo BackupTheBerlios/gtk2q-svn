@@ -478,7 +478,9 @@ c2pstructcopied = { # simple structs copied to delphi as-is
 	"GtkTargetEntry": "TGtkTargetEntry",
 	"GtkAccelGroupEntry": "TGtkAccelGroupEntry",
 	"GtkAccelKey": "TGtkAccelKey",
+	## Pango
 	
+	"PangoRectangle": "TPangoRectangle",
 }
 
 # class (not instance) functions to get from C
@@ -3416,6 +3418,8 @@ superclassoverride = {
 	"GtkClipboard": "GObject",
 	## Atk superclassoverride
 	"AtkObject": "GObject",
+	## Pango superclassoverride
+	"PangoLayout": "GObject",
 }
 
 csettypes = [
