@@ -1557,7 +1557,7 @@ paddprops = {
 		"Alignment": "public property Alignment: TPangoAlignment read GetAlignment write SetAlignment;",
 		"Attributes": "public property Attributes: IPangoAttrList read GetAttributes write SetAttributes;",
 		"AutoDirection": "public property AutoDirection: Boolean read GetAutoDir write SetAutoDir;",
-		"Context": "public property Context: IPangoContext read GetContext",
+		"Context": "public property Context: IPangoContext read GetContext;",
 		"EllipsizeMode": "public property EllipsizeMode: TPangoEllipsizeMode read GetEllipsize write SetEllipsize;",
 		"InkExtents": "public property InkExtents: TPangoRectangle read GetInkExtents;",
 		"LogicalExtents": "public property LogicalExtents: TPangoRectangle read GetLogicalExtents;",
