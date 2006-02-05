@@ -1491,46 +1491,6 @@ paddfuncs = {
 			end;
 		""",
 	},
-	## pango paddfuncs
-	"PangoLayout": {
-		"GetInkExtents": """
-			published function GetInkExtents: TPangoRectangle;
-			var
-			  InkExtents, LogicalExtents: TPangoRectangle;
-			begin
-			  GetExtents(InkExtents, LogicalExtents);
-			  Result := InkExtents;
-			end;
-		""",
-		"GetLogicalExtents": """
-			published function GetLogicalExtents: TPangoRectangle;
-			var
-			  InkExtents, LogicalExtents: TPangoRectangle;
-			begin
-			  GetExtents(InkExtents, LogicalExtents);
-			  Result := LogicalExtents;
-			end;
-		""",
-		"GetInkPixelExtents": """
-			published function GetInkPixelExtents: TPangoRectangle;
-			var
-			  InkExtents, LogicalExtents: TPangoRectangle;
-			begin
-			  GetPixelExtents(InkExtents, LogicalExtents);
-			  Result := LogicalExtents;
-			end;
-		""",
-		"GetLogicalPixelExtents": """
-			published function GetLogicalPixelExtents: TPangoRectangle;
-			var
-			  InkExtents, LogicalExtents: TPangoRectangle;
-			begin
-			  GetPixelExtents(InkExtents, LogicalExtents);
-			  Result := LogicalExtents;
-			end;
-		""",
-	},
-	
 }
 
 # properties to add (C class: {pascal property name:  pascal property line})
@@ -1596,7 +1556,7 @@ paddprops = {
 	"PangoLayout": {
 		"Alignment": "public property Alignment: TPangoAlignment read GetAlignment write SetAlignment;",
 		"Attributes": "public property Attributes: IPangoAttrList read GetAttributes write SetAttributes;",
-		"AutoDirection": "public property AutoDirection: Boolean read GetAutoDir write SetAutoDir;;",
+		"AutoDirection": "public property AutoDirection: Boolean read GetAutoDir write SetAutoDir;",
 		"Context": "public property Context: IPangoContext read GetContext",
 		"EllipsizeMode": "public property EllipsizeMode: TPangoEllipsizeMode read GetEllipsize write SetEllipsize;",
 		"InkExtents": "public property InkExtents: TPangoRectangle read GetInkExtents;",
