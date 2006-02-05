@@ -39,4 +39,8 @@ add wait cursor (global / local wait) helpers
 
  * glib/gslice.[hc]: new slice allocator implementation. ?
 
-auto-generate the pango stuff instead of hand-coding?
+auto-generate most pango stuff instead of hand-coding?
+test/complete pangolayout
+pango_layout_get_log_attrs
+pango size units: extra types for 1) pixel sizes and 2) pango sizes
+nicer pango layout SetMarkupWithAccel (no length, no out params,...)
