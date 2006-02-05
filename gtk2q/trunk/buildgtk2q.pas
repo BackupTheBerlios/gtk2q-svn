@@ -78,6 +78,7 @@ uses
   upangolayoutiter,
   upangolayoutline,
   upangoglyphitem,
+  upangotabarray,
   upangotypes,
   upointermediator, 
   iutyperegistry,

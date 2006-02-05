@@ -5,6 +5,7 @@ type
   IPangoLayoutRun = IPangoGlyphItem;
   IPangoLayoutLine = interface;
 {$endif define_types}
+{$INCLUDE iupangotabarray.inc}
 {$INCLUDE iupangolayoutiter.inc}
 {$INCLUDE iupangolayoutline.inc}
 {$INCLUDE iupangoglyphitem.inc}

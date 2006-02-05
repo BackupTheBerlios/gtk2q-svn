@@ -67,7 +67,10 @@ type
   TPangoRangeArray = array of Integer;
   
   TPangoWrapMode = (wmWord, wmChar, wmWordChar);
-
+  TPangoTabAlign = (taLeft
+   (* , taRight, taCenter, taNumeric *)
+  );
+  
 implementation
 
 end.

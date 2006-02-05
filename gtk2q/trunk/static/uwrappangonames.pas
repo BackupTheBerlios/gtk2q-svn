@@ -36,6 +36,7 @@ type
   WPangoDirection = gint;
   WPangoCoverageLevel = gint;
   WPangoEllipsizeMode = gint;
+  WPangoTabAlign = gint;
   (* end enums *)
 
   PWPangoFontDescription = Pointer;
@@ -95,9 +96,11 @@ type
   PWPangoTabArray = Pointer;
 
 function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl;
+function pango_tab_array_copy(src: PWPangoTabArray): PWPangoTabArray;
   
 implementation
 
 function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl; external pangolib;
+function pango_tab_array_copy(src: PWPangoTabArray): PWPangoTabArray; cdecl; external pangolib;
 
 end.

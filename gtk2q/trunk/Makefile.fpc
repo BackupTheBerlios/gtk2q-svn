@@ -78,6 +78,7 @@ static/upangofontmap \
 static/upangofontmetrics \
 static/upangofont \
 static/upangofontset \
+static/upangotabarray \
 static/upangotypes \
 output/pango/upangolayout \
 static/upangolayoutiter \
@@ -499,6 +500,7 @@ upangofontmap \
 upangofontmetrics \
 upangofont \
 upangofontset \
+upangotabarray \
 upangotypes \
 output/pango/upangolayout \
 static/upangolayoutiter \

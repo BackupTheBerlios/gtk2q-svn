@@ -156,10 +156,6 @@ type
     ['{E446E54B-CD69-421C-843F-5A07DD90FC72}']
   end;
 
-  IPangoTabArray = interface(IGObject)
-    ['{C5EF37A4-3D24-42CD-9016-43B96FE5F95D}']
-  end;
-
   IPangoFontDescription = interface(IPointerMediator)
     ['{AF9CACF7-CCEC-4CE8-ABA1-526A5EF46208}']
 
