@@ -70,6 +70,8 @@ type
   TPangoTabAlign = (taLeft
    (* , taRight, taCenter, taNumeric *)
   );
+
+  TPangoTabAlignment = TPangoTabAlign; // sigh.
   
 implementation
 

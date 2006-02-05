@@ -38,6 +38,8 @@ type
   WPangoEllipsizeMode = gint;
   WPangoTabAlign = gint;
   (* end enums *)
+  
+  PWPangoTabAlign = ^WPangoTabAlign;
 
   PWPangoFontDescription = Pointer;
   PWPangoLanguage = Pointer;
