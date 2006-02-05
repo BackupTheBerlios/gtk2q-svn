@@ -1501,7 +1501,7 @@ paddfuncs = {
 			  Result := InkExtents;
 			end;
 		""",
-		"GetLogicalExtents": """,
+		"GetLogicalExtents": """
 			published function GetLogicalExtents: TPangoRectangle;
 			var
 			  InkExtents, LogicalExtents: TPangoRectangle;
@@ -1510,7 +1510,7 @@ paddfuncs = {
 			  Result := LogicalExtents;
 			end;
 		""",
-		"GetInkPixelExtents": """,
+		"GetInkPixelExtents": """
 			published function GetInkPixelExtents: TPangoRectangle;
 			var
 			  InkExtents, LogicalExtents: TPangoRectangle;
