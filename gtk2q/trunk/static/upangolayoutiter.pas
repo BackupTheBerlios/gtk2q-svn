@@ -148,6 +148,10 @@ function TPangoLayoutIter.GetRun: IPangoLayoutRun;
 var
   clowlevel: PWPangoLayoutRun;
 begin
+  // UNSAFE, UNTESTED and MOST PROBABLY BROKEN FUNCTION
+  
+  assert(False);
+  
   clowlevel := pango_layout_iter_get_run(GetUnderlying);
   // FIXME need refcount?
   Result := TPangoGlyphItem.CreateWrapped(clowlevel);
