@@ -3038,6 +3038,14 @@ c2pfuncparamoverride = {
 		["interface", "IPangoLayout", "", "(*new*)"],
 		# ^listtype, itemtype,     howtofree,           actionforeachitem       nextforeachitem freeforeachitem
 	],
+	"pango_layout_set_markup_with_accel": [
+		None, # return value override
+		None, # 1st (C) param override (layout)
+		None, # 2nd (C) param override (markup)
+		None, # 3rd (C) param override (length)
+		None, # 4th (C) param override (accel_marker)
+		[ "out" ], # 5th (C) param override (accel_char)
+	],
 }
 
 c2psignalparamoverride = {
