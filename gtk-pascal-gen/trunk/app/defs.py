@@ -384,6 +384,7 @@ c2ptypehash = {
 	"guchar": "Byte", # pixbuf only
 	"double": "Double", # pixbuf only
 	"gsize": "gsize", #
+	"gunichar": "gunichar", # 
 	"gulong": "gulong",
 	"GdkNativeWindow": "TGdkNativeWindow",
 	"GType": "TGType",
