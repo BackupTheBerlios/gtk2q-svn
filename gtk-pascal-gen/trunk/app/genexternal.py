@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 
-from tool2 import fnsFromFNLines
+import os
+import sys
+
+from defs import c2pfuncparamoverride
+
+o = sys.path
+try:
+  sys.path = [os.getcwd()] + sys.path
+except:
+  pass
+  
+
+from tool2 import fnsFromFNLines, exttype
 
 path1 = "pango"
 ############ add external declarations ###############
@@ -84,4 +96,4 @@ for fnname, fn in fns.items():
 		fnelib = "gdklib"
 	
 	s = "%s %s(%s)%s; cdecl; external %s;" % (ftype, fnname, ";".join(fnparams),  fnreturn, fnelib)
-	pexternfuncs.append(s)
+	print s
