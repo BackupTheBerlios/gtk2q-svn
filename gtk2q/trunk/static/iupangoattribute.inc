@@ -5,15 +5,14 @@
   IPangoAttribute = interface(IPointerMediator)
     ['{567035A8-9666-11DA-93C3-00055DDDEA00}']
 
-    // property StartIndex: Cardinal; /// in bytes
-    // property EndIndex: Cardinal; // in bytes
+    function GetStartIndex: Cardinal;
+    function GetEndIndex: Cardinal;
+    procedure SetStartIndex(value: Cardinal);
+    procedure SetEndIndex(value: Cardinal);
 
-(*
-PangoAttribute * pango_attribute_copy          (const PangoAttribute *attr); 
-void             pango_attribute_destroy       (PangoAttribute       *attr); 
-gboolean         pango_attribute_equal         (const PangoAttribute *attr1, 
-                                                const PangoAttribute *attr2);
-*)
+    function IsEqual(other: IPangoAttribute): Boolean;
 
+    property StartIndex: Cardinal read GetStartIndex write SetStartIndex; // in bytes
+    property EndIndex: Cardinal read GetEndIndex write SetEndIndex; // in bytes
   end;
 (*$ENDIF define_types*)

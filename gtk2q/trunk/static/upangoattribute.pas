@@ -34,6 +34,18 @@ type
     constructor CreateFallbackAttribute(enableFallback: Boolean);
     constructor CreateLetterSpacingAttribute(letterSpacing: Integer);
     constructor CreateShapeAttribute(ink, logical: TPangoRectangle);
+  protected
+    function GetStartIndex: Cardinal;
+    function GetEndIndex: Cardinal;
+    procedure SetStartIndex(value: Cardinal);
+    procedure SetEndIndex(value: Cardinal);
+    procedure Updated;
+
+  published
+    function IsEqual(other: IPangoAttribute): Boolean;
+
+    property StartIndex: Cardinal read GetStartIndex write SetStartIndex; /// in bytes
+    property EndIndex: Cardinal read GetEndIndex write SetEndIndex; // in bytes, exclusive
   end;
   
 implementation
@@ -64,6 +76,42 @@ function pango_attribute_copy(attr: {const} PWPangoAttribute): PWPangoAttribute 
 function pango_attr_foreground_new(red: Word;green: Word;blue: Word): PWPangoAttribute; cdecl; external pangolib;
 function pango_attr_letter_spacing_new(letter_spacing: gint): PWPangoAttribute; cdecl; external pangolib;
 function pango_attr_weight_new(weight: WPangoWeight): PWPangoAttribute; cdecl; external pangolib;
+
+procedure TPangoAttribute.Updated;
+begin
+  // TODO
+end;
+
+function TPangoAttribute.GetStartIndex: Cardinal;
+begin
+  Result := PWPangoAttribute(GetUnderlying)^.start_index;
+end;
+
+function TPangoAttribute.GetEndIndex: Cardinal;
+begin
+  Result := PWPangoAttribute(GetUnderlying)^.end_index;
+end;
+
+procedure TPangoAttribute.SetStartIndex(value: Cardinal);
+begin
+  PWPangoAttribute(GetUnderlying)^.start_index := value;
+  Updated;
+end;
+
+procedure TPangoAttribute.SetEndIndex(value: Cardinal);
+begin
+  PWPangoAttribute(GetUnderlying)^.end_index := value;
+  Updated;
+end;
+
+function TPangoAttribute.IsEqual(other: IPangoAttribute): Boolean;
+begin
+  if Assigned(other) then begin
+    Result := pango_attribute_equal(GetUnderlying, other.GetUnderlying);
+  end else begin
+    Result := False;
+  end;
+end;
 
 constructor TPangoAttribute.CreateWrappedCopy(ptr: Pointer);
 begin

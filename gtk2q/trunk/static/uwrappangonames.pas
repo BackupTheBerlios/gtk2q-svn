@@ -97,7 +97,11 @@ type
   
   PWPangoTabArray = Pointer;
   
-  PWPangoAttribute = Pointer;
+  PWPangoAttribute = ^WPangoAttribute;
+  WPangoAttribute = record (* C *)
+    klass: Pointer;
+    start_index, end_index: guint;
+  end;
 
 function pango_font_description_copy(descr: PWPangoFontDescription): PWPangoFontDescription; cdecl;
 function pango_tab_array_copy(src: PWPangoTabArray): PWPangoTabArray;
