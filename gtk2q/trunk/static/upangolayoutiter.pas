@@ -74,7 +74,7 @@ procedure pango_layout_iter_get_layout_extents(iter: PWPangoLayoutIter;ink_rect:
 constructor TPangoLayoutIter.CreateWrappedPin(ptr: Pointer; pangoLayout: IPangoLayout);
 begin
   fPangoLayout := pangoLayout;
-  inherited Create(ptr, @pango_layout_iter_free);
+  inherited Create(ptr, nil); // I don't own it so I don't free it either: @pango_layout_iter_free);
 end;
 
 function TPangoLayoutIter.GotoNextRun: Boolean;

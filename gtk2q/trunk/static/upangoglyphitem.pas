@@ -37,7 +37,7 @@ procedure pango_glyph_item_letter_space (glyphItem: PWPangoGlyphItem;
 constructor TPangoGlyphItem.CreateWrappedPin(ptr: Pointer; iter: IPangoLayoutIter);
 begin
   fIter := iter;
-  inherited Create(ptr, @pango_glyph_item_free);
+  inherited Create(ptr, nil); // I dont own it so I dont free it either. @pango_glyph_item_free);
 end;
 
 end.
