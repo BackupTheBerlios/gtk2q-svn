@@ -119,7 +119,10 @@ nongobjectclasses = [
 	"TGtkSelectionData",
 	"TGdkPixbufFormat",
 	"ArtVpathDash",
-
+	"TPangoLayoutIter",
+	"TPangoLayoutLine",
+	"TPangoLayoutRun",
+	"TPangoGlyphItem",
 ]
 
 # maps from interface name to interface unit name for special cases
@@ -243,8 +246,11 @@ cclasses = [ # only a subset, mostly for properties of that type
 	"GtkVSeparator",
 	"GtkVScale", "GtkVScrollbar", 
 	"GtkWidget", "GtkWindow", "GtkWindowGroup",
+
 	"PangoAttrList", "PangoContext", "PangoFont", "PangoLayout", 
 	"PangoTabArray", "PangoFontDescription",
+	"PangoLayoutIter", "PangoLayoutLine", "PangoLayoutRun",
+	"PangoGlyphItem",
 	
 	## Art cclasses
 	
@@ -430,7 +436,7 @@ c2penumcopied = [ # enums copied to delphi as-is
 	## Pango c2penumcopied
 	"PangoAlignment", "PangoStretch", "PangoStyle", "PangoTabAlign", 
 	"PangoUnderline", "PangoVariant",
-	"PangoWeight",
+	"PangoWeight", "PangoWrapMode", "PangoEllipsizeMode",
 	
 ]
 
@@ -2936,6 +2942,36 @@ c2pfuncparamoverride = {
 		["userdata"], # 2nd (C) param override
 		["destroynotify"],
 	],	
+	"pango_layout_xy_to_index": [
+		None, # return value override
+		None, # 1st (C) param override
+		None, # 2nd (C) param override
+		None, # 3rd (C) param override
+		[ "out" ], # 4th (C) param override (index)
+		[ "out" ], # 5th (C) param override (trailing)
+	],
+	"pango_layout_move_cursor_visually": [
+		None, # return value override
+		None, # 1st (C) param override
+		None, # 2nd (C) param override
+		None, # 3rd (C) param override
+		None, # 4th (C) param override
+		None, # 5th (C) param override
+		[ "out" ], # 6th (C) param override (index)
+		[ "out" ], # 7th (C) param override (trailing)
+	],
+	"pango_layout_get_size": [
+		None, # return value override
+		None, # 1st (C) param override
+		[ "out" ], # 2nd (C) param override (width)
+		[ "out" ], # 3rd (C) param override (height)
+	],
+	"pango_layout_get_pixel_size": [
+		None, # return value override
+		None, # 1st (C) param override
+		[ "out" ], # 2nd (C) param override (width)
+		[ "out" ], # 3rd (C) param override (height)
+	],
 }
 
 c2psignalparamoverride = {

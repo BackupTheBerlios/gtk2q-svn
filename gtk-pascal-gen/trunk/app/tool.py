@@ -1048,6 +1048,12 @@ def c2ptype(typn, inreturn = False, canvar = False):
 			
 		return "Integer"
 		
+	if typn == "int*" and path1 == "pango":
+		if isDebug():
+			print "warning, assuming int* being one out integer (which is not always true in reality)"
+			
+		typn = "gint*"
+		
 	try:
 		return c2ptypehash[typn]
 	except:
