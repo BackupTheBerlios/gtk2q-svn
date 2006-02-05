@@ -8,13 +8,26 @@ type
   
   IPangoLayout = interface(IGObject)
     ['{FFFC31D9-C2CF-4F41-856F-7B41459D28DD}']
+
     // TODO
   end;
   
+  IPangoContext = interface;
+  
+  IPangoFont = interface;
+  IPangoFontset = interface;
+  IPangoFontFamily = interface;
+  TIPangoFontFamilyArray = array of IPangoFontFamily;
   IPangoFontMap = interface(IGObject)
     ['{C0517D5C-95E3-11DA-97ED-00055DDDEA00}']
     
-    // TODO
+    function GetShapeEngineType: string;
+
+    function ListFamilies: TIPangoFontFamilyArray;
+    function LoadFont(context: IPangoContext; description: IPangoFontDescription): IPangoFont;
+    function LoadFontset(context: IPangoContext; description: IPangoFontDescription; language: TPangoLanguage): IPangoFontset;
+    
+    property ShapeEngineType: string read GetShapeEngineType;
   end;
   
   IPangoFontMetrics = interface(IPointerMediator)
@@ -39,6 +52,82 @@ type
     property StrikethroughThickness: Integer read GetStrikethroughThickness;
   end;
   
+  IPangoFontset = interface(IPointerMediator)
+    ['{7AF33EE8-95E9-11DA-BE80-00055DDDEA00}']
+    
+    // TODO generate? (there are class functions, derived classes, ... so it would be really better to generate it)
+    
+    // foreach
+    function GetFont(unicodeCharacter: Cardinal): IPangoFont;
+    function GetMetrics: IPangoFontMetrics;
+    
+    property Metrics: IPangoFontMetrics read GetMetrics;
+  end;
+  
+  IPangoFontFace = interface(IGObject)
+    ['{F851520C-95EA-11DA-A416-00055DDDEA00}']
+    
+    function GetFaceName: UTF8String; (* "suitable for displaying to users" ? *)
+    
+    function Describe: IPangoFontDescription;
+    
+    property FaceName: UTF8String read GetFaceName;
+    
+    function ListSizes: TPangoFontSizeArray;
+
+    property Description: IPangoFontDescription read Describe;
+  end;
+  
+  TIPangoFontFaceArray = array of IPangoFontFace;
+  IPangoFontFamily = interface(IGObject)
+    ['{8BB09A7C-95EA-11DA-8106-00055DDDEA00}']
+    
+    function GetName: string; (* utf? not utf? no idea *)
+    
+    function GetIsMonospace: Boolean;
+    
+    function ListFaces(): TIPangoFontFaceArray;
+    
+    property Name: string read GetName;
+    property IsMonospace: Boolean read GetIsMonospace;
+  end;
+  
+  IPangoEngine = interface(IGObject)
+  end;
+  
+  IPangoEngineShape = interface(IPangoEngine)
+    ['{A11A589E-95EF-11DA-B79C-00055DDDEA00}']
+    
+    // TODO
+  end;
+  
+  IPangoCoverage = interface(IPointerMediator)
+    ['{2668E94C-95F1-11DA-84DE-00055DDDEA00}']
+    
+    function GetLevel(aindex: Integer): TPangoCoverageLevel;
+    procedure Max(other: IPangoCoverage);
+    procedure SetLevel(aindex: Integer; level: TPangoCoverageLevel);
+  end;
+  
+  (* this can probably be generated too? *)
+  IPangoFont = interface(IGObject)
+    ['{9653BBEA-95E9-11DA-BA3E-00055DDDEA00}']
+
+    function Describe: IPangoFontDescription;
+    
+    function FindShaper(language: TPangoLanguage; CharacterCode: Cardinal): IPangoEngineShape;
+    
+    function GetCoverage(language: TPangoLanguage = nil): IPangoCoverage;
+    
+    procedure GetGlyphExtents(glyph: TPangoGlyph; out InkRectangle: TPangoRectangle; out LogicalRectangle: TPangoRectangle);
+    
+    function GetMetrics(language: TPangoLanguage = nil): IPangoFontMetrics;
+    
+    function GetFontMap: IPangoFontMap;
+    
+    property FontMap: IPangoFontMap read GetFontMap;
+  end;
+  
   IPangoContext = interface(IGObject)
     ['{84FF60D1-6DCC-430A-B7FD-6C8B0908AE6D}']
 
@@ -56,6 +145,10 @@ type
     function GetMatrix: TPangoMatrix;
     procedure SetMatrix(value: TPangoMatrix);
     
+    function ListFamilies: TIPangoFontFamilyArray;
+    function LoadFont(description: IPangoFontDescription): IPangoFont;
+    function LoadFontset(description: IPangoFontDescription; language: TPangoLanguage = nil): IPangoFontset;
+    
     // internal use ! function GetFontMap: IPangoFontMap;
     
     property Language: TPangoLanguage read GetLanguage write SetLanguage;
@@ -64,9 +157,6 @@ type
     property Matrix: TPangoMatrix read GetMatrix write SetMatrix;
   end;
 
-  IPangoFont = interface(IGObject)
-    ['{758911D8-6FE4-48E9-8017-A793063A8E24}']
-  end;
 
   IPangoAttrList = interface(IGObject)
     ['{E446E54B-CD69-421C-843F-5A07DD90FC72}']

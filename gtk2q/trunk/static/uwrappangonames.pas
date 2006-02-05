@@ -29,9 +29,12 @@ type
   WPangoStretch = gint;
   WPangoAlignment = gint;
   WPangoWrapMode = gint;
+  WPangoDirection = gint;
+  WPangoCoverageLevel = gint;
   (* end enums *)
 
   PWPangoFontDescription = Pointer;
+  PWPangoLanguage = Pointer;
 
   PWPangoFontMetrics = ^WPangoFontMetrics;
   WPangoFontMetrics = record (* C *)
@@ -46,6 +49,34 @@ type
     StrikethroughPosition: gint;
     StrikethroughThickness: gint;
   end;
+
+  PPWPangoFontFamily = ^PWPangoFontFamily;
+  PPPWPangoFontFamily = ^PPWPangoFontFamily;
+  PWPangoFontFamily = Pointer;
+  
+  PPPWPangoFontFace = ^PPWPangoFontFace;
+  PPWPangoFontFace = ^PWPangoFontFace;
+  PWPangoFontFace = Pointer;
+  
+  PWPangoFont = Pointer;
+  PWPangoFontset = Pointer;
+  
+  PWPangoCoverage = Pointer;
+  
+  PWPangoContext = Pointer;
+  PWPangoFontMap = Pointer;
+  PWPangoMatrix = ^WPangoMatrix;
+  WPangoMatrix = record (* C *)
+    xx, xy, yx, yy, x0, y0: gdouble;
+  end;
+  
+  WPangoGlyph = guint32;
+  PWPangoRectangle = ^WPangoRectangle;
+  WPangoRectangle = record (* C *)
+    x,y, width, height: gint; (* actually int *)
+  end;
+  
+  PWPangoEngineShape = Pointer;
   
 implementation
 

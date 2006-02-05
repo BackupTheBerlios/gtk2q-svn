@@ -35,7 +35,7 @@ type
   TPangoEllipsizeMode = (elNone, elStart, elMiddle, elEnd);
   
   TPangoMatrix = record (* C *)
-    xx, xy, yx, yy, x0, y0: gdouble;
+    xx, xy, yx, yy, x0, y0: Double;
   end;
   
   TPangoLanguage = type Pointer; // kind of a handle
@@ -49,6 +49,21 @@ type
     pdWeakRightToLeft,
     pdNE (* ? *)
   );
+
+  TPangoCoverageLevel = (
+    clNone,
+    clFallback,
+    clApproximate,
+    clExact
+  );
+  
+  TPangoGlyph = guint32; // handle
+
+  TPangoRectangle = record
+    x,y,width,height: gint;
+  end;
+
+  TPangoFontSizeArray = array of Integer;
 
 implementation
 

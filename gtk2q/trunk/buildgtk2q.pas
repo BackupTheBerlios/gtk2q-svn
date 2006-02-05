@@ -66,6 +66,7 @@ uses
   unicegvalue, 
   upangofontdescription, 
   upangofontmetrics,
+  upangocontext,
   upangotypes, 
   upointermediator, 
   iutyperegistry,

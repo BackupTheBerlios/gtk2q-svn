@@ -24,7 +24,7 @@ type
     function GetStrikethroughPosition: Integer;
     function GetStrikethroughThickness: Integer;
 
-  public
+  published
     property Ascent: Integer read GetAscent;
     property Descent: Integer read GetDescent;
     property ApproximateCharWidth: Integer read GetApproximateCharWidth;
