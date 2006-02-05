@@ -1604,7 +1604,7 @@ paddprops = {
 		"Indent": "public property Indent: Integer read GetIndent write SetIndent;",
 		"Justify": "public property Justify: Boolean read GetJustify write SetJustify;",
 		"LineCount": "public property LineCount: Integer read GetLineCount;",
-		"Line": "public property Line[Index1: integer] read GetLine;",
+		"Line": "public property Line[Index1: integer]: IPangoLayoutLine read GetLine;",
 		"InkPixelExtents": "public property InkPixelExtents: TPangoRectangle read GetInkPixelExtents;",
 		"LogicalPixelExtents": "public property LogicalPixelExtents: TPangoRectangle read GetLogicalPixelExtents;",
 		"SingleParagraphMode": "public property SingleParagraphMode: Boolean read GetSingleParagraphMode write SetSingleParagraphMode;",
