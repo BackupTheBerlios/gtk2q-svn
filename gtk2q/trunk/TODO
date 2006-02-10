@@ -49,4 +49,3 @@ gtk.draw_insertion_cursor ?
 GtkBorder ?
 gtk_paint_layout ?
 style_get_property ?
-gtk_tree_view_column_get_cell_info, it's result struct
