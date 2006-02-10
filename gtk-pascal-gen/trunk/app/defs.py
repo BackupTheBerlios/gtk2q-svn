@@ -39,7 +39,7 @@ pusedclasses = { # from class implementation: list of classes used (implementati
 	"TGdkDrawable": ["IPangoLayout"],
 	
 	## Gtk pusedclasses
-	"TGtkWidget": ["IGtkSelectionData", "TGtkSelectionData"],
+	"TGtkWidget": ["IGtkSelectionData", "TGtkSelectionData", "variants"],
 	#automagically:, "IAtkImplementorIface" ],
 	"TGtkClipboard": ["TGtkSelectionData", "IGtkSelectionData"],
 	#["TGdkEvent"],
@@ -536,6 +536,7 @@ forceexternals = [
 	"gtk_tree_view_get_path_at_pos",
 	"gtk_tree_selection_get_selected", # manually
 	"gtk_tree_selection_get_selected_rows", # manually
+	"gtk_widget_style_get_property",
 ]
 
 paddmembervars = {
@@ -1451,6 +1452,19 @@ paddfuncs = {
 		""",
 	},
 	"GtkWidget": {
+		"StyleGetProperty": """
+			published function StyleGetProperty(PropertyName: UTF8String): Variant;
+			var 
+			  gvalue: WGValue;
+			begin
+			  gtk_widget_style_get_property(fObject, PGChar(PChar(PropertyName)), @gvalue);
+			  try
+			    Result := gValueToVariant(gvalue);
+			  finally
+			    gValueUnset(gvalue);
+			   end;
+			end;
+		""",
 		"GetPath": """
 			published function GetPath: %(pstringtype)s;
 			var
@@ -1676,7 +1690,7 @@ cskipfuncs = [
 	"gtk_widget_get_ancestor", # looks cool, but I dont want to expose GType. Add class support and fix that.
 	"gtk_widget_style_get_valist", # valist
 	"gtk_widget_style_get", # dot dot dot
-	"gtk_widget_style_get_property", # TODO
+	"gtk_widget_style_get_property",
 	"gtk_widget_class_list_style_properties", # ??
 	"gtk_container_child_type", # TODO (GType)
 	"gtk_container_set_focus_chain", # TODO passing of GLists
