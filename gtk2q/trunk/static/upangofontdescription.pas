@@ -32,7 +32,7 @@ type
 
     // is self a better match than old, or a match that fits ideal at all?
     function BetterMatchOf(ideal: IPangoFontDescription; oldmatch: IPangoFontDescription = nil): Boolean;
-    function ToString: string;
+    function AsString: string;
 
   published
     property Family: string read GetFamily write SetFamily;
@@ -95,7 +95,7 @@ begin
   inherited Create(ptr, @pango_font_description_free);
 end;
 
-function TPangoFontDescription.ToString: string;
+function TPangoFontDescription.AsString: string;
 var
   native: PChar;
 begin
