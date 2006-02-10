@@ -169,7 +169,7 @@ type
     // unset_fields(which)
     // get_set_fields(which)
 
-    function ToString: string;
+    function AsString: string;
 
     procedure MergeFrom(fd: IPangoFontDescription; replaceExistingFields: Boolean = False);
 
