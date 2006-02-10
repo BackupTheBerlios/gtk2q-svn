@@ -634,11 +634,12 @@ def varreplace(varname, callback, data):
 			if not isInSignalMode() and ( \
 				classname.endswith("Store") or \
 				classname.endswith("Model") or \
-				classname=="DiaCanvas" \
-			): # treestore, liststore
-				arr.append("ugvalue")				
+				classname =="DiaCanvas" or \
+				(path1 == "gtk" and classname == "GtkWidget") \
+			): # treestore, liststore, widget
+				arr.append("ugvalue")
 				arr.append("unicegvalue")
-			
+				
 			if path1 in ["gtk", "gdk-pixbuf"]:
 				arr.append("uwrapgdknames")
 				
