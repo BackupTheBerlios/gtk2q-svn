@@ -48,3 +48,5 @@ pango_parse_markup ? (pango attributes)
 gtk.draw_insertion_cursor ?
 GtkBorder ?
 gtk_paint_layout ?
+style_get_property ?
+
