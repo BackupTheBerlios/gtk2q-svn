@@ -46,3 +46,4 @@ pango size units: extra types for 1) pixel sizes and 2) pango sizes
 nicer pango layout SetMarkupWithAccel (no length, no out params,...)
 pango_parse_markup ? (pango attributes)
 gtk.draw_insertion_cursor ?
+GtkBorder ?
