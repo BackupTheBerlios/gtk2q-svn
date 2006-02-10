@@ -47,3 +47,4 @@ nicer pango layout SetMarkupWithAccel (no length, no out params,...)
 pango_parse_markup ? (pango attributes)
 gtk.draw_insertion_cursor ?
 GtkBorder ?
+gtk_paint_layout ?
