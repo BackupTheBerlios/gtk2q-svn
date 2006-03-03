@@ -530,6 +530,8 @@ forceexternals = [
 	# wonder if radioaction radiobutton radiomenuitem radiotoolbutton all also have a group property fixme
 	#has a property "gtk_radio_menu_item_get_group", # GSList* somewhat-id
 	#has a property "gtk_radio_menu_item_set_group", # GSList* somewhat-id
+	"gtk_accelerator_get_default_mod_mask",
+	"gtk_accelerator_set_default_mod_mask",
 	"gtk_tree_view_get_cursor",
 	"gtk_tree_view_get_dest_row_at_pos",
 	"gtk_tree_view_get_drag_dest_row",
@@ -949,6 +951,20 @@ paddfuncs = {
 			begin
 			  Result := boo_gtk_about_dialog_get_documenters(fObject);
 			end;
+		""",
+	},
+	"GtkAccelGroup": {
+		"AcceleratorGetDefaultModifierMask": """
+		  published class function AcceleratorGetDefaultModifierMask: TGdkModifierType;
+		  begin
+		    Result := TGdkModifierType(gtk_accelerator_get_default_mod_mask());
+		  end;
+		""",
+		"AcceleratorSetDefaultModifierMask": """
+		  published class procedure AcceleratorSetDefaultModifierMask(modifiers: TGdkModifierType);
+                  begin
+                    gtk_accelerator_set_default_mod_mask(WCastSetType(modifiers));
+                  end;
 		""",
 	},
 	"GtkRcStyle": {
@@ -1598,6 +1614,8 @@ cskipfuncs = [
 	"gdk_display_get_pointer",
 	"gdk_spawn_on_screen", # not exposed in a class
 	"gdk_spawn_on_screen_with_pipes", # not exposed in a class
+	"gtk_accelerator_get_default_mod_mask", # manually
+	"gtk_accelerator_set_default_mod_mask",
 	"gtk_clist_get_pixmap", # clist not wrapped
 	"gtk_clist_get_pixtext", # clist not wrapped
 	"gtk_clist_get_text", # clist not wrapped
