@@ -49,3 +49,7 @@ gtk.draw_insertion_cursor ?
 GtkBorder ?
 gtk_paint_layout ?
 style_get_property !!!!
+
+(event->state & gtk_accelerator_get_default_mod_mask()) == GDK_SHIFT_MASK
+per http://developer.gnome.org/doc/API/2.0/gtk/checklist-modifiers.html
+
