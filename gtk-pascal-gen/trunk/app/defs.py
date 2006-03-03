@@ -962,9 +962,9 @@ paddfuncs = {
 		""",
 		"AcceleratorSetDefaultModifierMask": """
 		  published class procedure AcceleratorSetDefaultModifierMask(modifiers: TGdkModifierType);
-                  begin
-                    gtk_accelerator_set_default_mod_mask(WCastSetType(modifiers));
-                  end;
+		  begin
+		    gtk_accelerator_set_default_mod_mask(WCastSetType(modifiers));
+		  end;
 		""",
 	},
 	"GtkRcStyle": {
