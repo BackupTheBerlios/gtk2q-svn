@@ -56,6 +56,7 @@ cclasses = [ # only a subset, mostly for properties of that type
 	"GstPad",
 	"GstObject",
 	"GstPadTemplate", 
+	"GstCaps",
 ]
 
 # list of parameters that are used as 'const ...*' uselessly (from a pascal point of view)
@@ -108,15 +109,8 @@ paddmembervars = {
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
 paddfuncs = {
-  "TypeRegister": """
-      class procedure TypeRegister;
-      begin
-        GstreamerInit;
-        inherited TypeRegister;
-        DTypeRegister('TGstObject', 'gst', TGstObject, gst_object_get_type, IGstObject);
-      end;
-  """,
-  "HandleFlowReturn": """
+  "GstPad": {
+    "HandleFlowReturn": """
       protected function HandleFlowReturn(code: TGstFlowReturn): Boolean;
       begin (* returns: ok? *)
         (* TODO what about resend? *)
@@ -127,8 +121,8 @@ paddfuncs = {
           raise EGstFlowError.Create(code);
         end;
       end;
-  """,
-  "AllocateBuffer": """
+    """,
+    "AllocateBuffer": """
       published function AllocateBuffer(offset: guint64; size: gint; const caps: IGstCaps): IGstBuffer;
       var 
         cbuffer: PWGstBuffer;
@@ -144,7 +138,26 @@ paddfuncs = {
           Result := CreateWrapped(cbuffer);
         end;                                      
       end;
-  """,
+    """,
+    "AllocateBufferAndSetCaps": """
+      published function AllocateBufferAndSetCaps(offset: guint64; size: gint; const caps: IGstCaps): IGstBuffer;
+      var 
+        cbuffer: PWGstBuffer;
+      begin
+        Result := nil;
+        cbuffer := nil;
+        if HandleFlowReturn(gst_pad_alloc_buffer_and_set_caps(
+                                              GetUnderlying,
+                                              offset,
+                                              size,
+                                              caps.GetUnderlying,
+                                              @cbuffer)) 
+        then
+          Result := CreateWrapped(cbuffer);
+        end;                                      
+      end;
+    """,
+  }
 }
 
 # properties to add (C class: {pascal property name:  pascal property line})
@@ -155,6 +168,8 @@ paddprops = {
 cskipfuncs = [
 	"gst_object_replace",
 	"gst_object_default_deep_notify",
+	"gst_pad_alloc_buffer",
+	"gst_pad_alloc_buffer_and_set_caps"
 ]
 
 # callback function types in the wrapper (these will be superceded soon)
@@ -227,3 +242,7 @@ superclassoverride = {
 
 csettypes = [
 ]
+
+ptyperegisterinit = {
+  "Gst": "GstreamerInit"
+}
