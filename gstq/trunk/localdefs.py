@@ -105,6 +105,7 @@ forceexternals = [
 ]
 
 paddmembervars = {
+  "GstIndex": "protected fResolver: TObjectGstIndexResolver;",
 }
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
@@ -157,11 +158,32 @@ paddfuncs = {
         end;                                      
       end;
     """,
-  }
+  },
+  "GstIndex": {
+    "GetResolver": """
+      protected function GetResolver(): TObjectGstIndexResolver;
+      begin
+        (* this is unsafe since a C part could have set the resolver to it's own thing 
+           and me didn't notice. TODO: connect to "notify::resolver" and react accordingly 
+            - but react by doing what? *)
+        Result := fResolver;
+      end;
+    """,
+    "SetResolver": """
+      protected procedure SetResolver(AResolver: TObjectGstIndexResolver);
+      begin
+        fResolver := AResolver;
+        gst_index_set_resolver(fObject, p_gst_index_resolver_wrapper_cb, Self);
+      end;
+    """,
+  },
 }
 
 # properties to add (C class: {pascal property name:  pascal property line})
 paddprops = {
+  "GstIndex": {
+    "Resolver": "published property Resolver: TObjectGstIndexResolver read GetResolver write SetResolver;"
+  }
 }
 
 # functions to be skipped and not be wrapped
