@@ -14,7 +14,7 @@ const
 {$UNDEF define_types}
 
 type
-  {$INCLUDE objgtkcallback.inc}
+  {$INCLUDE objgstcallback.inc}
 
 implementation
 
