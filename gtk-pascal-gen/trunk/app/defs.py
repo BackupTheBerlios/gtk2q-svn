@@ -3559,3 +3559,5 @@ csettypes = [
 	"GtkWidgetFlags", # some meaning differs in the pascal wrapper
 ]
 
+ptyperegisterinit = {
+}
