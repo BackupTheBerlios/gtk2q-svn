@@ -96,6 +96,8 @@ cskipsignals = [
 
 # properties that are to be skipped and not be wrapped (f.e. deprecated properties)
 cskipprops = [
+   "GstIndex.resolver", # callback properties unsupported
+        
 ]
 
 # externals to force
