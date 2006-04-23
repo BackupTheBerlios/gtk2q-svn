@@ -81,7 +81,7 @@ _vars = [
   "pextraconstructcode", # map
   "superclassoverride", # map
   "csettypes", # list
-  "ptyperegisterinit", map
+  "ptyperegisterinit", # map
 ]
 
 for vname in _vars:
