@@ -373,6 +373,7 @@ end;
 class procedure {pclass}.TypeRegister;
 begin
   inherited TypeRegister;
+  {ptyperegisterinit}
   DTypeRegister('{pclass}', '{namespace}', {pclass}, {cclass1type}, {pinterface});
 end;
 

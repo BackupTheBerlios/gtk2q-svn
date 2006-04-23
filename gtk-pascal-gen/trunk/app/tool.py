@@ -429,6 +429,15 @@ def stringCallbackParamsOf(csignalname):
 	
 	return "; ".join(ps)
 	
+def typeregisterinit():
+	global ptyperegisterinit
+	global classname
+	
+	if classname in ptyperegisterinit:
+		return "%s;" % ptyperegisterinit[classname]
+	
+	return ""
+
 def varreplace(varname, callback, data):
 	global pclassname
 	global classname
@@ -483,6 +492,8 @@ def varreplace(varname, callback, data):
 		return "\n".join(pexternfuncs)
 	elif varname == "paddmembervars":
 		return addmembervars()
+	elif varname == "ptyperegisterinit":
+		return typeregisterinit()
 	elif varname == "paddfuncs":
 		return addfuncs(False)
 	elif varname == "paddfuncprototypes":
