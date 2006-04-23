@@ -42,7 +42,8 @@ uses
   ugstscheduler, 
   ugsttagsetter, 
   ugsttypefindfactory, 
-  ugstxml;
+  ugstxml,
+  ugstinit;
   
 implementation
 

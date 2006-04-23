@@ -53,7 +53,8 @@ output/gst/ugstschedulerfactory \
 output/gst/ugstscheduler \
 output/gst/ugsttagsetter \
 output/gst/ugsttypefindfactory \
-output/gst/ugstxml
+output/gst/ugstxml \
+static/ugstinit
 
 #rsts=$(CLASSES10) eventlog
 #exampledirs=tests
