@@ -99,6 +99,8 @@ cskipprops = [
 
 # externals to force
 forceexternals = [
+  "gst_pad_alloc_buffer",
+  "gst_pad_alloc_buffer_and_set_caps",
 ]
 
 paddmembervars = {
@@ -106,6 +108,43 @@ paddmembervars = {
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
 paddfuncs = {
+  "TypeRegister": """
+      class procedure TypeRegister;
+      begin
+        GstreamerInit;
+        inherited TypeRegister;
+        DTypeRegister('TGstObject', 'gst', TGstObject, gst_object_get_type, IGstObject);
+      end;
+  """,
+  "HandleFlowReturn": """
+      protected function HandleFlowReturn(code: TGstFlowReturn): Boolean;
+      begin (* returns: ok? *)
+        (* TODO what about resend? *)
+        Result := code = frOk;
+        
+        if not Result
+        then
+          raise EGstFlowError.Create(code);
+        end;
+      end;
+  """,
+  "AllocateBuffer": """
+      published function AllocateBuffer(offset: guint64; size: gint; const caps: IGstCaps): IGstBuffer;
+      var 
+        cbuffer: PWGstBuffer;
+      begin
+        Result := nil;
+        cbuffer := nil;
+        if HandleFlowReturn(gst_pad_alloc_buffer(GetUnderlying,
+                                              offset,
+                                              size,
+                                              caps.GetUnderlying,
+                                              @cbuffer)) 
+        then
+          Result := CreateWrapped(cbuffer);
+        end;                                      
+      end;
+  """,
 }
 
 # properties to add (C class: {pascal property name:  pascal property line})
