@@ -143,7 +143,7 @@ def stripTags(line):
 	if match != None:
 		line = match.group(1) + ");"
 	
-	#line = line.replace(")</programlisting>", ");") # gtk 2.8 forgot the ";" :)
+	line = line.replace(")</programlisting>", ");") # gtk 2.8 forgot the ";" :)
 	while True:
 		match = indexterm1.match(line)
 		if match == None: break
