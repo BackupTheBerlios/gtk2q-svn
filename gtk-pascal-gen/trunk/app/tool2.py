@@ -512,7 +512,7 @@ def parseVar(item):
 		#if name == "gdk_gc_set_dashes":
 		#	print "MOOO!", varname, vartype
 			
-		if varname in [ "function", "label", "end", "type", "object", "var", "begin" ]:
+		if varname in [ "function", "label", "end", "type", "object", "var", "begin", "string" ]:
 			varname = varname + "1" # err...
 	
 		return vartype, varname
