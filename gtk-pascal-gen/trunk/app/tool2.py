@@ -338,8 +338,10 @@ def parseFile(file, classdef):
 						break
 						
 					if item != "" and ascendentantsDone == False:
-						if item not in classdef.ascendentants:
-							classdef.ascendentants = [item] + classdef.ascendentants
+						#print "ITEM", item
+						if item != "GInitiallyUnowned":
+							if item not in classdef.ascendentants:
+								classdef.ascendentants = [item] + classdef.ascendentants
 			
 			if insynopsis == True and not line.startswith("#") and line != "" and \
 			not line.startswith("struct ") and not line.startswith("enum ") and \
