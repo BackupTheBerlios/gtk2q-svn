@@ -89,6 +89,7 @@ cskipprops = [
 
 # externals to force
 forceexternals = [
+  "gtk_dialog_set_alternative_button_order",
   "gtk_file_filter_get_name",
   "gtk_file_filter_set_name",
   
@@ -109,6 +110,20 @@ paddmembervars = {
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
 paddfuncs = {
+  "GtkDialog": {
+    "SetAlternativeButtonOrder": """
+      published procedure SetAlternativeButtonOrder(AResponseOrder: TIntegerArray);
+      var
+        cresponsecodes: TIntegerArray;
+      begin
+        SetLength(cresponsecodes, Length(AResponseOrder) + 1);
+        for i := 0 to High(AResponseOrder) do
+          cresponsecodes[i] := AResponseOrder[i];
+          
+        cresponsecodes[High(cresponsecodes)] := -1;
+      end;
+    """,
+  },
   "GtkFileFilter": {
     "GetCaption": """
       protected function GetCaption: UTF8String;
@@ -258,6 +273,8 @@ paddprops = {
 cskipfuncs = [
   "gtk_file_filter_get_name",
   "gtk_file_filter_set_name",
+  "gtk_dialog_set_alternative_button_order",
+  
   "pango_layout_get_log_attrs",
   "pango_layout_get_lines", # too lazy
 
@@ -352,3 +369,6 @@ superclassoverride = {
 
 csettypes = [
 ]
+
+ptyperegisterinit = {
+}
