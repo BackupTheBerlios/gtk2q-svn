@@ -139,6 +139,7 @@ tags = re.compile(r"^(.*)(<[^>]*>)(.*)$")
 indexterm1 = re.compile(r"^(.*)<primary>([^<]*)</primary>(.*)$")
 
 def stripTags(line):
+	line = line.replace(")</programlisting>", ");") # gtk 2.8 forgot the ";" :)
 	while True:
 		match = indexterm1.match(line)
 		if match == None: break
