@@ -46,6 +46,7 @@ type
   TGtkStateType = (stNormal, stActive, stPrelight, stSelected, stInsensitive);
   TGtkArrowType = (arUp, arDown, arLeft, arRight);
   TGtkShadowType = (shNone, shIn, shOut, shEtchedIn, shEtchedOut);
+  TGtkIconViewDropPosition = (idpNoDrop, idpDropInto, idpDropLeft, idpDropRight, idpDropAbove, idpDropBelow);
   TGtkAccelFlags = set of (
     afVisible = 0,
     afLocked = 1

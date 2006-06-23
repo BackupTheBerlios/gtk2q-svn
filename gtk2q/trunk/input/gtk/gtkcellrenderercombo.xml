@@ -1,15 +1,18 @@
 <refentry id="GtkCellRendererCombo">
 <refmeta>
-<refentrytitle>GtkCellRendererCombo</refentrytitle>
+<refentrytitle id="top_of_page">GtkCellRendererCombo</refentrytitle>
 <manvolnum>3</manvolnum>
 <refmiscinfo>GTK Library</refmiscinfo>
 </refmeta>
 
 <refnamediv>
-<refname>GtkCellRendererCombo</refname><refpurpose>Renders a combobox in a cell</refpurpose>
+<refname>GtkCellRendererCombo</refname>
+<refpurpose>Renders a combobox in a cell</refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
 </refnamediv>
 
-<refsynopsisdiv><title>Synopsis</title>
+<refsynopsisdiv id="synopsis">
+<title id="synopsis.title">Synopsis</title>
 
 <synopsis>
 
@@ -24,15 +27,16 @@
 </synopsis>
 </refsynopsisdiv>
 
-<refsect1>
-<title>Object Hierarchy</title>
+<refsect1 id="object_hierarchy">
+<title id="object_hierarchy.title">Object Hierarchy</title>
 <synopsis>
 
   <link linkend="GObject">GObject</link>
-   +----<link linkend="GtkObject">GtkObject</link>
-         +----<link linkend="GtkCellRenderer">GtkCellRenderer</link>
-               +----<link linkend="GtkCellRendererText">GtkCellRendererText</link>
-                     +----GtkCellRendererCombo
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="GtkObject">GtkObject</link>
+               +----<link linkend="GtkCellRenderer">GtkCellRenderer</link>
+                     +----<link linkend="GtkCellRendererText">GtkCellRendererText</link>
+                           +----GtkCellRendererCombo
 </synopsis>
 
 </refsect1>
@@ -41,8 +45,8 @@
 
 
 
-<refsect1>
-<title>Properties</title>
+<refsect1 id="properties">
+<title id="properties.title">Properties</title>
 <synopsis>
 
   &quot;<link linkend="GtkCellRendererCombo--has-entry">has-entry</link>&quot;            <link linkend="gboolean">gboolean</link>              : Read / Write
@@ -53,8 +57,8 @@
 
 
 
-<refsect1>
-<title>Description</title>
+<refsect1 id="desc">
+<title id="desc.title">Description</title>
 <para>
 <link linkend="GtkCellRendererCombo"><type>GtkCellRendererCombo</type></link> renders text in a cell like <link linkend="GtkCellRendererText"><type>GtkCellRendererText</type></link> from which it
 is derived. But while <link linkend="GtkCellRendererText"><type>GtkCellRendererText</type></link> offers a simple entry to edit the text,
@@ -71,16 +75,16 @@ cell renderers can be added in a handler for the editing-started signal.
 </para>
 </refsect1>
 
-<refsect1>
-<title>Details</title>
+<refsect1 id="details">
+<title id="details.title">Details</title>
 <refsect2>
-<title><anchor id="GtkCellRendererCombo-struct"/>GtkCellRendererCombo</title>
+<title><anchor id="GtkCellRendererCombo-struct" role="struct"/>GtkCellRendererCombo</title>
 <indexterm><primary>GtkCellRendererCombo</primary></indexterm><programlisting>typedef struct _GtkCellRendererCombo GtkCellRendererCombo;</programlisting>
 <para>
 
 </para></refsect2>
 <refsect2>
-<title><anchor id="gtk-cell-renderer-combo-new"/>gtk_cell_renderer_combo_new ()</title>
+<title><anchor id="gtk-cell-renderer-combo-new" role="function" condition="since:2.6"/>gtk_cell_renderer_combo_new ()</title>
 <indexterm role="2.6"><primary>gtk_cell_renderer_combo_new</primary></indexterm><programlisting><link linkend="GtkCellRenderer">GtkCellRenderer</link>* gtk_cell_renderer_combo_new
                                             (void);</programlisting>
 <para>
@@ -101,12 +105,12 @@ a different string in each row of the <link linkend="GtkTreeView"><type>GtkTreeV
 </para></refsect2>
 
 </refsect1>
-<refsect1>
-<title>Properties</title>
+<refsect1 id="property_details">
+<title id="property_details.title">Property Details</title>
 <refsect2><title><anchor id="GtkCellRendererCombo--has-entry"/>The &quot;<literal>has-entry</literal>&quot; property</title>
-<programlisting>  &quot;has-entry&quot;            <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<indexterm role="2.6"><primary>GtkCellRendererCombo:has-entry</primary></indexterm><programlisting>  &quot;has-entry&quot;            <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
 <para>
-If  <literal>TRUE</literal>, the cell renderer will include an entry and allow to enter values 
+If  <link linkend="TRUE:CAPS"><literal>TRUE</literal></link>, the cell renderer will include an entry and allow to enter values 
 other than the ones in the popup list.</para>
 <para>
 
@@ -115,7 +119,7 @@ other than the ones in the popup list.</para>
 </para>
 </refsect2>
 <refsect2><title><anchor id="GtkCellRendererCombo--model"/>The &quot;<literal>model</literal>&quot; property</title>
-<programlisting>  &quot;model&quot;                <link linkend="GtkTreeModel">GtkTreeModel</link>          : Read / Write</programlisting>
+<indexterm role="2.6"><primary>GtkCellRendererCombo:model</primary></indexterm><programlisting>  &quot;model&quot;                <link linkend="GtkTreeModel">GtkTreeModel</link>          : Read / Write</programlisting>
 <para>
 Holds a tree model containing the possible values for the combo box. 
 Use the text_column property to specify the column holding the values.</para>
@@ -125,7 +129,7 @@ Use the text_column property to specify the column holding the values.</para>
 </para>
 </refsect2>
 <refsect2><title><anchor id="GtkCellRendererCombo--text-column"/>The &quot;<literal>text-column</literal>&quot; property</title>
-<programlisting>  &quot;text-column&quot;          <link linkend="gint">gint</link>                  : Read / Write</programlisting>
+<indexterm role="2.6"><primary>GtkCellRendererCombo:text-column</primary></indexterm><programlisting>  &quot;text-column&quot;          <link linkend="gint">gint</link>                  : Read / Write</programlisting>
 <para>
 Specifies the model column which holds the possible values for the combo box. 
 Note that this refers to the model specified in the model property, 

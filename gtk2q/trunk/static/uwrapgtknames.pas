@@ -194,6 +194,7 @@ type
   PWGtkSortType = ^WGtkSortType;
   PWGtkPackType = ^WGtkPackType;
   PWGtkTreeViewDropPosition = ^WGtkTreeViewDropPosition;
+  PWGtkIconViewDropPosition = ^WGtkIconViewDropPosition;
 
   WGtkAccelFlags = gint;
   WGtkArrowType = gint;
@@ -241,6 +242,7 @@ type
   WGtkTextDirection = gint;
   WGtkTextWindowType = gint;
   WGtkTreeViewDropPosition = gint;
+  WGtkIconViewDropPosition = gint;
   WGtkToolbarSpaceStyle = gint;
   WGtkToolbarStyle = gint;
   WGtkTreeViewColumnSizing = gint;

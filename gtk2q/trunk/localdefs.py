@@ -26,6 +26,7 @@ psignalusedioc = {
 
 # signal units uses clause, used classes for implementation section
 psignalusediocimpl = {
+  "TGtkIconView": ["TGtkCellRenderer", "TGtkTreePath"],
 }
 
 # these are array types that are to be automagically casted to the right type 
@@ -89,9 +90,20 @@ cskipprops = [
 
 # externals to force
 forceexternals = [
+  "gtk_accelerator_get_label",
+  "gtk_action_is_visible",
+  "gtk_action_is_sensitive",
+  "gtk_action_get_accel_path",
   "gtk_dialog_set_alternative_button_order",
+  "gtk_dialog_set_alternative_button_order_from_array",
   "gtk_file_filter_get_name",
   "gtk_file_filter_set_name",
+  "gtk_icon_view_get_item_at_pos",
+  "gtk_icon_view_get_dest_item_at_pos",
+  "gtk_icon_view_get_visible_range",
+  "gtk_icon_view_get_cursor",
+  "gtk_icon_view_get_drag_dest_item",
+  "gtk_icon_view_set_drag_dest_item",
   
   ## Pango forceexternals
   "pango_layout_get_font_description",
@@ -110,17 +122,58 @@ paddmembervars = {
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
 paddfuncs = {
+  "GtkAccelerator": {
+    "AsString": """
+      published function AsString: UTF8String;
+      var 
+        cstring: PChar;
+      begin
+        cstring := gtk_accelerator_get_label(fObject);
+        Result := cstring;
+        g_free(cstring);
+      end;
+    """,
+  },
+  "GtkAction": {
+    "IsEffectivelyVisible": """
+      published function IsEffectivelyVisible: Boolean;
+      begin
+        Result := gtk_action_is_visible(fObject);
+      end;
+    """,
+    "IsEffectivelySensitive": """
+      published function IsEffectivelySensitive: Boolean;
+      begin
+        Result := gtk_action_is_sensitive(fObject);
+      end;
+    """,
+    "GetAccelPath": """
+      published function GetAccelPath: UTF8String;
+      var
+        cstring: PChar;
+      begin
+        cstring := gtk_action_get_accel_path(PWGtkAction(Fobject));
+        if Assigned(cstring) then
+          Result := UTF8String(cstring)
+        else
+          Result := '';
+      end;
+    """,
+  },
   "GtkDialog": {
     "SetAlternativeButtonOrder": """
       published procedure SetAlternativeButtonOrder(AResponseOrder: TIntegerArray);
-      var
-        cresponsecodes: TIntegerArray;
+      {var
+        cresponsecodes: TIntegerArray;}
       begin
+        {
         SetLength(cresponsecodes, Length(AResponseOrder) + 1);
         for i := 0 to High(AResponseOrder) do
           cresponsecodes[i] := AResponseOrder[i];
           
         cresponsecodes[High(cresponsecodes)] := -1;
+        }
+        gtk_dialog_set_alternative_button_order_from_array(fObject, Length(AResponseOrder), @AResponseOrder);
       end;
     """,
   },
@@ -142,6 +195,90 @@ paddfuncs = {
       protected procedure SetCaption(const value: UTF8String);
       begin 
         gtk_file_filter_set_name(fObject, PGChar(PChar(value)));
+      end;
+    """,
+  },
+  "GtkIconView": {
+    "GetItemAtPos": """
+      published function GetItemAtPos(x, y: Integer; out path: IGtkTreePath; out cell: IGtkCellRenderer): Boolean;
+      var
+        cpath: PWGtkTreePath;
+        ccell: PWGtkCellRenderer;
+      begin 
+        
+        Result := gtk_icon_view_get_item_at_pos(fObject, x, y,
+                                                @cpath,
+                                                @ccell);
+        if Result then begin
+          path := TGtkTreePath.CreateWrapped(cpath);
+          cell := WrapGObject(ccell, TGtkCellRenderer);
+        end else begin
+          path := nil;
+          cell := nil;
+        end;
+      end;
+    """,
+    "GetDestItemAtPos": """
+      published function GetDestItemAtPos(dragX, dragY: Integer; out path: IGtkTreePath; out pos: TGtkIconViewDropPosition): Boolean;
+      var
+        cpath: PWGtkTreePath;
+      begin
+        cpath := nil;
+        Result := gtk_icon_view_get_dest_item_at_pos(fObject, dragX, dragY, @cpath, @pos);
+        if Result then
+          path := TGtkTreePath.CreateWrapped(cpath)
+        else
+          path := nil;
+      end;
+    """,
+    "GetVisibleRange": """
+      published function GetVisibleRange(out StartPath, EndPath: IGtkTreePath): Boolean;
+      var 
+        cstart, cend: PWGtkTreePath;
+      begin
+        Result := gtk_icon_view_get_visible_range(fObject, @cstart, @cend);
+        if Result then begin
+          StartPath := TGtkTreePath.CreateWrapped(cstart);
+          EndPath := TGtkTreePath.CreateWrapped(cend);
+        end else begin
+          StartPath := nil;
+          EndPath := nil;
+        end;
+      end;
+    """,
+    "GetCursor": """
+      published function GetCursor(out path: IGtkTreePath; out cell: IGtkCellRenderer): Boolean;
+      var
+        cpath: PWGtkTreePath;
+        ccell: PWGtkCellRenderer;
+      begin
+        Result := gtk_icon_view_get_cursor(fObject, @cpath, @ccell);
+        if Result then begin
+          path := TGtkTreePath.CreateWrapped(cpath);
+          cell := WrapGObject(ccell, TGtkCellRenderer);
+        end else begin
+          path := nil;
+          cell := nil;
+        end;
+      end;
+    """,
+    "GetDragDestItem": """
+      published procedure GetDragDestItem(out path: IGtkTreePath; out pos: TGtkIconViewDropPosition);
+      var
+        cpath: PWGtkTreePath;
+      begin
+        cpath := nil;
+        gtk_icon_view_get_drag_dest_item(fObject, @cpath, @pos);
+        path := TGtkTreePath.CreateWrapped(cpath);
+      end;
+    """,
+    "SetDragDestItem": """
+      published procedure SetDragDestItem(path: IGtkTreePath; pos: TGtkIconViewDropPosition);
+      begin
+        if Assigned(path) then
+          gtk_icon_view_set_drag_dest_item(fObject, path.GetUnderlying, WGtkIconViewDropPosition(pos))
+        else
+          gtk_icon_view_set_drag_dest_item(fObject, nil, WGtkIconViewDropPosition(pos));
       end;
     """,
   },
@@ -264,6 +401,9 @@ paddfuncs = {
 
 # properties to add (C class: {pascal property name:  pascal property line})
 paddprops = {
+  "GtkAction": {
+    "AccelPath": "published property AccelPath: UTF8String read GetAccelPath write SetAccelPath;",
+  },
   "GtkFileFilter": {
     "Caption": "public property Caption: UTF8String read GetCaption write SetCaption;",
   }
@@ -271,9 +411,20 @@ paddprops = {
 
 # functions to be skipped and not be wrapped
 cskipfuncs = [
+  "gtk_accelerator_get_label",
+  "gtk_action_is_visible",
+  "gtk_action_is_sensitive",
+  "gtk_action_get_accel_path",
   "gtk_file_filter_get_name",
   "gtk_file_filter_set_name",
   "gtk_dialog_set_alternative_button_order",
+  "gtk_dialog_set_alternative_button_order_from_array",
+  "gtk_icon_view_get_item_at_pos",
+  "gtk_icon_view_get_dest_item_at_pos",
+  "gtk_icon_view_get_visible_range",
+  "gtk_icon_view_get_cursor",
+  "gtk_icon_view_get_drag_dest_item",
+  "gtk_icon_view_set_drag_dest_item",
   
   "pango_layout_get_log_attrs",
   "pango_layout_get_lines", # too lazy
@@ -323,6 +474,27 @@ c2pcallbackpointers = {
 # for example, return values that have to be memory managed,
 # interfaces to wrapped classes, c arrays, lists
 c2pfuncparamoverride = {
+  "gtk_action_group_translate_string": [
+    [ "allocedstring", "gchar*", "g_free(aglist);", "" ],
+    # ^listtype, itemtype,     howtofree,           actionforeachitem       nextforeachitem freeforeachitem
+  ],
+
+  "gtk_icon_view_enable_model_drag_source": [
+    None, # return value override
+    None, # 1st (C) param override
+    None, # 2nd (C) param override
+    ["carray", "GtkTargetEntry", "", ""],
+    ["carrcount"],
+    None, 
+  ],
+  "gtk_icon_view_enable_model_drag_dest": [
+    None, # return value override
+    None, # 1st (C) param override
+    ["carray", "GtkTargetEntry", "", ""],
+    ["carrcount"],
+    None, # actions
+  ],
+  
 }
 
 
