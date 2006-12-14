@@ -134,7 +134,7 @@ type
   TGdkVisibilityState = (vsUnobscured, vsPartial, vsFullyObscured);
   TGdkScrollDirection = (sdUp, sdDown, sdLeft, sdRight);
   TGdkCrossingMode = (cmNormal, cmGrab, cmUngrab);
-  TGdkNotifyType = (noAncestor, noVirutal, noInferior, noNonlinear, noNonlinearVirtual);
+  TGdkNotifyType = (noAncestor, noVirtual, noInferior, noNonlinear, noNonlinearVirtual);
   TGdkSettingAction = (saNew, saChanged, saDeleted);
 
   TGdkGravity = (grNorthWest, grNorth, grNorthEast,
