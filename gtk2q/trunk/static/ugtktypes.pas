@@ -138,7 +138,7 @@ type
   TGtkPolicyType = (poAlways, poAutomatic, poNever);
   TGtkToolbarStyle = (tsIcons, tsText, tsBoth, tsBothHorizontal);
   //TGtkSizeGroupMode = (sgNone, sgHorizontal, sgVertical, sgBoth);
-  TGtkSpinType = (spStepForward, spStepBackward, spPageForward, spPageBackware, spHome, spEnd, spUserDefined);
+  TGtkSpinType = (spStepForward, spStepBackward, spPageForward, spPageBackward, spHome, spEnd, spUserDefined);
   //TGtkSpinButtonUpdatePolicy = (upAlways, upIfValid);
   TGtkExpanderStyle = (esCollapsed, esSemiCollapsed, esSemiExpanded, esExpanded);
   TGtkAttachOptions = set of (
