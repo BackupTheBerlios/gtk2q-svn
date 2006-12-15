@@ -15,15 +15,15 @@ type
   class procedure Save(filename: string); // extra: fd
   class procedure Load(filename: string); // extra: fd, scanner
   
-  class procedure AddEntry(const accelpath: UTF8String; const accelkey: TGdkAccelKey; 
+  class procedure AddEntry(const accelpath: UTF8String; const accelkey: TGdkKeyval; 
     const accelmods: TGdkModifierType);
     
   class procedure AddFilter(const pattern: UTF8String); // see gpatternspec
   
-  class function ChangeEntry(const accelpath: UTF8String; const accelkey: guint; 
+  class function ChangeEntry(const accelpath: UTF8String; const accelkey: TGdkKeyval; 
     accelmods: TGdkModifierType; replace: Boolean = True): Boolean;
     
-  class function LookupEntry(const accelpath: UTF8String; out accelkey: TGdkAccelKey; 
+  class function LookupEntry(const accelpath: UTF8String; out accelkey: TGdkKeyval; 
     out accelmods: TGdkModifierType): Boolean;
     
   class procedure Foreach(func: TGtkAccelMapForeach); (* TODO user data *)
