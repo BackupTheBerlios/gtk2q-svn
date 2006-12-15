@@ -7,19 +7,24 @@ type
   TGtkIconInfo = class(TPointerMediator, IGtkIconInfo, IPointerMediator, ICloneable, IInvokable, IInterface)
   public
     constructor CreateWrapped(ptr: Pointer);
+  published
+    function LoadIcon: IGdkPixbuf;
+    function Clone: ICloneable;
+  protected
     function GetDisplayName: string;
     //procedure GtkIconInfoFree;
     function GetBuiltinPixbuf: IGdkPixbuf;
-    function LoadIcon: IGdkPixbuf;
     function GetFilename: String;
-    function GetEmbeddedRect(out rectangle: TGdkRectangle): Boolean;
-    function Clone: ICloneable;
+    function GetEmbeddedRectangle(): TGdkRectangle;
     function GetBaseSize: Integer;
 
+  published
     property BaseSize: Integer read GetBaseSize;
     property Filename: string read GetFilename;
-    property BuiltinPixbuf: IGdkPixbuf read GetBuiltinPixbuf;
     property DisplayName: string read GetDisplayName;
+    property EmbeddedRectangle: TGdkRectangle read GetEmbeddedRectangle;
+  public
+    property BuiltinPixbuf: IGdkPixbuf read GetBuiltinPixbuf;
   end;
 
 implementation
@@ -86,13 +91,18 @@ begin
   // no freeing!
 end;
 
-function TGtkIconInfo.GetEmbeddedRect(
-  out rectangle: TGdkRectangle): Boolean;
+function TGtkIconInfo.GetEmbeddedRectangle(): TGdkRectangle;
 var
   rc : WGdkRectangle;
 begin
-  Result := gtk_icon_info_get_embedded_rect(GetUnderlying, @rc);
-  rectangle := TGdkRectangle(rc);
+  if gtk_icon_info_get_embedded_rect(GetUnderlying, @rc) then begin
+    Result := TGdkRectangle(rc);
+  end else begin
+    Result.x := 0;
+    Result.y := 0;
+    Result.width := 0;
+    Result.height := 0;
+  end;
 end;
 
 function TGtkIconInfo.GetFilename: String;
