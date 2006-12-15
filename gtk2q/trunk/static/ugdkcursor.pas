@@ -26,6 +26,8 @@ type
     function GetDisplay: IGdkDisplay;
   published
     property CursorType: TGdkCursorType read getCursorType;
+  public
+    property Display: IGdkDisplay read GetDisplay;
   end;
   
 implementation
