@@ -20,6 +20,7 @@ type
     property BaseSize: Integer read GetBaseSize;
     property Filename: string read GetFilename;
     property BuiltinPixbuf: IGdkPixbuf read GetBuiltinPixbuf;
+    property DisplayName: string read GetDisplayName;
   end;
 
 implementation
