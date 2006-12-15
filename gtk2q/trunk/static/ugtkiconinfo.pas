@@ -8,7 +8,6 @@ type
   public
     constructor CreateWrapped(ptr: Pointer);
     function GetDisplayName: string;
-    procedure SetRawCoordinates(raw_coordinates: Boolean);
     //procedure GtkIconInfoFree;
     function GetBuiltinPixbuf: IGdkPixbuf;
     function LoadIcon: IGdkPixbuf;
@@ -45,7 +44,6 @@ function gtk_icon_info_get_base_size(icon_info:PWGtkIconInfo):gint;cdecl;externa
 function gtk_icon_info_get_filename(icon_info:PWGtkIconInfo):Pgchar;cdecl;external gtklib name 'gtk_icon_info_get_filename';
 function gtk_icon_info_get_builtin_pixbuf(icon_info:PWGtkIconInfo):PWGdkPixbuf;cdecl;external gtklib name 'gtk_icon_info_get_builtin_pixbuf';
 function gtk_icon_info_load_icon(icon_info:PWGtkIconInfo; error:PPWGError):PWGdkPixbuf;cdecl;external gtklib name 'gtk_icon_info_load_icon';
-procedure gtk_icon_info_set_raw_coordinates(icon_info:PWGtkIconInfo; raw_coordinates:gboolean);cdecl;external gtklib name 'gtk_icon_info_set_raw_coordinates';
 function gtk_icon_info_get_embedded_rect(icon_info:PWGtkIconInfo; rectangle:PWGdkRectangle):gboolean;cdecl;external gtklib name 'gtk_icon_info_get_embedded_rect';
 function gtk_icon_info_get_attach_points(icon_info:PWGtkIconInfo; points:PWPGdkPoint; n_points:PWgint):gboolean;cdecl;external gtklib name 'gtk_icon_info_get_attach_points';
 function gtk_icon_info_get_display_name(icon_info:PWGtkIconInfo):Pgchar;cdecl;external gtklib name 'gtk_icon_info_get_display_name';
@@ -115,11 +113,6 @@ begin
   itemraw := gtk_icon_info_get_builtin_pixbuf(GetUnderlying);
   g_object_ref(itemraw);
   Result := WrapGObject(itemraw) as IGdkPixbuf;
-end;
-
-procedure TGtkIconInfo.SetRawCoordinates(raw_coordinates: Boolean);
-begin
-  gtk_icon_info_set_raw_coordinates(GetUnderlying, raw_coordinates);
 end;
 
 end.
