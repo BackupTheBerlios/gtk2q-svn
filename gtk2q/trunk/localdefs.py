@@ -425,6 +425,10 @@ cskipfuncs = [
   "gtk_icon_view_get_cursor",
   "gtk_icon_view_get_drag_dest_item",
   "gtk_icon_view_set_drag_dest_item",
+  "gtk_label_get_line_wrap", # have a property
+  "gtk_label_set_line_wrap", # have a property
+  "gtk_label_get_text", # have a property
+  # "gtk_label_set_text", # does more than the property does
   
   "pango_layout_get_log_attrs",
   "pango_layout_get_lines", # too lazy
