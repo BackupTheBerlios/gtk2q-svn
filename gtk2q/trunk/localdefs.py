@@ -419,6 +419,7 @@ cskipfuncs = [
   "gtk_file_filter_set_name",
   "gtk_dialog_set_alternative_button_order",
   "gtk_dialog_set_alternative_button_order_from_array",
+  "gtk_icon_info_set_raw_coordinates", # gtk docs say "not expected to be useful"
   "gtk_icon_view_get_item_at_pos",
   "gtk_icon_view_get_dest_item_at_pos",
   "gtk_icon_view_get_visible_range",
