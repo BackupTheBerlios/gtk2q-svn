@@ -139,13 +139,6 @@ paddmembervars = {
 
 # functions to add to class and interface (C class: {pascal function name: pascal function body})
 paddfuncs = {
-        "gtk_syntax_tag_new", # manually
-        "gtk_pattern_tag_new", # manually
-        "gtk_keyword_list_tag_new", # manually
-        "gtk_block_comment_tag_new", # manually
-        "gtk_line_comment_tag_new", # manually
-        "gtk_string_tag_new", # manually
-
 	## GtkSource
 	"GtkSyntaxTag": {
 		"Create": """
@@ -161,25 +154,25 @@ paddfuncs = {
 			begin
 			  setWrapped(gtk_pattern_tag_new(id, name, pattern));
 			end;
-		"""
+		""",
 		"CreateKeywordListTag": """
 			public constructor CreateKeywordListTag(id, name: UTF8String; const keywords: TUTF8StringArray; caseSensitive, matchEmptyStringAtBeginning, matchEmptyStringAtEnd: Boolean; beginningRegex, endRegex: UTF8String);
 			begin
 			  setWrapped(gtk_keyword_list_tag_new(id, name, keywords, caseSensitive, matchEmptyStringAtBeginning, matchEmptyStringAtEnd, beginningRegex, endRegex));
 			end;
-		"""
+		""",
 		"CreateBlockCommentTag": """
 			public constructor CreateBlockCommentTag(id, name, patternStart, patternEnd: UTF8String);
 			begin
 			  setWrapped(gtk_syntax_tag_new(id, name, patternStart, patternEnd));
 			end;
-		"""
+		""",
 		"CreateLineCommentTag": """
 			public constructor CreateLineCommentTag(id, name, patternStart: UTF8String);
 			begin
 			  setWrapped(gtk_line_comment_tag_new(id, name, patternStart));
 			end;
-		"""
+		""",
 		"CreateStringTag": """
 			public constructor CreateStringTag(id, name, patternStart, patternEnd: UTF8String; endAtLineEnd: Boolean);
 			begin
@@ -263,3 +256,6 @@ superclassoverride = {
 
 csettypes = [
 ]
+
+ptyperegisterinit = {
+}

@@ -1,0 +1,701 @@
+<?xml version="1.0"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+               "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
+<!ENTITY version SYSTEM "version.xml">
+]>
+<refentry id="GtkSourceView">
+<refmeta>
+<refentrytitle role="top_of_page">GtkSourceView</refentrytitle>
+<manvolnum>3</manvolnum>
+<refmiscinfo>GTKSOURCEVIEW Library</refmiscinfo>
+</refmeta>
+
+<refnamediv>
+<refname>GtkSourceView</refname>
+<refpurpose></refpurpose>
+<!--[<xref linkend="desc" endterm="desc.title"/>]-->
+</refnamediv>
+
+<refsynopsisdiv role="synopsis">
+<title role="synopsis.title">Synopsis</title>
+
+<synopsis>
+
+#include &lt;gtksourceview/gtksourceview.h&gt;
+
+
+            <link linkend="GtkSourceView-struct">GtkSourceView</link>;
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="gtk-source-view-new">gtk_source_view_new</link>             (void);
+<link linkend="GtkWidget">GtkWidget</link>*  <link linkend="gtk-source-view-new-with-buffer">gtk_source_view_new_with_buffer</link> (<link linkend="GtkSourceBuffer">GtkSourceBuffer</link> *buffer);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-show-line-numbers">gtk_source_view_set_show_line_numbers</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-show-line-numbers">gtk_source_view_get_show_line_numbers</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-show-line-markers">gtk_source_view_set_show_line_markers</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-show-line-markers">gtk_source_view_get_show_line_markers</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-tabs-width">gtk_source_view_set_tabs_width</link>  (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="guint">guint</link> width);
+<link linkend="guint">guint</link>       <link linkend="gtk-source-view-get-tabs-width">gtk_source_view_get_tabs_width</link>  (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-auto-indent">gtk_source_view_set_auto_indent</link> (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-auto-indent">gtk_source_view_get_auto_indent</link> (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-insert-spaces-instead-of-tabs">gtk_source_view_set_insert_spaces_instead_of_tabs</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-insert-spaces-instead-of-tabs">gtk_source_view_get_insert_spaces_instead_of_tabs</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-indent-on-tab">gtk_source_view_set_indent_on_tab</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-indent-on-tab">gtk_source_view_get_indent_on_tab</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-show-margin">gtk_source_view_set_show_margin</link> (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-show-margin">gtk_source_view_get_show_margin</link> (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-margin">gtk_source_view_set_margin</link>      (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="guint">guint</link> margin);
+<link linkend="guint">guint</link>       <link linkend="gtk-source-view-get-margin">gtk_source_view_get_margin</link>      (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-highlight-current-line">gtk_source_view_set_highlight_current_line</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-highlight-current-line">gtk_source_view_get_highlight_current_line</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-marker-pixbuf">gtk_source_view_set_marker_pixbuf</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             const <link linkend="gchar">gchar</link> *marker_type,
+                                             <link linkend="GdkPixbuf">GdkPixbuf</link> *pixbuf);
+<link linkend="GdkPixbuf">GdkPixbuf</link>*  <link linkend="gtk-source-view-get-marker-pixbuf">gtk_source_view_get_marker_pixbuf</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             const <link linkend="gchar">gchar</link> *marker_type);
+<link linkend="void">void</link>        <link linkend="gtk-source-view-set-smart-home-end">gtk_source_view_set_smart_home_end</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);
+<link linkend="gboolean">gboolean</link>    <link linkend="gtk-source-view-get-smart-home-end">gtk_source_view_get_smart_home_end</link>
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);
+
+</synopsis>
+</refsynopsisdiv>
+
+<refsect1 role="object_hierarchy">
+<title role="object_hierarchy.title">Object Hierarchy</title>
+<synopsis>
+
+  <link linkend="GObject">GObject</link>
+   +----<link linkend="GInitiallyUnowned">GInitiallyUnowned</link>
+         +----<link linkend="GtkObject">GtkObject</link>
+               +----<link linkend="GtkWidget">GtkWidget</link>
+                     +----<link linkend="GtkContainer">GtkContainer</link>
+                           +----<link linkend="GtkTextView">GtkTextView</link>
+                                 +----GtkSourceView
+</synopsis>
+
+</refsect1>
+
+
+
+<refsect1 role="impl_interfaces">
+<title role="impl_interfaces.title">Implemented Interfaces</title>
+<para>
+GtkSourceView implements
+ <link linkend="AtkImplementorIface">AtkImplementorIface</link>.</para>
+
+</refsect1>
+
+
+<refsect1 role="properties">
+<title role="properties.title">Properties</title>
+<synopsis>
+
+  &quot;<link linkend="GtkSourceView--auto-indent">auto-indent</link>&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--highlight-current-line">highlight-current-line</link>&quot; <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--indent-on-tab">indent-on-tab</link>&quot;        <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--insert-spaces-instead-of-tabs">insert-spaces-instead-of-tabs</link>&quot; <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--margin">margin</link>&quot;               <link linkend="guint">guint</link>                 : Read / Write
+  &quot;<link linkend="GtkSourceView--show-line-markers">show-line-markers</link>&quot;    <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--show-line-numbers">show-line-numbers</link>&quot;    <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--show-margin">show-margin</link>&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--smart-home-end">smart-home-end</link>&quot;       <link linkend="gboolean">gboolean</link>              : Read / Write
+  &quot;<link linkend="GtkSourceView--tabs-width">tabs-width</link>&quot;           <link linkend="guint">guint</link>                 : Read / Write
+</synopsis>
+</refsect1>
+<refsect1 role="style_properties">
+<title role="style_properties.title">Style Properties</title>
+<synopsis>
+
+  &quot;<link linkend="GtkSourceView--right-margin-line-alpha">right-margin-line-alpha</link>&quot; <link linkend="gint">gint</link>                  : Read
+  &quot;<link linkend="GtkSourceView--right-margin-line-color">right-margin-line-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="GtkSourceView--right-margin-overlay-alpha">right-margin-overlay-alpha</link>&quot; <link linkend="gint">gint</link>                  : Read
+  &quot;<link linkend="GtkSourceView--right-margin-overlay-color">right-margin-overlay-color</link>&quot; <link linkend="GdkColor">GdkColor</link>              : Read
+  &quot;<link linkend="GtkSourceView--right-margin-overlay-toggle">right-margin-overlay-toggle</link>&quot; <link linkend="gchararray">gchararray</link>            : Read
+</synopsis>
+</refsect1>
+
+<refsect1 role="signal_proto">
+<title role="signal_proto.title">Signals</title>
+<synopsis>
+
+&quot;<link linkend="GtkSourceView-redo">redo</link>&quot;      <link linkend="void">void</link>        user_function      (<link linkend="GtkSourceView">GtkSourceView</link> *sourceview,
+                                            <link linkend="gpointer">gpointer</link>       user_data)       : Run last / Action
+&quot;<link linkend="GtkSourceView-undo">undo</link>&quot;      <link linkend="void">void</link>        user_function      (<link linkend="GtkSourceView">GtkSourceView</link> *sourceview,
+                                            <link linkend="gpointer">gpointer</link>       user_data)       : Run last / Action
+</synopsis>
+</refsect1>
+
+
+<refsect1 role="desc">
+<title role="desc.title">Description</title>
+<para>
+
+</para>
+</refsect1>
+
+<refsect1 role="details">
+<title role="details.title">Details</title>
+<refsect2>
+<title><anchor id="GtkSourceView-struct" role="struct"/>GtkSourceView</title>
+<indexterm><primary>GtkSourceView</primary></indexterm><programlisting>typedef struct _GtkSourceView GtkSourceView;</programlisting>
+<para>
+
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-new" role="function"/>gtk_source_view_new ()</title>
+<indexterm><primary>gtk_source_view_new</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  gtk_source_view_new             (void);</programlisting>
+<para>
+Creates a new <link linkend="GtkSourceView"><type>GtkSourceView</type></link>. An empty default buffer will be
+created for you. If you want to specify your own buffer, consider
+<link linkend="gtk-source-view-new-with-buffer"><function>gtk_source_view_new_with_buffer()</function></link>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new <link linkend="GtkSourceView"><type>GtkSourceView</type></link>
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-new-with-buffer" role="function"/>gtk_source_view_new_with_buffer ()</title>
+<indexterm><primary>gtk_source_view_new_with_buffer</primary></indexterm><programlisting><link linkend="GtkWidget">GtkWidget</link>*  gtk_source_view_new_with_buffer (<link linkend="GtkSourceBuffer">GtkSourceBuffer</link> *buffer);</programlisting>
+<para>
+Creates a new <link linkend="GtkSourceView"><type>GtkSourceView</type></link> widget displaying the buffer
+<parameter>buffer</parameter>. One buffer can be shared among many widgets.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>buffer</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceBuffer"><type>GtkSourceBuffer</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a new <link linkend="GtkTextView"><type>GtkTextView</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-show-line-numbers" role="function"/>gtk_source_view_set_show_line_numbers ()</title>
+<indexterm><primary>gtk_source_view_set_show_line_numbers</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_show_line_numbers
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> line numbers will be displayed beside the text.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>show</parameter>&nbsp;:</term>
+<listitem><simpara> whether line numbers should be displayed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-show-line-numbers" role="function"/>gtk_source_view_get_show_line_numbers ()</title>
+<indexterm><primary>gtk_source_view_get_show_line_numbers</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_show_line_numbers
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether line numbers are displayed beside the text.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the line numbers are displayed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-show-line-markers" role="function"/>gtk_source_view_set_show_line_markers ()</title>
+<indexterm><primary>gtk_source_view_set_show_line_markers</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_show_line_markers
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> line markers will be displayed beside the text.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>show</parameter>&nbsp;:</term>
+<listitem><simpara> whether line markers should be displayed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-show-line-markers" role="function"/>gtk_source_view_get_show_line_markers ()</title>
+<indexterm><primary>gtk_source_view_get_show_line_markers</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_show_line_markers
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether line markers are displayed beside the text.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the line markers are displayed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-tabs-width" role="function"/>gtk_source_view_set_tabs_width ()</title>
+<indexterm><primary>gtk_source_view_set_tabs_width</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_tabs_width  (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="guint">guint</link> width);</programlisting>
+<para>
+Sets the width of tabulation in characters.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>width</parameter>&nbsp;:</term>
+<listitem><simpara> width of tab in characters.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-tabs-width" role="function"/>gtk_source_view_get_tabs_width ()</title>
+<indexterm><primary>gtk_source_view_get_tabs_width</primary></indexterm><programlisting><link linkend="guint">guint</link>       gtk_source_view_get_tabs_width  (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns the width of tabulation in characters.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> width of tab.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-auto-indent" role="function"/>gtk_source_view_set_auto_indent ()</title>
+<indexterm><primary>gtk_source_view_set_auto_indent</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_auto_indent (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> auto indentation of text is enabled.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>enable</parameter>&nbsp;:</term>
+<listitem><simpara> whether to enable auto indentation.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-auto-indent" role="function"/>gtk_source_view_get_auto_indent ()</title>
+<indexterm><primary>gtk_source_view_get_auto_indent</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_auto_indent (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether auto indentation of text is enabled.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if auto indentation is enabled.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-insert-spaces-instead-of-tabs" role="function"/>gtk_source_view_set_insert_spaces_instead_of_tabs ()</title>
+<indexterm><primary>gtk_source_view_set_insert_spaces_instead_of_tabs</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_insert_spaces_instead_of_tabs
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> any tabulator character inserted is replaced by a group
+of space characters.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>enable</parameter>&nbsp;:</term>
+<listitem><simpara> whether to insert spaces instead of tabs.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-insert-spaces-instead-of-tabs" role="function"/>gtk_source_view_get_insert_spaces_instead_of_tabs ()</title>
+<indexterm><primary>gtk_source_view_get_insert_spaces_instead_of_tabs</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_insert_spaces_instead_of_tabs
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether when inserting a tabulator character it should
+be replaced by a group of space characters.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if spaces are inserted instead of tabs.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-indent-on-tab" role="function" condition="since:1.8"/>gtk_source_view_set_indent_on_tab ()</title>
+<indexterm role="1.8"><primary>gtk_source_view_set_indent_on_tab</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_indent_on_tab
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link>, when the tab key is pressed and there is a selection, the
+selected text is indented of one level instead of being replaced with
+the \t characters. Shift+Tab unindents the selection.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>enable</parameter>&nbsp;:</term>
+<listitem><simpara> whether to indent a block when tab is pressed.
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  1.8
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-indent-on-tab" role="function" condition="since:1.8"/>gtk_source_view_get_indent_on_tab ()</title>
+<indexterm role="1.8"><primary>gtk_source_view_get_indent_on_tab</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_indent_on_tab
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether when the tab key is pressed the current selection
+should get indented instead of replaced with the \t character.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the selection is indented when tab is pressed.
+
+</simpara></listitem></varlistentry>
+</variablelist><para>Since  1.8
+</para></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-show-margin" role="function"/>gtk_source_view_set_show_margin ()</title>
+<indexterm><primary>gtk_source_view_set_show_margin</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_show_margin (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> a margin is displayed</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>show</parameter>&nbsp;:</term>
+<listitem><simpara> whether to show a margin.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-show-margin" role="function"/>gtk_source_view_get_show_margin ()</title>
+<indexterm><primary>gtk_source_view_get_show_margin</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_show_margin (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether a margin is displayed.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if the margin is showed.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-margin" role="function"/>gtk_source_view_set_margin ()</title>
+<indexterm><primary>gtk_source_view_set_margin</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_margin      (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="guint">guint</link> margin);</programlisting>
+<para>
+Sets the position of the right margin in the given <parameter>view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>margin</parameter>&nbsp;:</term>
+<listitem><simpara> the position of the margin to set.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-margin" role="function"/>gtk_source_view_get_margin ()</title>
+<indexterm><primary>gtk_source_view_get_margin</primary></indexterm><programlisting><link linkend="guint">guint</link>       gtk_source_view_get_margin      (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Gets the position of the right margin in the given <parameter>view</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> the position of the right margin.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-highlight-current-line" role="function"/>gtk_source_view_set_highlight_current_line ()</title>
+<indexterm><primary>gtk_source_view_set_highlight_current_line</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_highlight_current_line
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> show);</programlisting>
+<para>
+If TRUE the current line is highlighted</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>show</parameter>&nbsp;:</term>
+<listitem><simpara> whether to highlight the current line
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-highlight-current-line" role="function"/>gtk_source_view_get_highlight_current_line ()</title>
+<indexterm><primary>gtk_source_view_get_highlight_current_line</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_highlight_current_line
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether the current line is highlighted</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> TRUE if the current line is highlighted
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-marker-pixbuf" role="function"/>gtk_source_view_set_marker_pixbuf ()</title>
+<indexterm><primary>gtk_source_view_set_marker_pixbuf</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_marker_pixbuf
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             const <link linkend="gchar">gchar</link> *marker_type,
+                                             <link linkend="GdkPixbuf">GdkPixbuf</link> *pixbuf);</programlisting>
+<para>
+Associates a given <parameter>pixbuf</parameter> with a given <parameter>marker_type</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>marker_type</parameter>&nbsp;:</term>
+<listitem><simpara> a marker type.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>pixbuf</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link>.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-marker-pixbuf" role="function"/>gtk_source_view_get_marker_pixbuf ()</title>
+<indexterm><primary>gtk_source_view_get_marker_pixbuf</primary></indexterm><programlisting><link linkend="GdkPixbuf">GdkPixbuf</link>*  gtk_source_view_get_marker_pixbuf
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             const <link linkend="gchar">gchar</link> *marker_type);</programlisting>
+<para>
+Gets the pixbuf which is associated with the given <parameter>marker_type</parameter>.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>marker_type</parameter>&nbsp;:</term>
+<listitem><simpara> a marker type. 
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> a <link linkend="GdkPixbuf"><type>GdkPixbuf</type></link> if found, or <link linkend="NULL:CAPS"><literal>NULL</literal></link> if not found.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-set-smart-home-end" role="function"/>gtk_source_view_set_smart_home_end ()</title>
+<indexterm><primary>gtk_source_view_set_smart_home_end</primary></indexterm><programlisting><link linkend="void">void</link>        gtk_source_view_set_smart_home_end
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view,
+                                             <link linkend="gboolean">gboolean</link> enable);</programlisting>
+<para>
+If <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> HOME and END keys will move to the first/last non-space
+character of the line before moving to the start/end.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>enable</parameter>&nbsp;:</term>
+<listitem><simpara> whether to enable smart behavior for HOME and END keys.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+<refsect2>
+<title><anchor id="gtk-source-view-get-smart-home-end" role="function"/>gtk_source_view_get_smart_home_end ()</title>
+<indexterm><primary>gtk_source_view_get_smart_home_end</primary></indexterm><programlisting><link linkend="gboolean">gboolean</link>    gtk_source_view_get_smart_home_end
+                                            (<link linkend="GtkSourceView">GtkSourceView</link> *view);</programlisting>
+<para>
+Returns whether HOME and END keys will move to the first/last non-space
+character of the line before moving to the start/end.</para>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>view</parameter>&nbsp;:</term>
+<listitem><simpara> a <link linkend="GtkSourceView"><type>GtkSourceView</type></link>.
+</simpara></listitem></varlistentry>
+<varlistentry><term><emphasis>Returns</emphasis>&nbsp;:</term><listitem><simpara> <link linkend="TRUE:CAPS"><literal>TRUE</literal></link> if smart behavior for HOME and END keys is enabled.
+</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+
+</refsect1>
+<refsect1 role="property_details">
+<title role="property_details.title">Property Details</title>
+<refsect2><title><anchor id="GtkSourceView--auto-indent"/>The &quot;<literal>auto-indent</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:auto-indent</primary></indexterm><programlisting>  &quot;auto-indent&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to enable auto indentation.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--highlight-current-line"/>The &quot;<literal>highlight-current-line</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:highlight-current-line</primary></indexterm><programlisting>  &quot;highlight-current-line&quot; <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to highlight the current line.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--indent-on-tab"/>The &quot;<literal>indent-on-tab</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:indent-on-tab</primary></indexterm><programlisting>  &quot;indent-on-tab&quot;        <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to indent the selected text when the tab key is pressed.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--insert-spaces-instead-of-tabs"/>The &quot;<literal>insert-spaces-instead-of-tabs</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:insert-spaces-instead-of-tabs</primary></indexterm><programlisting>  &quot;insert-spaces-instead-of-tabs&quot; <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to insert spaces instead of tabs.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--margin"/>The &quot;<literal>margin</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:margin</primary></indexterm><programlisting>  &quot;margin&quot;               <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>Position of the right margin.</para><para>Allowed values: [1,200]</para>
+<para>Default value: 80</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--show-line-markers"/>The &quot;<literal>show-line-markers</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:show-line-markers</primary></indexterm><programlisting>  &quot;show-line-markers&quot;    <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to display line marker pixbufs.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--show-line-numbers"/>The &quot;<literal>show-line-numbers</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:show-line-numbers</primary></indexterm><programlisting>  &quot;show-line-numbers&quot;    <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to display line numbers.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--show-margin"/>The &quot;<literal>show-margin</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:show-margin</primary></indexterm><programlisting>  &quot;show-margin&quot;          <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>Whether to display the right margin.</para><para>Default value: FALSE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--smart-home-end"/>The &quot;<literal>smart-home-end</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:smart-home-end</primary></indexterm><programlisting>  &quot;smart-home-end&quot;       <link linkend="gboolean">gboolean</link>              : Read / Write</programlisting>
+<para>HOME and END keys move to first/last non whitespace characters on line before going to the start/end of the line.</para><para>Default value: TRUE</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--tabs-width"/>The &quot;<literal>tabs-width</literal>&quot; property</title>
+<indexterm><primary>GtkSourceView:tabs-width</primary></indexterm><programlisting>  &quot;tabs-width&quot;           <link linkend="guint">guint</link>                 : Read / Write</programlisting>
+<para>Tabs Width.</para><para>Allowed values: [1,32]</para>
+<para>Default value: 8</para>
+</refsect2>
+
+</refsect1>
+<refsect1 role="style_properties_details">
+<title role="style_properties_details.title">Style Property Details</title>
+<refsect2><title><anchor id="GtkSourceView--right-margin-line-alpha"/>The &quot;<literal>right-margin-line-alpha</literal>&quot; style property</title>
+<indexterm role="1.6"><primary>GtkSourceView:right-margin-line-alpha</primary></indexterm><programlisting>  &quot;right-margin-line-alpha&quot; <link linkend="gint">gint</link>                  : Read</programlisting>
+<para>
+The ::right-margin-line-alpha determines the alpha component with
+which the vertical line will be drawn. 0 means it is fully transparent
+(invisible). 255 means it has full opacity (text under the line won't
+be visible).</para>
+<para>
+
+</para><para>Allowed values: [0,255]</para>
+<para>Default value: 40</para>
+<para>Since  1.6
+</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--right-margin-line-color"/>The &quot;<literal>right-margin-line-color</literal>&quot; style property</title>
+<indexterm role="1.6"><primary>GtkSourceView:right-margin-line-color</primary></indexterm><programlisting>  &quot;right-margin-line-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>
+The ::right-margin-line-color property contains the color with
+which the right margin line (vertical line indicating the right
+margin) will be drawn.</para>
+<para>
+
+</para><para>Since  1.6
+</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--right-margin-overlay-alpha"/>The &quot;<literal>right-margin-overlay-alpha</literal>&quot; style property</title>
+<indexterm role="1.6"><primary>GtkSourceView:right-margin-overlay-alpha</primary></indexterm><programlisting>  &quot;right-margin-overlay-alpha&quot; <link linkend="gint">gint</link>                  : Read</programlisting>
+<para>
+The ::right-margin-overlay-alpha determines the alpha component with
+which the overlay will be drawn. 0 means it is fully transparent
+(invisible). 255 means it has full opacity (text under the overlay
+won't be visible).</para>
+<para>
+
+</para><para>Allowed values: [0,255]</para>
+<para>Default value: 15</para>
+<para>Since  1.6
+</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--right-margin-overlay-color"/>The &quot;<literal>right-margin-overlay-color</literal>&quot; style property</title>
+<indexterm role="1.6"><primary>GtkSourceView:right-margin-overlay-color</primary></indexterm><programlisting>  &quot;right-margin-overlay-color&quot; <link linkend="GdkColor">GdkColor</link>              : Read</programlisting>
+<para>
+The ::right-margin-overlay-color property contains the color with
+which the right margin overlay will be drawn. Setting this property
+will only have an effect if ::right-margin-overlay-toggle is TRUE.</para>
+<para>
+
+</para><para>Since  1.6
+</para>
+</refsect2>
+<refsect2><title><anchor id="GtkSourceView--right-margin-overlay-toggle"/>The &quot;<literal>right-margin-overlay-toggle</literal>&quot; style property</title>
+<indexterm role="1.6"><primary>GtkSourceView:right-margin-overlay-toggle</primary></indexterm><programlisting>  &quot;right-margin-overlay-toggle&quot; <link linkend="gchararray">gchararray</link>            : Read</programlisting>
+<para>
+The ::right-margin-overlay-toggle property determines whether the
+widget will draw a transparent overlay on top of the area on the
+right side of the right margin line. On some systems, this has a
+noticable performance impact, so this property is FALSE by default.</para>
+<para>
+
+</para><para>Default value: "FALSE"</para>
+<para>Since  1.6
+</para>
+</refsect2>
+
+</refsect1>
+
+<refsect1 role="signals">
+<title role="signals.title">Signal Details</title>
+<refsect2><title><anchor id="GtkSourceView-redo"/>The &quot;redo&quot; signal</title>
+<indexterm><primary>GtkSourceView::redo</primary></indexterm><programlisting><link linkend="void">void</link>        user_function                  (<link linkend="GtkSourceView">GtkSourceView</link> *sourceview,
+                                            <link linkend="gpointer">gpointer</link>       user_data)       : Run last / Action</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sourceview</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2><refsect2><title><anchor id="GtkSourceView-undo"/>The &quot;undo&quot; signal</title>
+<indexterm><primary>GtkSourceView::undo</primary></indexterm><programlisting><link linkend="void">void</link>        user_function                  (<link linkend="GtkSourceView">GtkSourceView</link> *sourceview,
+                                            <link linkend="gpointer">gpointer</link>       user_data)       : Run last / Action</programlisting>
+<para>
+
+</para><variablelist role="params">
+<varlistentry><term><parameter>sourceview</parameter>&nbsp;:</term>
+<listitem><simpara>the object which received the signal.
+
+</simpara></listitem></varlistentry>
+<varlistentry><term><parameter>user_data</parameter>&nbsp;:</term>
+<listitem><simpara>user data set when the signal handler was connected.</simpara></listitem></varlistentry>
+</variablelist></refsect2>
+</refsect1>
+
+
+
+</refentry>
