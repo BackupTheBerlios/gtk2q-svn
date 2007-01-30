@@ -32,7 +32,8 @@ do
 	
 	dirname="$t"
 	[ "$t" = "diacanvas" ] && t="dia"
-
+	[ "$t" = "gtksourceview" ] && t=""
+	
 	for u in "$s/$t"*.xml ${extra}
 	do
 		v="$(basename "$u")"
@@ -71,7 +72,7 @@ do
 
 		[ "$v" = "gdkregion" ] && continue # did that manually, static
 		
-		classname="$(cat "$u" |grep -v "^<?xml" |grep -v '^<!DOCTYPE' |grep -v '"http.*dtd">' |head -n 1 |sed 's;^.*id="\([^"]*\)".*$;\1;')"
+		classname="$(cat "$u" |grep -v "^<?xml" |grep -v '^<!DOCTYPE' |grep -v '"http.*dtd">' |grep -v 'docbookx.dtd' |grep -v '<!ENTITY' | grep -v '\]>$' |head -n 1 |sed 's;^.*id="\([^"]*\)".*$;\1;')"
 		[ "${classname}" = "GtkItemFactory" ] && continue # deprecated
 		
 		[ "${classname}" = "gtk-gtkfilefilter" ] && classname="GtkFileFilter"
@@ -139,7 +140,8 @@ do
 				continue
 			fi
 		fi
-		
+
+				
 		#cat "$u" |sed 's;<[^>]*>;;g' | "$(dirname "$0")/gen1.py" "$v" "${classname}" "${dirname}"
 		#cat "$u" | 
 		/usr/bin/env python "$(dirname "$0")/gen1.py" "$v" "${classname}" "${dirname}" "$u"
