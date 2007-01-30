@@ -47,22 +47,22 @@ end;
 
 function TGnomeCanvasBuf.GetIsBackground: Boolean;
 begin
-
+  Result := PWGnomeCanvasBuf(Fptr)^.isBg;
 end;
 
 function TGnomeCanvasBuf.GetIsBuffer: Boolean;
 begin
-
+  Result := PWGnomeCanvasBuf(Fptr)^.isBuf;
 end;
 
 function TGnomeCanvasBuf.GetRect: TArtIRect;
 begin
-
+  Result := PWGnomeCanvasBuf(Fptr)^.rect;
 end;
 
 function TGnomeCanvasBuf.GetRowstride: Integer;
 begin
-
+  Result := PWGnomeCanvasBuf(Fptr)^.bufRowstride;
 end;
 
 end.
