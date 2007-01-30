@@ -1,0 +1,10 @@
+{$INCLUDE output/gtksourceview/iugtksourcebuffer.inc}
+{$INCLUDE output/gtksourceview/iugtksourcemarker.inc}
+{$INCLUDE output/gtksourceview/iugtksourceview.inc}
+{$INCLUDE output/gtksourceview/iugtksourcelanguage.inc}
+{$INCLUDE output/gtksourceview/iugtksourcelanguagesmanager.inc}
+{$INCLUDE output/gtksourceview/iugtksourcestylescheme.inc}
+{$INCLUDE output/gtksourceview/iugtksourcetag.inc}
+{$INCLUDE output/gtksourceview/iugtksourcetagtable.inc}
+{$INCLUDE static/iugtksourcetagstyle.inc}
+{$INCLUDE output/gtksourceview/iugtksourceprintjob.inc}
