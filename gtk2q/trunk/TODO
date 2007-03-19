@@ -1,4 +1,5 @@
 fix too lax types: gtk_image_menu_item_set_image: GtkImage, not GtkWidget (is a property, so not easy to fix!)
+gtk_tree_store_set_column_types ?
 
 add gdk_add_client_message_filter () ? (gdk_display_add_client_message_filter)
 add gdk_window_add_filter?
