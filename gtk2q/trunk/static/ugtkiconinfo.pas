@@ -1,5 +1,7 @@
 unit ugtkiconinfo;
 
+{$M+}
+
 interface
 uses iupointermediator, upointermediator, iugtkiconinfo, iugdk, ugdktypes, iug;
 
