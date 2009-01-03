@@ -9,6 +9,7 @@ all: gtk-pascal-gen
 
 gtk-pascal-gen: gtk-pascal-gen.in
 	sed -e 's;XXXVARDIRXXX;'$(VARDIR)';' gtk-pascal-gen.in >gtk-pascal-gen || rm -f gtk-pascal-gen
+	chmod +x gtk-pascal-gen
  
 install: gtk-pascal-gen
 	install -m 755 -d $(DESTDIR)$(LIBDIR)
