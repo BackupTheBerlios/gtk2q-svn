@@ -2,27 +2,27 @@ unit uincdec;
 
 interface
 
-function InterlockedIncrement(var value: Integer): Integer;
-function InterlockedDecrement(var value: Integer): Integer;
+function InterlockedIncrement(var value: Integer): Integer; inline;
+function InterlockedDecrement(var value: Integer): Integer; inline;
 
 implementation
 uses sysutils{$IFDEF DELPHI}, windows{$ENDIF DELPHI};
 
-function InterlockedIncrement(var value: Integer): Integer;
+function InterlockedIncrement(var value: Integer): Integer; inline;
 begin
    {$IFDEF DELPHI}
    Result := windows.InterlockedIncrement(value);
    {$ELSE}
-   Result := sysutils.InterlockedIncrement(value);
+   Result := InterlockedIncrement(value);
    {$ENDIF DELPHI}
 end;
 
-function InterlockedDecrement(var value: Integer): Integer;
+function InterlockedDecrement(var value: Integer): Integer; inline;
 begin
    {$IFDEF DELPHI}
    Result := windows.InterlockedDecrement(value);
    {$ELSE}
-   Result := sysutils.InterlockedDecrement(value);
+   Result := InterlockedDecrement(value);
    {$ENDIF DELPHI}
 end;
 
