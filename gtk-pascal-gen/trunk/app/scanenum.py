@@ -122,7 +122,7 @@ for q in lst: # for each dir
 			if i == -1:
 				print "warning, end of file for enum"
 				
-			s = s + header[:i+1]
+			s = header[:i+1] # s + ?
 			header = header[i+1:]
 			
 			i = header.find("}")

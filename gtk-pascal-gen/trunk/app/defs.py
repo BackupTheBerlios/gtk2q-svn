@@ -419,7 +419,7 @@ c2penumcopied = [ # enums copied to delphi as-is
 
 	"GtkCurveType", "GtkDeleteType",
 	"GtkDialogFlags",
-	"GtkDirectionType", "GtkExpanderStyle", "GtkFileChooserAction", 
+	"GtkDirectionType", "GtkExpanderStyle", 
 	"GtkFileFilterFlags", "GtkIconLookupFlags", "GtkIconSize", 
 	"GtkIconViewDropPosition", "GtkImageType",
 	"GtkJustification", "GtkMenuDirectionType", "GtkMessageType", "GtkMetricType", 
@@ -433,7 +433,7 @@ c2penumcopied = [ # enums copied to delphi as-is
 	"GtkToolbarSpaceStyle", "GtkToolbarStyle", "GtkTreeViewColumnSizing", 
 	"GtkTreeModelFlags", "GtkUIManagerItemType",
 	"GtkUpdateType", "GtkWidgetHelpType", "GtkWindowPosition", "GtkWindowType", 
-	"GtkWrapMode", 
+	"GtkWrapMode", "GtkFileChooserAction",
 
 	## Pango c2penumcopied
 	"PangoAlignment", "PangoStretch", "PangoStyle", "PangoTabAlign", 
