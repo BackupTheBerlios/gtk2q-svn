@@ -1,6 +1,5 @@
 fpc set MemoryMutexManager ?
-All you have to do if you wish to make a particular kind of object
-streamable is to call Delphi's RegisterClass procedure. <-- ??
+All you have to do if you wish to make a particular kind of object streamable is to call Delphi's RegisterClass procedure. <-- ??
 
 -->?
 uses
@@ -14,7 +13,7 @@ initialization
  atk_object_set_role (gtk_widget_get_accessible (dialog), ATK_ROLE_ALERT);
 
 function call order:
-	- gtk_tree_view_column_add_attribute needs gtk_tree_view_column_pack start to be called first!
+	- gtk_tree_view_column_add_attribute needs gtk_tree_view_column_pack_start to be called first!
 	- gdk_pixbuf_loader_close before unref
 
 needed manual checks before stable release:
@@ -132,7 +131,4 @@ do in the next life:
 	- {pancestorclass}.TypeRegister; ? auto?
 
 
-"For strings returned from functions, they will be declared "const" (using
-G_CONST_RETURN) if they should not be freed. Non-const strings should be
-freed with g_free(). Arrays follow the same rule. (If you find an exception
-to the rules, please report a bug to http://bugzilla.gnome.org.)"
+"For strings returned from functions, they will be declared "const" (using G_CONST_RETURN) if they should not be freed. Non-const strings should be freed with g_free(). Arrays follow the same rule. (If you find an exception to the rules, please report a bug to http://bugzilla.gnome.org.)"

@@ -6,9 +6,7 @@ utf8:
 	...
 
 
-use UTF8String
-
-  function UTF8Length(const s: string): integer;
+  function UTF8Length(const s: UTF8String): integer;
   var
     i, n: integer;
     c: byte;
