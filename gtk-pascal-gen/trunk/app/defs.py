@@ -83,7 +83,7 @@ psignalusedioc = {
 # signal units uses clause, used classes for implementation section
 psignalusediocimpl = {
 	"TGtkWidget": ["TGtkSelectionData"],
-	"TGtkIconView": ["TGtkTreePath"],
+	"TGtkIconView": ["TGtkCellRenderer", "TGtkTreePath"],
 	"TGtkTreeView": ["TGtkTreePath"],
 	"TGtkTreeModel": ["TGtkTreePath"],
 	"TGtkNotebook": ["TGtkNotebookPage"],
