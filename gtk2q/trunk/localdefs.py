@@ -18,6 +18,7 @@ ptype1 = {
 #    (implementation class names are added at the unit implementation section)
 pusedclasses = { # from class implementation: list of classes used (implementation 'uses' clause for classes, interface 'uses' clause for interfaces)
   "TPangoLayout": ["TPangoFontDescription", "TPangoLayoutIter", "TPangoTabArray", "TPangoAttrList"],
+  "TGtkIconView": ["TGtkCellRenderer", "TGtkTreePath"],
 }
 
 # signal units uses clause, used interfaces for interface section, p name = key
@@ -211,7 +212,7 @@ paddfuncs = {
                                                 @ccell);
         if Result then begin
           path := TGtkTreePath.CreateWrapped(cpath);
-          cell := WrapGObject(ccell, TGtkCellRenderer);
+          cell := IGtkCellRenderer(WrapGObject(ccell, TGtkCellRenderer));
         end else begin
           path := nil;
           cell := nil;
@@ -255,7 +256,7 @@ paddfuncs = {
         Result := gtk_icon_view_get_cursor(fObject, @cpath, @ccell);
         if Result then begin
           path := TGtkTreePath.CreateWrapped(cpath);
-          cell := WrapGObject(ccell, TGtkCellRenderer);
+          cell := IGtkCellRenderer(WrapGObject(ccell, TGtkCellRenderer));
         end else begin
           path := nil;
           cell := nil;

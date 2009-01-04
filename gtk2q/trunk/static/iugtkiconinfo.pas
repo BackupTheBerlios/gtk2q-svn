@@ -7,12 +7,12 @@ type
   IGtkIconInfo = interface(IPointerMediator)
     ['{52ABA369-8ACF-4466-A9C1-04D743F97F8D}']
     function GetDisplayName: string;
-    procedure SetRawCoordinates(raw_coordinates: Boolean);
+    //procedure SetRawCoordinates(raw_coordinates: Boolean);
     //procedure GtkIconInfoFree;
     function GetBuiltinPixbuf: IGdkPixbuf;
     function LoadIcon: IGdkPixbuf;
     function GetFilename: String;
-    function GetEmbeddedRect(out rectangle: TGdkRectangle): Boolean;
+    function GetEmbeddedRectangle() : TGdkRectangle;
     function GetBaseSize: Integer;
 
     property BaseSize: Integer read GetBaseSize;

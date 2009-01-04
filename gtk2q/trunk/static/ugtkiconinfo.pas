@@ -24,6 +24,9 @@ type
     property BaseSize: Integer read GetBaseSize;
     property Filename: string read GetFilename;
     property DisplayName: string read GetDisplayName;
+{$IFDEF FPC}
+  public
+{$ENDIF}
     property EmbeddedRectangle: TGdkRectangle read GetEmbeddedRectangle;
   public
     property BuiltinPixbuf: IGdkPixbuf read GetBuiltinPixbuf;
